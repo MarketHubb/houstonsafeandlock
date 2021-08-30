@@ -52,14 +52,9 @@ if (is_page(4149)) {
 }
 ?>
 
-
-
 <?php wp_footer(); ?>
 
 <!-- Google Code for Remarketing Tag -->
-<!--------------------------------------------------
-Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
---------------------------------------------------->
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_conversion_id = 1026494785;

@@ -123,7 +123,7 @@
                     <?php //  } ?>
                 </div>
 
-                <!-- CURRENT: Pre Nav (social icons) -->
+                <!-- CURRENT:: Pre Nav (social icons) -->
                 <div id="right-content">
 
                     <!-- LEGACY:: Gun Safes Single (Alert Bar)  -->
@@ -140,7 +140,7 @@
                 </div>
             </div>
 
-            <!-- CURRENT: Fixed header (when scrolling) -->
+            <!-- CURRENT:: Fixed header (when scrolling) -->
             <div class="scrolling-brand-phone">
                 <div class="brand-phone">
 
@@ -158,7 +158,7 @@
 
         </div>
 
-        <!-- CURRENT: Logo & Phone (pre scroll) -->
+        <!-- CURRENT:: Logo & Phone (pre scroll) -->
         <div id="brand-info">
             <div class="container-fixed">
                 <div id="brand-logo">
@@ -167,7 +167,7 @@
                     </a>
                 </div>
 
-                <!-- LEGACY: Safes & Single (custom phone button)  -->
+                <!-- LEGACY:: Safes & Single (custom phone button)  -->
                 <?php // if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(get_sem_locksmith_pages())) { ?>
                 <!-- <div id="safes-phone-container">-->
                 <!--<p><a href="tel:713-659-3951" class="btn-shadow"><i class="fas fa-phone"></i> (713) 659-3951</a></p>-->
@@ -176,14 +176,14 @@
 
                 <div id="brand-phone">
 
-                    <!-- LEGACY: Safes (Dedicated call lead)fu  -->
+                    <!-- LEGACY:: Safes (Dedicated call lead)fu  -->
                     <?php //if (is_shop() || is_archive() || is_singular('product') || is_page(3857)) { ?>
                     <!--<h3>Call for Safe Pricing</h3>-->
                     <!--<p><a href="tel:713-522-5555">713-522-5555</a></p>-->
                     <?php //} else { ?>
                     <?php // } ?>
 
-                    <!-- CURRENT: Global Call CTA ( pre scroll)  -->
+                    <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
                     <h3>Call Now</h3>
                     <p><a href="tel:713-522-5555">713-522-5555</a></p>
 
@@ -199,7 +199,6 @@
                             <span></span>
                             <span></span>
                         </div>
-                        <!--img src="<?php echo get_template_directory_uri(); ?>/images/header/responsive-menu-icon.png" alt="Menu Responsive"-->
                     </button>
                     <div id="menu-responsive-container">
                         <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu', 'before' => '<div class="arrow"></div>' ) ); ?>
