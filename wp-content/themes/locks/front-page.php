@@ -24,7 +24,7 @@ get_header(); ?>
             <!-- Services -->
             <?php get_template_part( 'template-parts/home/content', 'services'); ?>
             <!--Bonded And Insured Template Part-->
-<!--            --><?php //get_template_part( 'template-parts/content', 'bonded-and-insured'); ?>
+            <?php //get_template_part( 'template-parts/content', 'bonded-and-insured'); ?>
             <!--Hot Deals Template Part-->
             <?php get_template_part( 'template-parts/content', 'hot-deals'); ?>
             <!--Safes Template Part-->

@@ -26,7 +26,7 @@
             <div class="row align-items-center justify-content-between  my-3">
                 <div class="col-md-6 h-100 order-md-last">
                     <h2 class="font-weight-bold">24-Hour Emergency Locksmiths</h2>
-                    <span class="gold">Serving  residential & commercial</span>
+                    <span class="gold">Serving residential & commercial</span>
                     <p class="lead">We offer complete locksmith services, including lock repair and replacement for both
                         home and auto. Our licensed, bonded and insured locksmiths serve all of Houston and it's
                         surrounding communities. Whether you need a residential lock replaced, a commercial access
