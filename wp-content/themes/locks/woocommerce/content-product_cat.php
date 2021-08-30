@@ -1,5 +1,7 @@
 <?php
 /**
+ * Updated 8/29/21 for version 5.6.0
+ *
  * The template for displaying product category thumbnails within loops
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/content-product-cat.php.
