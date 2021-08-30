@@ -533,8 +533,6 @@ wp_register_style( 'slider-min-css', get_stylesheet_directory_uri() . '/css/boot
 wp_register_style( 'perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css' );
 // Font Awesome Pro
 wp_register_style( 'font-awesome', get_stylesheet_directory_uri() . '/fontawesome/css/all.css' );
-// SEM: Gun Safes
-wp_register_style( 'sem-gun-safes-styles', get_stylesheet_directory_uri() . '/css/sem-gun-safes-styles.css' );
 // Hero Banner
 wp_register_style( 'banner', get_stylesheet_directory_uri() . '/css/banner.css' );
 // Bootstrap 4 Customizations
@@ -600,10 +598,6 @@ function ri_conditional_script_loading()
     if (is_page(get_sem_locksmith_pages())) {
         wp_enqueue_style('ri-safe-styles');
         wp_enqueue_style('ri-locksmith-styles');
-    }
-    // SEM: Google Ads funnel for Gun Safes
-    if (strpos($_SERVER['REQUEST_URI'], 'category-gun-safes') !== false || strpos($_SERVER['HTTP_REFERER'], 'category-gun-safes') !== false || is_singular('product')) {
-        wp_enqueue_style('sem-gun-safes-styles');
     }
 }
 add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
