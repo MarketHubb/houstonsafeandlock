@@ -140,6 +140,10 @@ function locks_scripts() {
 
 	wp_enqueue_script( 'locks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
+    if (is_front_page()) {
+        wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+    }
+
     if ( is_singular( 'safe' ) ) {
         wp_enqueue_style( 'magnific-popup-style', get_template_directory_uri() . '/css/magnific-popup.css' );
         wp_enqueue_style( 'responsive-tables-style', get_template_directory_uri() . '/css/responsive-tables.css' );
