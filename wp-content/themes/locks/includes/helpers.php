@@ -1,5 +1,5 @@
 <?php
-//region Global
+//region Global Helpers
 function return_phone_lead($post_id)
 {
     // Category gun safes
