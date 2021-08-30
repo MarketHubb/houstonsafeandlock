@@ -1,0 +1,24 @@
+#locksmith-page .row {
+    margin: 1rem 0;
+}
+#locksmith-page .row img {
+    border-radius: 3px;
+}
+#locksmith-accreditations {
+    position: relative;
+    bottom: 4rem;
+    margin-bottom: -4rem;
+}
+#locksmith-accreditations > .wrapper .row {
+    border-radius: 4px;
+}
+#locksmith-accreditations .col-md-4:last-of-type img {
+    position: relative;
+    top: .5rem;
+}
+.accreditation-img {
+    object-fit: cover;
+    width: auto;
+    height: 100px;
+    margin-bottom: 1rem;
+}

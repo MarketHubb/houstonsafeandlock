@@ -1,0 +1,1 @@
+[23-Feb-2017 13:43:07 America/Detroit] PHP Fatal error:  Call to undefined function get_header() in /home/fredtrot/public_html/wp-content/themes/locks/index.php on line 15

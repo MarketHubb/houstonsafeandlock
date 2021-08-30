@@ -1,0 +1,85 @@
+/****************************************
+*** Alert (Overrides from base styles in ri-safe-styles.css) ***
+*****************************************/
+.alert {
+    z-index: 1;
+    position: relative;
+    bottom: 1px;
+}
+/****************************************
+*** Global ***
+*****************************************/
+p {
+    line-height: 135%;
+}
+#breadcrumbs {
+    display: none;
+}
+/****************************************
+*** Banner ***
+*****************************************/
+#header-hero .container-fixed {
+    width: inherit;
+    display: inline-block;
+    background-color: rgba(23, 67, 104, .95);
+}
+#header-hero .container-fixed h1 {
+    margin-bottom: .25rem;
+}
+#header-hero .container-fixed h2 {
+    text-transform: capitalize;
+}
+div#primary main#main div.container-fixed article {
+    margin-top: -1rem;
+}
+/****************************************
+*** CTA ***
+*****************************************/
+.cta-ribbon-section {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 140%;
+    padding: 3rem;
+    background: #174368;
+    color: #fff;
+}
+.cta-ribbon-section strong {
+    border-bottom: 2px solid;
+}
+.cta-ribbon-section strong, .cta-ribbon-section a {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+.mobile-hide > h3 {
+    margin-top: 1rem;
+}
+/****************************************
+*** Media Queries ***
+*****************************************/
+@media (min-width: 640px) {
+    .mobile-hide > h3 {
+        margin-top: 1rem;
+    }
+}
+@media (max-width: 639px) {
+    .mobile-hide {
+        display: none;
+    }
+    div#primary main#main div#header-hero {
+        padding: 6rem 1rem 3rem;
+    }
+    #header-hero .container-fixed {
+        padding: 1.5rem .5rem 1.25rem;
+    }
+    div#primary main#main div.container-fixed article {
+        margin-top: -2rem;
+    }
+    .cta-ribbon-section {
+        text-align: center;
+        font-size: 1.15rem;
+        line-height: 135%;
+        padding: 1.5rem 1.25rem;
+        background: #174368;
+        color: #fff;
+    }
+}

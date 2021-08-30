@@ -1,0 +1,134 @@
+/*  Global  */
+.btn-shadow {
+	box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
+}
+.block {
+	display: block;
+}
+/* All Safe Pages */
+li.product a.product_type_simple {
+	display: none !important;
+}
+.woocommerce-ordering {
+	display: none;
+}
+.alert {
+	border-radius: 0;
+	margin-bottom: 0;
+}
+.safe-alert-message p, safe-alert-message a {
+	margin-bottom: 0;
+}
+.safes-alert-btn {
+	white-space: nowrap;
+	background-color: #ce742e;
+    color: #fff;
+    padding: .25rem .5rem;
+    border-radius: 10px;
+    margin-left: .5rem;
+}
+.safes-alert-btn:hover {
+	color: #fff;
+}
+.safes-alert-btn:visited {
+	color: #fff;
+}
+#breadcrumb-container {
+	background-color: #f7f7f7;
+}
+ol[typeof="BreadcrumbList"] {
+	padding: .4rem 0;
+	margin-bottom: 0;
+	text-align: right;
+	list-style: none;
+}
+ol[typeof="BreadcrumbList"] li {
+	display: inline;
+	padding: 0 .5em;
+}
+ol[typeof="BreadcrumbList"] li span {
+	font-size: .9em;
+	color: #174368;
+}
+ol[typeof="BreadcrumbList"] li:last-of-type span {
+	font-weight: bold;
+}
+/* Safe Details Page */
+.all-safes-link {
+	position: relative;
+	top: .5em;
+}
+.all-safes-link a {
+	text-decoration: none !important;
+}
+.all-safes-link a:hover {
+	cursor: pointer;
+}
+.product-detail-heading {
+	color: #174368;
+	line-height: 1.1;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+.product-detail-subheading {
+	font-style: italic;
+}
+.woocommerce-breadcrumb {
+	display: none !important;
+}
+/* Safe Category Page*/
+.manufacturer-logo {
+	max-width: 75px;
+}
+/* Media Queries */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	#safes-phone-container {
+		display: none !important;
+	}
+	#brand-contact {
+		display: none;
+	}
+	.product-detail-heading {
+		font-size: 3.5em;
+	}
+	.product-detail-subheading {
+		font-size: 1.5em;
+	}
+}
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+	#safes-phone-container h3 {
+		display: none;
+	}
+	#safes-phone-container p {
+		float: right;
+		font-size: 1rem;
+		position: relative;
+		top: .9rem;
+	}
+	#safes-phone-container a {
+		font-weight: bold;
+		background: #ce742e;
+		color: #fff;
+		border-radius: 20px;
+		padding: .2rem .75rem .25rem;
+	}
+	#safes-phone-container i {
+		margin-right: .4rem;
+	}
+	#brand-phone h3 {
+		position: relative;
+		top: 2px;
+	}
+	.safe-alert-message p {
+		line-height: 150%;
+	}
+	.safes-alert-btn {
+		box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
+		padding: .1rem .5rem .175rem;
+		position: relative;
+		top: 2px;
+	}
+}

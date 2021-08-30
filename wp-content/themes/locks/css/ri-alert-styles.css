@@ -1,0 +1,74 @@
+/****************************************
+*** Alert Bar ***
+*****************************************/
+.btn-shadow {
+    box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
+}
+/* All Safe Pages */
+.woocommerce-ordering {
+    display: none;
+}
+.alert {
+    z-index: 999;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+.safe-alert-message p, safe-alert-message a {
+    margin-bottom: 0;
+}
+.safes-alert-btn {
+    white-space: nowrap;
+    background-color: #ce742e;
+    color: #fff;
+    padding: .25rem .5rem;
+    border-radius: 10px;
+    margin-left: .5rem;
+}
+.safes-alert-btn:hover {
+    color: #fff;
+}
+.safes-alert-btn:visited {
+    color: #fff;
+}
+/****************************************
+*** Media Queries ***
+*****************************************/
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+    #brand-phone {
+        display: none !important;
+    }
+    #safes-phone-container h3 {
+        display: none;
+    }
+    #safes-phone-container p {
+        float: right;
+        font-size: 1.15rem;
+        position: relative;
+        top: .95rem;
+    }
+    #safes-phone-container a {
+        font-weight: bold;
+        background: #ce742e;
+        color: #fff;
+        border-radius: 20px;
+        padding: .2rem .75rem .25rem;
+    }
+    #safes-phone-container i {
+        margin-right: .4rem;
+    }
+    #menu-responsive {
+        display: none !important;
+    }
+    #brand-phone h3 {
+        position: relative;
+        top: 2px;
+    }
+    .safe-alert-message p {
+        line-height: 150%;
+    }
+    .safes-alert-btn {
+        box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
+        padding: .1rem .5rem .175rem;
+    }
+}

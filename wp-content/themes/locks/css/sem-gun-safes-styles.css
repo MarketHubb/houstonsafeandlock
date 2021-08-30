@@ -1,0 +1,56 @@
+/****************************************
+*** Header / Navigation ***
+*****************************************/
+#logo-text {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0;
+    padding: .5rem;
+    font-weight: bold;
+    letter-spacing: -.03em;
+    margin-left: 2rem;
+    text-transform: uppercase;
+}
+.sem-phone-number:hover {
+    color: #fff;
+}
+.scrolling-brand-phone {
+    display: none !important;
+}
+.sem-phone-lead, .sem-phone-number {
+    color: #fff;
+}
+header.site-header div#pre-nav div.container-fixed div#left-content {
+    padding-top: 0;
+}
+
+/****************************************
+*** Media Queries ***
+*****************************************/
+/* Medium devices (tablets, 768px and DOWN) */
+@media (max-width: 768px) {
+}
+@media (max-width: 576px) {
+    #primary {
+        margin-top: 7rem;
+    }
+    #right-content {
+        float: right;
+    }
+    #right-content .sem-phone-number {
+        font-weight: bold;
+        font-size: 1em;
+        text-align: right !important;
+        position: relative;
+        top: 10px;
+        left: 1rem;
+    }
+    .sem-phone-lead {
+        display: none;
+    }
+    #logo-text {
+        margin-left: -.5em;
+        font-size: .9rem;
+    }
+}
+

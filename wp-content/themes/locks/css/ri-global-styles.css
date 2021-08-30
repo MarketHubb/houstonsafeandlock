@@ -1,0 +1,39 @@
+.btn, .gform_footer input[type="submit"] {
+    font-family: "Oxygen";
+    webkit-box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
+    font-weight: 600;
+    font-size: .9rem !important;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-primary:hover, .gform_footer input[type="submit"]:hover {
+    color:#fff;
+    background-color:#0069d9;
+    border-color:#0062cc;
+}
+.btn-primary.focus,.btn-primary:focus, .gform_footer input[type="submit"]:focus {
+    color:#fff;
+    background-color:#0069d9;
+    border-color:#0062cc;
+    box-shadow:0 0 0 .2rem rgba(38,143,255,.5);
+}
+#locksmith-btn {
+    font-size: 1rem !important;
+}
+.inquiry-container {
+    z-index: 1040;
+    position: relative;
+}

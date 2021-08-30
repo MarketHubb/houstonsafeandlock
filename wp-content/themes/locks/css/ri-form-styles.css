@@ -1,0 +1,133 @@
+/* Body */
+.gform_body li.gfield {
+    margin-top: 12px !important;
+}
+/* Labels & Inputs */
+.gfield_description {
+    font-style: italic;
+    font-weight: 600;
+}
+.gfield_consent_description {
+    margin-bottom: 1.5rem;
+}
+.gform_wrapper .top_label .gfield_label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: #222;
+}
+.bg-blue .gform_wrapper .top_label .gfield_label {
+    color: #fff;
+}
+.gfield_label {
+    line-height: 1.4;
+}
+.gform_wrapper ul.gfield_radio li label {
+    font-size: 0.75rem;
+    color: #333;
+    margin-left: 8px;
+}
+.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]):not([type=hidden]), .gform_wrapper textarea {
+    width: 100% !important;
+    border-radius: 3px;
+    color: #222;
+    font-size: .85rem !important;
+    line-height: 1.375;
+    min-height: 2.1rem;
+    padding: .5rem !important;
+    transition: all 0.15s ease-out;
+    border-width: 1px;
+}
+#gform_2 .gform_wrapper li.date-picker input[type="text"].datepicker {
+    width: 70% !important;
+}
+/* Product Name (Auto Filled) */
+.product-field textarea {
+    height: 4em !important;
+    border: none;
+    font-weight: bold;
+    padding-top: 0 !important;
+    padding-right: 0 !important;
+}
+.gform_wrapper ul.gform_fields li.gfield.radio {
+    margin-top: 22px !important;
+}
+.gform_wrapper ul.gform_fields li.gfield.radio.radio-dark {
+    background: #D7E2EA;
+    padding: 1rem;
+    border-radius: 4px;
+}
+.gform_wrapper ul.gform_fields li.gfield.radio.radio-dark label {
+    color: #111;
+}
+.gform_wrapper ul.gform_fields li.gfield select {
+    display: block;
+    width: 100%;
+    border-radius: 3px;
+    min-height: 1.9rem;
+}
+.gform_wrapper ul.gform_fields li.gfield textarea {
+    border-radius: 3px;
+    height: 100px;
+}
+
+/* Misc */
+body .gform_wrapper h2.gsection_title {
+    font-size: 2em !important;
+    padding-bottom: 5px !important;
+    margin-top: 2em !important;
+}
+.gform_body .ginput_container {
+    margin-top: 8px !important;
+}
+.gsection_description {
+    padding-top: 10px;
+    font-style: italic;
+}
+/*region Plugin: Gravity Forms */
+.bg-blue .gform_wrapper input[type="submit"] {
+    background-color: #EF8B00;
+    padding: .75em 1em;
+    color: #fff;
+    font-size: 1.25em !important;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: -.025rem;
+    text-transform: uppercase;
+    box-shadow: 0 10px 15px -5px rgba(51,71,91,0.8);
+    border: none;
+}
+.bg-blue .gform_wrapper input[type="submit"]:hover {
+    box-shadow: none;
+    background-color: #ea662b;
+}
+.gform_wrapper input[type="text"], .gform_wrapper input[type="textarea"] {
+    border-radius: 4px;
+}
+body .gform_wrapper .top_label div.ginput_container {
+    margin-top: 0 !important;
+}
+.bg-blue .gform_wrapper label {
+    color: #fff;
+}
+.bg-blue .gform_wrapper .gfield_required {
+    color: #f62f2f;
+    opacity: .7;
+}
+/*endregion*/
+@media only screen and (min-width: 641px) {
+    .gform_wrapper ul.gform_fields li.gfield {
+        padding-right: 0 !important;
+    }
+}
+/****************************************
+*** MEDIA QUERIES - MAXIMUMS ***
+*****************************************/
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {}
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {}
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {}
