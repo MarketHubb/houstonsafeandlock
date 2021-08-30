@@ -19,8 +19,8 @@ if ($hero) :
 <!-- For immediate service or to schedule an appointment call-->
                         <p class="lead text-white hero-alert my-0 py-2">
                             <i class="fad fa-exclamation-triangle pr-2"></i>
-                            <?php echo date('l'); ?> appointments still available - Call Now!
-                            <span class="hero-phone-alert-container"><a class="hero-phone hero-phone-alert font-weight-bold inverse-orange" href="tel:713-659-3951"> 713-659-3951</a></span>
+                            Appointments still available today - Call Now!
+                            <span class="hero-phone-alert-container"><a class="hero-phone hero-phone-alert font-weight-bold inverse-orange" href="tel:713-522-5555"> 713-522-5555</a></span>
                         </p>
                     </div>
                 </div>
