@@ -12,7 +12,7 @@
 
         <div class="container-fluid  py-3">
             <div class="wrapper">
-                <div class="col-md-7 pt-5">
+                <div class="col-md-8  bg-white  px-5 pt-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded border shadow-lg">
                     <span class="gold">Visit Our 5,000 sq ft showroom</span>
                     <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase">Houston Safe & Lock</h1>
                     <p class="lead  hero-subheadline">The largest safe showroom in Houston with hundreds of high security safes + 24x7 licensed and  bonded emergency locksmiths</p>
