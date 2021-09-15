@@ -5,11 +5,13 @@
 /*endregion*/
 /*region Banner Styles*/
 .jumbotron h1, .jumbotron p.lead {
+    letter-spacing: -.05rem;
     font-weight: bold;
     line-height: 1.1;
 }
 .jumbotron p.lead {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    line-height: 1.2;
     font-weight: 500;
 }
 .bg-cover {
@@ -49,7 +51,7 @@
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
     .jumbotron h1 {
-        font-size: 18vw;
+        font-size: 16vw;
         line-height: .9;
     }
     .jumbotron p.lead {

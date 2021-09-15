@@ -13,8 +13,9 @@
         <div class="container-fluid  py-3">
             <div class="wrapper">
                 <div class="col-md-7 pt-5">
-                    <h1 class="display-3 mb-3 mt-3 text-blue hero-headline">Houston Safe & Lock</h1>
-                    <p class="lead text-blue hero-subheadline">Houston's largest selection of high security safes + 24/7 emergency locksmiths that are licensed, bonded and insured</p>
+                    <span class="gold">Visit Our 5,000 sq ft showroom</span>
+                    <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase">Houston Safe & Lock</h1>
+                    <p class="lead  hero-subheadline">The largest safe showroom in Houston with hundreds of high security safes + 24x7 licensed and  bonded emergency locksmiths</p>
                 </div>
                 <div class="row">
                 </div>

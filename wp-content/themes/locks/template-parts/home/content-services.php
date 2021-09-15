@@ -7,7 +7,7 @@
 <!--        </div>-->
 
         <div class="content-section">
-            <div class="row align-items-center justify-content-between  my-3">
+            <div class="row  justify-content-between  my-5  bg-white  p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
                 <div class="col-md-6 h-100 ">
                     <h2 class="font-weight-bold">Largest Selection of Safes</h2>
                     <span class="gold">In the Houston Area</span>
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center justify-content-between  my-3">
+            <div class="row  justify-content-between  my-5  bg-white  p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
                 <div class="col-md-6 h-100 order-md-last">
                     <h2 class="font-weight-bold">24-Hour Emergency Locksmiths</h2>
                     <span class="gold">Serving residential & commercial</span>
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center justify-content-between  my-3">
+            <div class="row  justify-content-between  my-5  bg-white  p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
                 <div class="col-md-6 h-100 ">
                     <h2 class="font-weight-bold">Safe Moving & Repair</h2>
                     <span class="gold">All types and weights</span>

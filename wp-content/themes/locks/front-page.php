@@ -34,9 +34,9 @@ get_header(); ?>
             <!--Testimonials Template Part-->
 <!--            --><?php //get_template_part( 'template-parts/content', 'testimonials'); ?>
             <!--Lock Services Template Part-->
-            <?php get_template_part( 'template-parts/content', 'lock-services'); ?>
+            <?php //get_template_part( 'template-parts/content', 'lock-services'); ?>
             <!--About Us Template Part-->
-            <?php get_template_part( 'template-parts/content', 'about-us'); ?>
+            <?php //get_template_part( 'template-parts/content', 'about-us'); ?>
         </main><!-- #main -->
     </div><!-- #primary -->
 

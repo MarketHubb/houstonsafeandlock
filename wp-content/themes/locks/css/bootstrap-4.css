@@ -5,3 +5,12 @@
     margin-right: auto;
 }
 /*endregion*/
+
+/*region Media Queries */
+@media (max-width: 1440px) {
+    .container-fluid .wrapper {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+/*endregion*/
