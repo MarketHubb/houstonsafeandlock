@@ -13,13 +13,14 @@ get_header(); ?>
 //    }
 //}
 ?>
-<div class="container-fluid">
+<div class="container-fluid" id="safe-categories-page">
     <div class="wrapper">
         <div class="row">
-            <div class="col text-center mt-5 mb-3 py-2 bb-grey">
-                <h1 class="page-title">Houston's Largest Safe Shop</h1>
-                <p class="lead font-weight-bold">From large gun safes to small jewelry safes, we carry the largest selection of residential and commercial safes for sale in Houston. Come visit our showroom today to see over 300 in-stock models from top brands like American Security.
+            <div class="col text-center mt-5 mb-3 py-2">
+                <h1 class="page-title text-capitalize mb-3">Houston's Largest Safe Shop</h1>
+                <p class="page-subtitle lead font-weight-bold d-none d-md-block">From large gun safes to small jewelry safes, we carry the largest selection of residential and commercial safes for sale in Houston. Come visit our showroom today to see over 300 in-stock models from top brands like American Security.
                 </p>
+                <p class="page-subtitle lead font-weight-bold d-md-none d-lg-none d-xl-none mb-0 pb-0">Over 400 models in-stock and ready to deliver. Visit our 5,000 sq. ft. showroom today.</p>
             </div>
         </div>
     </div>

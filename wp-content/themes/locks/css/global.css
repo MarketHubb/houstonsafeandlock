@@ -129,6 +129,9 @@ h1.page-title {
     box-sizing: border-box;
     line-height: 45px;
 }
+p.page-subtitle {
+    font-weight: 500 !important;
+}
 .text-white {
     color: #fff;
 }
@@ -192,7 +195,13 @@ blockquote p {
     position: relative;
     top: 1rem;
 }
-
+.safe-categories .card {
+    border: none !important;
+}
+/*.safe-categories .card .safe-cat-images {*/
+/*    width: 50%;*/
+/*    margin-bottom: 2rem;*/
+/*}*/
 /*region Media Queries */
 @media (min-width: 768px) {
     .hero-headline {
@@ -200,6 +209,33 @@ blockquote p {
     }
 }
 @media (max-width: 768px) {
+    #safe-categories-page h1 {
+        margin-top: 2.5rem;
+    }
+    .safe-categories {
+        box-shadow: 0 1rem 1rem rgba(0,0,0,.1)!important;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+    .safe-categories:hover {
+        box-shadow: none;
+    }
+    .safe-categories .card, .safe-categories .card h2  {
+        text-align: center;
+    }
+    .safe-categories .card h2 {
+        margin-bottom: 0;
+    }
+    .page-title {
+        font-size: 2.15rem !important;
+        font-weight: bold;
+        letter-spacing: -.03rem;
+        line-height: 1.05 !important;
+    }
+    h2 {
+        font-size: 1.75rem !important;
+    }
     .banner-heading {
         font-size: 7vw;
     }
