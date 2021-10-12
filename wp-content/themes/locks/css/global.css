@@ -91,6 +91,16 @@ h1,h2,h3,h4,h5 {
     font-size: 2rem;
     line-height: 1.2;
 }
+div.schema > span {
+    font-weight: bold;
+}
+.copy-large, div.schema > span, .bullets-large li {
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+.bullets-large {
+    padding-inline-start: 0;
+}
 .skew-bottom::after {
     transform: skewY(
             361.5deg
@@ -149,6 +159,9 @@ p.page-subtitle {
 }
 .bg-grey {
     background-color: #f8f8f8;
+}
+.bg-light-blue {
+    background-color: #E4F0FB;
 }
 .inverse-orange {
     color: #fff;

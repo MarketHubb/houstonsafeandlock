@@ -3,6 +3,17 @@
     border-radius: 0;
 }
 /*endregion*/
+
+/*region Hero - Simple */
+.bd-masthead {
+    padding: 7rem 0;
+    background: linear-gradient(
+        165deg, #E4F0FB 50%, #fff 50%);
+    position: relative;
+    margin-bottom: -6rem;
+}
+/*endregion*/
+
 /*region Banner Styles*/
 .jumbotron h1, .jumbotron p.lead {
     letter-spacing: -.05rem;
