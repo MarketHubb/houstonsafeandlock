@@ -13,7 +13,7 @@ get_header(); ?>
                     <img src="<?php echo get_home_url() . '/wp-content/uploads/2021/10/HSL-Shop-Keys.jpg'; ?>" alt="">
                     <div class="card-body px-5">
                         <div class="icon-square  text-dark flex-shrink-0 mr-3">
-                            <i class="fas fa-map-pin text-orange"></i>
+<!--                            <i class="fas fa-map-pin text-orange"></i>-->
                         </div>
                         <div class="">
                             <h2 class="mb-4 pb-2 border-bottom d-inline-block">Address</h2>
@@ -48,7 +48,7 @@ get_header(); ?>
                     <img src="<?php echo get_home_url() . '/wp-content/uploads/2021/10/HSL-Shop-Safes-Row-2.jpg'; ?>" alt="">
                     <div class="card-body px-5">
                         <div class="icon-square flex-shrink-0 mr-3">
-                            <i class="fas fa-phone text-orange"></i>
+<!--                            <i class="fas fa-phone text-orange"></i>-->
                         </div>
                         <div class="">
                             <h2 class="mb-4 pb-2 border-bottom d-inline-block">Contact</h2>
@@ -74,7 +74,7 @@ get_header(); ?>
                     <img src="<?php echo get_home_url() . '/wp-content/uploads/2021/10/HSL-Shop-Locks.jpg'; ?>" alt="">
                     <div class="card-body px-5">
                         <div class="icon-square flex-shrink-0 mr-3">
-                            <i class="fas fa-clock text-orange"></i>
+<!--                            <i class="fas fa-clock text-orange"></i>-->
                         </div>
                         <div class="">
                             <h2 class="mb-4 pb-2 border-bottom d-inline-block">Store Hours</h2>

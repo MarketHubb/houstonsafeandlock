@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-areat">
 		<main id="main" class="site-main" role="main">
 			<?php get_template_part( 'template-parts/content', 'header-hero-safe'); ?>
 			<div class="post-content">
