@@ -1,7 +1,7 @@
 <div class="bg-light-blue py-5" id="content">
     <div class="container-fluid px-4 px-md-3">
         <div class="wrapper">
-            <div class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center py-3">
 <!--                <div class="col-8 mx-auto col-md-4 col-lg-5 order-md-2 text-center">-->
 <!--                    <img src="--><?php //echo get_home_url() . '/wp-content/uploads/2021/10/HSL-Shop-Safes-Row.jpg'; ?><!--" class="rounded shadow" alt="">-->
 <!--                </div>-->
