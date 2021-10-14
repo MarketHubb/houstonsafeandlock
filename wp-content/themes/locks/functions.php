@@ -551,6 +551,7 @@ wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', a
 function ri_conditional_script_loading()
 {
     if (!is_admin()) {
+        wp_enqueue_style('font-awesome');
         wp_enqueue_style('banner');
         wp_enqueue_script('global');
         wp_enqueue_script('bootstrap-scripts');
@@ -576,7 +577,6 @@ function ri_conditional_script_loading()
 
     if (is_shop() || is_archive() || is_singular('product') || is_page(3857)) {
         wp_enqueue_style('ri-safe-styles');
-        wp_enqueue_style('font-awesome');
         wp_enqueue_script('ri-safe-scripts');
     }
 
