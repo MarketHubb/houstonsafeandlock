@@ -54,16 +54,16 @@ get_header(); ?>
                             <h2 class="mb-4 pb-2 border-bottom d-inline-block">Contact</h2>
                             <p class="copy-large">
                                 <strong class="mb-2 d-inline-block ">Call:</strong><br>
-                                <a href="tel:713-820-6934">713-820-6934</a>
+                                <a href="tel:713-522-5555">713-522-5555</a>
                             </p>
                             <p class="copy-large">
                                 <strong class="mb-2 d-inline-block ">Email:</strong><br>
-                                <a href="mailto:">info@houstonsafeandlock.com</a>
+                                <a href="mailto:">sales@houstonsafeandlock.com</a>
                             </p>
-                            <p class="copy-large">
-                                <strong class="mb-2 d-inline-block ">Fax:</strong><br>
-                                <a href="tel:713-975-7534">713-975-7534</a>
-                            </p>
+<!--                            <p class="copy-large">-->
+<!--                                <strong class="mb-2 d-inline-block ">Fax:</strong><br>-->
+<!--                                <a href="tel:713-975-7534">713-975-7534</a>-->
+<!--                            </p>-->
                         </div>
                     </div>
                 </div>

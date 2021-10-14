@@ -9,8 +9,8 @@
                     <span class="gold">Houston's Largest Safe Showroom</span>
                     <h1 class="hero-headline text-blue mb-3 mt-0 pt-0 text-uppercase">Contact Us</h1>
                     <p class="hero-subheadline mb-0 pr-md-5">
-                        Our 5,000 sq. ft. showroom is centrally located in Houston, TX directly off of the West Sam Houston Tollway.<br>
-                        <a class="d-inline-block mt-4 mb-0 pb-0 text-orange font-weight-bold" href="tel:713-820-6934"> 713-820-6934</a>
+                        Our 5,000 sq. ft. showroom is centrally located in Houston, TX directly off Beltway 8 West<br>
+                        <a class="d-inline-block mt-4 mb-0 pb-0 text-orange font-weight-bold" href="tel:713-522-5555"> 713-522-5555</a>
                         <span class="px-4">|</span>
                         <a class="text-orange font-weight-bold" href="https://www.google.com/maps/place/Houston+Safe+and+Lock/@29.7374624,-95.5541948,15z/data=!4m5!3m4!1s0x0:0xbe498a15d66fc53c!8m2!3d29.7374624!4d-95.5541948"> Directions </a>
                     </p>
