@@ -517,8 +517,8 @@ function get_sem_locksmith_pages() {
 /**
  * Register custom styles and scripts
  */
+wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
 wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper.min.js', array('jquery'), '', true);
-wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '', true);
 wp_register_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
 wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
 wp_register_style( 'ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css' );

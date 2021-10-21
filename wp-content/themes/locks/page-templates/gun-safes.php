@@ -86,8 +86,6 @@ get_header();
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle filter-sort-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sort By:</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" data-mixitup-control data-sort="msrp:asc">Price: Low to High </a>
-					<a class="dropdown-item" data-mixitup-control data-sort="msrp:desc">Price: High to Low</a>
 					<a class="dropdown-item" data-mixitup-control data-sort="capacity:desc">Gun Capacity</a>
 					<a class="dropdown-item" data-mixitup-control data-sort="rating:desc">Fire Rating</a>
 					<a class="dropdown-item" data-mixitup-control data-sort="weight:desc">Weight</a>
@@ -96,10 +94,20 @@ get_header();
 		</ul>
 	</div>
 
-	<?php 
+	<?php
+
+    /*
+     * 38 = FV (Legacy)
+     * 51 = BF (Legacy)
+     * 68 = BFX
+     * 69 = NF
+     * 39 = SF
+     * 41 = TF
+     *
+     * */
 
 	$safes_by_manufacturer = array(
-		'AMSEC' => array(51, 38, 39, 41),
+		'AMSEC' => array(68, 69, 39, 41),
 		'Original' => array(40)
 	);
 
