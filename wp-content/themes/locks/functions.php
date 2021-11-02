@@ -616,6 +616,14 @@ add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 if( function_exists('acf_add_options_page') ) {
 
 	acf_add_options_page(array(
+		'page_title' 	=> 'Alerts',
+		'menu_title'	=> 'Alerts',
+		'menu_slug' 	=> 'global-alerts',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+
+    acf_add_options_page(array(
 		'page_title' 	=> 'Global - Safes',
 		'menu_title'	=> 'Global - Safes',
 		'menu_slug' 	=> 'safe-settings',

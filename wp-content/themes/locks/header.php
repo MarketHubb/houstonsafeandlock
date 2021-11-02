@@ -111,33 +111,35 @@
 
         <div id="pre-nav">
             <div class="container-fixed">
-                <div id="left-content">
+                
+                <?php if (!get_field('active', 'options')) { ?>
 
-                    <!-- LEGACY:: Gun Safes (Text Logo) -->
-                    <?php // if (is_page(3857) || is_singular('product')) { ?>
-<!--                        <p id="logo-text">Houston Safe & Lock</p>-->
-                    <?php // } else { ?>
+                    <!-- Scroll logo (Text image) -->
+                    <div id="left-content">
                         <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
                             <img src="<?php echo get_template_directory_uri(); ?>/images/header/locks-logo-header-collapsed.png" alt="Houston Safe And Lock">
                         </a>
-                    <?php //  } ?>
-                </div>
-
-                <!-- CURRENT:: Pre Nav (social icons) -->
-                <div id="right-content">
-
-                    <!-- LEGACY:: Gun Safes Single (Alert Bar)  -->
-                    <?php //if (is_page(3857) || is_singular('product')) { ?>
-                    <!-- <span class="sem-phone-lead text-right">Call Now for Daily Discounts & Specials</span>-->
-                    <!-- <a class="sem-phone-number text-right" href="tel:713-659-3951">(713) 659-3951</a>-->
-                    <?php //} ?>
-
-                    <div id="social">
-                        <a href="<?php the_field( 'facebook_url', 'option' ); ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="<?php the_field( 'twitter_url', 'option' ); ?>" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a class="text-white" id="email" href="mailto:safelock.derek@gmail.com"><i class="fas fa-envelope fa-lg"></i></a>
                     </div>
-                </div>
+                    <!-- CURRENT:: Pre Nav (social icons) -->
+                    <div id="right-content">
+                        <div id="social">
+                            <a href="<?php the_field( 'facebook_url', 'option' ); ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+                            <a href="<?php the_field( 'twitter_url', 'option' ); ?>" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a class="text-white" id="email" href="mailto:safelock.derek@gmail.com"><i class="fas fa-envelope fa-lg"></i></a>
+                        </div>
+                    </div>
+
+            <?php } else { ?>
+                
+                    <p class="px-4 text-center font-weight-bold mb-0 pb-0">
+                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white">
+                            <?php echo get_field('alert_message', 'options'); ?>
+                            <i class="fas fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </p>
+                
+
+            <?php } ?>
             </div>
 
             <!-- CURRENT:: Fixed header (when scrolling) -->
