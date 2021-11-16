@@ -63,7 +63,7 @@ h1,h2,h3,h4,h5 {
 #hero-banner {
     overflow: hidden;
     position: relative;
-    height: 600px;
+    min-height: 600px;
     top: 0;
     z-index: 1;
     background-attachment: fixed;
@@ -155,7 +155,7 @@ p.page-subtitle {
     color: #ce742e;
 }
 .bg-orange {
-    background-color: #ce742e;
+    background-color: #ce742e !important;
 }
 .bg-grey {
     background-color: #f8f8f8;
@@ -174,6 +174,9 @@ p.page-subtitle {
 }
 .tdu {
     border-bottom: 2px solid;
+}
+.fs-2 {
+    font-size: 2rem !important;
 }
 .ttc {
     text-transform: capitalize;

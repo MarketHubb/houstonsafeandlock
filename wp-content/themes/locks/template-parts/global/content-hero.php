@@ -10,6 +10,14 @@ if ($hero) :
 
 ?>
 
+<?php
+    if (is_page(6110) || is_page(6121)) {
+        $bg_align_class = 'bp-top';
+    } else {
+        $bg_align_class = '';
+    }
+?>
+
     <?php if (is_page(4149)) { ?>
     <div class="bg-orange">
         <div class="container-fluid">
@@ -29,7 +37,7 @@ if ($hero) :
     </div>
 
     <?php } ?>
-    <div class="jumbotron bg-cover text-white px-sm-2"
+    <div class="jumbotron bg-cover text-white px-sm-2 <?php echo $bg_align_class; ?>"
          style="background-image: <?php echo $linear_gradient; ?>,
          url(<?php echo $hero['page_banner_image']; ?>)">
 
@@ -65,7 +73,6 @@ if ($hero) :
 
                 <h1 class="display-3"><?php echo $heading; ?></h1>
                 <p class="lead text-white"><?php echo $hero['page_banner_description']; ?></p>
-                <hr class="my-4">
 
             <?php } ?>
 
@@ -79,7 +86,10 @@ if ($hero) :
             ?>
 
             <?php if ($hero['page_banner_button_type'] !== 'None') { ?>
-                <a class="btn btn-primary btn-lg" href="<?php echo $button_url; ?>" role="button"><?php echo $hero['page_banner_button_text']; ?></a>
+                <a class="btn btn-primary btn-lg text-white px-5 bg-orange no-borders lead" href="<?php echo $button_url; ?>" role="button">
+                    <?php echo $hero['page_banner_button_text']; ?>
+                    <i class="fas fa-long-arrow-right ml-1"></i>
+                </a>
             <?php } ?>
 
             <?php if (is_page(4149)) { ?>
