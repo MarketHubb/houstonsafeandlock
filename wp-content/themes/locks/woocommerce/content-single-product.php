@@ -58,9 +58,13 @@ if ( post_password_required() ) {
          * @hooked WC_Structured_Data::generate_product_data() - 60
          */
         //do_action( 'woocommerce_single_product_summary' );
-        var_dump(strip_tags($post->post_excerpt, '<h3><p>'));
-//        echo $post->post_excerpt;
+        //strip_tags($post->post_excerpt, '<h3><p>'));
+        echo $post->post_excerpt;
         ?>
+        <!-- Button trigger modal -->
+        <div class=" mt-3 mb-4">
+            <?php echo get_product_inquiry_btn($post->ID, 'Product Inquiry'); ?>
+        </div>
     </div>
 
     <?php

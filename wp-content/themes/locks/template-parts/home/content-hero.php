@@ -12,10 +12,23 @@
 
         <div class="container-fluid  py-3">
             <div class="wrapper">
-                <div class="col-md-8  bg-white  px-5 pt-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded border shadow-lg">
-                    <span class="gold">Visit Our 5,000 sq ft showroom</span>
+<!--                <div class="col-md-8  bg-white  px-5 pt-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded border shadow-lg">-->
+<!--                    <span class="gold">Visit Our 5,000 sq ft showroom</span>-->
+<!--                    <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase">Houston Safe & Lock</h1>-->
+<!--                    <p class="lead  hero-subheadline">The largest safe showroom in Houston with hundreds of high security safes + 24x7 licensed and  bonded emergency locksmiths</p>-->
+<!--                </div>-->
+                <div class="col-md-8  bg-white mb-5  px-5 pt-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded border shadow-lg">
+                    <span class="gold">Visit our 5,000 Sq. Ft. Showroom Today</span>
                     <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase">Houston Safe & Lock</h1>
-                    <p class="lead  hero-subheadline">The largest safe showroom in Houston with hundreds of high security safes + 24x7 licensed and  bonded emergency locksmiths</p>
+                    <p class="lead  hero-subheadline mb-2"><strong>10218 F Westheimer Rd,  Houston, TX 77042</strong></p>
+                    <p class="lead lead-small hero-subheadline">Houston's largest safe showroom with hundreds of American Security, Jewel and Original safes in stock. On-site 24/7 emergency locksmiths and dedicated safe moving specialists.</p>
+
+                    <p class="lead lead-small">
+                        <a href="<?php echo get_permalink(3901); ?>" class="btn btn-primary btn-lg text-white px-4 bg-orange no-borders lead">
+                            View Safe Inventory
+                            <i class="fas fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </p>
                 </div>
                 <div class="row">
                 </div>
