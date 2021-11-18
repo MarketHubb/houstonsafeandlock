@@ -60,8 +60,8 @@ get_header();
 	 <div class="container" id="custom-page-template-title" data-url="<?php echo get_home_url(); ?>">
 	 	<div class="row">
 	 		<div class="col-12 text-center">
-	 			<h1 id="category-page-heading"><?php the_field('page_category_gun_headline'); ?></h1>
-                <p id="category-page-subheading"><?php echo get_field('page_category_gun_subheadline'); ?></p>
+<!--	 			<h1 id="category-page-heading">--><?php //the_field('page_category_gun_headline'); ?><!--</h1>-->
+<!--                <p id="category-page-subheading">--><?php //echo get_field('page_category_gun_subheadline'); ?><!--</p>-->
                 <?php
                 if( have_rows('page_category_gun_benefits') ):
                     $benefits = '<div class="row features-benefits">';
