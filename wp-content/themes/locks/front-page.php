@@ -19,13 +19,12 @@ get_header(); ?>
         <main id="main" class="site-main" role="main">
 
             <!-- NEW -->
-
             <!--Header Image Template Part-->
             <?php get_template_part( 'template-parts/home/content', 'hero'); ?>
-            <!-- Reviews -->
-            <?php get_template_part( 'template-parts/home/content', 'reviews'); ?>
             <!-- Services -->
             <?php get_template_part( 'template-parts/home/content', 'services'); ?>
+            <!-- Reviews -->
+            <?php get_template_part( 'template-parts/home/content', 'reviews'); ?>
             <!-- Featured -->
             <?php get_template_part( 'template-parts/home/content', 'featured'); ?>
 
