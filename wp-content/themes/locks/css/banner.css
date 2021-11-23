@@ -34,7 +34,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.bp-top {
+.bp-top, .bg-image-top {
     background-position: top !important;
 }
 #locksmith-banner-icons + h1 {

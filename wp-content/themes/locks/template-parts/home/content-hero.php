@@ -24,8 +24,8 @@
                     <p class="lead lead-small hero-subheadline">Houston's largest safe showroom with hundreds of American Security, Jewel and Original safes in stock. On-site 24/7 emergency locksmiths and dedicated safe moving specialists.</p>
 
                     <p class="lead lead-small">
-                        <a href="<?php echo get_permalink(3901); ?>" class="btn btn-primary btn-lg text-white px-4 bg-orange no-borders lead">
-                            View Safe Inventory
+                        <a href="<?php echo get_permalink(6158); ?>" class="btn btn-primary btn-lg text-white px-4 bg-orange no-borders lead">
+                            Black Friday Sales Event
                             <i class="fas fa-long-arrow-right ml-1"></i>
                         </a>
                     </p>

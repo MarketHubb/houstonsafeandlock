@@ -7,6 +7,7 @@ if ($hero) :
     $bg_opacity = $hero['page_banner_image_opacity'] > 0 ? $hero['page_banner_image_opacity'] : .75;
     $linear_gradient = 'linear-gradient(to bottom, rgba(0,0,0,' .  $bg_opacity . ') 0%,rgba(0,0,0,' . $bg_opacity . ') 100%)';
     $text_align_class = $hero['page_banner_text_align'] = 'center' ? 'text-center' : '';
+    $image_align_class = ($hero['page_banner_image_align']) ? 'bg-image-' . strtolower($hero['page_banner_image_align']) : '';
 
 ?>
 
@@ -37,7 +38,7 @@ if ($hero) :
     </div>
 
     <?php } ?>
-    <div class="jumbotron bg-cover text-white px-sm-2 <?php echo $bg_align_class; ?>"
+    <div class="jumbotron bg-cover text-white px-sm-2 <?php echo $bg_align_class; ?> <?php echo $image_align_class; ?>"
          style="background-image: <?php echo $linear_gradient; ?>,
          url(<?php echo $hero['page_banner_image']; ?>)">
 
@@ -71,35 +72,41 @@ if ($hero) :
 
             <?php } else { ?>
 
-                <h1 class="display-3"><?php echo $heading; ?></h1>
-                <p class="lead text-white"><?php echo $hero['page_banner_description']; ?></p>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="image-text-container d-inline-block p-4 p-md-5">
+                            <h1 class="display-3"><?php echo $heading; ?></h1>
+                            <p class="lead text-white"><?php echo $hero['page_banner_description']; ?></p>
 
-            <?php } ?>
+                            <?php
+                            if ($hero['page_banner_button_type'] === 'Custom') {
+                                $button_url = $hero['page_banner_button_url'];
+                            } else {
+                                $button_url = $hero['page_banner_button_page_link'];
+                            }
+                            ?>
 
+                            <?php if ($hero['page_banner_button_type'] !== 'None') { ?>
+                                <a class="btn btn-primary btn-lg text-white px-5 bg-orange no-borders lead" href="<?php echo $button_url; ?>" role="button">
+                                    <?php echo $hero['page_banner_button_text']; ?>
+                                    <i class="fas fa-long-arrow-right ml-1"></i>
+                                </a>
+                            <?php } ?>
 
-            <?php
-                if ($hero['page_banner_button_type'] === 'Custom') {
-                    $button_url = $hero['page_banner_button_url'];
-                } else {
-                    $button_url = $hero['page_banner_button_page_link'];
-                }
-            ?>
+                    </div>
+                </div>
+            </div>
 
-            <?php if ($hero['page_banner_button_type'] !== 'None') { ?>
-                <a class="btn btn-primary btn-lg text-white px-5 bg-orange no-borders lead" href="<?php echo $button_url; ?>" role="button">
-                    <?php echo $hero['page_banner_button_text']; ?>
-                    <i class="fas fa-long-arrow-right ml-1"></i>
-                </a>
             <?php } ?>
 
             <?php if (is_page(4149)) { ?>
-                <button id="locksmith-btn" type="button" class="btn btn-primary inline-block"
-                        data-toggle="modal"
-                        data-target="#locksmithModal">
-                    Schedule A Certified Houston Locksmith
-                </button>
+                    <button id="locksmith-btn" type="button" class="btn btn-primary inline-block"
+                            data-toggle="modal"
+                            data-target="#locksmithModal">
+                        Schedule A Certified Houston Locksmith
+                    </button>
                     </div>
-                    </div>
+                </div>
             </div>
             <?php } ?>
 
