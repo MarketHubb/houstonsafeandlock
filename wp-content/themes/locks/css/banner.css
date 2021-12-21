@@ -15,14 +15,53 @@
 /*endregion*/
 
 /*region Banner Styles*/
+#hero-banner {
+    overflow: hidden;
+    position: relative;
+    min-height: 600px;
+    top: 0;
+    z-index: 1;
+    background-attachment: fixed;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#hero-banner::after {
+    background: #fff;
+    bottom: -60px;
+    content: "";
+    height: 120px;
+    left: 0;
+    position: absolute;
+    transform: skewY(
+            3.5deg
+    );
+    width: 100%;
+    z-index: 1;
+}
+.hero-headline {
+    font-weight: 800 !important;
+}
+.hero-subheadline {
+    letter-spacing: .02rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #ce742e;
+}
 .jumbotron h1, .jumbotron p.lead {
     letter-spacing: -.05rem;
     font-weight: bold;
     line-height: 1.1;
 }
-.jumbotron p.lead {
-    font-size: 2rem;
-    line-height: 1.25;
+.jumbotron p.subheading {
+    display: inline-block;
+    background-color: rgba(255,255,255,.5);
+    border-radius: 1000px;
+    padding: 1px 2rem;
+    letter-spacing: .02rem;
+    font-size: 1.75rem;
+    line-height: 1.2;
     font-weight: 500;
 }
 .jumbotron p.lead-small {

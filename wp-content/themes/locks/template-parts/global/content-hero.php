@@ -75,7 +75,13 @@ if ($hero) :
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="image-text-container d-inline-block p-4 p-md-5">
-                            <h1 class="display-3"><?php echo $heading; ?></h1>
+
+                            <h1 class="display-3 mb-0"><?php echo $heading; ?></h1>
+
+                            <?php if ($hero['page_banner_subheading']) { ?>
+                                <p class="subheading mt-3 text-white"><?php echo $hero['page_banner_subheading']; ?></p>
+                            <?php } ?>
+
                             <p class="lead text-white"><?php echo $hero['page_banner_description']; ?></p>
 
                             <?php

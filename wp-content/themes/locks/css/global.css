@@ -60,37 +60,6 @@ h1,h2,h3,h4,h5 {
 .no-borders {
     border: none !important;
 }
-#hero-banner {
-    overflow: hidden;
-    position: relative;
-    min-height: 600px;
-    top: 0;
-    z-index: 1;
-    background-attachment: fixed;
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-#hero-banner::after {
-    background: #fff;
-    bottom: -60px;
-    content: "";
-    height: 120px;
-    left: 0;
-    position: absolute;
-    transform: skewY(
-            3.5deg
-    );
-    width: 100%;
-    z-index: 1;
-}
-.hero-headline {
-    font-weight: 800 !important;
-}
-.hero-subheadline {
-    font-size: 2rem;
-    line-height: 1.2;
-}
 div.schema > span {
     font-weight: bold;
 }
