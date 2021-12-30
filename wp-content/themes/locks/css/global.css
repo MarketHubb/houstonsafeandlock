@@ -194,6 +194,11 @@ blockquote p {
     }
 }
 @media (max-width: 768px) {
+    .gold {
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
     #safe-categories-page h1 {
         margin-top: 2.5rem;
     }

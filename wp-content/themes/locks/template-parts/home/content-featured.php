@@ -5,7 +5,7 @@
 
             <div class="row justify-content-center section-heading">
                 <div class="col-md-10 text-center">
-                    <h2 class="font-weight-bold">Our Unmatched Selection of Safes</h2>
+                    <h2 class="font-weight-bold text-center">Our Unmatched Selection of Safes</h2>
                     <p class="lead font-weight-normal mb-0">Our local Houston safe showroom is the largest safe showroom in Texas with 5,000 sq ft of space and offers the opportunity to view hundreds of models of gun safes, commercial safes, and home and office safes. Our knowledgeable sales staff is here to help educate you to find the perfect safe to fit your personal, business, or commercial security needs.</p>
                 </div>
             </div>

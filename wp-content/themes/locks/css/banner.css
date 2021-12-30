@@ -109,7 +109,6 @@
 @media (max-width: 767.98px) {
     .jumbotron h1 {
         font-size: 16vw;
-        line-height: .9;
     }
     .jumbotron p.lead {
         font-weight: 500;

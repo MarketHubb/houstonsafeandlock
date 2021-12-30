@@ -7,7 +7,7 @@
                 if( have_rows('services') ):
                     $s = '';
                     while ( have_rows('services') ) : the_row();
-                        $s .= '<div class="col-md-4">';
+                        $s .= '<div class="col-md-4 mb-3 mb-md-2 mb-lg-0">';
                         $s .= '<div class="card h-100 shadow">';
                         $s .= '<img src="' . get_sub_field('image') . '" class="card-img-top" />';
                         $s .= '<div class="card-body d-flex flex-column px-3 px-md-4 px-lg-5 pt-5">';
