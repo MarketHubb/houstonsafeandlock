@@ -17,7 +17,7 @@
 <!--                    <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase">Houston Safe & Lock</h1>-->
 <!--                    <p class="lead  hero-subheadline">The largest safe showroom in Houston with hundreds of high security safes + 24x7 licensed and  bonded emergency locksmiths</p>-->
 <!--                </div>-->
-                <div class="col-md-8  bg-white mb-5 px-4 px-md-5 py-4 pb-lg-0 pt-lg-5 pe-lg-0  align-items-center rounded border shadow-lg">
+                <div class="col-md-8  bg-white my-5 px-4 px-md-5 py-4 pb-lg-0  pt-lg-5 pe-lg-0  align-items-center rounded border shadow-lg">
                     <span class="gold pb-4 pb-md-0"><?php the_field('home_subheading'); ?></span>
                     <h1 class=" mb-3 mt-0 text-blue hero-headline text-uppercase"><?php the_field('home_heading'); ?></h1>
                     <p class="hero-subheadline mb-2 promotion"><strong><?php the_field('home_callout'); ?></strong></p>
