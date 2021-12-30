@@ -551,12 +551,15 @@ wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', a
 function ri_conditional_script_loading()
 {
     if (!is_admin()) {
+        wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
+        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
+
         wp_enqueue_style('font-awesome');
         wp_enqueue_style('banner');
         wp_enqueue_script('global');
-        wp_enqueue_script('bootstrap-scripts');
         wp_enqueue_style('global');
-        wp_enqueue_style('bootstrap-4');
+//        wp_enqueue_script('bootstrap-scripts');
+//        wp_enqueue_style('bootstrap-4');
     }
     if (is_page(4149)) {
         wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );
