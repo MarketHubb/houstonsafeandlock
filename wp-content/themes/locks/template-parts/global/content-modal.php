@@ -19,7 +19,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <p class="lead my-3 font-weight-bold modal-subtitle"></p>
+                            <p class="lead my-3 font-weight-bold modal-subtitle lh-base fs-3 text-black-50"></p>
                         </div>
                     </div>
                     <div class="row">

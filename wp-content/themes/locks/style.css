@@ -3845,6 +3845,24 @@ header.site-header nav#site-navigation {
 }
 }
  @media (max-width: 768px) {
+	 .modal button.close {
+		 margin-top: -4rem;
+	 }
+	 .modal-title {
+		 font-size: 1.25rem !important;
+		 text-align: center;
+	 }
+	 #productModal #gform_1 #field_1_7 > label {
+		 display: none;
+	 }
+	 #productModal #gform_1 #input_1_7 {
+		 font-size: 1.2rem !important;
+		 padding-left: 0 !important;
+		 height: 1rem !important;
+	 }
+	 .modal-subtitle {
+		 display: none;
+	 }
 header.site-header {
 	position: fixed;
 	z-index: 2;
