@@ -131,8 +131,8 @@
 
             <?php } else { ?>
                 
-                    <p class="px-4 text-center font-weight-bold mb-0 pb-0">
-                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white">
+                    <p class="px-4 text-center font-weight-bold mb-0 pb-0 lh-sm">
+                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white lh-sm">
                             <?php echo get_field('alert_message', 'options'); ?>
                             <i class="fas fa-long-arrow-right ml-1"></i>
                         </a>

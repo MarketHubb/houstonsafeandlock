@@ -183,10 +183,6 @@ blockquote p {
 .safe-categories .card {
     border: none !important;
 }
-/*.safe-categories .card .safe-cat-images {*/
-/*    width: 50%;*/
-/*    margin-bottom: 2rem;*/
-/*}*/
 /*region Media Queries */
 @media (min-width: 768px) {
     .hero-headline {
@@ -194,6 +190,11 @@ blockquote p {
     }
 }
 @media (max-width: 768px) {
+    /* Header / Navigation */
+    .scrolling-brand-phone {
+        display: none !important;
+    }
+    /* Hero Banner */
     .gold {
         letter-spacing: 4px;
         text-transform: uppercase;

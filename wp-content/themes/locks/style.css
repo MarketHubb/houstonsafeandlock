@@ -3873,9 +3873,6 @@ header.site-header {
 header.site-header.is-scrolling div#brand-info {
 	height: auto;
 }
-header.site-header div#pre-nav {
-	display: none;
-}
 header.site-header div#pre-nav div.container-fixed div#right-content {
 	float: none;
 	text-align: center;
@@ -3917,8 +3914,9 @@ header.site-header div#brand-info div.container-fixed div#brand-phone {
 	float: none;
 	display: block;
 	text-align: center;
-	background-color: #ce742e;
+	background-color: #174368;
 	color: #FFFFFF;
+	border-radius: 10000px;
 }
 header.site-header div#brand-info div.container-fixed div#brand-phone > p a {
 	color: #FFFFFF;
