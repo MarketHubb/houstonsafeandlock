@@ -107,8 +107,8 @@ if ($hero) :
 
             <?php if (is_page(4149)) { ?>
                     <button id="locksmith-btn" type="button" class="btn btn-primary inline-block"
-                            data-toggle="modal"
-                            data-target="#locksmithModal">
+                            data-bs-toggle="modal"
+                            data-bs-target="#locksmithModal">
                         Schedule A Certified Houston Locksmith
                     </button>
                     </div>
