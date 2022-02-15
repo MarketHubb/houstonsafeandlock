@@ -264,22 +264,22 @@ function render_single_post_hero_headlines($the_id) {
 /**
  * Hide editor for Contact/Directions page.
  */
-add_action( 'admin_init', 'hide_editor' );
-
-function hide_editor() {
-	// Get the Post ID.
-	$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-	if( !isset( $post_id ) ) return;
-
-	// Get the name of the Page Template file.
-	$this_post = get_post( $post_id );
-
-	if($this_post->post_name == 'contact-directions'){
-		remove_post_type_support('page', 'editor');
-	}
-}
-
-add_filter( 'pre_get_posts', 'tgm_io_cpt_search' );
+//add_action( 'admin_init', 'hide_editor' );
+//
+//function hide_editor() {
+//	// Get the Post ID.
+//	$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+//	if( !isset( $post_id ) ) return;
+//
+//	// Get the name of the Page Template file.
+//	$this_post = get_post( $post_id );
+//
+//	if($this_post->post_name == 'contact-directions'){
+//		remove_post_type_support('page', 'editor');
+//	}
+//}
+//
+//add_filter( 'pre_get_posts', 'tgm_io_cpt_search' );
 /**
  * This function modifies the main WordPress query to include an array of
  * post types instead of the default 'post' post type.
