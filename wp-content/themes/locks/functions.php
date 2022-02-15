@@ -263,8 +263,8 @@ function render_single_post_hero_headlines($the_id) {
 
 /**
  * Hide editor for Contact/Directions page.
- */
-//add_action( 'admin_init', 'hide_editor' );
+ *
+// Test//add_action( 'admin_init', 'hide_editor' );
 //
 //function hide_editor() {
 //	// Get the Post ID.
