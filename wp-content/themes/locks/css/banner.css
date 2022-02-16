@@ -15,6 +15,9 @@
 /*endregion*/
 
 /*region Banner Styles*/
+.banner-text-container {
+    border: 3px solid #174368;
+}
 #hero-banner {
     overflow: hidden;
     position: relative;
@@ -104,6 +107,18 @@
     .jumbotron h1 {
         line-height: 1;
     }
+    .jumbotron ul.list-group li {
+        text-align: left;
+        width: 100%;
+    }
+}
+@media (min-width: 992px) {
+    .jumbotron ul.list-group li:not(:last-of-type) {
+        border-right: 1px solid #ccc;
+    }
+    .jumbotron ul.list-group li:first-of-type {
+        padding-left: .25rem !important;
+    }
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
@@ -111,7 +126,8 @@
         background-color: transparent;
     }
     .jumbotron h1 {
-        font-size: 16vw;
+        font-size: 10vw;
+        line-height: 1.2;
     }
     .jumbotron p.lead {
         font-weight: 500;

@@ -106,6 +106,12 @@ h1.page-title {
 p.page-subtitle {
     font-weight: 500 !important;
 }
+ul.flush {
+    padding-inline-start: 0;
+}
+.no-borders, .no-border {
+    border: none;
+}
 .text-white {
     color: #fff;
 }
