@@ -125,6 +125,7 @@ if ($hero) :
                         <span class="d-inline-block d-md-none">Schedule Service Now</span>
                         <span class="d-none d-md-inline-block fs-5">Schedule Service Now</span>
                 </button>
+                        <p class="text-center text-white fst-italic">Daily appointments available <br class="d-block d-lg-none"> or schedule future service</p>
 
                     </div>
                 </div>
