@@ -25,11 +25,17 @@ if ($hero) :
             <div class="wrapper">
                 <div class="row">
                     <div class="col text-center">
-<!-- For immediate service or to schedule an appointment call-->
-                        <p class="lead text-white hero-alert my-0 py-2">
+                        <p class="lead d-none d-md-block text-white hero-alert my-0 py-2">
                             <i class="fad fa-exclamation-triangle pr-2"></i>
                             Appointments still available today - Call Now!
-                            <span class="hero-phone-alert-container"><a class="hero-phone hero-phone-alert font-weight-bold inverse-orange" href="tel:713-522-5555"> 713-522-5555</a></span>
+                            <span class="hero-phone-alert-container">
+                                <a class="hero-phone hero-phone-alert font-weight-bold inverse-orange" href="tel:713-522-5555">                                     713-522-5555
+                                </a>
+                            </span>
+                        </p>
+                        <p class="lead d-block d-md-none text-white hero-alert my-0 py-2">
+                            <?php $openings = rand(2, 4); ?>
+                            <span class="border-bottom border-2"><?php  echo $openings; ?> openings</span> still available today, book now!
                         </p>
                     </div>
                 </div>
@@ -46,29 +52,30 @@ if ($hero) :
             <?php
             if (is_page(4149)) { ?>
             <div class="wrapper">
-                <div class="row justify-content-center py-md-1" id="locksmith-banner-icons">
-                    <div class="col-4 col-md-3 text-center">
-<!--                        <i class="fa fa-car fa-2x text-orange pb-2"></i>-->
-                        <h2 class="text-white font-weight-bolder">Auto</h2>
-                    </div>
-                    <div class="col-4 col-md-3 text-center">
-<!--                        <i class="fas fa-home-lg-alt fa-2x text-orange pb-2"></i>-->
-                        <h2 class="text-white font-weight-bolder">Home</h2>
-                    </div>
-                    <div class="col-4 col-md-3 text-center">
-<!--                        <i class="fas fa-building fa-2x text-orange pb-2"></i>-->
-                        <h2 class="text-white font-weight-bolder">Commercial</h2>
+
+                <div class="row justify-content-center mb-0 mb-md-4">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <ul class="list-group list-group-flush list-group-horizontal bg-none py-md-1">
+                            <li class="list-group-item flex-fill bg-none text-center pb-0 border-0">
+                                <p class="text-white font-weight-bolder border border-1 rounded-pill py-1 px-4 px-md-4 px-lg-5 mb-0 d-inline-block">Access</p>
+                            </li>
+                            <li class="list-group-item flex-fill bg-none text-center pb-0 border-0">
+                                <p class="text-white font-weight-bolder border border-1 rounded-pill py-1 px-4 px-md-4 px-lg-5 mb-0 d-inline-block">Keys</p>
+                            </li>
+                            <li class="list-group-item flex-fill bg-none text-center pb-0 border-0">
+                                <p class="text-white font-weight-bolder border border-1 rounded-pill py-1 px-4 px-md-4 px-lg-5 mb-0 d-inline-block">Locks</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-
             <?php } ?>
 
             <?php if (is_page(4149)) { ?>
-                <div class="row">
-                    <div class="col-12 col-md-11">
-
-                <h1 class="display-2 mb-3 mt-3">24/7 Houston Locksmiths</h1>
-                <p class="lead text-white"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
+                <div class="row justify-content-center">
+                    <div class="col-11 col-md-10 col-lg-9">
+                        <h1 class="display-2 mb-3 mt-3">24/7 Houston Locksmiths</h1>
+                        <p class="lead text-white d-block d-lg-none"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
+                        <p class="lead text-white d-none d-lg-block fs-3 fw-500"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
 
             <?php } else { ?>
 
@@ -106,11 +113,19 @@ if ($hero) :
             <?php } ?>
 
             <?php if (is_page(4149)) { ?>
-                    <button id="locksmith-btn" type="button" class="btn btn-primary inline-block"
-                            data-bs-toggle="modal"
-                            data-bs-target="#locksmithModal">
-                        Schedule A Certified Houston Locksmith
-                    </button>
+<!--                    <button id="locksmith-btn" type="button" class="d-none d-md-inline-block btn btn-primary inline-block bg-orange border-0 shadow"-->
+<!--                            data-bs-toggle="modal"-->
+<!--                            data-bs-target="#locksmithModal">-->
+<!--                        Schedule A Certified Houston Locksmith-->
+<!--                    </button>-->
+                    <button id="locksmith-btn" type="button"
+                        class="my-4 btn btn-primary inline-block bg-orange border-0 shadow px-4 px-lg-5 fw-500"
+                        data-bs-toggle="modal"
+                        data-bs-target="#locksmithModal">
+                        <span class="d-inline-block d-md-none">Schedule Service Now</span>
+                        <span class="d-none d-md-inline-block fs-5">Schedule Service Now</span>
+                </button>
+
                     </div>
                 </div>
             </div>

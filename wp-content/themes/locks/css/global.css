@@ -1,4 +1,7 @@
 /*region Colors / Backgrounds */
+.bg-none, .bg-transparent {
+    background: transparent !important;
+}
 .bg-gold {
  background-color: rgba(206, 116, 46, 1);
 }
@@ -192,6 +195,9 @@ blockquote p {
 }
 @media (max-width: 768px) {
     /* Header / Navigation */
+    #pre-nav {
+        display: none !important;
+    }
     .scrolling-brand-phone {
         display: none !important;
     }
