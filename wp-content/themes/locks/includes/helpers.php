@@ -41,13 +41,15 @@ function get_safe_attributes($post_id)
     return $attributes;
 }
 
-function get_product_inquiry_btn($post_id, $btn_text)
+function get_product_inquiry_btn($post_id, $btn_text, $stretched=null)
 {
     $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'single-post-thumbnail' );
     $attr = get_safe_attributes($post_id);
+    $stretched_class = $stretched ? 'stretched-link' : '';
 
-    $btn  = '<button type="button" class="btn btn-primary inline-block" ';
-    $btn .= 'data-toggle="modal" data-target="#productModal" ';
+    $btn  = '<button type="button" class="btn btn-primary inline-block ';
+    $btn .= $stretched_class . '" ';
+    $btn .= 'data-bs-toggle="modal" data-bs-target="#productModal" ';
     $btn .= 'data-safeimage="' . $image[0] . '" ';
     $btn .= 'data-safetype="' . $attr['safe_type'] . '" ';
     $btn .= 'data-safename="' . get_the_title($post_id) . '">';
