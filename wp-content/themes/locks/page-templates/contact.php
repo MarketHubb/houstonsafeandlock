@@ -99,11 +99,5 @@ get_header(); ?>
     </div>
 </div>
 
-<div class="gmap">
-
-    <?php echo get_field( 'map_box' ); ?>
-
-</div>
-
 
 <?php get_footer(); ?>
