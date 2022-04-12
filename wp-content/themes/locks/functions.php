@@ -7,6 +7,14 @@ require_once 'includes/helpers.php';
  *
  * @package locks
  */
+// Disable full-screen editor
+if (is_admin()) {
+    function pa_disable_fullscreen_wp_editor() {
+        $script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
+        wp_add_inline_script( 'wp-blocks', $script );
+    }
+    add_action( 'enqueue_block_editor_assets', 'pa_disable_fullscreen_wp_editor' );
+}
 
 function meks_which_template_is_loaded() {
     if ( is_super_admin() ) {
@@ -578,7 +586,7 @@ function ri_conditional_script_loading()
         wp_enqueue_style('ri-category-styles');
     }
 
-    if (is_shop() || is_archive() || is_singular('product') || is_page(3857)) {
+    if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
         wp_enqueue_style('ri-safe-styles');
         wp_enqueue_script('ri-safe-scripts');
     }

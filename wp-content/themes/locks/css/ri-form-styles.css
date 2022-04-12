@@ -30,8 +30,8 @@
 .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]):not([type=hidden]), .gform_wrapper textarea {
     width: 100% !important;
     border-radius: 3px;
-    color: #222;
-    font-size: .85rem !important;
+    /*color: #222;*/
+    /*font-size: .85rem !important;*/
     line-height: 1.375;
     min-height: 2.1rem;
     padding: .5rem !important;
@@ -120,6 +120,9 @@ body .gform_wrapper .top_label div.ginput_container {
         padding-right: 0 !important;
     }
 }
+#productModal .product-field .ginput_container > textarea {
+    padding-left: 0 !important;
+}
 /****************************************
 *** MEDIA QUERIES - MAXIMUMS ***
 *****************************************/
@@ -128,6 +131,35 @@ body .gform_wrapper .top_label div.ginput_container {
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {}
 /* Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {}
+@media (max-width: 767.98px) {
+    #productModal .product-field .ginput_container > textarea {
+        height: 2rem !important;
+    }
+}
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {}
+
+/****************************************
+*** MEDIA QUERIES - MINIMUMS ***
+*****************************************/
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    #productModal .product-field .ginput_container > textarea {
+        width: 200% !important;
+        height: 1rem !important;
+        padding-left: 0 !important;
+    }
+}
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

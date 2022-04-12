@@ -44,7 +44,7 @@
 </div><!-- #page -->
 
 <?php
-if (is_shop() || is_archive() || is_singular('product') || is_page(3857)) {
+if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
     get_template_part('template-parts/global/content', 'modal');
 }
 if (is_page(4149)) {

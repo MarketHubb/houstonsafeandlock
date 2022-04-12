@@ -8,9 +8,13 @@
         let safeType = button.data('safetype')
         let safeName = button.data('safename')
         let safeImage = button.data('safeimage')
-        let productField = $('#gform_1').find('.product-field textarea');
+
+        var formId = (typeof button.data('safeformid') !== 'undefined') ? button.data('safeformid') : 1;
+
+        let productField = $('#gform_' + formId).find('.product-field textarea');
 
         productField.val(safeName);
+        productField.addClass('fw-normal');
         modal.find('.modal-subtitle').text(safeType + ' Product Inquiry');
         modal.find('.modal-image').attr('src', safeImage);
 

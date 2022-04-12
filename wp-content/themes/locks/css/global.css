@@ -24,6 +24,9 @@
 h1,h2,h3,h4,h5 {
     font-family: 'Oxygen', sans-serif;
 }
+h3 {
+    text-transform: none !important;
+}
 /* MH Custom */
 .btn-link {
     -webkit-box-sizing: border-box;

@@ -48,9 +48,9 @@ if ($hero) :
          style="background-image: <?php echo $linear_gradient; ?>,
          url(<?php echo $hero['page_banner_image']; ?>)">
 
-        <div class="container-fluid <?php echo $text_align_class; ?> py-3">
             <?php
             if (is_page(4149)) { ?>
+        <div class="container-fluid <?php echo $text_align_class; ?> py-3">
             <div class="wrapper">
 
                 <div class="row justify-content-center mb-0 mb-md-4">
@@ -68,6 +68,7 @@ if ($hero) :
                         </ul>
                     </div>
                 </div>
+            </div>
             <?php } ?>
 
             <?php if (is_page(4149)) { ?>
@@ -78,9 +79,9 @@ if ($hero) :
                         <p class="lead text-white d-none d-lg-block fs-3 fw-500"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
 
             <?php } else { ?>
-
+            <div class="container <?php echo $text_align_class; ?> py-3">
                 <div class="row justify-content-center">
-                    <div class="col-md-10">
+                    <div class="col-md-7 col-lg-8">
                         <div class="image-text-container d-inline-block p-4 p-md-5">
 
                             <h1 class="display-3 mb-0 mt-5 mt-lg-3"><?php echo $heading; ?></h1>
@@ -89,7 +90,10 @@ if ($hero) :
                                 <p class="subheading mt-3 text-white fw-bold lh-1"><?php echo $hero['page_banner_subheading']; ?></p>
                             <?php } ?>
 
-                            <p class="lead text-white"><?php echo $hero['page_banner_description']; ?></p>
+                            <?php if ($hero['page_banner_description']) { ?>
+                                <p class="lead text-white d-block d-lg-none"><?php echo $hero['page_banner_description']; ?></p>
+                                <p class="lead text-white d-none d-lg-block fs-3 fw-500"><?php echo $hero['page_banner_description']; ?></p>
+                            <?php } ?>
 
                             <?php
                             if ($hero['page_banner_button_type'] === 'Custom') {
@@ -109,6 +113,7 @@ if ($hero) :
                     </div>
                 </div>
             </div>
+        </div>
 
             <?php } ?>
 
@@ -130,10 +135,9 @@ if ($hero) :
                     </div>
                 </div>
             </div>
-            <?php } ?>
 
-        </div>
-    </div>
+    <?php } ?>
+</div>
 
 <?php endif; ?>
 

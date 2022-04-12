@@ -30,6 +30,9 @@
     border-color:#0062cc;
     box-shadow:0 0 0 .2rem rgba(38,143,255,.5);
 }
+.btn.shadow:hover, .btn.shadow-sm:hover {
+    box-shadow: none !important;
+}
 .fw-500 {
     font-weight: 500 !important;
 }

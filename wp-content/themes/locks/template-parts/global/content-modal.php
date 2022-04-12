@@ -1,11 +1,12 @@
+<?php $form_id = get_query_var('form_id') ?: 1; ?>
 <!-- Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header">
                 <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-9">
+                    <div class="row">
+                        <div class="col-12 col-md-9 justify-content-start">
                             <h2 class="modal-title font-weight-bold" id="exampleModalLabel">Houston Safe & Lock</h2>
                             <p class="mb-0 small"><em>Proudly serving Houston & surrounding communities since 1923</em></p>
                         </div>
@@ -18,16 +19,16 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
-                            <p class="lead my-3 font-weight-bold modal-subtitle lh-base fs-3 text-black-50"></p>
+                        <div class="col-md-12 text-center">
+                            <p class="lead d-inline-block my-3 font-weight-bold modal-subtitle lh-base fs-4 border-bottom"></p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-md-7">
-                            <?php gravity_form( 1, $display_title = false, $display_description = false, $ajax = false, $tabindex="10", $echo = true ); ?>
+                            <?php gravity_form( $form_id, $display_title = false, $display_description = false, $ajax = false, $tabindex="10", $echo = true ); ?>
                         </div>
                         <div class="col-md-5">
-                            <img src="" class="modal-image" alt="" />
+                            <img src="" class="modal-image shadow" alt="" />
                         </div>
                     </div>
                 </div>

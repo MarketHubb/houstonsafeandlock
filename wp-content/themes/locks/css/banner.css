@@ -1,3 +1,51 @@
+.container-fixed {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 120px;
+}
+.container-straight {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -o-transform: skew(0deg, -3.5deg);
+    -webkit-transform: skew(0deg, -3.5deg);
+    -moz-transform: skew(0deg, -3.5deg);
+    -ms-transform: skew(0deg, -3.5deg);
+    transform: skew(0deg, -3.5deg);
+}
+.container-skew {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -o-transform: skew(0deg, 3.5deg);
+    -webkit-transform: skew(0deg, 3.5deg);
+    -moz-transform: skew(0deg, 3.5deg);
+    -ms-transform: skew(0deg, 3.5deg);
+    transform: skew(0deg, 3.5deg);
+}
+div#primary main#main div#header-hero {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    top: -65px;
+    padding: 175px 0 120px;
+    text-align: center;
+    font-size: 16px;
+}
+div#primary main#main div#header-hero div.container-straight div.container-fixed > h1 {
+    margin: 0;
+    text-transform: uppercase;
+    font-family: "Oxygen";
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 3.9375em;
+    line-height: 65px;
+}
 /*region Bootstrap Customizations */
 .jumbotron {
     border-radius: 0;
@@ -64,7 +112,7 @@
     padding: 1px 2rem;
     letter-spacing: .02rem;
     font-size: 1.75rem;
-    line-height: 1.2;j
+    line-height: 1.2;
     font-weight: 500;
 }
 .jumbotron p.lead-small {
