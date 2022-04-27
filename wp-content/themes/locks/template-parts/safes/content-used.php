@@ -41,7 +41,7 @@
                         data-safetype=""
                         data-safename="Used - ' . get_field('brand') . ' ' . get_the_title() . '"
                         data-safeimage="' .  $first_image[0] . '"/>
-                        <span class="d-inline-block">Learn More</span>
+                        <span class="d-inline-block">Product Inquiry</span>
                 </button>';
                     $u .= '</div></div></div>';
 
