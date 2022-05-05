@@ -160,6 +160,10 @@ function locks_scripts() {
 
     }
 
+    if (is_singular('product')) {
+        wp_enqueue_style( 'ri-woo-single-styles', get_template_directory_uri() . '/css/ri-woo-single-styles.css' );
+    }
+
     if (!is_admin()) {
         wp_enqueue_style( 'ri-global-styles', get_template_directory_uri() . '/css/ri-global-styles.css' );
         wp_enqueue_style( 'ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css' );
@@ -589,6 +593,7 @@ function ri_conditional_script_loading()
     if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
         wp_enqueue_style('ri-safe-styles');
         wp_enqueue_script('ri-safe-scripts');
+        // wp_enqueue_style( 'safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
     }
 
     // Category gun safes
@@ -613,6 +618,10 @@ function ri_conditional_script_loading()
     if (is_page(get_sem_locksmith_pages())) {
         wp_enqueue_style('ri-safe-styles');
         wp_enqueue_style('ri-locksmith-styles');
+    }
+    // Safe category pages
+    if (is_product_category()) {
+    	wp_enqueue_style( 'safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
     }
 }
 add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');

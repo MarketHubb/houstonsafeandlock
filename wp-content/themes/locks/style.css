@@ -860,8 +860,10 @@ header.site-header div#pre-nav div.container-fixed div#right-content div#social 
 	display: inline-block;
 	vertical-align: middle;
 	color: #ffffff;
-	margin-right: 30px;
 }
+header.site-header div#pre-nav div.container-fixed div#right-content div#social > a:not(:last-of-type) {
+	margin-right: 30px;
+} 
 header.site-header div#pre-nav div.container-fixed div#right-content div#social > a img {
 	display: block;
 	max-width: 16px;

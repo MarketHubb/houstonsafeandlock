@@ -1,0 +1,22 @@
+/* Safe Category Pages */
+
+/* Results count */
+.woocommerce .woocommerce-result-count {
+	display: none;
+}
+.product-category-grid .woocommerce-loop-product__title {
+	margin-bottom: 2rem;
+    text-decoration: none!important;
+    text-transform: none;
+    text-align: center;
+    background: #174368;
+    color: #fff;
+    font-weight: bold;
+    padding: 1rem 0;
+}
+#main > .container-fixed a.button.product_type_simple {
+	display: none;
+}
+#main > .container-fixed .product-category-grid .card a.woocommerce-loop-product__link {
+	text-decoration: none !important;
+}

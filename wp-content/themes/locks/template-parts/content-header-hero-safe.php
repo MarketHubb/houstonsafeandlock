@@ -45,7 +45,7 @@ if (get_field('page_include_banner')) {
     }
     ?>
 
-    <div class="container-fixed">
+    <div class="container-fixed ">
 
         <?php
         // Safe Shop
@@ -72,7 +72,7 @@ if (get_field('page_include_banner')) {
             $model = get_the_title(); ?>
 
             <h1 class="product-detail-heading"><?php echo $manufacturer . ' ' . $model; ?></h1>
-            <p class="product-detail-subheading"><?php echo get_field('post_product_gun_model_description'); ?></p>
+            <p class="product-detail-subheading mb-0"><?php echo get_field('post_product_gun_model_description'); ?></p>
 
         <?php } ?>
 
@@ -83,7 +83,7 @@ if (get_field('page_include_banner')) {
 
         <div id="header-hero" class="container-skew" <?php echo single_post_hero_background(); ?>>
             <div class="container-straight">
-                <div class="container-fixed">
+                <div class="container-fixed test">
                     <?php
                     $the_id = '';
                     if (is_shop()) {

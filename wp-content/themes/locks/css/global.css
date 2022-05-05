@@ -1,15 +1,32 @@
-/*region Colors / Backgrounds */
-.bg-none, .bg-transparent {
-    background: transparent !important;
+.btn {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    display: inline-block !important;
+    border: none !important;
 }
-.bg-gold {
- background-color: rgba(206, 116, 46, 1);
-}
-.bg-gold-light {
- background-color: rgba(206, 116, 46, .1);
-}
-/*endregion*/
 /*region Containers */
+.container-fluid > .row {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+header.site-header div#pre-nav div.container-fixed {
+    padding: 5px 0;
+}
+header.site-header div#brand-info div.container-fixed {
+    padding: 15px 0;
+}
+#site-navigation .container-fixed {
+    padding: 0 0px;
+}
+.container-fixed {
+    padding-top: 20px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
 .section-container {
     padding: 2rem 0;
 }
@@ -19,6 +36,17 @@
 .content-section .section-heading {
     margin-bottom: 0;
     padding-bottom: 0;
+}
+/*endregion*/
+/*region Colors / Backgrounds */
+.bg-none, .bg-transparent {
+    background: transparent !important;
+}
+.bg-gold {
+ background-color: rgba(206, 116, 46, 1);
+}
+.bg-gold-light {
+ background-color: rgba(206, 116, 46, .1);
 }
 /*endregion*/
 h1,h2,h3,h4,h5 {
@@ -190,14 +218,57 @@ blockquote p {
 .safe-categories .card {
     border: none !important;
 }
-/*region Media Queries */
+
+/****************************************
+*** MEDIA QUERIES - MINIMUMS ***
+*****************************************/
+/*X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {}
+/*XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px) {}
+/* Large devices (desktops, 992px and UP) */
+@media (min-width: 992px) {
+    .container-fixed {
+        max-width: 90%;
+    }
+}
+/* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
     .hero-headline {
         font-size: 4.5rem;
     }
 }
-@media (max-width: 768px) {
-    /* Header / Navigation */
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {}
+
+/****************************************
+*** MEDIA QUERIES - MAXIMUMS ***
+*****************************************/
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .container-fixed {
+        max-width: 90%;
+    }
+    header.site-header div#brand-info div.container-fixed {
+        padding: 0 !important;
+    }
+}
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    p {
+        font-size: 1.1rem;
+    }
+    header.site-header div#brand-info {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-phone {
+        background-color: #ce742e;
+    }
+     /* Header / Navigation */
     #pre-nav {
         display: none !important;
     }
@@ -244,4 +315,14 @@ blockquote p {
         font-size: 1.1rem;
     }
 }
-/*endregion*/
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    header.site-header div#brand-info div.container-fixed div#brand-phone {
+        width: auto;
+        padding: 2px 25px;
+    }
+}
+
+
+
+

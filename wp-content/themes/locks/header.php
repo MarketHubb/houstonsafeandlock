@@ -186,7 +186,7 @@
                     <?php // } ?>
 
                     <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
-                    <h3>Call Now</h3>
+                    <h3>Get Pricing</h3>
                     <p><a href="tel:713-522-5555">713-522-5555</a></p>
 
                 </div>

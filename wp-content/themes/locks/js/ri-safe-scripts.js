@@ -1,6 +1,32 @@
 /* jQuery (Footer) */
 (function($) {
 
+    // Prevent default WP image thumbnail click event
+    $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:nth-of-type(2)').addClass('active-thumb');
+    
+    $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:not(:first-of-type) a').each(function() {
+        let anchorSrc = $(this).attr('href');
+        $(this).find('img')
+            .attr('src', anchorSrc)
+            .attr('srcset', anchorSrc);
+
+    });
+
+    $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image a').on('click', function(event){
+        event.preventDefault();
+
+        $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image').each(function() {
+           $(this).removeClass('active-thumb');
+        });
+
+        $(this).closest('.woocommerce-product-gallery__image').addClass('active-thumb');
+
+        let activeSrc = $(this).find('img').attr('srcset');
+        $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:first-of-type img')
+            .attr('srcset', activeSrc);
+
+    });
+
     // Custom Bootstrap modal with Gravity form
     $('#productModal').on('show.bs.modal', function (event) {
         let modal = $(this);

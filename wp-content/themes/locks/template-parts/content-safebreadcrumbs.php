@@ -7,17 +7,17 @@
 
 
                 <?php
-                    $breadcrumb_start_organic = '<li property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
+                    $breadcrumb_start_organic = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(2320) . '">
-                                    <span property="name">All Safes</span></a>
+                                    <span property="name me-1 px-0">All Safes <span class="mx-1">›</span></span></a>
                                     <meta property="position" content="1">
-                                    </li> ›';
+                                    </li>';
 
-                    $breadcrumb_start_category = '<li property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
+                    $breadcrumb_start_category = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(3857) . '">
-                                    <span property="name">All Safes</span></a>
+                                    <span property="name me-1 px-0">All Safes <span class="mx-1">›</span></span></a>
                                     <meta property="position" content="1">
-                                    </li> ›';
+                                    </li>';
 
                     $breadcrumbs = '';
 
@@ -33,30 +33,30 @@
 
                         $pos = strpos($request_referrer, 'category-gun-safes');
 
-                        if ($pos === false) {
+//                        if ($pos === false) {
 
                             $breadcrumbs .= $breadcrumb_start_organic;
 
                             foreach (array_reverse($terms) as $term) {
 
-                                $breadcrumbs .= '<li property="itemListElement" typeof="ListItem">';
+                                $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">';
                                 $breadcrumbs .= '<a property="item" typeof="WebPage"';
                                 $breadcrumbs .= 'href="' . get_term_link($term->term_id , 'product_cat' ) . '">';
-                                $breadcrumbs .= '<span property="name">' . $term->name . '</span></a>';
+                                $breadcrumbs .= '<span property="name me-1 px-0">' . $term->name . ' <span class="mx-1">›</span></span></a>';
                                 $breadcrumbs .= '<meta property="position" content="' . ($i + 2) . '">';
                                 $breadcrumbs .= '</li>';
-                                $breadcrumbs .= '›';
 
                                 $i++;
 
 
                             }
 
-                        } else {
-
-                            $breadcrumbs .= $breadcrumb_start_category;
-
-                        }
+//                        }
+//                    else {
+//
+//                            $breadcrumbs .= $breadcrumb_start_category;
+//
+//                        }
 
 
                     } else if (is_archive() && !is_shop()) {
@@ -68,8 +68,8 @@
                     }
 
 
-                    $breadcrumbs .= '<li property="itemListElement" typeof="ListItem">
-                                    <span property="name">' . $title . '</span>
+                    $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">
+                                    <span property="name me-1 px-0">' . $title . '</span>
                                     <meta property="position" content="' . ( count($terms) + 1) . '">
                                     </li>';
 

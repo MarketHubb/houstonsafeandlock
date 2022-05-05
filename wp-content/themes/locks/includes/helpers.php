@@ -65,7 +65,7 @@ function get_product_inquiry_btn($post_id, $btn_text, $stretched=null)
     $attr = get_safe_attributes($post_id);
     $stretched_class = $stretched ? 'stretched-link' : '';
 
-    $btn  = '<button type="button" class="btn btn-primary inline-block ';
+    $btn  = '<button type="button" class="btn btn-primary bg-orange d-block d-md-inline-block border-0 ';
     $btn .= $stretched_class . '" ';
     $btn .= 'data-bs-toggle="modal" data-bs-target="#productModal" ';
     $btn .= 'data-safeimage="' . $image[0] . '" ';

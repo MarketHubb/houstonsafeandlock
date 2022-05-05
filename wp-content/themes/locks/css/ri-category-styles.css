@@ -147,9 +147,6 @@
 }
 /* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
-	#right-content {
-		margin-right: 3rem;
-	}
 	.sem-phone-lead {
 		color: #fff;
 	}

@@ -25,8 +25,13 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
     return;
 }
+// Custom:
+$item_num = $wp_query->current_post +1;
 ?>
-<li <?php wc_product_class( '', $product ); ?>>
+<div <?php wc_product_class( ['col-md-3 mb-4 mb-md-5'], $product ); ?>>
+    <div class="card h-100">
+        <div class="card-body d-flex flex-column p-0">
+<!-- <li <?php //wc_product_class( 'h-100', $product ); ?>> -->
     <?php
     /**
      * Hook: woocommerce_before_shop_loop_item.
@@ -67,9 +72,32 @@ if ( empty( $product ) || ! $product->is_visible() ) {
     do_action( 'woocommerce_after_shop_loop_item' );
     ?>
 
+    <!-- Container (After Title) -->
+    <div class="text-center">
+    
+    <!-- Attributes -->
+    <?php if (get_field('post_product_gun_weight')) { ?>
+        <p class="mb-1 mb-md-0"><strong>Weight: </strong></p>
+        <p><?php echo get_field('post_product_gun_weight'); ?>lbs</p>
+    <?php } ?>
+
+    <?php if (get_field('post_product_gun_exterior_depth')) { ?>
+        <p class="mb-1 mb-md-0"><strong>Exterior Dimensions: </strong></p>
+            <p>
+            <?php echo get_field('post_product_gun_exterior_height'); ?>"(H) x
+            <?php echo get_field('post_product_gun_exterior_width'); ?>"(W) x
+            <?php echo get_field('post_product_gun_exterior_depth'); ?>"(D)</p>
+            </p>
+    <?php } ?>
+
     <!-- Button trigger modal -->
-    <div class="text-center mt-3 mb-4">
+    <div class="text-center mx-auto mb-4 mt-auto pt-4 pb-3">
         <?php echo get_product_inquiry_btn($post->ID, 'Product Inquiry'); ?>
     </div>
 
-</li>
+    </div>
+
+    </div>
+</div>
+</div>
+<!-- </li> -->

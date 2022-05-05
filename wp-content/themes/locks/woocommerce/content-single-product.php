@@ -43,7 +43,7 @@ if ( post_password_required() ) {
     do_action( 'woocommerce_before_single_product_summary' );
     ?>
 
-    <div class="summary entry-summary">
+    <div class="summary entry-summary test">
         <?php
         /**
          * Hook: woocommerce_single_product_summary.
@@ -62,7 +62,7 @@ if ( post_password_required() ) {
         echo $post->post_excerpt;
         ?>
         <!-- Button trigger modal -->
-        <div class=" mt-3 mb-4">
+        <div class="my-4 mb-5 px-4 px-md-0">
             <?php echo get_product_inquiry_btn($post->ID, 'Product Inquiry'); ?>
         </div>
     </div>
