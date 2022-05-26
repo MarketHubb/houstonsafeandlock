@@ -14,9 +14,10 @@ function get_repeater_field_row($repeater_field, $row_index, $sub_field, $post_i
 }
 function return_discount($old, $new)
 {
-    $percentChange =  ($new/$old) * 100;
+    $percentChange =  (1 - ($new/$old)) * 100;
 
     return round($percentChange, 0);
+    // return $percentChange;
 }
 function return_phone_lead($post_id)
 {
