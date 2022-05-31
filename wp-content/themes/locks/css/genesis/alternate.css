@@ -1,0 +1,20 @@
+/* Parent  */
+.entry-content .wp-block-genesis-blocks-gb-columns.alternate {
+    padding-top: 6% !important;
+    padding-bottom: 6% !important;
+}
+.entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap {
+	grid-template-columns: repeat(2, 1fr);
+} 
+.entry-content div.alternate:nth-of-type(even) {
+    background-color: #f3f3f3 !important;
+}
+/* Child */
+.entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(1) 
+{
+    grid-column: 2 !important;
+} 
+.entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(2) 
+{
+    grid-column: 1 !important;
+} 

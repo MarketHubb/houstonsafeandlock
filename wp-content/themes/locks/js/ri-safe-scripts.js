@@ -9,7 +9,6 @@
         $(this).find('img')
             .attr('src', anchorSrc)
             .attr('srcset', anchorSrc);
-
     });
 
     $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image a').on('click', function(event){

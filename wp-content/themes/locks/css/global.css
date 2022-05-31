@@ -1,3 +1,7 @@
+h1,h2,h3,h4,h5 {
+    font-weight: bold;
+    text-transform: none !important;
+}
 h2.widget-title {
     display: none;
 }

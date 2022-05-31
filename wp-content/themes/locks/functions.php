@@ -1,5 +1,6 @@
 <?php
-require_once 'includes/helpers.php';
+ require_once 'includes/helpers.php';
+
 /**
  * locks functions and definitions.
  *
@@ -8,7 +9,7 @@ require_once 'includes/helpers.php';
  * @package locks
  */
 // Disable full-screen editor
-if (is_admin()) {
+ if (is_admin()) {
     function pa_disable_fullscreen_wp_editor() {
         $script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
         wp_add_inline_script( 'wp-blocks', $script );
@@ -166,10 +167,11 @@ function locks_scripts() {
 
     if (!is_admin()) {
         wp_enqueue_style( 'ri-global-styles', get_template_directory_uri() . '/css/ri-global-styles.css' );
+        wp_enqueue_style( 'genesis-alternate', get_template_directory_uri() . '/css/genesis/alternate.css' );
         wp_enqueue_style( 'ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css' );
+        wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
 
     }
-
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -593,7 +595,6 @@ function ri_conditional_script_loading()
     if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
         wp_enqueue_style('ri-safe-styles');
         wp_enqueue_script('ri-safe-scripts');
-        // wp_enqueue_style( 'safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
     }
 
     // Category gun safes
