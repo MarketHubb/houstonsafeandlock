@@ -624,6 +624,11 @@ function ri_conditional_script_loading()
     if (is_product_category()) {
     	wp_enqueue_style( 'safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
     }
+    // Safe category pages
+    if (is_page_template('page-templates/full-width.php')) {
+    	wp_enqueue_style( 'genesis-global', get_stylesheet_directory_uri() . '/css/genesis/global.css');
+    	wp_enqueue_script('genesis-scripts', get_stylesheet_directory_uri() . '/js/genesis-scripts.js', [], '', true);
+    }
 }
 add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 

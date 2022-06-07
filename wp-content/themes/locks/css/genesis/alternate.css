@@ -7,7 +7,9 @@
 	grid-template-columns: repeat(2, 1fr);
 } 
 .entry-content div.alternate:nth-of-type(even) {
-    background-color: #f3f3f3 !important;
+    background-color: #fdfdfd !important;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
 }
 /* Child */
 .entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(1) 
