@@ -11,7 +11,9 @@
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
 }
-/* Child */
+
+@media only screen and (min-width: 600px) {
+    /* Child */
 .entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(1) 
 {
     grid-column: 2 !important;
@@ -19,4 +21,5 @@
 .entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(2) 
 {
     grid-column: 1 !important;
-} 
+}     
+}
