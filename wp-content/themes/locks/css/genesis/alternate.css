@@ -3,9 +3,6 @@
     padding-top: 6% !important;
     padding-bottom: 6% !important;
 }
-.entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap {
-	grid-template-columns: repeat(2, 1fr);
-} 
 .entry-content div.alternate:nth-of-type(even) {
     background-color: #fdfdfd !important;
     border-top: 1px solid #efefef;
@@ -13,7 +10,9 @@
 }
 
 @media only screen and (min-width: 600px) {
-    /* Child */
+.entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap {
+    grid-template-columns: repeat(2, 1fr);
+} 
 .entry-content div.alternate:nth-of-type(odd) .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap .gb-block-layout-column:nth-of-type(1) 
 {
     grid-column: 2 !important;
