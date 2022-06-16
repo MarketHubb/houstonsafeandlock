@@ -36,9 +36,15 @@
 					<?php } ?>
 				</div>
 				<div id="footer-disclaimer">
-					<?php the_field( 'footer_disclaimer', 'option' ); ?>
+					<?php //the_field( 'footer_disclaimer', 'option' ); ?>
+                    <p class="lead fw-bold mb-4">Bonded and Insured For Your Protection! License #B19935701</p>
 				</div>
-			</div>
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-2">
+                        <img class="" src="<?php echo get_home_url() . '/wp-content/uploads/2022/06/HSL-Phone.png'; ?>" />
+                    </div>
+                </div>
+            </div>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
