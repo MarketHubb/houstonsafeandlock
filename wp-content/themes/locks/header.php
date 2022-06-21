@@ -109,7 +109,7 @@
 
 
 
-        <div id="pre-nav" class="bg-orange">
+        <div id="pre-nav" class="">
             <div class="container-fixed">
                 
                 <?php if (!get_field('active', 'options')) { ?>

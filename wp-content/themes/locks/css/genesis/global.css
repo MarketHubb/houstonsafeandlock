@@ -4,6 +4,12 @@
 	border-top: 1px solid #efefef;
 	border-bottom: 1px solid #efefef;
 }
+.star-container i {
+	color: #ce742e !important;
+}
+.align-items-center, .align-items-center > .gb-layout-column-wrap {
+	align-items: center;
+}
 /* Helpers */
 .d-none {
 	display: none !important;
@@ -14,7 +20,7 @@
 .mb-0 {
 	margin-bottom: 0 !important;
 }
-/* Genesis Blocks */
+/* Genesis Containers & Blocks */
 hr.is-style-wide {
 	border: none;
 }
