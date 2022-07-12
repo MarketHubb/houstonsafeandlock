@@ -8,15 +8,23 @@ get_header(); ?>
 			<p class="mb-0 text-white">
 				<i class="fas fa-exclamation-triangle me-2"></i>
 				Same-day appointments available - Call Now
-			</p>
+            </p>
 		</div>
+        <div class="mb-5">
+            <p class="d-inline-block px-3 text-white">Access Systems</p>
+            <p class="d-inline-block px-3 text-white border-left border-right">Keys &  Locks</p>
+            <p class="d-inline-block px-3 text-white">Emergencies</p>
+        </div>
+
     </div>
 </div>
 <?php } ?>
+<div class="genesis-container">
 <?php 
 while ( have_posts() ) : the_post();
 	get_template_part( 'template-parts/content', 'page' );
 endwhile; // End of the loop.
 ?>
+</div>
 
 <?php get_footer(); ?>

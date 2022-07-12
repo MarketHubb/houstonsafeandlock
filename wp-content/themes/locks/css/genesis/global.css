@@ -31,14 +31,22 @@ hr.is-style-wide {
     height: 100px;
     margin-bottom: 1rem;
 }
+/* Hero */
+.hero-new i.fas {
+	margin-right: .5rem;
+}
 /* CTA */
 .cta-text-phone {
-	font-size: 2rem;
-	color: #ce742e !important;
+	font-size: 2.5rem;
+	color: #ce742e;
+	font-weight: bolder;
+	letter-spacing: .015rem;
 }
 .cta-text {
-	color: #174368 !important;
 	font-size: 1.3rem !important;
+}
+.cta-text, .cta-text-phone {
+	font-family: "Source Sans Pro";
 }
 .cta-text, .cta-text + .cta-text-phone {
 	font-weight: bold;

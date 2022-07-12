@@ -154,7 +154,7 @@ ul.flush {
     border: none;
 }
 .text-white {
-    color: #fff;
+    color: #fff !important;
 }
 .text-dark {
 

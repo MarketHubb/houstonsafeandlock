@@ -153,6 +153,10 @@ function locks_scripts() {
         wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
     }
 
+    if ( is_page_template('page-templates/full-width.php')) {
+        wp_enqueue_style( 'genesis-styles', get_template_directory_uri() . '/css/genesis-styles.css' );
+    }
+
     if ( is_singular( 'safe' ) ) {
         wp_enqueue_style( 'magnific-popup-style', get_template_directory_uri() . '/css/magnific-popup.css' );
         wp_enqueue_style( 'responsive-tables-style', get_template_directory_uri() . '/css/responsive-tables.css' );
