@@ -112,6 +112,10 @@
         <div id="pre-nav" class="">
             <div class="container-fixed">
                 
+                <p class="mb-0 pb-0 d-inline">
+                    <a class="mb-0 pb-0 text-white text-decoration-underline" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
+                </p>
+                
                 <?php if (!get_field('active', 'options')) { ?>
 
                     <!-- Scroll logo (Text image) -->
