@@ -145,6 +145,7 @@ get_header();
 			if (get_field('post_product_gun_in_stock')) {
 				
 				// Product data
+                $title = get_the_title();
                 $current_discount = get_field('global_safes_discount_percentage', 'option');
                 $msrp = get_field('post_product_gun_msrp');
                 $msrp_clean = str_replace(',', '', $msrp);
@@ -166,8 +167,14 @@ get_header();
 				
 				$safes .= '<div class="col-12 col-md-6 col-lg-4 product-list-item mix manufacturer-' . $key . '" ';
 				$safes .= 'data-series="' . substr(get_the_title(), 0, 2) . '" ';
-				$safes .= 'data-name="' . array_shift(explode(' ', get_the_title())) .  '" ';
-				$safes .= 'data-msrp="' . round($msrp, 0) . '" ';
+
+                $title_array = explode(' ', $title);
+				$safes .= 'data-name="' . array_shift($title_array) .  '" ';
+
+                if ($msrp && is_numeric($msrp)) {
+				    $safes .= 'data-msrp="' . round($msrp, 0) . '" ';
+                }
+
 				$safes .= 'data-weight="' . $weight . '" ';
 				$safes .= 'data-capacity="' . $gun_capacity . '" ';
 				$safes .= 'data-rating="' . $fire_rating . '" ';
