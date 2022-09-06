@@ -24,11 +24,13 @@
 				<div id="footer-logos">
 					<?php
 					$images = get_field( 'footer_images', 'option' );
-					foreach ( $images as $image ) { ?>
-<!--						<a href="--><?php //echo $image['url']; ?><!--">-->
-							<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="" />
-<!--						</a>-->
-					<?php } ?>
+                    if ($images) {
+                        foreach ( $images as $image ) { ?>
+                            <!--						<a href="--><?php //echo $image['url']; ?><!--">-->
+                            <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="" />
+                            <!--						</a>-->
+                        <?php } ?>
+                    }
 				</div>
 				<div id="footer-disclaimer">
 					<?php //the_field( 'footer_disclaimer', 'option' ); ?>
