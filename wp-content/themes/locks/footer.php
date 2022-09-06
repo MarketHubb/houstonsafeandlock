@@ -12,11 +12,6 @@
 	</div><!-- #content -->
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
-            <?php
-            if( current_user_can( 'manage_options' ) )
-                // Print the saved global
-                printf( '<div><strong>Current template:</strong> %s</div>', get_page_template() );
-            ?>
 			<div class="container-fixed">
 				<div id="footer-cols">
 					<?php
