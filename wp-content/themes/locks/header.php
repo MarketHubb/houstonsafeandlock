@@ -94,7 +94,8 @@
 
 </head>
 <body <?php body_class(); ?>>
-<div id="page" class="site <?php echo sanitize_post ( get_queried_object() )->post_name; ?>">
+<?php $body_class =  sanitize_post ( get_queried_object() )->post_name ?: ''; ?>
+<div id="page" class="site <?php echo $body_class; ?>">
     <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'locks' ); ?></a>
     <header id="masthead" class="site-header" role="banner">
 
