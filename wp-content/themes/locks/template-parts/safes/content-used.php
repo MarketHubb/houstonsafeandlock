@@ -1,6 +1,6 @@
-<div class="container-fluid content-section" id="used-safes">
-    <div class="wrapper">
-        <div class="row">
+<!--<div class="container-fluid content-section" id="used-safes">-->
+<!--    <div class="wrapper">-->
+<div class="container content-section" id="used-safes">
             <?php
             $query_args = array(
                 'post_type' => 'used_safes',
@@ -12,6 +12,7 @@
             	while ($query->have_posts()) : $query->the_post();
                 
                     if (!get_field('sold')) {
+                        $u .= '<div class="used-container border-bottom">';
                         $u .= '<div class="row align-items-center justify-content-between align-items-center py-2j">';
                         $u .= '<div class="col-md-4">';
                         $u .= '<div class="card no-borders h-100">';
@@ -65,7 +66,7 @@
 
                         $u .= $i;
 
-                        $u .= '</div></div></div>';
+                        $u .= '</div></div></div></div>';
                     }
             	endwhile;
                 echo $u;

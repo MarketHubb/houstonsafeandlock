@@ -42,6 +42,34 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 /*--------------------------------------------------------------
 # RI Custom Styles
 --------------------------------------------------------------*/
+.clamp-4 {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+#search-results .product_title.entry-title,
+#search-results h2.is-h4-size,
+#search-results .fa-ul li i
+{
+	display: none;
+}
+#search-results .fa-ul {
+	list-style-type: disc;
+	padding-left: 0;
+}
+#search-results .container:nth-child(even) {
+	background-color: #f8fafb;
+}
+.results-img {
+	max-height: 150px;
+}
+.search-field-row {
+	margin-bottom: 0;
+}
+.card-body ul {
+	padding-left: 0rem;
+}
 .woocommerce ul.products {
 	margin-top: 3em !important;
 }

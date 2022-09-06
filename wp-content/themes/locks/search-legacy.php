@@ -52,7 +52,7 @@ get_header(); ?>
 
 						<?php
 
-						if ( have_posts() ) : ?>
+						if ( have_posts() ) :  echo 'yes';?>
 
 
 
@@ -62,19 +62,21 @@ get_header(); ?>
 
 						</header>
 
-						<div class="search-results-container">
-
+						<!--<div class="search-results-container">-->
+						<div class="safes-container">
+                        <ul>
 
 
 
 
 							<?php
+							
 
 							/* Start the Loop */
 
 							while ( have_posts() ) : the_post();
 
-
+                           $cnt++;
 
 								/**
 
@@ -107,7 +109,7 @@ get_header(); ?>
 
 
 							endif; ?>
-
+</ul>
 						</div>
 
 					</div>

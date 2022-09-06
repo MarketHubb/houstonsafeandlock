@@ -31,7 +31,7 @@
 					$images = get_field( 'footer_images', 'option' );
 					foreach ( $images as $image ) { ?>
 <!--						<a href="--><?php //echo $image['url']; ?><!--">-->
-							<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="<?php echo $image['alt']; ?>" />
+							<img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="" />
 <!--						</a>-->
 					<?php } ?>
 				</div>

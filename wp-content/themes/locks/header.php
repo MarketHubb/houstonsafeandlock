@@ -110,7 +110,7 @@
 
 
         <div id="pre-nav" class="">
-            <div class="container-fixed">
+            <div class="container-fixed py-2">
                 
                 <p class="mb-0 pb-0 d-inline">
                     <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
@@ -127,11 +127,7 @@
                     </div>
                     <!-- CURRENT:: Pre Nav (social icons) -->
                     <div id="right-content">
-                        <div id="social">
-                            <a href="<?php the_field( 'facebook_url', 'option' ); ?>" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                            <a href="<?php the_field( 'twitter_url', 'option' ); ?>" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
-                            <a class="text-white" id="email" href="mailto:safelock.derek@gmail.com"><i class="fas fa-envelope fa-lg"></i></a>
-                        </div>
+                        <?php get_search_form(); ?>
                     </div>
 
             <?php } else { ?>

@@ -18,7 +18,7 @@ get_header(); ?>
 
 					<div class="container-fixed">
 
-						<h1>Search Results</h1>        </div>
+						<h1>Search Result</h1>        </div>
 
 				</div>
 
