@@ -29,8 +29,9 @@
                             <!--						<a href="--><?php //echo $image['url']; ?><!--">-->
                             <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="" />
                             <!--						</a>-->
-                        <?php } ?>
+                        <?php }
                     }
+                ?>
 				</div>
 				<div id="footer-disclaimer">
 					<?php //the_field( 'footer_disclaimer', 'option' ); ?>
