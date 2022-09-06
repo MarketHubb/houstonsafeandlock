@@ -27,7 +27,7 @@
                     if ($images) {
                         foreach ( $images as $image ) { ?>
                             <!--						<a href="--><?php //echo $image['url']; ?><!--">-->
-                            <img src="<?php echo $image['sizes']['thumbnail']; ?>" alt="" />
+<!--                            <img src="--><?php //echo $image['sizes']['thumbnail']; ?><!--" alt="" />-->
                             <!--						</a>-->
                         <?php }
                     }
