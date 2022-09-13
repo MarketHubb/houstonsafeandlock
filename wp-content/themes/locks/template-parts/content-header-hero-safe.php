@@ -71,7 +71,7 @@ if (get_field('page_include_banner')) {
             $manufacturer = get_field('post_product_gun_manufacturer');
             $model = get_the_title(); ?>
 
-            <h1 class="product-detail-heading"><?php echo $manufacturer . ' ' . $model; ?></h1>
+            <h1 class="product-detail-heading"><?php echo $model; ?></h1>
             <p class="product-detail-subheading mb-0"><?php echo get_field('post_product_gun_model_description'); ?></p>
 
         <?php } ?>

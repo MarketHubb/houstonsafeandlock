@@ -196,8 +196,8 @@ get_header();
 				
 				
 				$safes .= '</div>';
-				$safes .= '<div class="card-body">';
-				$safes .= '<h3 class="card-title">' . $key . ' ' . get_the_title() . '</h3>';
+				$safes .= '<div class="card-body p-4">';
+				$safes .= '<h3 class="card-title">' .  get_the_title() . '</h3>';
 				$safes .= '<img src="' . get_the_post_thumbnail_url() . '"/>';
 				$safes .= '<hr/>';
 				
@@ -221,7 +221,7 @@ get_header();
                 $safes .= 'data-target="#productModal" ';
                 $safes .= 'data-safeimage="' . get_the_post_thumbnail_url() . '" ';
                 $safes .= 'data-safetype="' . $attr['safe_type'] . '" ';
-                $safes .= 'data-safename="' . $key . ' ' . get_the_title() . '">';
+                $safes .= 'data-safename="' .  get_the_title() . '">';
                 $safes .= 'Product Inquiry</button>';
 				$safes .= '</div>';
 
