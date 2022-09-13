@@ -63,7 +63,7 @@ if ( post_password_required() ) {
         ?>
         <!-- Button trigger modal -->
         <div class="my-4 mb-5 px-4 px-md-0">
-            <?php echo get_product_inquiry_btn($post->ID, 'Product Inquiry'); ?>
+            <?php echo get_product_inquiry_btn($post->ID, 'Get Pricing & Availability'); ?>
         </div>
     </div>
 
