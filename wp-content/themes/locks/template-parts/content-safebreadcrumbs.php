@@ -1,7 +1,7 @@
 <?php if (!is_shop()) { ?>
 
     <div class="container-fluid" id="breadcrumb-container">
-        <div class="row">
+        <div class="row justify-content-end w-100">
             <div class="col">
                 <ol vocab="https://schema.org/" typeof="BreadcrumbList">
 
@@ -9,13 +9,13 @@
                 <?php
                     $breadcrumb_start_organic = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(2320) . '">
-                                    <span property="name me-1 px-0">All Safes <span class="mx-1">›</span></span></a>
+                                    <span property="name me-1 px-0">Safes <span class="mx-1">›</span></span></a>
                                     <meta property="position" content="1">
                                     </li>';
 
                     $breadcrumb_start_category = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(3857) . '">
-                                    <span property="name me-1 px-0">All Safes <span class="mx-1">›</span></span></a>
+                                    <span property="name me-1 px-0">Safes <span class="mx-1">›</span></span></a>
                                     <meta property="position" content="1">
                                     </li>';
 
@@ -68,8 +68,9 @@
                     }
 
 
+                    $title_clean = trim(str_replace('AMSEC', '', $title));
                     $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">
-                                    <span property="name me-1 px-0">' . $title . '</span>
+                                    <span property="name me-1 px-0">' . $title_clean . '</span>
                                     <meta property="position" content="' . ( count($terms) + 1) . '">
                                     </li>';
 

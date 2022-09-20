@@ -1,6 +1,6 @@
 <?php
     $image = get_field('home_background_image', $post->ID);
-    $bg_opacity = $hero['page_banner_image_opacity'] > 0 ? $hero['page_banner_image_opacity'] : .01;
+    $bg_opacity = .01;
     $linear_gradient = 'linear-gradient(to bottom, rgba(0,0,0,' .  $bg_opacity . ') 0%,rgba(0,0,0,' . $bg_opacity . ') 100%)';
     $text_align_class = $hero['page_banner_text_align'] = 'center' ? 'text-center' : '';
 

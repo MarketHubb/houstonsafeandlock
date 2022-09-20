@@ -21,6 +21,7 @@
 }
 .gfield_label {
     line-height: 1.4;
+    margin-bottom: 0;
 }
 .gform_wrapper ul.gfield_radio li label {
     font-size: 0.75rem;

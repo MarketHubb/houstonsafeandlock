@@ -45,7 +45,7 @@ if (get_field('page_include_banner')) {
     }
     ?>
 
-    <div class="container-fixed ">
+    <div class="container-fixed">
 
         <?php
         // Safe Shop

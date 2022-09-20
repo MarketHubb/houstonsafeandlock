@@ -69,13 +69,12 @@
 	max-height: 288px;
 }
 .product-details-list li span {
-	font-size: 85% !important;
+	font-size: 100% !important;
 }
 .product-details-list li {
 	margin-bottom: .15em;
 }
 .product-details-list li span.badge {
-	margin-right: .25em;
 	font-weight: normal !important;
 	color: #111;
 	background-color: transparent;
@@ -170,6 +169,9 @@
 }
 /* Medium devices (tablets, 768px and DOWN) */
 @media (max-width: 768px) {
+	.product-list-item .img-container > img {
+		max-height: 175px;
+	}
 	#category-page-heading {
 		font-size: 1.5em;
 		margin-bottom: .25em !important;

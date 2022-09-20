@@ -44,7 +44,7 @@ if ($hero) :
     </div>
 
     <?php } ?>
-    <div class="jumbotron bg-cover text-white px-sm-2 <?php echo $bg_align_class; ?> <?php echo $image_align_class; ?>"
+    <div class="jumbotron bg-cover text-white px-sm-2 py-2 py-md-4 <?php echo $bg_align_class; ?> <?php echo $image_align_class; ?>"
          style="background-image: <?php echo $linear_gradient; ?>,
          url(<?php echo $hero['page_banner_image']; ?>)">
 
@@ -74,24 +74,26 @@ if ($hero) :
             <?php if (is_page(4149)) { ?>
                 <div class="row justify-content-center">
                     <div class="col-11 col-md-10 col-lg-9">
-                        <h1 class="display-2 mb-3 mt-3">24/7 Houston Locksmiths</h1>
+                        <h1 class="display-2 mb-3 mt-3 lh-sm">24/7 Houston Locksmiths</h1>
                         <p class="lead text-white d-block d-lg-none"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
                         <p class="lead text-white d-none d-lg-block fs-3 fw-500"><span class="">Licensed, bonded and insured locksmiths</span> serving all of Houston and surrounding communities 24-hours a day, 7-days a week.</p>
 
             <?php } else { ?>
-            <div class="container <?php echo $text_align_class; ?> py-3">
+            <div class="container <?php echo $text_align_class; ?>">
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-8">
-                        <div class="image-text-container d-inline-block p-4 p-md-5">
+                        <div class="image-text-container d-inline-block p-2 p-md-5">
 
-                            <h1 class="display-3 mb-0 mt-5 mt-lg-3"><?php echo $heading; ?></h1>
+                            <h1 class="display-5 mt-3 lh-1"><?php echo $heading; ?></h1>
 
                             <?php if ($hero['page_banner_subheading']) { ?>
                                 <p class="subheading mt-3 text-white fw-bold lh-1"><?php echo $hero['page_banner_subheading']; ?></p>
                             <?php } ?>
 
+                            <?php $mobile_text = $hero['page_banner_mobile_description'] ?: $hero['page_banner_description']; ?>
+
                             <?php if ($hero['page_banner_description']) { ?>
-                                <p class="lead text-white d-block d-lg-none"><?php echo $hero['page_banner_description']; ?></p>
+                                <p class="lead text-white d-block d-lg-none"><?php echo $mobile_text; ?></p>
                                 <p class="lead text-white d-none d-lg-block fs-3 fw-500"><?php echo $hero['page_banner_description']; ?></p>
                             <?php } ?>
 

@@ -57,18 +57,18 @@ get_header();
     }
     ?>
 	 
-	 <div class="container" id="custom-page-template-title" data-url="<?php echo get_home_url(); ?>">
+	 <div class="container d-none" id="custom-page-template-title" data-url="<?php echo get_home_url(); ?>">
 	 	<div class="row">
 	 		<div class="col-12 text-center">
 <!--	 			<h1 id="category-page-heading">--><?php //the_field('page_category_gun_headline'); ?><!--</h1>-->
 <!--                <p id="category-page-subheading">--><?php //echo get_field('page_category_gun_subheadline'); ?><!--</p>-->
                 <?php
                 if( have_rows('page_category_gun_benefits') ):
-                    $benefits = '<div class="row features-benefits">';
+                    $benefits = '<div class="row d-md-block features-benefits">';
                     while ( have_rows('page_category_gun_benefits') ) : the_row();
-                        $benefits .= '<div class="col-4 text-center">';
+                        $benefits .= '<div class="col-4 text-center p-2 p-md-5 p-lg-5">';
                         $benefits .= '<i class="' . get_sub_field('page_category_gun_benefits_icon') . ' fa-2x" style="--fa-primary-color: #cce5ff;"></i>';
-                        $benefits .= '<h3>' . get_sub_field('page_category_gun_benefits_benefit') . '</h3>';
+                        $benefits .= '<h5>' . get_sub_field('page_category_gun_benefits_benefit') . '</h5>';
                         $benefits .= '<p class="d-none d-lg-block">' . get_sub_field('page_category_gun_benefits_description') . '</p>';
                         $benefits .= '</div>';
                     endwhile;
@@ -153,7 +153,8 @@ get_header();
                 $amount_off = floor(($current_discount * .01) * $msrp_num);
 				$weight = get_field('post_product_gun_weight');
 				$fire_rating = get_field('post_product_gun_fire_rating');
-				$gun_capacity = get_field('post_product_gun_gun_capacity');
+
+				$gun_capacity = get_field('post_product_gun_capacity_total') ?: get_field('post_product_gun_gun_capacity');
 				
 				$interior_depth = round(get_field('post_product_gun_interior_depth'));
 				$interior_width = round(get_field('post_product_gun_interior_width'));
@@ -196,33 +197,29 @@ get_header();
 				
 				
 				$safes .= '</div>';
-				$safes .= '<div class="card-body p-4">';
+				$safes .= '<div class="card-body p-4 mb-3">';
 				$safes .= '<h3 class="card-title">' .  get_the_title() . '</h3>';
+                $safes .= '<div class="d-flex justify-content-center mt-4 img-container">';
 				$safes .= '<img src="' . get_the_post_thumbnail_url() . '"/>';
+                $safes .= '</div>';
 				$safes .= '<hr/>';
 				
 				// Product details
 				$safes .= '<ul class="product-details-list">';
-				// $safes .= '<li><span class="badge badge-light">Series:</strong></span><span class="product-detail-value">' . substr(get_the_title(), 0, 2) . '</span>';
-//				$safes .= '<li class="attribute-msrp"><span class="badge badge-light msrp">MSRP</strong></span><span class="product-detail-value">$' . $msrp . '</span><span class="discount">Save up to $' . number_format($amount_off) . '</span>';
-				$safes .= '<li><span class="badge badge-light capacity">Capacity</strong></span><span class="product-detail-value">' . $gun_capacity . ' guns</span>';
-				$safes .= '<li><span class="badge badge-light weight">Weight</strong></span><span class="product-detail-value">' . $weight . ' lbs</span>';
-				$safes .= '<li><span class="badge badge-light rating">Fire Rating</strong></span><span class="product-detail-value">' . $fire_rating . ' minute</span>';
-				$safes .= '<li><span class="badge badge-light exterior-height exterior-depth exterior-width">Ext. Dimensions</strong></span><span class="product-detail-value">' . $exterior_dimensions . '' . '</span>';
+				$safes .= '<li><span class="badge badge-light capacity">Capacity:</strong></span><span class="product-detail-value">' . $gun_capacity . ' guns</span>';
+				$safes .= '<li><span class="badge badge-light weight">Weight:</strong></span><span class="product-detail-value">' . $weight . ' lbs</span>';
+				$safes .= '<li><span class="badge badge-light rating">Fire Rating:</strong></span><span class="product-detail-value">' . $fire_rating . ' minute</span>';
+				$safes .= '<li><span class="badge badge-light exterior-height exterior-depth exterior-width">Dimensions:</strong></span><span class="product-detail-value">' . $exterior_dimensions . '' . '</span>';
 				$safes .= '</ul>';
 				
 				// Button
-				$safes .= '<div class="text-center inquiry-container">';
-				//$safes .= '<a href="' . get_the_permalink() .  '" class="btn btn-primary btn-sm stretched-link">View Product</a>';
+				$safes .= '<div class="text-center inquiry-container pt-2 mt-2 mt-md-4">';
 
-                $attr = get_safe_attributes($post->ID);
-                $safes .= '<button type="button" class="btn btn-primary inline-block" ';
-                $safes .= 'data-toggle="modal" ';
-                $safes .= 'data-target="#productModal" ';
-                $safes .= 'data-safeimage="' . get_the_post_thumbnail_url() . '" ';
-                $safes .= 'data-safetype="' . $attr['safe_type'] . '" ';
-                $safes .= 'data-safename="' .  get_the_title() . '">';
-                $safes .= 'Product Inquiry</button>';
+                $safes .= '<a href="' . get_permalink($post->ID) . '" ';
+                $safes .= 'class="btn btn-primary bg-orange d-block d-md-inline-block border-0">';
+                $safes .= 'View Product Details</a>';
+
+//                $safes .= get_product_inquiry_btn($post->ID, "Get Pricing & Availability");
 				$safes .= '</div>';
 
                 // Link (Stretched)

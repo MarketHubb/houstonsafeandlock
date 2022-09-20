@@ -3804,6 +3804,10 @@ header.site-header nav#site-navigation div.container-fixed > div.menu-primary-me
 	margin: 0 1em 1em 0;
 	width: 30%;
 }
+#productModal #gform_1 #input_1_7 {
+	color: #111;
+	font-weight: 600 !important;
+}
 /*
 Media Queries Starts
 *********************************************************************/
@@ -3876,7 +3880,7 @@ header.site-header nav#site-navigation {
 }
  @media (max-width: 768px) {
 	 .modal button.close {
-		 margin-top: -4rem;
+		 margin-top: -3.5rem;
 	 }
 	 .modal-title {
 		 font-size: 1.25rem !important;
@@ -3888,6 +3892,7 @@ header.site-header nav#site-navigation {
 		 font-size: 1.2rem !important;
 		 padding-left: 0 !important;
 		 height: 1rem !important;
+		 overflow: hidden;
 	 }
 	 .modal-subtitle {
 		 display: none;

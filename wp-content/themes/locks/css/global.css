@@ -1,3 +1,11 @@
+.modal-callouts [class*="col"]:not(:last-of-type) {
+    border-right: 1px solid #eee;
+}
+.close {
+    opacity: 1;
+    padding-top: 0.25rem;
+    margin-right: -1.25rem;
+}
 #auto-key-icon {
     filter: invert(89%) sepia(100%) saturate(0%) hue-rotate(353deg) brightness(104%) contrast(101%);
     max-height: 25px;
@@ -22,11 +30,11 @@ h2.widget-title {
     border: none !important;
 }
 /*region Containers */
-.container-fluid > .row {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-}
+/*.container-fluid > .row {*/
+/*    width: 90%;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*}*/
 header.site-header div#pre-nav div.container-fixed {
     padding: 5px 0;
 }
@@ -175,6 +183,9 @@ ul.flush {
 .text-orange {
     color: #ce742e;
 }
+.bg-blue,.bg-brand {
+    background-color: #174368;
+}
 .bg-orange {
     background-color: #ce742e !important;
 }
@@ -265,8 +276,10 @@ blockquote p {
 @media (max-width: 1199.98px) {}
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
-    .container-fixed {
-        max-width: 90%;
+    #brand-info > .container-fixed,
+    #main > .container-fixed
+    {
+        max-width: 85%;
     }
     header.site-header div#brand-info div.container-fixed {
         padding: 0 !important;
@@ -274,6 +287,17 @@ blockquote p {
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+    .modal-new .modal-logo {
+        max-height: 30px;
+    }
+    .modal-new .close {
+        padding-top: 0.25rem;
+        margin-right: -1.75rem;
+        margin-top: -3rem !important;
+    }
+    header.site-header.is-scrolling div#brand-info {
+        display: flex;
+    }
     p {
         font-size: 1.1rem;
     }
@@ -337,6 +361,7 @@ blockquote p {
     header.site-header div#brand-info div.container-fixed div#brand-phone {
         width: auto;
         padding: 2px 25px;
+        margin-left: -12%;
     }
 }
 

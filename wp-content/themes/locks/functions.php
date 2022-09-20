@@ -531,53 +531,47 @@ function get_sem_locksmith_pages() {
 //-----------------------------------------------------
 // RI - Custom styles and scripts
 //-----------------------------------------------------
-
-/**
- * Register custom styles and scripts
- */
-wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
-wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper.min.js', array('jquery'), '', true);
-wp_register_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
-wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
-wp_register_style( 'ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css' );
-wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
-wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
-wp_register_style( 'ri-safe-styles', get_stylesheet_directory_uri() . '/css/ri-safe-styles.css' );
-wp_register_style( 'ri-alert-styles', get_stylesheet_directory_uri() . '/css/ri-alert-styles.css' );
-wp_register_style( 'ri-locksmith-styles', get_stylesheet_directory_uri() . '/css/ri-locksmith-styles.css' );
-wp_register_script('ri-safe-scripts', get_stylesheet_directory_uri() . '/js/ri-safe-scripts.js', array('jquery'), '', true);
-// Category Gun Safes
-wp_register_script('ri-sem-gun-scripts', get_stylesheet_directory_uri() . '/js/ri-sem-gun-scripts.js', array('jquery'), '', true);
-// Bootstrap Slider
-wp_register_script('slider-min-js', get_stylesheet_directory_uri() . '/js/bootstrap-slider.min.js', array('jquery'), '', true);
-wp_register_script('perfect-gun-safe-scripts', get_stylesheet_directory_uri() . '/js/perfect-gun-safe-scripts.js', array('jquery'), '', true);
-wp_register_style( 'slider-min-css', get_stylesheet_directory_uri() . '/css/bootstrap-slider.min.css' );
-wp_register_style( 'perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css' );
-// Font Awesome Pro
-wp_register_style( 'font-awesome', get_stylesheet_directory_uri() . '/fontawesome/css/all.css' );
-// Hero Banner
-wp_register_style( 'banner', get_stylesheet_directory_uri() . '/css/banner.css' );
-// Bootstrap 4 Customizations
-//wp_register_style( 'bootstrap-4', get_stylesheet_directory_uri() . '/css/bootstrap-4.css' );
-// Global Customizations
-wp_register_style( 'global', get_stylesheet_directory_uri() . '/css/global.css' );
-wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), '', true);
-
 /**
  * Conditionally enqueue custom styles and scripts
  */
-function ri_conditional_script_loading()
-{
+function ri_conditional_script_loading() {
+    /**
+     * Register custom styles and scripts
+     */
+    wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
+    wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper.min.js', array('jquery'), '', true);
+    wp_register_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
+    wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
+    wp_register_style( 'ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css' );
+    wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
+    wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
+    wp_register_style( 'ri-safe-styles', get_stylesheet_directory_uri() . '/css/ri-safe-styles.css' );
+    wp_register_style( 'ri-alert-styles', get_stylesheet_directory_uri() . '/css/ri-alert-styles.css' );
+    wp_register_style( 'ri-locksmith-styles', get_stylesheet_directory_uri() . '/css/ri-locksmith-styles.css' );
+    wp_register_script('ri-safe-scripts', get_stylesheet_directory_uri() . '/js/ri-safe-scripts.js', array('jquery'), '', true);
+// Category Gun Safes
+    wp_register_script('ri-sem-gun-scripts', get_stylesheet_directory_uri() . '/js/ri-sem-gun-scripts.js', array('jquery'), '', true);
+// Bootstrap Slider
+    wp_register_script('slider-min-js', get_stylesheet_directory_uri() . '/js/bootstrap-slider.min.js', array('jquery'), '', true);
+    wp_register_script('perfect-gun-safe-scripts', get_stylesheet_directory_uri() . '/js/perfect-gun-safe-scripts.js', array('jquery'), '', true);
+    wp_register_style( 'slider-min-css', get_stylesheet_directory_uri() . '/css/bootstrap-slider.min.css' );
+    wp_register_style( 'perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css' );
+// Font Awesome Pro
+    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all.css' );
+// Hero Banner
+    wp_register_style( 'banner', get_stylesheet_directory_uri() . '/css/banner.css' );
+// Global Customizations
+    wp_register_style( 'global', get_stylesheet_directory_uri() . '/css/global.css' );
+    wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), '', true);
+
     if (!is_admin()) {
         wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
         wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
         wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles'] );
-
-        wp_enqueue_style('font-awesome');
+        wp_enqueue_style('font-awesome-6');
         wp_enqueue_style('banner');
         wp_enqueue_script('global');
         wp_enqueue_style('global');
-//        wp_enqueue_script('bootstrap-scripts');
     }
     if (is_page(4149)) {
         wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );
@@ -585,7 +579,7 @@ function ri_conditional_script_loading()
     if (is_page_template('page-templates/gun-safes.php')) {
         wp_enqueue_script('popper');
         wp_enqueue_script('bootstrap-scripts');
-        wp_enqueue_style('bootstrap-styles');
+//        wp_enqueue_style('bootstrap-styles');
         wp_enqueue_style('ri-category-styles');
         wp_enqueue_script('ri-category-scripts');
         wp_enqueue_script('mixitup');

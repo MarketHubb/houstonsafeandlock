@@ -147,14 +147,6 @@
             <!-- CURRENT:: Fixed header (when scrolling) -->
             <div class="scrolling-brand-phone">
                 <div class="brand-phone">
-
-                    <!-- LEGACY:: Gun Safes & Gun Single (Phone Lead)  -->
-                    <?php //if ( is_page(3857) || is_singular('product') ) { ?>
-                    <!-- <h3>Call for Safe Pricing</h3>-->
-                    <?php //} else { ?>
-                    <!-- <h3>Call Us for Services</h3>-->
-                    <?php // } ?>
-
                     <h3>Call Now</h3>
                     <p><a href="tel:713-522-5555">713-522-5555</a></p>
                 </div>
@@ -171,24 +163,10 @@
                     </a>
                 </div>
 
-                <!-- LEGACY:: Safes & Single (custom phone button)  -->
-                <?php // if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(get_sem_locksmith_pages())) { ?>
-                <!-- <div id="safes-phone-container">-->
-                <!--<p><a href="tel:713-659-3951" class="btn-shadow"><i class="fas fa-phone"></i> (713) 659-3951</a></p>-->
-                <!--</div>-->
-                <?php // } ?>
-
                 <div id="brand-phone">
 
-                    <!-- LEGACY:: Safes (Dedicated call lead)fu  -->
-                    <?php //if (is_shop() || is_archive() || is_singular('product') || is_page(3857)) { ?>
-                    <!--<h3>Call for Safe Pricing</h3>-->
-                    <!--<p><a href="tel:713-522-5555">713-522-5555</a></p>-->
-                    <?php //} else { ?>
-                    <?php // } ?>
-
                     <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
-                    <h3>Call Now</h3>
+                    <h3>Get Pricing</h3>
                     <p><a href="tel:713-522-5555">713-522-5555</a></p>
 
                 </div>
