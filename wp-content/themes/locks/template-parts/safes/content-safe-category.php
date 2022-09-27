@@ -65,7 +65,10 @@
                     $labels .=  get_formatted_attributes($attribute)['name'] . ':</strong></span>';
                     $labels .= '<span class="product-detail-value">';
                     $val     = get_field('post_product_gun_' . str_replace('-', '_', $attribute));
-                    $labels .= round($val,2) . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
+
+                    if (is_numeric($val)) {
+                        $labels .= round($val, 2) . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
+                    }
 
                     $safes .= 'data-' . $attribute . '="' . $val . '" ';
                 }
