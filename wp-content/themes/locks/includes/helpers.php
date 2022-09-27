@@ -82,6 +82,8 @@ function return_manufacturer_logo_for_safe($title) {
             return '/wp-content/uploads/2019/11/2015-AMSEC-Logo-Stacked-CMYK-1.png';
         case str_contains($title, 'original'):
             return '/wp-content/uploads/2019/11/ORIGINAL-LOGO-black_highres-1.png';
+        case str_contains($title, 'perma'):
+            return '/wp-content/uploads/2022/09/Permavault-logo.jpg';
     }
 }
 function get_safe_attributes($post_id)
