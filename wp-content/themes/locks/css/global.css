@@ -1,3 +1,6 @@
+.modal-new .modal-logo {
+    max-height: 50px;
+}
 .modal-callouts [class*="col"]:not(:last-of-type) {
     border-right: 1px solid #eee;
 }
@@ -262,6 +265,12 @@ blockquote p {
 }
 /* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
+    .close {
+        opacity: 1;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
     .hero-headline {
         font-size: 4.5rem;
     }

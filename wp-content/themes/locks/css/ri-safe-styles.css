@@ -80,7 +80,13 @@ div.product div.summary.entry-summary h3.product_title.entry-title {
 	display: none !important;
 }
 /* Safe Category Page*/
-.manufacturer-logo {
+#main > .container-fixed a {
+	text-decoration: none;
+}
+.product-list-item .card-header {
+	min-height: 3.25rem;
+}
+div.product-list-item .manufacturer-logo {
 	max-width: 75px;
 }
 /* Media Queries */

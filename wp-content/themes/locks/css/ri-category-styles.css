@@ -94,9 +94,8 @@
 	padding: 0px 10px;
 	font-weight: bold;
 }
-.current-sort > span.badge {
-	background-color: #eee !important;
-	border: 1px solid #ddd;
+.product-details-list li.current-sort  > span.badge {
+	background-color: transparent;
 }
 .product-detail-value {
 	font-weight: bold;
@@ -131,6 +130,9 @@
 	margin-left: 0;
 	padding-inline-start: 0;
 	-webkit-padding-start: 0;
+}
+.product-details-list .current-sort {
+	background-color: lightgoldenrodyellow;
 }
 .product-list-item .btn:hover, .product-list-item .btn:visited {
 	color: #fff !important;

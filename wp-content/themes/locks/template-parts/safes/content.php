@@ -19,7 +19,7 @@
                 if ($term->parent === 0) {
                     $heading_order_class = ($i % 2 == 0) ? 'order-md-last' : '';
                     $cats .= '<div class="row align-items-center justify-content-end py-3 my-3 safe-categories">';
-                    $cats .= '<div class="col-md-6 h-100 ' . $heading_order_class . '">';
+                    $cats .= '<div class="col-md-8 h-100 ' . $heading_order_class . '">';
                     $cats .= '<div class="card">';
                     $cats .= '<div class="card-body">';
 
@@ -33,10 +33,10 @@
                     $cats .= '</div></div></div></div>';
 
                     // Image
-                    $cats .= '<div class="col-md-6 h-100 text-center">';
+                    $cats .= '<div class="col-md-4 h-100 text-center">';
                     $thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
                     $image = wp_get_attachment_url( $thumbnail_id );
-                    $cats.= '<img src="' . $image . '" alt="' . $term->name . '" class="safe-cat-images w-75" />';
+                    $cats.= '<img src="' . $image . '" alt="' . $term->name . '" class="safe-cat-images" />';
 
                     // Small
                     $cats .= '<div class="d-md-none d-lg-none d-xl-none">';

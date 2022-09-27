@@ -206,10 +206,10 @@ get_header();
 				
 				// Product details
 				$safes .= '<ul class="product-details-list">';
-				$safes .= '<li><span class="badge badge-light capacity">Capacity:</strong></span><span class="product-detail-value">' . $gun_capacity . ' guns</span>';
-				$safes .= '<li><span class="badge badge-light weight">Weight:</strong></span><span class="product-detail-value">' . $weight . ' lbs</span>';
-				$safes .= '<li><span class="badge badge-light rating">Fire Rating:</strong></span><span class="product-detail-value">' . $fire_rating . ' minute</span>';
-				$safes .= '<li><span class="badge badge-light exterior-height exterior-depth exterior-width">Dimensions:</strong></span><span class="product-detail-value">' . $exterior_dimensions . '' . '</span>';
+				$safes .= '<li><span class="badge text-secondary capacity">Capacity:</strong></span><span class="product-detail-value">' . $gun_capacity . ' guns</span>';
+				$safes .= '<li><span class="badge text-secondary weight">Weight:</strong></span><span class="product-detail-value">' . $weight . ' lbs</span>';
+				$safes .= '<li><span class="badge text-secondary rating">Fire Rating:</strong></span><span class="product-detail-value">' . $fire_rating . ' minute</span>';
+				$safes .= '<li><span class="badge text-secondary exterior-height exterior-depth exterior-width">Dimensions:</strong></span><span class="product-detail-value">' . $exterior_dimensions . '' . '</span>';
 				$safes .= '</ul>';
 				
 				// Button

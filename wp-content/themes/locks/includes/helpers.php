@@ -40,6 +40,50 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
+function get_clean_attribute_labels($attribute) {
+    $label = ucwords(str_replace('-', ' ', $attribute));
+
+    if (str_contains($label, 'Exterior')) {
+        $label = str_replace('Exterior', 'Ext.', $label);
+    }
+
+    return $label;
+}
+function get_formatted_attributes($label) {
+    $label = get_clean_attribute_labels($label);
+
+    $attribute['name'] = $label;
+
+    switch (true) {
+        case str_contains($label, 'Weight'):
+            $attribute['postfix'] = 'lbs';
+            break;
+        case str_contains($label, 'Capacity'):
+            $attribute['postfix'] = ' Guns';
+            break;
+        case str_contains($label, 'Rating'):
+            $attribute['postfix'] = ' Minute';
+            break;
+        case str_contains($label, 'Ext'):
+            $attribute['postfix'] =  '"';
+            break;
+
+    }
+
+    return $attribute;
+}
+function return_manufacturer_logo_for_safe($title) {
+    $title = strtolower($title);
+
+    switch(true) {
+        case str_contains($title, 'jewel'):
+            return '/wp-content/uploads/2016/09/jewel-safes-banner.jpg';
+        case str_contains($title, 'amsec'):
+            return '/wp-content/uploads/2019/11/2015-AMSEC-Logo-Stacked-CMYK-1.png';
+        case str_contains($title, 'original'):
+            return '/wp-content/uploads/2019/11/ORIGINAL-LOGO-black_highres-1.png';
+    }
+}
 function get_safe_attributes($post_id)
 {
     $attributes = [];

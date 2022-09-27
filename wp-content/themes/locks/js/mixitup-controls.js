@@ -44,7 +44,7 @@
 				// Sorts
 				$('.product-details-list li span.badge').each(function(){
 					$(this).closest('li')
-						.removeClass('current-sort')
+						.removeClass('current-sort');
 					
 					if (dataSortClean && $(this).hasClass(dataSortClean)) {
 						$(this).closest('li')

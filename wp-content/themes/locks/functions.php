@@ -576,7 +576,7 @@ function ri_conditional_script_loading() {
     if (is_page(4149)) {
         wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );
     }
-    if (is_page_template('page-templates/gun-safes.php')) {
+    if (is_page_template('page-templates/gun-safes.php') || is_page_template('page-templates/category-safes.php') || is_product_category()) {
         wp_enqueue_script('popper');
         wp_enqueue_script('bootstrap-scripts');
 //        wp_enqueue_style('bootstrap-styles');
@@ -584,6 +584,7 @@ function ri_conditional_script_loading() {
         wp_enqueue_script('ri-category-scripts');
         wp_enqueue_script('mixitup');
         wp_enqueue_script('mixitup-controls');
+        wp_enqueue_style('ri-safe-styles');
     }
 
     if (is_singular('product')) {
