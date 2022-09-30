@@ -628,12 +628,32 @@ function ri_conditional_script_loading() {
     	wp_enqueue_style( 'genesis-global', get_stylesheet_directory_uri() . '/css/genesis/global.css');
     	wp_enqueue_script('genesis-scripts', get_stylesheet_directory_uri() . '/js/genesis-scripts.js', [], '', true);
     }
+
+    // Custom Woocommerce theme style
+    wp_register_style( 'mytheme-woocommerce', get_stylesheet_directory_uri() . '/woocommerce/css/woocommerce.css' );
+
+    if ( class_exists( 'woocommerce' ) ) {
+        wp_enqueue_style( 'mytheme-woocommerce' );
+    }
 }
 add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 
 //-----------------------------------------------------
 // RI - Custom plugin functionality
 //-----------------------------------------------------
+
+// Dequeue default WooCommerce css (general) and replace with minified and reduced version
+add_filter( 'woocommerce_enqueue_styles', 'jk_dequeue_styles' );
+function jk_dequeue_styles( $enqueue_styles ) {
+    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
+    return $enqueue_styles;
+}
+
+// Enqueue minified CSS for WooCommerce
+//function wp_enqueue_woocommerce_style(){
+//
+//}
+//add_action( 'wp_enqueue_scripts', 'wp_enqueue_woocommerce_style' );
 
 /**
  * Register global options page for safes
