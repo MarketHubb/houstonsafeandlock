@@ -57,13 +57,6 @@ get_header();
         	while ($safe_category_query->have_posts()) : $safe_category_query->the_post();
                 // Product data
                 $title = get_the_title();
-
-//                $attributes['weight'] = get_field('post_product_gun_weight') ?: null;
-//                $attributes['fire-rating'] = get_field('post_product_gun_fire_rating') ?: null;
-//                $attributes['exterior-depth'] = get_field('post_product_gun_exterior_depth') ?: null;
-//                $attributes['exterior-width'] = get_field('post_product_gun_exterior_width') ?: null;
-//                $attributes['exterior-height'] = get_field('post_product_gun_exterior_height') ?: null;
-
                 $safes .= '<div class="col-12 col-md-6 col-lg-4 product-list-item mix" ';
                 $safes .= 'data-series="' . substr(get_the_title(), 0, 2) . '" ';
 

@@ -25,6 +25,9 @@
 	line-height: 130%;
 }
 /* Filter / Sort */
+#sort-filter-nav a[data-sort*="fire-rating:asc"] {
+	display: none;
+}
 #sort-filter-nav {
 	margin-bottom: 2rem;
 	padding-right: 1rem;

@@ -44,7 +44,7 @@ function get_clean_attribute_labels($attribute) {
     $label = ucwords(str_replace('-', ' ', $attribute));
 
     if (str_contains($label, 'Exterior')) {
-        $label = str_replace('Exterior', 'Ext.', $label);
+        $label = str_replace('Exterior', '', $label);
     }
 
     return $label;
@@ -64,7 +64,7 @@ function get_formatted_attributes($label) {
         case str_contains($label, 'Rating'):
             $attribute['postfix'] = ' Minute';
             break;
-        case str_contains($label, 'Ext'):
+        case str_contains($label, ''):
             $attribute['postfix'] =  '"';
             break;
 
@@ -104,6 +104,12 @@ function get_safe_attributes($post_id)
     }
 
     return $attributes;
+}
+
+function get_safe_attribute_val($post_id, $attribute) {
+    $val = get_field('post_product_gun_' . str_replace('-', '_', $attribute), $post_id);
+
+    return (is_numeric($val) && !empty($val)) ? $val : 0;
 }
 
 function get_product_inquiry_btn($post_id, $btn_text, $stretched=null)

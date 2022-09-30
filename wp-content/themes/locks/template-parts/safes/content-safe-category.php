@@ -60,15 +60,13 @@
                 $labels = '<ul class="product-details-list">';
 
                 foreach ($attributes as $attribute) {
+                    $val = get_safe_attribute_val($post->ID, $attribute);
 
                     $labels .= '<li><span class="badge text-secondary ' . $attribute . '  w-50 text-right">';
                     $labels .=  get_formatted_attributes($attribute)['name'] . ':</strong></span>';
                     $labels .= '<span class="product-detail-value">';
-                    $val     = get_field('post_product_gun_' . str_replace('-', '_', $attribute));
-
-                    if (is_numeric($val)) {
-                        $labels .= round($val, 2) . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
-                    }
+                    $output_val = ($val) ? round($val, 2) . get_formatted_attributes($attribute)['postfix'] : "N/A";
+                    $labels .= $output_val . '</span></li>';
 
                     $safes .= 'data-' . $attribute . '="' . $val . '" ';
                 }
@@ -87,7 +85,7 @@
                 $safes .= '</h5></div>';
 
                 $safes .= '</div>';
-                $safes .= '<div class="card-body p-4 mb-3">';
+                $safes .= '<div class="card-body p-4 mb-3 d-flex flex-column">';
 
                 $terms = get_the_terms($post->ID, 'product_cat');
 
@@ -108,7 +106,7 @@
                 $safes .= $labels;
 
                 // Button
-                $safes .= '<div class="text-center inquiry-container pt-2 mt-2 mt-md-4">';
+                $safes .= '<div class="text-center inquiry-container pt-2 mt-auto">';
 
                 $safes .= '<a href="' . get_permalink($post->ID) . '" ';
                 $safes .= 'class="btn btn-primary bg-orange d-block d-md-inline-block border-0">';
