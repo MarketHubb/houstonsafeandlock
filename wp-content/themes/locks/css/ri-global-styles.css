@@ -11,6 +11,10 @@
     font-size: 18px;
     font-weight: 400;
 }
+.footer-schema div a {
+    color: #fff;
+    font-weight: bold;
+}
 /*.safe-categories .safe-cat-images*/
 .btn, .gform_footer input[type="submit"] {
     font-family: "Oxygen";
