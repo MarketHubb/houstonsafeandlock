@@ -9181,8 +9181,7 @@ readers do not read off random characters that represent icons */
 .fa-person-simple::before {
   content: "\e220"; }
 
-.fa-vault::before {
-  content: "\e2c5"; }
+.fa-vault::before { content: "\e2c5"; }
 
 .fa-mars::before {
   content: "\f222"; }

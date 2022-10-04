@@ -34,13 +34,15 @@
 
                 $page_links = '';
                 foreach ($top_pages as $key => $val) {
-                    $page_links .= '<div class="col-md-3 pe-md-4">';
-                    $page_links .= '<i class="' . $val['icon'] . ' fa-sm mb-3 d-block text-secondary"></i>';
-                    $page_links .= '<h5 class="fw-bold mb-4">' . $key . '</h5>';
+                    $page_links .= '<div class="col-md-3 pe-md-4 mb-5 mb-md-0 ps-4 ps-md-0">';
+//                    $page_links .= '<i class="' . $val['icon'] . ' fa-sm mb-3 d-inline d-md-block text-secondary"></i>';
+                    $page_links .= '<h5 class="fw-bold mb-3 mb-md-4">';
+                    $page_links .= '<i class="' . $val['icon'] . ' pe-2 pe-md-0 me-1 me-md-0 mb-3 d-inline d-md-block text-secondary"></i>';
+                    $page_links .= $key . '</h5>';
                     $page_links .= '<ul class="list-group list-group-flush ps-0 ms-0">';
 
                     foreach ($val['page_ids'] as $page_id) {
-                        $page_links .= '<li class="list-group-item ps-0 border-0 py-1 bg-transparent">';
+                        $page_links .= '<li class="list-group-item ps-4 ms-2 ms-md-0 ps-md-0 border-0 py-1 bg-transparent">';
 
                         if ($key === 'Safes for Sale') {
                             $cat = get_term($page_id, 'product_cat');
@@ -57,7 +59,7 @@
                     }
 
                     if ($key === 'Locksmith Services') {
-                        $page_links .= '<li class="list-group-item ps-0 border-0 bg-transparent">';
+                        $page_links .= '<li class="list-group-item ps-4 ms-2 ms-md-0 ps-md-0 border-0 bg-transparent">';
                         $page_links .= '<a href="https://www.autofobs.com/?ref=44&locid=18451" class="">';
                         $page_links .= 'Auto Fob Duplication';
                         $page_links .= '</a></li>';
@@ -69,11 +71,10 @@
                 echo $page_links;
                 ?>
 
-            <div class="col-md-3 footer-schema" id="">
-                <i class="fa-solid fa-location-dot fa-sm  text-secondary mb-3 d-block"></i>
-                <h5 class="fw-bold mb-4">Call or Visit</h5>
+            <div class="col-md-3 footer-schema mb-md-0 ps-4 ps-md-0" id="">
+                <h5 class="fw-bold mb-3 mb-md-4"><i class="fa-solid fa-location-dot pe-2 pe-md-0 me-1 me-md-0 mb-3 d-inline d-md-block text-secondary"></i>Call or Visit</h5>
                 <!-- Generated using https://microdatagenerator.org/localbusiness-microdata-generator/ -->
-                <div itemscope itemtype="https://schema.org/LocalBusiness">
+                <div itemscope itemtype="https://schema.org/LocalBusiness" class="ps-4 ms-2 ms-md-0 ps-md-0">
                     <div itemprop="name" class="fw-bold mt-1 mb-2">Houston Safe & Lock</div>
                     <div>Email: <span itemprop="email"><a href='mailto:sales@houstonsafeandlock.com'>sales@houstonsafeandlock.com</a></span></div>
                     <div>Phone: <a href="tel:713-522-5555"><span itemprop="telephone">713-522-5555</span></a></div>
