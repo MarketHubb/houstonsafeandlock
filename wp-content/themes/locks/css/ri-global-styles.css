@@ -1,4 +1,16 @@
-
+/* Footer */
+.footer-container ul li a,
+.footer-container ul li a:focus,
+.footer-container ul li a:visited,
+.footer-schema div
+{
+        color: #eee;
+}
+.footer-schema div {
+    font-family: "Source Sans Pro";
+    font-size: 18px;
+    font-weight: 400;
+}
 /*.safe-categories .safe-cat-images*/
 .btn, .gform_footer input[type="submit"] {
     font-family: "Oxygen";
