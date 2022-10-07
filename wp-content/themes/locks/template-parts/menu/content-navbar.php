@@ -56,7 +56,7 @@
 
                 <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
                 <h3>Call Now</h3>
-                <p><a class="text-blue" href="tel:713-522-5555">713-522-5555</a></p>
+                <p><a class="text-orange" href="tel:713-522-5555">713-522-5555</a></p>
 
             </div>
 

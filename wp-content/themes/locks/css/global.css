@@ -127,7 +127,7 @@ h3 {
 }
 .gold {
     color: #ce742e;
-    letter-spacing: 10px;
+    letter-spacing: 5px;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -264,6 +264,10 @@ blockquote p {
 .safe-categories .card {
     border: none !important;
 }
+header.site-header div#brand-info div.container-fixed div#brand-phone>p {
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+}
 
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
@@ -287,7 +291,7 @@ blockquote p {
         top: 5px;
     }
     .hero-headline {
-        font-size: 4.5rem;
+        font-size: 3.5rem;
     }
 }
 /*Small devices (landscape phones, 576px and up)*/
