@@ -1,3 +1,6 @@
+.anti {
+    -webkit-font-smoothing: antialiased;
+}
 .modal-new .modal-logo {
     max-height: 50px;
 }
@@ -13,6 +16,9 @@
     filter: invert(89%) sepia(100%) saturate(0%) hue-rotate(353deg) brightness(104%) contrast(101%);
     max-height: 25px;
     margin-right: .5rem;
+}
+#fixed-header .logo img {
+    max-width: 85px;
 }
 header.site-header.is-scrolling #auto-key-icon {
     margin-left: 3rem;
@@ -80,8 +86,17 @@ header.site-header div#brand-info div.container-fixed {
 h1,h2,h3,h4,h5 {
     font-family: 'Oxygen', sans-serif;
 }
+.font-source {
+    font-family: "Source Sans Pro" !important;
+}
 h3 {
     text-transform: none !important;
+}
+.fw-700 {
+    font-weight: 700;
+}
+.fw-900 {
+    font-weight: 900;
 }
 /* MH Custom */
 .btn-link {
@@ -184,7 +199,7 @@ ul.flush {
     color: #174368 !important;
 }
 .text-orange {
-    color: #ce742e;
+    color: #ce742e !important;
 }
 .bg-blue,.bg-brand {
     background-color: #174368;
@@ -295,7 +310,33 @@ blockquote p {
     }
 }
 /* Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
+    .hero-new .gb-block-layout-column-inner > .wp-block-genesis-blocks-gb-columns {
+        padding-bottom: 2rem !important;
+    }
+    .mobile-cta-container > div:first-of-type a {
+        box-shadow: none !important;
+        font-size: 1.9rem !important;
+        color: #ce742e;
+    }
+    .mobile-cta-container a {
+        font-size: 1.2rem !important;
+        text-transform: none !important;
+        letter-spacing: 0;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+    }
+    .mobile-cta-container .or p {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        line-height: 0.1em !important;
+        margin: 10px 0 20px;
+    }
+    .mobile-cta-container .or p span {
+        background:#fff;
+        padding:0 12px;
+    }
     .modal-new .modal-logo {
         max-height: 30px;
     }
@@ -315,8 +356,66 @@ blockquote p {
         display: flex;
         align-items: center;
     }
+    .mobile-cta-container a.btn {
+        display: block !important;
+    }
+    .gb-block-layout-column-inner h1 {
+        font-size: 2rem !important;
+        font-weight: bolder;
+        line-height: 1.1 !important;
+        margin-bottom: 1.25rem;
+        margin-top: .5rem;
+    }
+    .wp-block-genesis-blocks-gb-column p,
+    div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em
+    {
+        color: #344854 !important;
+        line-height: 1.2 !important;
+        font-size: 1.2rem !important;
+    }
     header.site-header div#brand-info div.container-fixed div#brand-phone {
-        background-color: #ce742e;
+        background-color: transparent;
+    }
+    div#brand-phone h3 {
+        text-transform: uppercase !important;
+        letter-spacing: .05rem;
+        -webkit-font-smoothing: antialiased;
+        font-weight: bolder;
+        margin-bottom: 2px;
+        color: #606671 !important;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-phone>p
+    {
+        letter-spacing: .035rem;
+        font-weight: 700;
+        font-size: 17px;
+    }
+
+    /* Locksmith (Testimonials) */
+    div[class*="authority-section-quote"] {
+        background-color: #0e293f !important;
+        padding: 2.5rem 2rem 2rem !important;
+    }
+    div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
+    div[class*="authority-section-quote"] .gb-block-layout-column-inner p
+    {
+        color: #fff !important;
+    }
+     /* Locksmith (Services) */
+    .genesis-container div[class*="feature-text-columns"] {
+        padding: 0 !important;
+    }
+    .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column {
+        padding: 3rem 0;
+    }
+    .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column h4 {
+        color: #344854 !important;
+    }
+    .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column h4 + p {
+        margin-bottom: 0;
+    }
+    .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column:not(:last-of-type) {
+        border-bottom: 1px solid #eee;
     }
      /* Header / Navigation */
     #pre-nav {

@@ -1,6 +1,6 @@
 <?php /* Template Name: Full-width */
 
-get_header(); ?>
+get_header('form'); ?>
 <?php if (is_page(6624)) { ?>
 <div class="d-none container-fluid bg-orange py-3">
     <div class="row">

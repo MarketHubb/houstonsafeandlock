@@ -3280,8 +3280,7 @@ readers do not read off random characters that represent icons */
 .fa-diamond-exclamation::before {
   content: "\e405"; }
 
-.fa-star::before {
-  content: "\f005"; }
+.fa-star::before {content: "\f005"; }
 
 .fa-dial-min::before {
   content: "\e161"; }
@@ -5563,8 +5562,7 @@ readers do not read off random characters that represent icons */
 .fa-square-g::before {
   content: "\e271"; }
 
-.fa-circle-phone::before {
-  content: "\e11b"; }
+.fa-circle-phone::before { content: "\e11b"; }
 
 .fa-phone-circle::before {
   content: "\e11b"; }
@@ -6889,8 +6887,7 @@ readers do not read off random characters that represent icons */
 .fa-grin-tears::before {
   content: "\f588"; }
 
-.fa-phone::before {
-  content: "\f095"; }
+.fa-phone::before { content: "\f095"; }
 
 .fa-computer-mouse-scrollwheel::before {
   content: "\f8cd"; }
