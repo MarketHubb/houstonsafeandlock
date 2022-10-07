@@ -11,9 +11,6 @@
 	align-items: center;
 }
 /* Helpers */
-.d-none {
-	display: none !important;
-}
 .text-contain {
 	padding: 0 3rem;
 }

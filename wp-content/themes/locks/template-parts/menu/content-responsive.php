@@ -2,7 +2,6 @@
     <p class="cta-text mb-0">
         <i class="fas fa-phone-alt fa-sm"></i> Speak to a local Houston locksmith now:</p>
     <a class="cta-text-phone" href="tel:713-522-5555">713-522-5555</a>
-    </p>
 </div>
 <div class="d-block d-md-none mt-5">
     <p class=" text-center">
