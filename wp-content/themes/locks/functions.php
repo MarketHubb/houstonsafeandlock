@@ -559,8 +559,8 @@ function ri_conditional_script_loading() {
     wp_register_style( 'slider-min-css', get_stylesheet_directory_uri() . '/css/bootstrap-slider.min.css' );
     wp_register_style( 'perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css' );
 // Font Awesome Pro
-    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all.css' );
-    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all-clean.css' );
+    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all.min.css' );
+//    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all-clean.css' );
 // Hero Banner
     wp_register_style( 'banner', get_stylesheet_directory_uri() . '/css/banner.css' );
 // Global Customizations
