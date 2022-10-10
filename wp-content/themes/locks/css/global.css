@@ -268,6 +268,9 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
 }
+.genesis-container .entry-content .section-heading {
+    padding-bottom: 2rem;
+}
 
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
@@ -421,9 +424,6 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns:not(.hero-new) {
         padding-top: 3.25rem !important;
         padding-bottom: 3.25rem !important;
-    }
-    .genesis-container .entry-content .section-heading {
-        padding-bottom: 2rem;
     }
     .genesis-container .entry-content .logo-bar {
         margin-top: 0 !important;
