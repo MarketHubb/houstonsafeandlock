@@ -395,7 +395,8 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
         margin-top: .5rem;
     }
     .wp-block-genesis-blocks-gb-column p,
-    div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em
+    div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
+    .genesis-container ul li
     {
         color: #344854 !important;
         line-height: 1.2 !important;
