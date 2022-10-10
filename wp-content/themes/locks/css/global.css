@@ -458,7 +458,9 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
         letter-spacing: -.03rem;
         line-height: 1.05 !important;
     }
-    h2 {
+    h2,
+    .genesis-container h2.has-large-font-size
+    {
         font-size: 1.75rem !important;
     }
     .banner-heading {
