@@ -462,6 +462,12 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     .genesis-container .entry-content .section-heading {
         padding-bottom: 2.25rem;
     }
+    .genesis-container .entry-content div.alternate .gpb-device-tablet {
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
     /* Header / Navigation */
     #pre-nav {
         display: none !important;
