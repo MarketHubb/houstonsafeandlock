@@ -1,8 +1,10 @@
-<?php $form_id = get_query_var('alternate_locksmith_form') ?: 3; ?>
-<?php $form_headline = get_query_var('modal_headline') ?: 'Inquiry'; ?>
-<?php $callouts = get_query_var('alternate_locksmith_callouts') ?: ['Same Day Service', 'Home & Office', '24/7 Availability']; ?>
+<?php
+$form_id = get_query_var('form_id') ?: 1;
+$form_headline = get_query_var('modal_headline') ?: 'Inquiry';
+$callouts = get_query_var('modal_callouts') ?: 'callouts';
+?>
 
-<?php $form_id = get_query_var('form_id') ?: 1; ?>
+
 <!-- Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-new">
@@ -12,7 +14,7 @@
 
             <div class="modal-body">
 
-                <?php get_template_part('template-parts/modal/content', 'callouts'); ?>
+                <?php get_template_part('template-parts/modal/content', $callouts); ?>
 
                 <div class="container-fluid">
                     <div class="row d-none">

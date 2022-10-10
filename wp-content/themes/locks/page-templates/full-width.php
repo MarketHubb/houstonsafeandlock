@@ -1,6 +1,14 @@
 <?php /* Template Name: Full-width */
 
-get_header('form'); ?>
+get_header('form');
+
+if (is_page([6448, 6624, 6839, 7276])) {
+    set_query_var('form_id', 2);
+    set_query_var('modal_callouts', 'callouts-locksmith');
+    set_query_var('modal_headline', 'Schedule a Locksmith');
+}
+
+?>
 <?php if (is_page(6624)) { ?>
 <div class="d-none container-fluid bg-orange py-3">
     <div class="row">

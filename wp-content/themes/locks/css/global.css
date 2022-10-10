@@ -88,6 +88,9 @@ span,body,strong
 h3 {
     text-transform: none !important;
 }
+.fw-600 {
+    font-weight: 600 !important;
+}
 .fw-700 {
     font-weight: 700;
 }
@@ -366,7 +369,7 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
         padding:0 12px;
     }
     .modal-new .modal-logo {
-        max-height: 30px;
+        max-height: 26px;
     }
     .modal-new .close {
         padding-top: 0.25rem;

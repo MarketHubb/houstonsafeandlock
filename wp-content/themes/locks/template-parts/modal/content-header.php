@@ -5,16 +5,16 @@ $heading = $args['heading'];
 <div class="modal-header bg-blue px-2 px-md-3">
     <div class="container-fluid">
 
-        <div class="row justify-content-between align-items-center">
-            <div class="col-8">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <div class="">
                 <img src="<?php echo $logo; ?>" class="modal-logo" alt="">
             </div>
             <?php if ($heading) { ?>
-<!--                <div class="col-6 text-end">-->
-<!--                    <h4 class="fw-bold text-white mb-0 pb-0">-->
-<!--                        --><?php //echo $heading; ?>
-<!--                    </h4>-->
-<!--                </div>-->
+                <div class="flex-grow-1 text-end">
+                    <p class="text-white mb-0 pb-0 pe-3">
+                        <?php echo $heading; ?>
+                    </p>
+                </div>
             <?php } ?>
         </div>
 
