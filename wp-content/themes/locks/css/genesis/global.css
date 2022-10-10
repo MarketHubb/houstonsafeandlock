@@ -98,9 +98,6 @@ hr.is-style-wide {
 	h1 {
 		font-size: 3rem !important;
 	}
-	.entry-content > .wp-block-genesis-blocks-gb-columns .gb-layout-column-wrap:first-of-type {
-		padding: 0 1rem;
-	}
 	.cta-text, .cta-text + .cta-text-phone {
 		display: block;
 	}

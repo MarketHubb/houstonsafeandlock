@@ -409,9 +409,33 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     .genesis-container div[class*="feature-text-columns"] {
         padding: 0 !important;
     }
-    .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column {
-        padding: 3rem 0;
+    .genesis-container div[class*="feature-text-columns"] div[class^="gb-block-layout-column-"] .wp-block-genesis-blocks-gb-column:not(:last-of-type)
+    {
+        padding-bottom: 2.25rem;
+        margin-bottom: 2.25rem;
     }
+    .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns {
+        padding-left: 8% !important;
+        padding-right: 8% !important;
+    }
+    .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns:not(.hero-new) {
+        padding-top: 3.25rem !important;
+        padding-bottom: 3.25rem !important;
+    }
+    .genesis-container .entry-content .section-heading {
+        padding-bottom: 2rem;
+    }
+    .genesis-container .entry-content .logo-bar {
+        margin-top: 0 !important;
+    }
+
+    /*.genesis-container .entry-content .wp-block-genesis-blocks-gb-columns.alternate {*/
+    /*    padding-top: 3rem !important;*/
+    /*    padding-bottom: 3rem !important;*/
+    /*}*/
+        /*.genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column:first-of-type {*/
+    /*    padding: 2rem 0;*/
+    /*}*/
     .genesis-container div[class*="feature-text-columns"] .gb-layout-column-wrap .wp-block-genesis-blocks-gb-column h4 {
         color: #344854 !important;
     }
