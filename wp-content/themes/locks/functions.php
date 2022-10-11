@@ -648,10 +648,9 @@ add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 // Dequeue default WooCommerce css (general) and replace with minified and reduced version
 add_filter( 'woocommerce_enqueue_styles', 'jk_dequeue_styles' );
 function jk_dequeue_styles( $enqueue_styles ) {
-    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
+//    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
     return $enqueue_styles;
 }
-
 add_action( 'wp_enqueue_scripts', 'mh_child_deregister_styles', 11 );
 function mh_child_deregister_styles() {
     wp_dequeue_style( 'font-awesome' );
