@@ -312,7 +312,7 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
 .locksmith-cta-container {
     border-color: #eee !important;
 }
-.wp-block-genesis-blocks-gb-column p,
+.genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action) .wp-block-genesis-blocks-gb-column p,
 div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .genesis-container ul li {
     color: #344854 !important;
@@ -433,13 +433,27 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         margin-bottom: 1.25rem;
         margin-top: .5rem;
     }
-    .wp-block-genesis-blocks-gb-column p,
+    .genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action).wp-block-genesis-blocks-gb-column p,
     div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     .genesis-container ul li
     {
         color: #344854 !important;
         line-height: 1.2 !important;
         font-size: 1.2rem !important;
+    }
+    /* GENESIS: Full-width CTA*/
+    .genesis-container .entry-content > .gpb-altitude-section-call-to-action h2 {
+        color: #ffffff;
+        font-size: 1rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px;
+    }
+    .genesis-container .entry-content .gpb-altitude-section-call-to-action h2 + p {
+        font-size: 2rem !important;
+    }
+    .genesis-container .entry-content .gpb-altitude-section-call-to-action .cta-list-container p {
+        padding-left: .5rem !important;
+        padding-right: .5rem !important;
     }
     header.site-header div#brand-info div.container-fixed div#brand-phone {
         background-color: transparent;
@@ -481,6 +495,10 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns {
         padding-left: 8% !important;
         padding-right: 8% !important;
+    }
+    .genesis-container .entry-content .gpb-altitude-section-call-to-action {
+        padding-left: 6% !important;
+        padding-right: 6% !important;
     }
     .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns:not(.hero-new) {
         padding-top: 3.25rem !important;
