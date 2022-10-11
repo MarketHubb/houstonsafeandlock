@@ -286,7 +286,39 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     font-weight: 600;
 }
 
-
+.mobile-cta-container > div:first-of-type a {
+    box-shadow: none !important;
+    font-size: 1.9rem !important;
+    color: #ce742e;
+}
+.mobile-cta-container a {
+    font-size: 1.2rem !important;
+    text-transform: none !important;
+    letter-spacing: 0;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+}
+.mobile-cta-container .or p {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    line-height: 0.1em !important;
+    margin: 10px 0 20px;
+}
+.mobile-cta-container .or p span {
+    background:#fff;
+    padding:0 12px;
+}
+.locksmith-cta-container {
+    border-color: #eee !important;
+}
+.wp-block-genesis-blocks-gb-column p,
+div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
+.genesis-container ul li {
+    color: #344854 !important;
+    line-height: 1.4 !important;
+    font-size: 1.25rem !important;
+}
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
 *****************************************/
