@@ -652,12 +652,10 @@ function jk_dequeue_styles( $enqueue_styles ) {
     return $enqueue_styles;
 }
 
-// Enqueue minified CSS for WooCommerce
-//function wp_enqueue_woocommerce_style(){
-//
-//}
-//add_action( 'wp_enqueue_scripts', 'wp_enqueue_woocommerce_style' );
-
+add_action( 'wp_enqueue_scripts', 'mh_child_deregister_styles', 11 );
+function mh_child_deregister_styles() {
+    wp_dequeue_style( 'font-awesome' );
+}
 /**
  * Register global options page for safes
  */
