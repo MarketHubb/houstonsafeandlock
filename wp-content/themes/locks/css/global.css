@@ -319,6 +319,9 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     line-height: 1.4 !important;
     font-size: 1.25rem !important;
 }
+.modal-new .close {
+    opacity: .6;
+}
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
 *****************************************/
@@ -404,9 +407,10 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         max-height: 26px;
     }
     .modal-new .close {
-        padding-top: 0.25rem;
+        padding-top: 0.5rem;
         margin-right: -1.75rem;
         margin-top: -3rem !important;
+        opacity: .6;
     }
     header.site-header.is-scrolling div#brand-info {
         display: flex;

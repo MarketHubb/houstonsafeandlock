@@ -11,7 +11,7 @@ $heading = $args['heading'];
             </div>
             <?php if ($heading) { ?>
                 <div class="flex-grow-1 text-end">
-                    <p class="text-white mb-0 pb-0 pe-3">
+                    <p class="text-white mb-0 pb-0 pe-3 me-1">
                         <?php echo $heading; ?>
                     </p>
                 </div>
