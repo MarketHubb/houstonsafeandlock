@@ -1,3 +1,7 @@
+<?php
+set_query_var('modal_callouts', 'callouts-safes');
+set_query_var('modal_headline', 'Product Inquiry');
+?>
 <div class="product-single-container py-4 my-5" id="custom-product-single">
 
    <div class="bg-blue pb-5 d-none">
