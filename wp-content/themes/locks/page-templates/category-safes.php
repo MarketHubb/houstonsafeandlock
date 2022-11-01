@@ -3,6 +3,7 @@
 /* Template Name: Category - Safe */
 
 get_header();
+set_query_var('modal_headline', 'Product Inquiry');
 
 ?>
 <div id="primary" class="content-area">

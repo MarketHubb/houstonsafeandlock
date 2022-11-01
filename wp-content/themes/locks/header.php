@@ -92,13 +92,19 @@
         })(jQuery);
     </script>
 
+    <?php
+    session_start();
+    if (!isset($_SESSION['safe_price_group'])) {
+        $_SESSION['safe_price_group'] = rand(0,1);
+    }
+    ?>
+
 </head>
 <body <?php body_class(); ?>>
 <?php $body_class =  sanitize_post ( get_queried_object() )->post_name ?: ''; ?>
 <div id="page" class="site <?php echo $body_class; ?>">
     <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'locks' ); ?></a>
     <header id="masthead" class="site-header" role="banner">
-
         <!-- LEGACY:: Gun Safes (Alert Bar) -->
         <?php //if (is_page(3857) || is_singular('product')) { ?>
             <!-- Section: Alert Bar -->
@@ -115,7 +121,7 @@
                 
                 <p class="mb-0 pb-0 d-inline">
                     <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
-                    <a class="mb-0 pb-0 text-white text-decoration-underline" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
+                    <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
                 </p>
                 
                 <?php if (!get_field('active', 'options')) { ?>
@@ -123,7 +129,7 @@
                     <!-- Scroll logo (Text image) -->
                     <div id="left-content">
                         <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                            <img src="<?php echo get_template_directory_uri(); ?>/images/header/locks-logo-header-collapsed.png" alt="Houston Safe And Lock">
+                            <h4 class="text-white my-0">Houston Safe & Lock</h4>
                         </a>
                     </div>
                     <!-- CURRENT:: Pre Nav (social icons) -->
@@ -159,14 +165,14 @@
             <div class="container-fixed">
                 <div id="brand-logo">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/header/locks-logo.png" alt="Houston Safe And Lock Logo" />
+                        <img src="<?php echo get_home_url() . '/wp-content/uploads/2022/10/HSL-Logo-Brand.svg'; ?>" alt="Houston Safe And Lock Logo" />
                     </a>
                 </div>
 
                 <div id="brand-phone">
 
                     <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
-                    <h3>Get Pricing</h3>
+                    <h3 class="text-grey anti fw-bold text-uppercase lh-sm">Call Now</h3>
                     <p><a class="text-orange" href="tel:713-522-5555">713-522-5555</a></p>
 
                 </div>

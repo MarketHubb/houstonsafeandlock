@@ -1,6 +1,6 @@
 <?php if (!is_shop()) { ?>
 
-    <div class="container-fluid" id="breadcrumb-container">
+    <div class="container bg-white mt-2" id="breadcrumb-container">
         <div class="row justify-content-end w-100">
             <div class="col">
                 <ol vocab="https://schema.org/" typeof="BreadcrumbList">

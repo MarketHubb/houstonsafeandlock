@@ -1,5 +1,19 @@
 <?php
 //region Global Helpers
+function formatMoney($number, $cents = 1) { // cents: 0=never, 1=if needed, 2=always
+    if (is_numeric($number)) { // a number
+        if (!$number) { // zero
+            $money = ($cents == 2 ? '0.00' : '0'); // output zero
+        } else { // value
+            if (floor($number) == $number) { // whole number
+                $money = number_format($number, ($cents == 2 ? 2 : 0)); // format
+            } else { // cents
+                $money = number_format(round($number, 2), ($cents == 0 ? 0 : 2)); // format
+            } // integer or decimal
+        } // value
+        return '$'.$money;
+    } // numeric
+} // formatMoney
 function get_repeater_field_row($repeater_field, $row_index, $sub_field, $post_id)
 {
     $rows = get_field($repeater_field, $post_id);
@@ -40,11 +54,63 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
+function get_warranty_information($post_id) {
+    $series_model = str_replace('AMSEC', '', get_the_title($post_id));
+    $series_only = trim(preg_replace('/[0-9]+/', '', $series_model));
+    $safe_height = get_field('post_product_gun_exterior_height', $post_id);
+
+    $warranty = [
+        'Parts & labor' => "1 year"
+    ];
+
+    if ($safe_height >= 55) {
+        $warranty['Fire'] = "Lifetime";
+        $warranty['Forced Entry'] = "Lifetime";
+    }
+    if ($series_only == 'BFX') {
+        $warranty['Parts & labor'] = "5 years";
+        $warranty['Fire'] = "Lifetime";
+        $warranty['Forced Entry'] = "Lifetime";
+    }
+
+    return $warranty;
+}
+function clean_price($price) {
+    return str_replace(',', '', substr($price, 0, strpos($price, ".")));
+}
+
+function get_price($msrp, $discount, $type = 'percentage') {
+    $msrp = clean_price($msrp);
+    $price['msrp'] = intval($msrp);
+
+    if ($discount && $type === 'percentage') {
+        $price['discount_amount'] = intval($price['msrp'] * ($discount / 100));
+        $price['sale_price'] = $price['msrp'] - $price['discount_amount'];
+    }
+
+    return $price;
+}
+function get_safe_type_attributes($post_id) {
+    $safe_type['attribute_label'] = "Safe Type";
+
+    if (has_term(37, 'product_cat', $post_id)) {
+        $safe_type['attribute_value'] = "Gun & Riffle";
+        $safe_type['attribute_image'] = '/wp-content/uploads/2022/10/type-gun-4.svg';
+    }
+
+    return $safe_type;
+}
 function get_clean_attribute_labels($attribute) {
     $label = ucwords(str_replace('-', ' ', $attribute));
 
     if (str_contains($label, 'Exterior')) {
         $label = str_replace('Exterior', '', $label);
+    }
+    if (str_contains($label, 'Capacity Total')) {
+        $label = str_replace('Total', '', $label);
+    }
+    if (str_contains($label, 'Msrp')) {
+        $label = 'MSRP';
     }
 
     return $label;
@@ -61,8 +127,8 @@ function get_formatted_attributes($label) {
         case str_contains($label, 'Capacity'):
             $attribute['postfix'] = ' Guns';
             break;
-        case str_contains($label, 'Rating'):
-            $attribute['postfix'] = ' Minute';
+        case str_contains($label, 'Fire'):
+            $attribute['postfix'] = ' Min';
             break;
         case str_contains($label, ''):
             $attribute['postfix'] =  '"';
@@ -71,6 +137,20 @@ function get_formatted_attributes($label) {
     }
 
     return $attribute;
+}
+function return_manufacturer_attributes_logo($title) {
+    $title = strtolower($title);
+
+    switch(true) {
+        case str_contains($title, 'jewel'):
+            return '/wp-content/uploads/2016/09/jewel-safes-banner.jpg';
+        case str_contains($title, 'amsec'):
+            return '/wp-content/uploads/2022/10/AMSEC-Black.png';
+        case str_contains($title, 'original'):
+            return '/wp-content/uploads/2019/11/ORIGINAL-LOGO-black_highres-1.png';
+        case str_contains($title, 'perma'):
+            return '/wp-content/uploads/2022/09/Permavault-logo.jpg';
+    }
 }
 function return_manufacturer_logo_for_safe($title) {
     $title = strtolower($title);
@@ -106,10 +186,24 @@ function get_safe_attributes($post_id)
     return $attributes;
 }
 
-function get_safe_attribute_val($post_id, $attribute) {
+function get_safe_attribute_values($post_id, $attribute) {
     $val = get_field('post_product_gun_' . str_replace('-', '_', $attribute), $post_id);
+    $output_val = [];
 
-    return (is_numeric($val) && !empty($val)) ? $val : 0;
+    if ($attribute === 'msrp') {
+        $val_clean = str_replace(',', '', substr($val, 0, strpos($val, ".")));
+        $output_val['formatted'] = formatMoney($val_clean, 0);
+        $output_val['clean'] = floatval($val_clean);
+    }
+    else if ($attribute === 'burglary_rating' || $attribute === 'manufacturer') {
+        $output_val['formatted'] = str_replace(' Burglary Protection', '', $val);
+        $output_val['clean'] = $val;
+    } else {
+        $output_val['formatted'] = ($val) ? round($val, 2) . get_formatted_attributes($attribute)['postfix'] : "N/A";
+        $output_val['clean'] = (is_numeric($val) && !empty($val)) ? $val : 0;
+    }
+
+    return $output_val;
 }
 
 function get_product_inquiry_btn($post_id, $btn_text, $stretched=null)

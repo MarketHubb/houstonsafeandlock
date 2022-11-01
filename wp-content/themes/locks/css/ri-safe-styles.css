@@ -1,3 +1,47 @@
+/* Single-product redesign */
+#custom-product-single .woocommerce-product-gallery {
+	width: 100% !important;
+}
+#custom-product-single table.shop_attributes {
+	border-top: none;
+}
+#custom-product-single table.shop_attributes th {
+	width: auto;
+}
+#custom-product-single table.shop_attributes th,
+#custom-product-single table.shop_attributes td
+{
+	font-size: 1.1rem;
+	font-style: unset;
+}
+#custom-product-single .tab-content>.active {
+	padding: 1.5rem .5rem;
+}
+
+/* Attribute Cards */
+.attribute-icons {
+	max-height: 30px;
+	opacity: .5;
+}
+
+/* Entry bullets */
+#custom-product-single .post-excerpt.bullets h2 {
+	font-size: 1.2rem;
+	text-transform: capitalize;
+}
+#custom-product-single ul.amsec-icon-list {
+	padding-inline-start: 1rem;
+	margin-left: 1.5rem;
+	list-style-type: disc;
+}
+#custom-product-single ul.amsec-icon-list li {
+	font-size: 1.25rem;
+	padding: .35rem 0;
+}
+#custom-product-single ul.amsec-icon-list li i {
+	display: none;
+}
+
 /*  Global (Styles)  */
 .btn-shadow {
 	box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
@@ -100,7 +144,7 @@ div.product-list-item .manufacturer-logo {
 		display: none;
 	}
 	.product-detail-heading {
-		font-size: 3.5em;
+		font-size: 3em;
 	}
 	.product-detail-subheading {
 		font-size: 1.5em;

@@ -1,6 +1,13 @@
 <?php
  require_once 'includes/helpers.php';
 
+add_action('init', 'start_session', 1);
+function start_session() {
+    if(!session_id()) {
+        session_start();
+    }
+}
+
 /**
  * locks functions and definitions.
  *
@@ -137,7 +144,7 @@ function locks_scripts() {
 
 	wp_enqueue_style( 'owl-theme', get_template_directory_uri() . '/css/owl.theme.css' );
 
-    wp_enqueue_style( 'locks-style', get_stylesheet_uri(), array('bootstrap-styles') );
+    wp_enqueue_style( 'locks-style', get_stylesheet_uri(), array() );
 
 //    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
 
@@ -452,9 +459,14 @@ remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wra
 add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
 function my_theme_wrapper_start() {
-  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
-  get_template_part( 'template-parts/content', 'header-hero-safe' );
-  echo '<div class="container-fixed">';
+//  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
+
+  if (!has_term(37, 'product_cat')) {
+      echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
+      get_template_part( 'template-parts/content', 'header-hero-safe' );
+      echo '<div class="container-fixed">';
+  }
+
 }
 function my_theme_wrapper_end() {
   echo '</div></main></div>';
@@ -569,12 +581,15 @@ function ri_conditional_script_loading() {
 
     if (!is_admin()) {
         wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
-        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
+        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.js', [], '5.1.3', true);
+//        wp_enqueue_script('bootstrap-5-bundle-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
         wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles'] );
         wp_enqueue_style('font-awesome-6');
         wp_enqueue_style('banner');
         wp_enqueue_script('global');
         wp_enqueue_style('global');
+        wp_enqueue_style('container', get_stylesheet_directory_uri() . '/css/containers.css');
+        wp_enqueue_style('header', get_stylesheet_directory_uri() . '/css/header.css');
     }
     if (is_page(4149)) {
         wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );

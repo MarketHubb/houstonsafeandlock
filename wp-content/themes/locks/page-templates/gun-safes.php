@@ -3,7 +3,7 @@
 /* Template Name: Category - Gun Safes */
 
 get_header();
-
+set_query_var('modal_headline', 'Gun Safe Inquiry');
 ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
@@ -80,19 +80,18 @@ get_header();
 	 	</div>
 	 </div>
 
-	<div class="container" id="sort-filter-container">
-		<ul id="sort-filter-nav" class="nav nav-pills justify-content-start">
-			<!-- Sort: All devices -->
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle filter-sort-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sort By:</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" data-mixitup-control data-sort="capacity:desc">Gun Capacity</a>
-					<a class="dropdown-item" data-mixitup-control data-sort="rating:desc">Fire Rating</a>
-					<a class="dropdown-item" data-mixitup-control data-sort="weight:desc">Weight</a>
-				</div>
-			</li>
-		</ul>
-	</div>
+<!--	<div class="container" id="sort-filter-container">-->
+<!--		<ul id="sort-filter-nav" class="nav nav-pills justify-content-start">-->
+<!--			<li class="nav-item dropdown">-->
+<!--				<a class="nav-link dropdown-toggle filter-sort-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sort By:</a>-->
+<!--				<div class="dropdown-menu">-->
+<!--					<a class="dropdown-item" data-mixitup-control data-sort="capacity:desc">Gun Capacity</a>-->
+<!--					<a class="dropdown-item" data-mixitup-control data-sort="rating:desc">Fire Rating</a>-->
+<!--					<a class="dropdown-item" data-mixitup-control data-sort="weight:desc">Weight</a>-->
+<!--				</div>-->
+<!--			</li>-->
+<!--		</ul>-->
+<!--	</div>-->
 
 	<?php
 
@@ -129,13 +128,7 @@ get_header();
 		);
 		
 		$safes .= '<div class="container manufacturer-container">';
-		
-		// ** Causing grid layout issues on sort **
-		
-		// $safes .= '<div class="row mix manufacturer-' . $key . '">';
-		// $safes .= '<div class="col-12"><h2>' . $key . '</h2></div>';
-		// $safes .= '</div>';
-		
+
 		$safes .= '<div class="row product-list-container">';
 		
 		$query = new WP_Query($query_args);
@@ -240,7 +233,7 @@ get_header();
 
 	$safes .= '</div>'; // End .products
 
-	echo $safes;
+//	echo $safes;
 
 
 		// $terms = get_terms();
@@ -250,6 +243,15 @@ get_header();
 
 	</main>
 </div>
+
+<?php
+$attributes=['msrp', 'capacity-total', 'weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
+get_template_part('template-parts/safes/content', 'grid-sort', ['attributes' => $attributes]);
+
+$gun_safe_cats = [68, 69, 39, 41, 40];
+get_template_part('template-parts/safes/content', 'grid-list', ['cat_id' => $gun_safe_cats, 'attributes' => $attributes]);
+
+?>
 
 
 <?php get_footer(); ?>

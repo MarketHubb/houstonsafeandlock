@@ -1,3 +1,7 @@
+/* Global */
+.lst-none {
+    list-style-type: none !important;
+}
 /* Footer */
 .footer-container ul li a,
 .footer-container ul li a:focus,

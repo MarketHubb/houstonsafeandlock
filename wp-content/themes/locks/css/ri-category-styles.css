@@ -17,6 +17,12 @@
 #custom-page-template-title p {
 	margin-bottom: 0;
 }
+/* Grid List */
+.product-details-list li.msrp span.product-detail-value {
+	text-decoration: line-through;
+	text-decoration-thickness: 2px;
+	text-decoration-color: red;
+}
 /* features-benefits */
 .features-benefits {
 	margin-top: 2rem;
@@ -78,9 +84,17 @@
 	margin-bottom: .15em;
 }
 .product-details-list li span.badge {
-	font-weight: normal !important;
-	color: #111;
+	font-weight: normal;
+	color: #222;
 	background-color: transparent;
+}
+.product-details-list li span.badge.bg-primary {
+	color: #fff;
+	font-weight: 600;
+	letter-spacing: .015rem;
+}
+.product-details-list li span.badge.bg-primary.sale {
+	transform: rotate(352deg);
 }
 .attribute-msrp span.product-detail-value {
 	text-decoration: line-through;

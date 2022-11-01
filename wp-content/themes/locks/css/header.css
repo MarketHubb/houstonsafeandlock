@@ -1,0 +1,47 @@
+header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
+    max-width: 200px;
+}
+#searchform .search-field {
+    border-radius: 24px;
+    line-height: 1;
+    padding-left: 15px;
+    font-size: .95rem;
+}
+#searchform .search-label {
+    background: none;
+    width: inherit;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    header.site-header div#pre-nav div.container-fixed div#left-content h4,
+    #menu-responsive
+    {
+        display: none;
+    }
+    header.site-header.is-scrolling div#pre-nav div.container-fixed div#left-content h4 {
+        display: block;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-logo {
+        position: relative;
+        top: 10px;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-phone>h3 {
+        line-height: initial;
+        font-size: 1.25rem;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-phone>p {
+        font-size: 2.25rem;
+    }
+}
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

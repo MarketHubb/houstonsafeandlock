@@ -26,7 +26,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
     return;
 }
 // Custom:
-$item_num = $wp_query->current_post +1;
+//$item_num = $wp_query->current_post +1;
 ?>
 <div <?php wc_product_class( ['col-md-3 mb-4 mb-md-5'], $product ); ?>>
     <div class="card h-100">

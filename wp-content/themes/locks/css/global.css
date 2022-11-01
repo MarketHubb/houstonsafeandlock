@@ -1,3 +1,6 @@
+header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
+    max-width: 200px;
+}
 .anti {
     -webkit-font-smoothing: antialiased;
 }
@@ -14,8 +17,8 @@
 }
 #auto-key-icon {
     filter: invert(89%) sepia(100%) saturate(0%) hue-rotate(353deg) brightness(104%) contrast(101%);
-    max-height: 25px;
-    margin-right: .5rem;
+    max-height: 16px;
+    margin-right: .3rem;
 }
 #fixed-header .logo img {
     max-width: 85px;
@@ -33,7 +36,6 @@ h2.widget-title {
 .btn {
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
-    text-transform: uppercase;
     padding: .5rem 1.5rem;
     display: inline-block !important;
     border: none !important;
@@ -191,8 +193,8 @@ ul.flush {
 .text-white {
     color: #fff !important;
 }
-.text-dark {
-
+.text-grey {
+    color: #606671 !important;
 }
 .text-blue {
     color: #174368 !important;
@@ -336,9 +338,6 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         line-height: 1.05 !important;
         margin-bottom: 1rem;
     }
-    .container-fixed {
-        max-width: 90%;
-    }
     .section-heading > .gb-layout-column-wrap {
         max-width: 840px !important;
     }
@@ -367,10 +366,6 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
     #brand-info > .container-fixed,
-    #main > .container-fixed
-    {
-        max-width: 85%;
-    }
     header.site-header div#brand-info div.container-fixed {
         padding: 0 !important;
     }

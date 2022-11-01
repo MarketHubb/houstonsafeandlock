@@ -1,6 +1,14 @@
 /* jQuery (Footer) */
 (function($) {
 
+    // Search
+    $('#searchform').on('submit', function(e) {
+       let searchInput = $(this).find('input.search-field');
+       if (searchInput.val().length === 0) {
+           e.preventDefault();
+       }
+    });
+
     if($(window).width() <= 768){
 
         // Auto-fob link

@@ -1,6 +1,18 @@
 /* jQuery (Footer) */
 (function($) {
 
+    $(window).load(function() {
+        $('#specs table tbody tr').each(function() {
+            if ($(this).find('th').text() === 'Burglary Protection (Safe Rating)') {
+                var rating = $(this).find('td').text();
+                if (rating.length) {
+                    $('.card .burglary_rating').text(rating);
+                }
+            }
+
+        });
+    });
+
     // Prevent default WP image thumbnail click event
     $('.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:nth-of-type(2)').addClass('active-thumb');
     
