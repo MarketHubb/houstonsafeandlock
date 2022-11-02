@@ -324,6 +324,19 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .modal-new .close {
     opacity: .6;
 }
+.gform_footer input[type="submit"] {
+    background-color: #ce742e !important;
+    color: #fff !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+    webkit-box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%) !important;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%) !important;
+}
+.gform_footer input[type="submit"]:hover {
+    box-shadow: none !important;
+}
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
 *****************************************/
@@ -372,6 +385,19 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
+    .gform_footer input[type="submit"] {
+        width: 100% !important;
+    }
+    #custom-product-single .container > .row {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    #custom-product-single {
+        margin-top: 5rem !important;
+    }
+    header.site-header div#brand-info div.container-fixed div#brand-logo {
+        margin-left: 10px;
+    }
     .hero-new .gb-block-layout-column-inner > .wp-block-genesis-blocks-gb-columns {
         padding-bottom: 2rem !important;
     }
@@ -402,10 +428,11 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         max-height: 26px;
     }
     .modal-new .close {
-        padding-top: 0.5rem;
-        margin-right: -1.75rem;
-        margin-top: -3rem !important;
-        opacity: .6;
+        float: right;
+        position: relative;
+        top: 2px;
+        left: 14px;
+        font-size: 1.5rem;
     }
     header.site-header.is-scrolling div#brand-info {
         display: flex;

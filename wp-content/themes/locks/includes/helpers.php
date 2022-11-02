@@ -54,6 +54,16 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
+function get_model_name_clean($post_id) {
+    $model = strtoupper(get_the_title($post_id));
+    $oems = ['AMSEC', 'ORIGINAL', 'JEWEL'];
+
+    foreach ($oems as $oem) {
+        $model = str_replace($oem, '', $model);
+    }
+
+    return $model;
+}
 function get_warranty_information($post_id) {
     $series_model = str_replace('AMSEC', '', get_the_title($post_id));
     $series_only = trim(preg_replace('/[0-9]+/', '', $series_model));
@@ -76,11 +86,15 @@ function get_warranty_information($post_id) {
     return $warranty;
 }
 function clean_price($price) {
+
     return str_replace(',', '', substr($price, 0, strpos($price, ".")));
 }
 
 function get_price($msrp, $discount, $type = 'percentage') {
-    $msrp = clean_price($msrp);
+    $price['msrp_no_cents'] = str_replace('$','',substr($msrp, 0, strpos($msrp, ".")));
+    $price['msrp_no_comma'] = str_replace('$', '',str_replace(',', '', $msrp));
+
+    $msrp = clean_price(str_replace('$', '', $msrp));
     $price['msrp'] = intval($msrp);
 
     if ($discount && $type === 'percentage') {
@@ -94,7 +108,7 @@ function get_safe_type_attributes($post_id) {
     $safe_type['attribute_label'] = "Safe Type";
 
     if (has_term(37, 'product_cat', $post_id)) {
-        $safe_type['attribute_value'] = "Gun & Riffle";
+        $safe_type['attribute_value'] = "Gun & Rifle";
         $safe_type['attribute_image'] = '/wp-content/uploads/2022/10/type-gun-4.svg';
     }
 
@@ -138,19 +152,20 @@ function get_formatted_attributes($label) {
 
     return $attribute;
 }
-function return_manufacturer_attributes_logo($title) {
-    $title = strtolower($title);
+function return_manufacturer_attributes_logo($post_id) {
+    $oem = trim(strtolower(get_field('post_product_gun_manufacturer', $post_id)));
 
-    switch(true) {
-        case str_contains($title, 'jewel'):
-            return '/wp-content/uploads/2016/09/jewel-safes-banner.jpg';
-        case str_contains($title, 'amsec'):
-            return '/wp-content/uploads/2022/10/AMSEC-Black.png';
-        case str_contains($title, 'original'):
-            return '/wp-content/uploads/2019/11/ORIGINAL-LOGO-black_highres-1.png';
-        case str_contains($title, 'perma'):
-            return '/wp-content/uploads/2022/09/Permavault-logo.jpg';
-    }
+    if( have_rows('logos', 'option') ):
+        while ( have_rows('logos', 'option') ) : the_row();
+            $oem = trim(strtolower(get_field('post_product_gun_manufacturer', $post_id)));
+            $oem_field_name = trim(strtolower(get_sub_field('name', 'option')));
+            if ($oem_field_name === $oem) {
+                $logo =  get_sub_field('grey', 'option');
+            }
+        endwhile;
+    endif;
+
+    return $logo;
 }
 function return_manufacturer_logo_for_safe($title) {
     $title = strtolower($title);
@@ -191,9 +206,9 @@ function get_safe_attribute_values($post_id, $attribute) {
     $output_val = [];
 
     if ($attribute === 'msrp') {
-        $val_clean = str_replace(',', '', substr($val, 0, strpos($val, ".")));
-        $output_val['formatted'] = formatMoney($val_clean, 0);
-        $output_val['clean'] = floatval($val_clean);
+        $val_clean = get_price($val, 20);
+        $output_val['formatted'] = '$' . $val_clean['msrp_no_cents'];
+        $output_val['clean'] = $val_clean['msrp'];
     }
     else if ($attribute === 'burglary_rating' || $attribute === 'manufacturer') {
         $output_val['formatted'] = str_replace(' Burglary Protection', '', $val);

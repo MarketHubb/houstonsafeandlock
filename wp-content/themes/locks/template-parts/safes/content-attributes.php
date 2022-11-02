@@ -17,10 +17,10 @@ if( have_rows('attributes', 'option') ):
         }
 
         if ($label === 'Manufacturer') {
-            $safe_type['attribute_image'] = return_manufacturer_attributes_logo(get_the_title($post_id));
+            $safe_type['attribute_image'] = return_manufacturer_attributes_logo(get_the_ID());
         }
 
-        $attributes .= '<div class="col-md-4 mb-4">';
+        $attributes .= '<div class="col-6 col-md-4 mb-4">';
         $attributes .= '<div class="card text-center h-100">';
         $attributes .= '<div class="card-header">';
         $attributes .= '<p class="fw-normal mb-0">' . $safe_type['attribute_label'] . '</p>';

@@ -1,6 +1,7 @@
 <?php
 $form_id = get_query_var('form_id') ?: 1;
-$form_headline = get_query_var('modal_headline') ?: 'Inquiry';
+$form_heading = get_query_var('modal_heading') ?: 'Inquiry';
+$form_mobile_heading = get_query_var('modal_mobile_heading') ?: 'Inquiry';
 $callouts = get_query_var('modal_callouts') ?: 'callouts';
 ?>
 
@@ -10,7 +11,8 @@ $callouts = get_query_var('modal_callouts') ?: 'callouts';
     <div class="modal-dialog modal-lg modal-new">
         <div class="modal-content">
 
-            <?php get_template_part('template-parts/modal/content', 'header', ['heading' => $form_headline]); ?>
+            <?php $heading_args = ['heading' => $form_heading, 'mobile_heading' => $form_mobile_heading]; ?>
+            <?php get_template_part('template-parts/modal/content', 'header', $heading_args); ?>
 
             <div class="modal-body">
 
