@@ -320,7 +320,7 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
 .genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action) .wp-block-genesis-blocks-gb-column p,
 div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .genesis-container ul li {
-    color: #344854 !important;
+    color: #344854;
     line-height: 1.4;
     font-size: 1.25rem !important;
 }

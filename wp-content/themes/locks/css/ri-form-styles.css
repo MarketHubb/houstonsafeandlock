@@ -151,7 +151,6 @@ body .gform_wrapper .top_label div.ginput_container {
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     #productModal .product-field .ginput_container > textarea {
-        width: 200% !important;
         height: 1rem !important;
         padding-left: 0 !important;
     }
