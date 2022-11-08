@@ -4,8 +4,9 @@ get_header('form');
 
 if (is_page([6448, 6624, 6839, 7276])) {
     set_query_var('form_id', 2);
-    set_query_var('modal_callouts', 'callouts-locksmith');
-    set_query_var('modal_headline', 'Schedule a Locksmith');
+    set_query_var('modal_callouts', 'locksmith_');
+    set_query_var('modal_heading', "Schedule Locksmith Service");
+    set_query_var('modal_mobile_heading', 'Locksmith Inquiry');
 }
 
 ?>

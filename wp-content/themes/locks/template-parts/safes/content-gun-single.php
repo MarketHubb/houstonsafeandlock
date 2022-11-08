@@ -1,5 +1,5 @@
 <?php
-set_query_var('modal_callouts', 'callouts-safes');
+set_query_var('modal_callouts', '');
 set_query_var('modal_heading', get_the_title() . ' Product Inquiry');
 set_query_var('modal_mobile_heading', 'Safe Product Inquiry');
 ?>

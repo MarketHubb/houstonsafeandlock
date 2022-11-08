@@ -2,7 +2,7 @@
 $form_id = get_query_var('form_id') ?: 1;
 $form_heading = get_query_var('modal_heading') ?: 'Inquiry';
 $form_mobile_heading = get_query_var('modal_mobile_heading') ?: 'Inquiry';
-$callouts = get_query_var('modal_callouts') ?: 'callouts';
+$callout_prefix = get_query_var('modal_callouts') ?: '';
 ?>
 
 
@@ -16,7 +16,7 @@ $callouts = get_query_var('modal_callouts') ?: 'callouts';
 
             <div class="modal-body">
 
-                <?php get_template_part('template-parts/modal/content', $callouts); ?>
+                <?php get_template_part('template-parts/modal/content', 'callouts', ['prefix' => $callout_prefix]); ?>
 
                 <div class="container-fluid">
                     <div class="row d-none">

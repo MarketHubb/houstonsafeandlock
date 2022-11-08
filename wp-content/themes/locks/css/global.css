@@ -207,7 +207,8 @@ ul.flush {
 .bg-orange {
     background-color: #ce742e !important;
 }
-.btn.bg-orange[class*="border"] {
+.btn.bg-orange[class*="border"], input[type="submit"]
+{
     border-color: #AF6228 !important;
 }
 .bg-grey {
@@ -320,7 +321,7 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
 div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .genesis-container ul li {
     color: #344854 !important;
-    line-height: 1.4 !important;
+    line-height: 1.4;
     font-size: 1.25rem !important;
 }
 .modal-new .close {
@@ -359,6 +360,9 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 }
 /* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
+    #gform_wrapper_2 {
+        margin-top: 2rem;
+    }
     .close {
         opacity: 1;
         position: absolute;
@@ -415,7 +419,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         font-weight: 700;
         -webkit-font-smoothing: antialiased;
     }
-    .mobile-cta-container .or p {
+    .genesis-container .entry-content .mobile-cta-container .or p {
         width: 100%;
         text-align: center;
         border-bottom: 1px solid #ddd;
