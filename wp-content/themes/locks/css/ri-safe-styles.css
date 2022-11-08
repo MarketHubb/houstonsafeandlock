@@ -23,7 +23,10 @@
 	max-height: 30px;
 	opacity: .5;
 }
-
+/* CTA */
+#custom-product-single .safe-cta .cta-callouts li {
+	font-size: 1rem;
+}
 /* Entry bullets */
 #custom-product-single .post-excerpt.bullets h2 {
 	font-size: 1.2rem;

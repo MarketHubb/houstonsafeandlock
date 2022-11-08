@@ -33,13 +33,7 @@ h1,h2,h3,h4,h5 {
 h2.widget-title {
     display: none;
 }
-.btn {
-    font-weight: 600;
-    -webkit-font-smoothing: antialiased;
-    padding: .5rem 1.5rem;
-    display: inline-block !important;
-    border: none !important;
-}
+
 header.site-header div#pre-nav div.container-fixed {
     padding: 5px 0;
 }
@@ -205,8 +199,16 @@ ul.flush {
 .bg-blue,.bg-brand {
     background-color: #174368;
 }
+.btn {
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    padding: .6rem 2rem;
+}
 .bg-orange {
     background-color: #ce742e !important;
+}
+.btn.bg-orange[class*="border"] {
+    border-color: #AF6228 !important;
 }
 .bg-grey {
     background-color: #f8f8f8;

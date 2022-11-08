@@ -25,9 +25,9 @@ get_header();
         </main>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
         <div class="wrapper">
-           <div class="row">
+           <div class="row py-5">
 
                 <div class="col-md-4 ">
                     <div class="card bg-white shadow h-100">

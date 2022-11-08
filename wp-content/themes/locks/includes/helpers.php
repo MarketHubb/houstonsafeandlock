@@ -221,13 +221,14 @@ function get_safe_attribute_values($post_id, $attribute) {
     return $output_val;
 }
 
-function get_product_inquiry_btn($post_id, $btn_text, $stretched=null)
+function get_product_inquiry_btn($post_id, $btn_text, $stretched=null, $custom_classes=null)
 {
     $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'single-post-thumbnail' );
     $attr = get_safe_attributes($post_id);
     $stretched_class = $stretched ? 'stretched-link' : '';
+    $classes = $custom_classes ?: 'btn btn-primary bg-orange d-block d-md-inline-block border-0';
 
-    $btn  = '<button type="button" class="btn btn-primary bg-orange d-block d-md-inline-block border-0 ';
+    $btn  = '<button type="button" class="' . $classes . ' ';
     $btn .= $stretched_class . '" ';
     $btn .= 'data-bs-toggle="modal" data-bs-target="#productModal" ';
     $btn .= 'data-safeimage="' . $image[0] . '" ';

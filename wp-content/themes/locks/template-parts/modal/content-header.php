@@ -13,8 +13,8 @@ $mobile_heading = $args['mobile_heading'] ?: 'Inquiry';
             </div>
 
             <div class="">
-                <p class="text-white d-block d-md-none mb-0 pb-0 pe-3 me-1"><?php echo $mobile_heading; ?></p>
-                <p class="text-white d-none d-md-block mb-0 pb-0 pe-3 me-1"><?php echo $heading; ?></p>
+                <p class="text-white d-block d-md-none mb-0 pb-0 pe-3 me-1 fw-600"><?php echo $mobile_heading; ?></p>
+                <p class="text-white d-none d-md-block mb-0 pb-0 pe-3 me-1 fw-600"><?php echo $heading; ?></p>
             </div>
 
         </div>
