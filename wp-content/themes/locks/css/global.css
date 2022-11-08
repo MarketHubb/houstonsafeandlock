@@ -391,6 +391,9 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
+    header.site-header div#brand-info div.container-fixed div#menu-responsive div#menu-responsive-container>div.menu-primary-menu-container ul.menu>li>a {
+        display: inline-block;
+    }
     .gform_footer input[type="submit"] {
         width: 100% !important;
     }
