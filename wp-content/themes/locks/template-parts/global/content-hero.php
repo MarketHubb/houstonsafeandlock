@@ -84,7 +84,7 @@ if ($hero) :
                     <div class="col-md-7 col-lg-8">
                         <div class="image-text-container d-inline-block p-2 p-md-5">
 
-                            <h1 class="display-5 mt-3 lh-1"><?php echo $heading; ?></h1>
+                            <h1 class="display-5 mt-3 lh-1 mb-3 fw-600"><?php echo $heading; ?></h1>
 
                             <?php if ($hero['page_banner_subheading']) { ?>
                                 <p class="subheading mt-3 text-white fw-bold lh-1"><?php echo $hero['page_banner_subheading']; ?></p>
@@ -94,7 +94,7 @@ if ($hero) :
 
                             <?php if ($hero['page_banner_description']) { ?>
                                 <p class="lead text-white d-block d-lg-none"><?php echo $mobile_text; ?></p>
-                                <p class="lead text-white d-none d-lg-block fs-3 fw-500"><?php echo $hero['page_banner_description']; ?></p>
+                                <p class="lead text-white d-none d-lg-block fs-3 fw-500 mb-5"><?php echo $hero['page_banner_description']; ?></p>
                             <?php } ?>
 
                             <?php

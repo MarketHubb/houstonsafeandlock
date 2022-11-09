@@ -118,13 +118,23 @@
 
         <div id="pre-nav" class="">
             <div class="container-fixed py-2">
-                
-                <p class="mb-0 pb-0 d-inline">
-                    <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
-                    <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
-                </p>
-                
+
                 <?php if (!get_field('active', 'options')) { ?>
+
+                    <p class="mb-0 pb-0 d-inline">
+                        <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
+                        <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
+                    </p>
+
+                <?php } else { ?>
+
+                    <p class="font-weight-bold mb-0  d-inline-block py-1">
+                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white lh-sm">
+                            <?php echo get_field('alert_message', 'options'); ?>
+                        </a>
+                    </p>
+
+                <?php } ?>
 
                     <!-- Scroll logo (Text image) -->
                     <div id="left-content">
@@ -137,17 +147,7 @@
                         <?php get_search_form(); ?>
                     </div>
 
-            <?php } else { ?>
-                
-                    <p class="px-4 text-center font-weight-bold mb-0 pb-0 lh-sm">
-                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white lh-sm">
-                            <?php echo get_field('alert_message', 'options'); ?>
-                            <i class="fas fa-long-arrow-right ml-1"></i>
-                        </a>
-                    </p>
-                
 
-            <?php } ?>
             </div>
 
             <!-- CURRENT:: Fixed header (when scrolling) -->

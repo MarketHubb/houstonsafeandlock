@@ -25,6 +25,27 @@ get_header();
         </main>
     </div>
 
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-2 text-center">
+                <img src="<?php echo get_home_url() . '/wp-content/uploads/2022/11/noun-free-4147206.svg'; ?>" alt="">
+            </div>
+            <div class="col-md-6">
+                <h2>FREE Standard Delivery</h2>
+                <p class="lead fw-normal">This week only, get free standard delivery on all new safe purchases. Including our top line 2022 American Security gun safes.</p>
+                <ul class="list-group list-group-flush no-borders flush">
+                    <li><p class="lead fw-600">BFX Series Gun Safes</p></li>
+                    <li><p class="lead fw-600">NF Series Gun Safes</p></li>
+                    <li><p class="lead fw-600">SF Series Gun Safes</p></li>
+                    <li><p class="lead fw-600">TF Series Gun Safes</p></li>
+                    <li><p class="lead fw-600">And much more!</p></li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid my-5">
         <div class="wrapper">
            <div class="row py-5">
