@@ -105,60 +105,19 @@
 <div id="page" class="site <?php echo $body_class; ?>">
     <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'locks' ); ?></a>
     <header id="masthead" class="site-header" role="banner">
-        <!-- LEGACY:: Gun Safes (Alert Bar) -->
-        <?php //if (is_page(3857) || is_singular('product')) { ?>
-            <!-- Section: Alert Bar -->
-<!--            <div class="alert alert-primary text-center" role="alert">-->
-<!--                <span class="safe-alert-message d-none d-lg-block">--><?php //echo get_field('field_5dea85d0f82c7', 'option'); ?><!--</span>-->
-<!--                <span class="safe-alert-message d-lg-none">--><?php //echo get_field('field_5defc058afe02', 'option'); ?><!--</span>-->
-<!--            </div>-->
-        <?php //} ?>
+
+        <!-- Pre-nav -->
+        <?php get_template_part('template-parts/global/content', 'pre-nav'); ?>
 
 
-
-        <div id="pre-nav" class="">
-            <div class="container-fixed py-2">
-
-                <?php if (!get_field('active', 'options')) { ?>
-
-                    <p class="mb-0 pb-0 d-inline">
-                        <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
-                        <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
-                    </p>
-
-                <?php } else { ?>
-
-                    <p class="font-weight-bold mb-0  d-inline-block py-1">
-                        <a href="<?php echo get_field('alert_link', 'options'); ?>" class="text-white lh-sm">
-                            <?php echo get_field('alert_message', 'options'); ?>
-                        </a>
-                    </p>
-
-                <?php } ?>
-
-                    <!-- Scroll logo (Text image) -->
-                    <div id="left-content">
-                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                            <h4 class="text-white my-0">Houston Safe & Lock</h4>
-                        </a>
-                    </div>
-                    <!-- CURRENT:: Pre Nav (social icons) -->
-                    <div id="right-content">
-                        <?php get_search_form(); ?>
-                    </div>
-
-
+        <!-- CURRENT:: Fixed header (when scrolling) -->
+        <div class="scrolling-brand-phone">
+            <div class="brand-phone">
+                <h3>Call Now</h3>
+                <p><a href="tel:713-522-5555">713-522-5555</a></p>
             </div>
-
-            <!-- CURRENT:: Fixed header (when scrolling) -->
-            <div class="scrolling-brand-phone">
-                <div class="brand-phone">
-                    <h3>Call Now</h3>
-                    <p><a href="tel:713-522-5555">713-522-5555</a></p>
-                </div>
-            </div>
-
         </div>
+
 
         <!-- CURRENT:: Logo & Phone (pre scroll) -->
         <div id="brand-info">
