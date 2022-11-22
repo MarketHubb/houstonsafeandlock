@@ -394,6 +394,23 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
+    #menu-responsive .search-field-row {
+        display: block;
+    }
+    #menu-responsive #searchform .search-field {
+        line-height: 1.25;
+        font-size: 1.1rem;
+        width: 80% !important;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        border-color: #aaa;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+    }
+    #menu-responsive #searchform i {
+        color: #444 !important;
+        margin-left: .5rem;
+    }
     header.site-header div#brand-info div.container-fixed div#menu-responsive div#menu-responsive-container>div.menu-primary-menu-container ul.menu>li>a {
         display: inline-block;
     }

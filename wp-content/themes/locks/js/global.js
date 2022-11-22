@@ -11,6 +11,15 @@
 
     if($(window).width() <= 768){
 
+        // Mobile search
+        const search = $('#searchform');
+        const menu = $('#primary-menu');
+        const test = '<p>Test</p>';
+
+        if (search.length >= 1) {
+            search.insertBefore(menu);
+        }
+
         // Auto-fob link
         let mobileMenu = $('header.site-header div#brand-info div.container-fixed div#menu-responsive div#menu-responsive-container > div.menu-primary-menu-container ul.menu');
 
