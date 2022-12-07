@@ -340,6 +340,9 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .gform_footer input[type="submit"]:hover {
     box-shadow: none !important;
 }
+.anchor-container {
+    scroll-padding-top: 150px;
+}
 /****************************************
 *** MEDIA QUERIES - MINIMUMS ***
 *****************************************/
