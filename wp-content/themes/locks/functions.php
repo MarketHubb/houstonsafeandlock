@@ -461,7 +461,7 @@ add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
 function my_theme_wrapper_start() {
 //  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
 
-  if (!has_term(37, 'product_cat')) {
+  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
       echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
       get_template_part( 'template-parts/content', 'header-hero-safe' );
       echo '<div class="container-fixed">';
