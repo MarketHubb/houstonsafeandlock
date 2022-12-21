@@ -68,7 +68,12 @@ if ($safe_category_query->have_posts()) :
         $safes .= '<img src="' . get_home_url() . $logo;
         $safes .= '" class="manufacturer-logo" />';
         $safes .= '</div><div class="d-inline-block">';
-        $safes .= '<span class="badge bg-blue float-right align-middle fw-500 fs-6">Save <span class="fw-600">' .  formatMoney($prices['discount_amount']) . '</span></span>';
+
+        if (!empty($prices['discount_amount']) && $prices['discount_amount'] > 0) {
+            $safes .= '<span class="badge bg-blue float-right align-middle fw-500 fs-6">Save <span class="fw-600">' .  formatMoney($prices['discount_amount']) . '</span></span>';
+
+        }
+
         $safes .= '</h5></div>';
 
         $safes .= '</div>';
