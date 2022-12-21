@@ -214,8 +214,13 @@ function get_safe_attribute_values($post_id, $attribute) {
         $output_val['formatted'] = str_replace(' Burglary Protection', '', $val);
         $output_val['clean'] = $val;
     } else {
-        $output_val['formatted'] = (gettype($val) !== "string") ? round($val, 2) . get_formatted_attributes($attribute)['postfix'] : "N/A";
-        $output_val['clean'] = (is_numeric($val) && !empty($val)) ? $val : 0;
+        if (!empty($val) && is_numeric($val)) {
+            $output_val['formatted'] = $val . get_formatted_attributes($attribute)['postfix'];
+            $output_val['clean'] =  $val;
+        } else {
+            $output_val['formatted'] = "N/A";
+            $output_val['clean'] =  0;
+        }
     }
 
     return $output_val;
