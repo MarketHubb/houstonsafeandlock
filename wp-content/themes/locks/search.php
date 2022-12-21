@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <div class="custom-content" id="ç">
+    <div class="custom-content" id="">
 
         <!-- Banner Transform (Empty) -->
         <div class="banner section-container transformed-bg blue py-0">
@@ -27,6 +27,7 @@
         </div>
 
         <?php get_template_part('template-parts/search/content'); ?>
+
 
 
 <?php get_footer(); ?>
