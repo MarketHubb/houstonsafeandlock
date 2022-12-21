@@ -14,7 +14,6 @@
         // Mobile search
         const search = $('#searchform');
         const menu = $('#primary-menu');
-        const test = '<p>Test</p>';
 
         if (search.length >= 1) {
             search.insertBefore(menu);

@@ -34,6 +34,9 @@ if ($safe_category_query->have_posts()) :
         $title_array = explode(' ', $title);
         $safes .= 'data-name="' . array_shift($title_array) .  '" ';
 
+        $msrp = get_field('post_product_gun_msrp');
+        $prices = get_price($msrp,20);
+
         $labels = '<ul class="product-details-list">';
 
         foreach ($attributes as $attribute) {
@@ -65,7 +68,7 @@ if ($safe_category_query->have_posts()) :
         $safes .= '<img src="' . get_home_url() . $logo;
         $safes .= '" class="manufacturer-logo" />';
         $safes .= '</div><div class="d-inline-block">';
-        $safes .= '<span class="badge badge-primary float-right align-middle">In-stock</span>';
+        $safes .= '<span class="badge bg-blue float-right align-middle fw-500 fs-6">Save <span class="fw-600">' .  formatMoney($prices['discount_amount']) . '</span></span>';
         $safes .= '</h5></div>';
 
         $safes .= '</div>';
