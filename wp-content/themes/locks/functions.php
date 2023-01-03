@@ -182,7 +182,7 @@ function locks_scripts() {
         wp_enqueue_style( 'ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css' );
         wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
 
-        wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap", [], '1.0');
+        wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap", [], '1.0');
 
     }
 
@@ -461,7 +461,8 @@ add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
 function my_theme_wrapper_start() {
 //  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
 
-  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
+//  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
+  if (!has_term(37, 'product_cat')) {
       echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
       get_template_part( 'template-parts/content', 'header-hero-safe' );
       echo '<div class="container-fixed">';

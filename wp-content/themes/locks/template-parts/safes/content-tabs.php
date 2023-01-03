@@ -13,7 +13,7 @@
 <div class="tab-content" id="myTabContent">
     
     <div class="tab-pane fade show active" id="attributes" role="tabpanel" aria-labelledby="home-tab">
-        <p class="lead fw-normal mb-4"><?php echo get_the_title() ?> at a glance: </p>
+        <?php get_template_part('template-parts/safes/content', 'warranty'); ?>
         <?php get_template_part('template-parts/safes/content', 'attributes'); ?>
     </div>
     

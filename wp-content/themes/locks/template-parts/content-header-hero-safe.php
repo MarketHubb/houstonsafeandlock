@@ -1,4 +1,8 @@
 <?php
+// Don't output this header if on redesigned single page
+if (is_page_template('template-parts/safes/content-single')) { ?>
+
+<?php
 
 if (get_field('page_include_banner')) {
 
@@ -45,43 +49,43 @@ if (get_field('page_include_banner')) {
     }
     ?>
 
-    <div class="products-container container-fixed">
+        <div class="products-container container-fixed">
 
-        <?php
-        // Safe Shop
-        if (is_shop()) {
-            $headline = get_field( 'page_headline', '2320' ); ?>
+            <?php
+            // Safe Shop
+            if (is_shop()) {
+                $headline = get_field( 'page_headline', '2320' ); ?>
 
-            <h1 class="product-detail-heading"><?php echo $headline; ?></h1>
+                <h1 class="product-detail-heading"><?php echo $headline; ?></h1>
 
-        <?php } ?>
+            <?php } ?>
 
-        <?php
-        //  Safe Category Pages (i.e Commercial Safes)
-        if (is_archive() && !is_shop()) { ?>
+            <?php
+            //  Safe Category Pages (i.e Commercial Safes)
+            if (is_archive() && !is_shop()) { ?>
 
-            <h1 class="product-detail-heading"><?php woocommerce_page_title(); ?></h1>
+                <h1 class="product-detail-heading"><?php woocommerce_page_title(); ?></h1>
 
-        <?php } ?>
+            <?php } ?>
 
-        <?php
-        //  Safe Product Detail Page
-        if (is_singular('product')) {
+            <?php
+            //  Safe Product Detail Page
+            if (is_singular('product')) {
 
-            $manufacturer = get_field('post_product_gun_manufacturer');
-            $model = get_the_title(); ?>
+                $manufacturer = get_field('post_product_gun_manufacturer');
+                $model = get_the_title(); ?>
 
-            <div class="container">
-                <div class="row">
-                    <h1 class="product-detail-heading"><?php echo $model; ?></h1>
-                    <p class="product-detail-subheading"><?php echo get_field('post_product_gun_model_description'); ?></p>
+                <div class="container">
+                    <div class="row">
+                        <h1 class="product-detail-heading"><?php echo $model; ?></h1>
+                        <p class="product-detail-subheading"><?php echo get_field('post_product_gun_model_description'); ?></p>
+                    </div>
                 </div>
-            </div>
 
-        <?php } ?>
+            <?php } ?>
 
 
-    </div>
+        </div>
 
     <?php if (!is_shop() && !is_archive() && !is_singular('product')) { ?>
 
@@ -127,4 +131,4 @@ if (get_field('page_include_banner')) {
         </div>
 
 
-<?php } } ?>
+<?php } } } ?>

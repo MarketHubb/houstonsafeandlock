@@ -88,7 +88,7 @@ h3 {
     font-weight: 600 !important;
 }
 .fw-700 {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 .fw-900 {
     font-weight: 900;
@@ -420,12 +420,17 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     .gform_footer input[type="submit"] {
         width: 100% !important;
     }
-    #custom-product-single .container > .row {
+    #custom-product-single {
+        margin-top: 3rem !important;
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    #custom-product-single {
-        margin-top: 5rem !important;
+    #breadcrumb-container {
+        display: none;
+    }
+    #main > .container-fixed {
+        margin: 0;
+        padding: 0;
     }
     header.site-header div#brand-info div.container-fixed div#brand-logo {
         margin-left: 10px;
