@@ -19,7 +19,7 @@
     );
     $rand_text = rand(0, count($btn_text_options));
     $cta_text = !empty($btn_text_options[$rand_text]) ? $btn_text_options[$rand_text] : 'Get Pricing & Delivery Options';
-    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-700 text-uppercase border-1";
+    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-700 text-uppercase border-1 w-100";
     $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-700 text-uppercase border-1 d-block font-source";
     ?>
 
@@ -31,8 +31,8 @@
 
     <div class="row align-items-center justify-content-between mt-4 mb-5">
 
-        <div class="col-md-5">
-            <ul class="list-group list-group-flush  no-borders ms-0 lst-none bg-transparent cta-callouts d-none d-md-block">
+        <div class="col-lg-5 d-none d-lg-block">
+            <ul class="list-group list-group-flush no-borders ms-0 lst-none bg-transparent cta-callouts">
                 <li class="list-group-item bg-transparent py-1 no-border text-secondary">
                     <i class="fa-solid fa-tags text-blue me-2 fa-fw"></i>Lowest Prices
                 </li>
@@ -62,7 +62,7 @@
             </ul>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-12 col-lg-7">
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); ?>
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_mobile_classes); ?>
         </div>
