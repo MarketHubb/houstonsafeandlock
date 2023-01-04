@@ -1,7 +1,7 @@
 <?php
 $post_id = get_the_ID();
 if( have_rows('attributes', 'option') ):
-    $attributes = '<div class="row">';
+    $attributes = '<div class="row attributes">';
 
     while ( have_rows('attributes', 'option') ) : the_row();
         $label = get_sub_field('attribute', 'option');

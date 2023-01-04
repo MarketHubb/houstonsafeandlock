@@ -421,9 +421,16 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         width: 100% !important;
     }
     #custom-product-single {
-        margin-top: 3rem !important;
+        margin-top: 5rem !important;
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+    .warranty ul.list-group li:first-of-type {
+        padding-left: 0;
+    }
+    .attributes .card .card-header > p {
+        font-size: .9rem;
+        font-weight: 600;
     }
     #breadcrumb-container {
         display: none;
@@ -476,6 +483,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     }
     p {
         font-size: 1.1rem;
+        line-height: 1.5;
     }
     header.site-header div#brand-info {
         min-height: 70px;

@@ -6,7 +6,7 @@ $mobile_heading = $args['mobile_heading'] ?: 'Inquiry';
 <div class="modal-header bg-blue px-2 px-md-3">
     <div class="container-fluid">
 
-        <div class="d-flex flex-row justify-content-between align-items-center pe-5">
+        <div class="d-flex flex-row justify-content-between align-items-center">
 
             <div class="">
                 <img src="<?php echo $logo; ?>" class="modal-logo" alt="">

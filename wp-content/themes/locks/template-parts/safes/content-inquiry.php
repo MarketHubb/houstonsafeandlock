@@ -19,7 +19,8 @@
     );
     $rand_text = rand(0, count($btn_text_options));
     $cta_text = !empty($btn_text_options[$rand_text]) ? $btn_text_options[$rand_text] : 'Get Pricing & Delivery Options';
-    $btn_classes = "btn btn-primary bg-orange fw-700 text-uppercase border-1 d-block";
+    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-700 text-uppercase border-1";
+    $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-700 text-uppercase border-1 d-block font-source";
     ?>
 
     <div class="alert alert-primary rounded w-100 py-2" role="alert">
@@ -44,22 +45,26 @@
             </ul>
             <ul class="list-group list-group-horizontal list-group-flush  no-borders ms-0 lst-none bg-transparent cta-callouts d-md-none mb-3">
                 <li class="list-group-item bg-transparent py-1 no-border text-secondary text-center flex-fill">
+                    <i class="fa-solid fa-truck text-blue text-center fa-fw"></i>
+                    <p class="lh-1 mb-0">DELIVERY</p>
+                    <p class="mb-0 text-secondary">Times</p>
+                </li>
+                <li class="list-group-item bg-transparent py-1 no-border text-secondary text-center flex-fill">
                     <i class="fa-solid fa-tags text-blue text-center fa-fw"></i>
+                    <p class="lh-1 mb-0">SALE</p>
                     <p class="mb-0 text-secondary">Prices</p>
                 </li>
                 <li class="list-group-item bg-transparent py-1 no-border text-secondary text-center flex-fill">
-                    <i class="fa-solid fa-truck text-blue text-center fa-fw"></i>
-                    <p class="mb-0 text-secondary">Delivery</p>
-                </li>
-                <li class="list-group-item bg-transparent py-1 no-border text-secondary text-center flex-fill">
                     <i class="fa-solid fa-person-dolly text-blue text-center fa-fw"></i>
-                    <p class="mb-0 text-secondary">Installation</p>
+                    <p class="lh-1 mb-0">SETUP</p>
+                    <p class="mb-0 text-secondary">Options</p>
                 </li>
             </ul>
         </div>
 
         <div class="col-md-7">
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); ?>
+            <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_mobile_classes); ?>
         </div>
 
 
