@@ -19,7 +19,7 @@ get_header(); ?>
                             <h2 class="mb-4 pb-2 border-bottom d-inline-block">Address</h2>
                             <div itemscope itemtype="http://schema.org/LocalBusiness">
                                 <div class="schema" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                                    <span itemprop="streetAddress">10218 F, Westheimer Rd.</span><br>
+                                    <span itemprop="streetAddress">10210 Westheimer Rd.</span><br>
                                     <span itemprop="addressLocality">Houston</span>,
                                     <span itemprop="addressRegion">Texas</span> -
                                     <span itemprop="postalCode">77042</span><br>
