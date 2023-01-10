@@ -83,7 +83,7 @@
                     <meta itemprop="openingHours"  style='display: none'  datetime="Mo,Tu,We,Th,Fr,Sa 08:00-05:00" />
                     <hr class="my-3">
                     <div itemtype="http://schema.org/PostalAddress" itemscope="" itemprop="address">
-                        <div itemprop="streetAddress">10218 F, Westheimer Rd.</div>
+                        <div itemprop="streetAddress">10210 Westheimer Rd.</div>
                         <div><span itemprop="addressLocality">Houston</span>, <span itemprop="addressRegion">TX</span> <span itemprop="postalCode">77042</span></div>
                     </div>
                 </div>
