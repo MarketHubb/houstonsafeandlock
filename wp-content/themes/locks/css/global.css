@@ -207,7 +207,8 @@ ul.flush {
 .bg-orange {
     background-color: #ce742e !important;
 }
-.btn.bg-orange[class*="border"], input[type="submit"]
+.btn.bg-orange[class*="border"], input[type="submit"],
+.btn.bg-orange
 {
     border-color: #AF6228 !important;
 }
@@ -281,9 +282,6 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
 .genesis-container .entry-content div[class*="section-blog-posts"] h3 > a {
     color: #174368;
 }
-.genesis-container .entry-content ul > li {
-    font-weight: 600;
-}
 .genesis-container .entry-content details > summary {
     font-size: 1.25rem;
 }
@@ -317,8 +315,12 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
 .locksmith-cta-container {
     border-color: #eee !important;
 }
+.callout-bullets > li {
+    padding: .2rem 0;
+    font-weight: 600;
+}
 .g-text,
-.genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action) .wp-block-genesis-blocks-gb-column p,
+.genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action) .wp-block-genesis-blocks-gb-column p:not(.custom-text),
 div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .genesis-container ul li {
     color: #344854;
