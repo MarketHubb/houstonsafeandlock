@@ -72,6 +72,14 @@ hr.is-style-wide {
 #genesis-custom-template ul li {
 	line-height: 1.5;
 }
+.hero-callout {
+	background: #174368;
+	color: #fff;
+	display: inline;
+	padding: 0.25rem 1.25rem;
+	border-radius: 100px;
+	position: relative;
+}
 @media only screen and (min-width: 600px) {
 	/* CTA */
 	.cta-text + .cta-text-phone {
@@ -88,8 +96,14 @@ hr.is-style-wide {
 		padding-top: 2rem;
 		padding-bottom: 2rem;
 	}
+	.hero-callout {
+		bottom: 2rem;
+	}
 }
 @media only screen and (max-width: 768px) {
+	.hero-callout {
+		font-size: .85rem !important;
+	}
 	#genesis-custom-template h1 {
 		font-size: 2.5rem !important;
 	}
