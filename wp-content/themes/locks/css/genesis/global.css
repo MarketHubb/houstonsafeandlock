@@ -64,6 +64,14 @@ hr.is-style-wide {
 .gb-block-accordion ul.has-medium-font-size li {
 	font-size: 1em;
 }
+#genesis-custom-template p,
+#genesis-custom-template ul li
+{
+	font-size: 1.25rem !important;
+}
+#genesis-custom-template ul li {
+	line-height: 1.5;
+}
 @media only screen and (min-width: 600px) {
 	/* CTA */
 	.cta-text + .cta-text-phone {
@@ -75,6 +83,24 @@ hr.is-style-wide {
 	}
 }
 
+@media only screen and (min-width: 768px) {
+	#genesis-custom-template .wp-block-genesis-blocks-gb-columns {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#genesis-custom-template h1 {
+		font-size: 2.5rem !important;
+	}
+	#genesis-custom-template {
+		padding-top: 3rem;
+	}
+	#genesis-custom-template .wp-block-genesis-blocks-gb-columns {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+}
 @media only screen and (min-width: 860px) {
 	/* CTA */
 	.cta-text {

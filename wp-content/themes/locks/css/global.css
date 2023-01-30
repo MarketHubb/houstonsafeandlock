@@ -570,7 +570,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         padding-left: 6% !important;
         padding-right: 6% !important;
     }
-    .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns:not(.hero-new) {
+    div:not(#genesis-custom-template) .genesis-container .entry-content > .wp-block-genesis-blocks-gb-columns:not(.hero-new) {
         padding-top: 3.25rem !important;
         padding-bottom: 3.25rem !important;
     }
