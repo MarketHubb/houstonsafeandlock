@@ -39,6 +39,9 @@ hr.is-style-wide {
 	font-weight: bolder;
 	letter-spacing: .015rem;
 }
+.cta-text-phone:hover {
+	color: #ce742e !important;
+}
 .cta-text {
 	font-size: 1.3rem !important;
 }
