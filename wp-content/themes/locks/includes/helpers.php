@@ -54,6 +54,25 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
+function get_sale_copy_clean($post_id) {
+    $price = get_price(get_field('post_product_gun_msrp', $post_id), 20);
+    $price_formatted = '<span class="border-bottom border-danger border-3">' . formatMoney($price['discount_amount']) . '</span>';
+    $month = date('F');
+    $sale_copy = get_field('sale_active', 'option') ? get_field('sale_discount_copy', 'option') : get_field('default_discount_copy', 'option');
+    $final_copy = '';
+
+    if ($sale_copy) {
+        $final_copy = str_replace('{MONTH}',$month,$sale_copy);
+    }
+
+    if (isset($price_formatted) && $price_formatted !== "$0") {
+        $final_copy = str_replace('{AMOUNT}', $price_formatted, $final_copy);
+    } else {
+        $final_copy = str_replace('{AMOUNT}','HUNDREDS', $final_copy);
+    }
+
+    return $final_copy;
+}
 function get_model_name_clean($post_id) {
     $model = strtoupper(get_the_title($post_id));
     $oems = ['AMSEC', 'ORIGINAL', 'JEWEL'];

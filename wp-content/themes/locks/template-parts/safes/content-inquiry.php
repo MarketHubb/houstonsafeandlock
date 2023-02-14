@@ -3,15 +3,7 @@
 <!--<div class="d-flex justify-content-center flex-row">-->
 
     <?php
-    $price = get_price(get_field('post_product_gun_msrp'), 20);
-    $price_formatted = formatMoney($price['discount_amount']);
-    $month = date('F');
-
-    if (isset($price_formatted) && $price_formatted !== "$0") {
-        $lead = 'Save up to ' . $price_formatted . ' during our huge ' . $month .  ' safe sale!';
-    } else {
-        $lead = 'Save hundreds during our HUGE ' . $month . ' safe sale!';
-    }
+    $sale_copy = get_sale_copy_clean($post->ID);
 
     $btn_text_options = array(
         "Get Pricing & Delivery Options",
@@ -25,7 +17,7 @@
 
     <div class="alert alert-primary rounded w-100 py-2" role="alert">
         <p class="font-source text-blue fw-600 fw-normal mb-0 text-center">
-            <?php echo $lead; ?>
+            <?php echo $sale_copy; ?>
         </p>
     </div>
 
