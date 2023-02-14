@@ -31,19 +31,27 @@ do_action( 'woocommerce_before_main_content' );
 ?>
 
 <header class="woocommerce-products-header test">
-	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-		<!-- <h3 class="woocommerce-products-header__title page-title"><?php // woocommerce_page_title(); ?></h3> -->
-	<?php endif; ?>
+    <div class="container">
+        <div class="row justify-content-center mt-4">
+            <div class="col-12 col-md-11 col-lg-10 text-center">
 
-	<?php
-	/**
-	 * Hook: woocommerce_archive_description.
-	 *
-	 * @hooked woocommerce_taxonomy_archive_description - 10
-	 * @hooked woocommerce_product_archive_description - 10
-	 */
-	do_action( 'woocommerce_archive_description' );
-	?>
+                <?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
+		            <h1 class="woocommerce-products-header__title page-title"><?php  woocommerce_page_title(); ?></h1>
+	            <?php endif; ?>
+
+                <?php
+                /**
+                 * Hook: woocommerce_archive_description.
+                 *
+                 * @hooked woocommerce_taxonomy_archive_description - 10
+                 * @hooked woocommerce_product_archive_description - 10
+                 */
+                do_action( 'woocommerce_archive_description' );
+                ?>
+
+            </div>
+        </div>
+    </div>
 </header>
 <?php
 $safe_category_ids = [27,28,42,33];
