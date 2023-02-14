@@ -2,7 +2,7 @@
 
 get_header();
 
-if (is_page([6448, 6624, 6839, 7276])) {
+if (is_page([6448, 6624, 6839, 7276,7728])) {
     set_query_var('form_id', 2);
     set_query_var('modal_callouts', 'locksmith_');
     set_query_var('modal_heading', "Schedule Locksmith Service");
