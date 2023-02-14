@@ -8,22 +8,28 @@ set_query_var('modal_mobile_heading', 'Safe Product Inquiry');
 
 <div class="product-single-container py-4 mt-3 mb-5" id="custom-product-single">
 
-    <div class="bg-blue pb-5 d-none">
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="product-detail-heading text-white mt-0 pt-0"><?php echo get_the_title(); ?></h1>
-                    <p class="product-detail-subheading mb-0 text-white"><?php echo get_field('post_product_gun_model_description'); ?></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-md-6 pe-md-4 pe-lg-5">
-                <h1 class="product-detail-heading"><?php echo get_the_title(); ?></h1>
-                <p class="product-detail-subheading"><?php echo get_field('post_product_gun_model_description'); ?></p>
+                <?php
+                $terms = get_the_terms(get_the_ID(),'product_cat');
+                $safe_type = '';
+                foreach ($terms as $term) {
+                    if ($term->parent === 0) {
+                        $safe_type = $term->name;
+                        break;
+                    }
+                }
+                ?>
+                <?php if ($safe_type) { ?>
+                    <h5 class="text-uppercase"><?php echo $safe_type; ?></h5>
+                <?php } ?>
+                <h1 class="product-detail-heading">
+                    <?php echo get_the_title(); ?>
+                </h1>
+                <p class="lead fw-normal">
+                    <?php echo get_field('post_product_gun_model_description'); ?>
+                </p>
                 <div class="mt-5">
                     <?php do_action( 'woocommerce_before_single_product_summary' ); ?>
                 </div>
