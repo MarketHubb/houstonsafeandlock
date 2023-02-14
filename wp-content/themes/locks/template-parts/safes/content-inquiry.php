@@ -7,12 +7,12 @@
 
     $btn_text_options = array(
         "Get Pricing & Delivery Options",
-        "Get Latest Sale Price",
+        "Get Current Sale Price",
     );
     $rand_text = rand(0, count($btn_text_options));
     $cta_text = !empty($btn_text_options[$rand_text]) ? $btn_text_options[$rand_text] : 'Get Pricing & Delivery Options';
-    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-700 text-uppercase border-1 w-100";
-    $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-700 text-uppercase border-1 d-block font-source";
+    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-600 rounded-pill shadow font-lg font-source border-1 w-100";
+    $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-600 rounded-pill  border-1 d-block font-source";
     ?>
 
     <div class="alert alert-primary rounded w-100 py-2" role="alert">
@@ -24,15 +24,15 @@
     <div class="row align-items-center justify-content-between mt-4 mb-5">
 
         <div class="col-lg-5 d-none d-lg-block">
-            <ul class="list-group list-group-flush no-borders ms-0 lst-none bg-transparent cta-callouts">
-                <li class="list-group-item bg-transparent py-1 no-border text-secondary">
-                    <i class="fa-solid fa-tags text-blue me-2 fa-fw"></i>Lowest Prices
+            <ul class="list-group list-group-flush no-borders ms-0 my-3 lst-none bg-transparent cta-callouts">
+                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
+                    <i class="fa-solid fa-tags text-blue me-3  fa-fw"></i>Latest Sale Price
                 </li>
-                <li class="list-group-item bg-transparent py-1 no-border text-secondary">
-                    <i class="fa-solid fa-truck text-blue me-2 fa-fw"></i>Delivery Times
+                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
+                    <i class="fa-solid fa-truck text-blue me-3  fa-fw"></i>Delivery Times
                 </li>
-                <li class="list-group-item bg-transparent py-1 no-border text-secondary">
-                    <i class="fa-solid fa-person-dolly text-blue me-2 fa-fw"></i>Installation Options
+                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
+                    <i class="fa-solid fa-person-dolly text-blue me-3  fa-fw"></i>Installation Options
                 </li>
             </ul>
             <ul class="list-group list-group-horizontal list-group-flush  no-borders ms-0 lst-none bg-transparent cta-callouts d-md-none mb-3">

@@ -120,6 +120,9 @@ h3 {
     color: #ffffff;
     text-decoration: none !important;
 }
+.btn.font-lg {
+    font-size: 1.1rem;
+}
 .gold {
     color: #ce742e;
     letter-spacing: 5px;
