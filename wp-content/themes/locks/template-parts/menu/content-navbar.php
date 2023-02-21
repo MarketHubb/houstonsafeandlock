@@ -2,10 +2,10 @@
     <div id="pre-nav" class="">
         <div class="container-fixed py-2">
 
-            <p class="mb-0 pb-0 d-inline">
-                <img id="auto-key-icon" src="<?php echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?>" alt="">
-                <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>
-            </p>
+<!--            <p class="mb-0 pb-0 d-inline">-->
+<!--                <img id="auto-key-icon" src="--><?php //echo home_url() . '/wp-content/uploads/2022/08/Car-Key.svg' ?><!--" alt="">-->
+<!--                <a class="mb-0 pb-0 text-white" href="https://www.autofobs.com/?ref=44&locid=18451">Auto Remotes</a>-->
+<!--            </p>-->
 
             <?php if (!get_field('active', 'options')) { ?>
 
