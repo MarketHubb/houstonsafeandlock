@@ -340,7 +340,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 .genesis-container ul li {
     color: #344854;
     line-height: 1.4;
-    font-size: 1.25rem !important;
+    font-size: 1.25rem;
     padding: 0.25rem 0;
 }
 .modal-new .close {
@@ -418,16 +418,38 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 @media (max-width: 768px) {
 
     /* Home */
-    .hero-home .service-col {
+    .section-icon {
+        bottom: 0 !important;
+        margin-bottom: 1.5rem;
+    }
+    .locksmith-col,
+    .service-col,
+    .safe-col
+    {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem 1.5rem 1rem !important;
+    }
+    .hero-home .service-col,
+    .safe-col
+    {
         background-color: #fafafa;
         border-radius: 4px;
-        margin-bottom: 1.5rem;
-        padding: 1.5rem 1.5rem 1rem;
     }
-    .hero-home .service-col figure {
+    .hero-home .service-col figure
+    {
         border-right: none !important;
         padding: 0 !important;
-        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important
+    }
+
+    .hero-home .service-col figure > img,
+    .locksmith-col figure > img,
+    .safe-col figure > img
+    {
+        border-radius: 6px;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    }
+    .hero-home .service-col h4 {
+        font-size: 1.5rem;
     }
     .hero-home .service-col ul {
         margin-left: 1.25rem !important;
@@ -440,7 +462,31 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         margin: 0 1rem;
         width: auto;
     }
-
+    /* Home (Reviews) */
+    #google-business-reviews-rating .listing li {
+        display: flex;
+        justify-content: center;
+        background-color: #fff;
+        border-radius: 6px;
+        padding: 1rem;
+    }
+    #google-business-reviews-rating .listing li span.author-avatar {
+        display: inline-block;
+        width: 100%;
+        flex: none;
+    }
+    #google-business-reviews-rating .listing li span.author-avatar a {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #google-business-reviews-rating .listing li span.review-meta {
+        flex: none;
+    }
+    #google-business-reviews-rating .listing li div.text-excerpt,
+    #google-business-reviews-rating .listing li div.text
+    {
+        padding-inline-start: 0;
+    }
     #menu-responsive .search-field-row {
         display: block;
     }
