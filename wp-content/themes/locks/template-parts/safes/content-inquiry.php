@@ -15,9 +15,9 @@
     $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-600 rounded-pill  border-1 d-block font-source";
     ?>
 
-    <div class="alert alert-primary rounded w-100 py-2" role="alert">
+    <div class="alert alert-primary rounded-pill w-100 py-2 shadow-sm" role="alert">
         <p class="font-source text-blue fw-600 fw-normal mb-0 text-center">
-            <?php echo $sale_copy; ?>
+            <i class="fa-solid fa-megaphone me-3"></i><?php echo $sale_copy; ?>
         </p>
     </div>
 

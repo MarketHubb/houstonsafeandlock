@@ -21,7 +21,7 @@
         <!-- Scroll logo (Text image) -->
         <div id="left-content">
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                <h4 class="text-white my-0">Houston Safe & Lock</h4>
+                <h4 class="text-white anti my-0">Houston Safe & Lock</h4>
             </a>
         </div>
         <!-- CURRENT:: Pre Nav (social icons) -->

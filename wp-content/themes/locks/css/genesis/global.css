@@ -1,3 +1,19 @@
+/*Homepage*/
+.section-icon {
+	position: relative;
+	bottom: 1.5rem;
+	color: #ce742e;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.homepage-reviews h2.heading,
+.homepage-reviews .vicinity,
+.homepage-reviews .rating
+{
+	display: none;
+}
+.homepage-reviews li[class*="rating"] {
+	text-align: center;
+}
 /* Global */
 .grey-light {
 	background-color: #fdfdfd !important;

@@ -1,3 +1,8 @@
+
+h1,h2,h3,h4 {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    color: inherit !important;
+}
 header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
     max-width: 200px;
 }
@@ -10,6 +15,10 @@ header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
 .modal-callouts [class*="col"]:not(:last-of-type) {
     border-right: 1px solid #eee;
 }
+a, a:focus, a:visited {
+    color: #0d6efd;
+}
+
 .close {
     opacity: 1;
     padding-top: 0.25rem;
@@ -322,6 +331,9 @@ header.site-header div#brand-info div.container-fixed div#brand-phone>p {
     padding: .2rem 0;
     font-weight: 600;
 }
+.genesis-container .border-light {
+    border-color: #f1f1f1!important;
+}
 .g-text,
 .genesis-container .entry-content .wp-block-genesis-blocks-gb-columns:not(.gpb-altitude-section-call-to-action) .wp-block-genesis-blocks-gb-column p:not(.custom-text),
 div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
@@ -329,6 +341,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     color: #344854;
     line-height: 1.4;
     font-size: 1.25rem !important;
+    padding: 0.25rem 0;
 }
 .modal-new .close {
     opacity: .6;
@@ -358,7 +371,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 @media (min-width: 1400px) {}
 /* Large devices (desktops, 992px and UP) */
 @media (min-width: 992px) {
-    .genesis-container .entry-content h1 {
+    .genesis-container .entry-content h1:not(.custom) {
         font-size: 3rem !important;
         line-height: 1.05 !important;
         margin-bottom: 1rem;
@@ -403,6 +416,31 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
 }
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
+
+    /* Home */
+    .hero-home .service-col {
+        background-color: #fafafa;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        padding: 1.5rem 1.5rem 1rem;
+    }
+    .hero-home .service-col figure {
+        border-right: none !important;
+        padding: 0 !important;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important
+    }
+    .hero-home .service-col ul {
+        margin-left: 1.25rem !important;
+    }
+    .hero-home .service-col p > a {
+        display: block;
+        text-align: center;
+    }
+    .home-callout .callout-col {
+        margin: 0 1rem;
+        width: auto;
+    }
+
     #menu-responsive .search-field-row {
         display: block;
     }
