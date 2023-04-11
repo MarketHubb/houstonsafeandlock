@@ -182,7 +182,7 @@ function locks_scripts() {
         wp_enqueue_style( 'ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css' );
         wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
 
-        wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap", [], '1.0');
+        wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", [], '1.0');
 
     }
 

@@ -2,6 +2,37 @@
 (function($) {
 
     $(window).load(function() {
+
+
+        function triggerKeypress(el) {
+            el.keydown();
+            el.keypress();
+            el.keyup();
+            el.blur();
+        }
+
+        function bitrixForm() {
+            let safeName = $('h1.product-detail-heading').text().trim();
+            let currentURL = window.location.href;
+            let bitrixFormInputs = $('.b24-form form input');
+            let safeField = bitrixFormInputs.last();
+
+
+            if (safeField.length === 1) {
+                triggerKeypress(safeField);
+
+                safeField.on('keypress', function(){
+                    console.log("pressed!");
+                });
+
+                safeField.val(safeName).trigger(jQuery.Event('keypress', {keycode: 13}));
+                safeField.addClass('b24-form-control-not-empty');
+            }
+        }
+
+        setTimeout(bitrixForm, 4000)
+
+
         $('#specs table tbody tr').each(function() {
             if ($(this).find('th').text() === 'Burglary Protection (Safe Rating)') {
                 var rating = $(this).find('td').text();

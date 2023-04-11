@@ -1,3 +1,94 @@
+/*region Bitrix Forms */
+.b24-form .b24-form-wrapper {
+    border-bottom: none !important;
+}
+.b24-form form input {
+    font-weight: 500 !important;
+    font-size: 1.05rem !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+.b24-form form input:focus {
+    border-color: #174368 !important;
+}
+.b24-form form input.b24-form-control-not-empty,
+.b24-form-control-string .b24-form-control:-webkit-autofill, .b24-form-control-list .b24-form-control:-webkit-autofill, .b24-form-control-text .b24-form-control:-webkit-autofill, .b24-form-control-select .field-item:-webkit-autofill
+{
+    border: 1px solid #174368 !important;
+    /*background-color: #fff !important;*/
+    /*background-color: #E9F2FA !important;*/
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    color: #111 !important;
+}
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+{
+    border: 1px solid #174368 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+    -webkit-text-fill-color: black !important;
+}
+.b24-form form input.b24-form-control-not-empty,.b24-form-control-string .b24-form-control:-webkit-autofill, .b24-form-control-list .b24-form-control:-webkit-autofill, .b24-form-control-text .b24-form-control:-webkit-autofill, .b24-form-control-select .field-item:-webkit-autofill {
+    border: 1px solid #174368 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+    -webkit-text-fill-color: black !important;
+}
+/* End Control Auto-complete */
+.b24-form form input,
+.b24-form form .b24-form-control-label
+{
+    padding-left: 1rem !important;
+    letter-spacing: normal !important;
+}
+.b24-form form input:not(.b24-form-control-not-empty) + .b24-form-control-label {
+    font-size: 1rem;
+}
+.b24-form form input + .b24-form-control-label {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    color: #222;
+    font-weight: 500;
+    opacity: 1;
+}
+.b24-form form button[type="submit"] {
+    border: 1px solid #AF6228;
+    background-color: #ce742e;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    font-size: 1.15rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+    margin: 1rem 0;
+    display: inline-block;
+    width: auto;
+    padding: 0.65rem 1.25rem;
+    min-height: initial;
+    min-width: 210px;
+    transition: 0.3s;
+}
+.b24-form form button[type="submit"]:hover {
+    background-color: #BD6A2B;
+    box-shadow: none;
+}
+.b24-form-control-not-empty+.b24-form-control-label {
+    top: 5px !important;
+
+}
+/*.b24-form .b24-form-control-alert {*/
+/*    margin-bottom: 0 !important;*/
+/*}*/
+/*.b24-form .b24-form-control-alert-message::after {*/
+/*    content: none;*/
+/*}*/
+/*endregion*/
 
 h1,h2,h3,h4 {
     font-family: 'Source Sans Pro', sans-serif !important;
