@@ -241,6 +241,9 @@
 	.sub-category-image {
 		max-height: 80px;
 	}
+	.sub-category-list .col-md-4:last-of-type {
+		margin-bottom: 0 !important;
+	}
 	.cat-hero .cat-callouts h4 {
 		opacity: .85;
 		font-weight: 600;

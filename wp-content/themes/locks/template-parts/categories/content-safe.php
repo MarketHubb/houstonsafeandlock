@@ -20,7 +20,7 @@ $safes = '<div class="row safes product-grid" data-bs-spy="scroll" data-bs-targe
 
 $i = 1;
 foreach ($sub_category_array as $sub_cat_id) {
-    $safes .= '<div class="sub-category-container py-4 my-4" id="scrollspyHeading' . $i . '">';
+    $safes .= '<div class="sub-category-container py-3 py-md-3 my-4" id="scrollspyHeading' . $i . '">';
     // Query args
     $query_args = [
         'post_type' => 'product',
@@ -52,7 +52,7 @@ foreach ($sub_category_array as $sub_cat_id) {
         $safes .= '<div class="row sub-category-list">';
 
         while ($query->have_posts()) : $query->the_post();
-            $safes .= '<div class="col-md-4">';
+            $safes .= '<div class="col-md-4 mb-3 mb-md-0">';
             $safes .= '<div class="p-3 p-md-4 shadow-sm border rounded product">';
 
             $safes .= '<div class="text-center">';
