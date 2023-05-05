@@ -39,10 +39,10 @@ foreach ($sub_category_array as $sub_cat_id) {
         $cat_image = get_product_cat_image(get_term($sub_cat_id));
 
         $safes .= '<div class="row sub-category-heading">';
-        $safes .= '<div class="col-md-8">';
+        $safes .= '<div class="col-8">';
         $safes .= '<h2>' . get_term($sub_cat_id)->name . '</h2>';
         $safes .= '<p>' . get_term($sub_cat_id)->description . '</p>';
-        $safes .= '</div><div class="col-md-4 text-center">';
+        $safes .= '</div><div class="col-4 text-center">';
 
         if ($cat_image) {
             $safes .= '<img src="' . $cat_image . '" class="sub-category-image"/>';

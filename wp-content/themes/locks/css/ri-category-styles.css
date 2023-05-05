@@ -226,6 +226,25 @@
 }
 /* Medium devices (tablets, 768px and DOWN) */
 @media (max-width: 768px) {
+	#product-cat-container {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+	.sub-category-heading h2 {
+		font-size: 1.3rem !important;
+	}
+	.cat-hero .cat-description,
+	.cat-hero .cat-callouts h4
+	{
+		font-size: 1rem !important;
+	}
+	.sub-category-image {
+		max-height: 80px;
+	}
+	.cat-hero .cat-callouts h4 {
+		opacity: .85;
+		font-weight: 600;
+	}
 	.product-list-item .img-container > img {
 		max-height: 175px;
 	}

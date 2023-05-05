@@ -33,7 +33,7 @@ do_action( 'woocommerce_before_main_content' );
 <header class="woocommerce-products-header test">
 
         <!-- Hero -->
-        <div>
+        <div class="container" id="product-cat-container">
         <?php 
         $object = get_queried_object();
         if (is_object($object)) {
