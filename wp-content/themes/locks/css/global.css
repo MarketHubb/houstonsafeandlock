@@ -1,4 +1,7 @@
 /*region Bitrix Forms */
+.b24-form-header-padding {
+    padding: 0 !important;
+}
 .b24-form .b24-form-wrapper {
     border-bottom: none !important;
 }
@@ -81,6 +84,9 @@ select:-webkit-autofill:focus
 .b24-form-control-not-empty+.b24-form-control-label {
     top: 5px !important;
 
+}
+.b24-form-state-container .b24-form-success {
+    background-color: transparent !important;
 }
 /*.b24-form .b24-form-control-alert {*/
 /*    margin-bottom: 0 !important;*/

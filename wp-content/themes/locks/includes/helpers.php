@@ -54,6 +54,51 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
+function get_product_cat_image($cat) {
+    $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+    return  wp_get_attachment_url( $thumbnail_id );
+}
+
+function get_formatted_product_attributes($post_id, $attributes) {
+//    $attributes=['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
+    $attribute_array = [];
+
+    if (is_array($attributes)) {
+        foreach ($attributes as $attribute) {
+            $attribute_array[$attribute] = get_field('post_product_gun_' . str_replace('-', '_', $attribute), $post_id);
+        }
+    }
+
+    return $attribute_array;
+}
+function get_sticky_sub_category_nav($cats_array) {
+    $nav  = '<nav id="navbar-product-cats" class="navbar navbar-light bg-light px-3 fixed-top">';
+    $nav .= '<a class="navbar-brand" href="#">Categories</a>';
+    $nav .= '<ul class="nav nav-pills">';
+
+    $i = 1;
+    foreach ($cats_array as $cat) {
+        $nav .= '<li class="nav-item">';
+        $nav .= '<a class="nav-link" href="#scrollspyHeading' . $i . '">';
+        $nav .= get_term($cat)->name . '</a>';
+        $nav .= '</li>';
+        $i++;
+    }
+
+    $nav .= '</ul></nav>';
+
+    return $nav;
+//    <li class="nav-item dropdown">
+//      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+//      <ul class="dropdown-menu">
+//        <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
+//        <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
+//        <li><hr class="dropdown-divider"></li>
+//        <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
+//      </ul>
+
+}
+
 function get_sale_copy_clean($post_id) {
     $month = date('F');
 

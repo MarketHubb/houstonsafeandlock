@@ -26,6 +26,11 @@ $callout_prefix = get_query_var('modal_callouts') ?: '';
                     </div>
                     <div class="row align-items-center justify-content-center px-sm-0">
                         <div class="col-md-10">
+
+                            <?php if ($form_id === 1) { ?>
+                                <p class="lead lh-sm text-center fw-600  mt-4 mb-2 px-md-4 mx-md-4 px-lg-5 mx-lg-5">Get pricing, delivery options and product information on the <?php echo get_the_title(); ?></p>
+                            <?php } ?>
+
                             <script data-b24-form="inline/15/9jyzqr" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.com/b24117867/crm/form/loader_15.js');</script>
 
 

@@ -5,8 +5,8 @@
                 <img src="<?php echo get_stylesheet_directory_uri() . '/images/houston-location-map.jpg'; ?>" alt="">
             </div>
             <div class="col-md-7">
-                <h2>We deliver to more cities than anyone</h2>
-                <p class="lead">Up to 100 miles from our location in Houston</p>
+                <h2>Delivery &amp; installation to the most cities in Texas</h2>
+                <p class="lead">We deliver up to 100 miles from our location in Houston</p>
                 <div class="row">
                     <div class="col-md-4">
                         <ul class="list-group ms-0">

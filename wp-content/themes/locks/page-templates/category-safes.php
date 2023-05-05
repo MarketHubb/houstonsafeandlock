@@ -135,7 +135,7 @@ set_query_var('modal_headline', 'Product Inquiry');
 
         $safes .= '</div>'; // End .products
 
-        echo $safes;
+//        echo $safes;
         ?>
 
 

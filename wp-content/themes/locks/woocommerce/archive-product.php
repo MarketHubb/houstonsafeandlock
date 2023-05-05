@@ -31,12 +31,25 @@ do_action( 'woocommerce_before_main_content' );
 ?>
 
 <header class="woocommerce-products-header test">
-    <div class="container">
+
+        <!-- Hero -->
+        <div>
+        <?php 
+        $object = get_queried_object();
+        if (is_object($object)) {
+            $cat = get_queried_object();
+            get_template_part('template-parts/hero/content', 'image', $cat);
+            get_template_part('template-parts/categories/content', 'safe', $cat);
+        }
+        ?>
+        </div>
+
+
         <div class="row justify-content-center mt-4">
             <div class="col-12 col-md-11 col-lg-10 text-center">
 
                 <?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-		            <h1 class="woocommerce-products-header__title page-title"><?php  woocommerce_page_title(); ?></h1>
+<!--		            <h1 class="woocommerce-products-header__title page-title">--><?php // woocommerce_page_title(); ?><!--</h1>-->
 	            <?php endif; ?>
 
                 <?php
@@ -46,7 +59,7 @@ do_action( 'woocommerce_before_main_content' );
                  * @hooked woocommerce_taxonomy_archive_description - 10
                  * @hooked woocommerce_product_archive_description - 10
                  */
-                do_action( 'woocommerce_archive_description' );
+//                do_action( 'woocommerce_archive_description' );
                 ?>
 
             </div>
@@ -57,8 +70,9 @@ do_action( 'woocommerce_before_main_content' );
 $safe_category_ids = [27,28,42,33];
 $category_id = get_queried_object()->term_id;
 
-if ($category_id && in_array($category_id, $safe_category_ids)) {
-    get_template_part('template-parts/safes/content', 'safe-category', ['cat_id' => $category_id]);
+if ($category_id) {
+//if ($category_id && in_array($category_id, $safe_category_ids)) {
+    //get_template_part('template-parts/safes/content', 'safe-category', ['cat_id' => $category_id]);
 } else {
     if ( woocommerce_product_loop() ) {
         /**

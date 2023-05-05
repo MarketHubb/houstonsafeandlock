@@ -1,3 +1,41 @@
+/* NEW: Hero */
+.cat-hero-image {
+	max-height: 225px;
+	width: auto;
+}
+.sub-category-image {
+	max-height: 175px;
+	width: auto;
+}
+.product-grid-description {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.product-grid-image {
+	height: 150px !important;
+	min-height: 150px;
+	width: auto;
+}
+.product-grid-icon {
+	max-height: 18px;
+	width: auto;
+}
+.safes.product-grid .product:hover {
+	border-color: #174368 !important;
+	background: #fdfdfd;
+	box-shadow: none !important;
+}
+.safes.product-grid .product:hover h4 {
+	color: #174368 !important;
+}
+.product-grid .gun-capacity img {
+	max-width: 20px;
+}
+.product-grid .gun-capacity {
+	transform: rotate(45deg);
+}
 /* Page Heading */
 #category-page-heading {
 	letter-spacing: -.025em;

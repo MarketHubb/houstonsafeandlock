@@ -5,7 +5,7 @@
 get_header();
 set_query_var('modal_headline', 'Gun Safe Inquiry');
 ?>
-<div id="primary" class="content-area">
+<div id="primary" class="content-area d-none">
 	<main id="main" class="site-main" role="main">
 
         <?php
