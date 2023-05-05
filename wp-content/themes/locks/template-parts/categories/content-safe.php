@@ -42,7 +42,7 @@ foreach ($sub_category_array as $sub_cat_id) {
         $safes .= '<div class="col-12 col-md-8">';
         $safes .= '<h2>' . get_term($sub_cat_id)->name . '</h2>';
         $safes .= '<p>' . get_term($sub_cat_id)->description . '</p>';
-        $safes .= '</div><div class="col-4 text-center">';
+        $safes .= '</div><div class="col-4 d-none d-md-block text-center">';
 
         if ($cat_image) {
             $safes .= '<img src="' . $cat_image . '" class="sub-category-image"/>';
@@ -52,7 +52,7 @@ foreach ($sub_category_array as $sub_cat_id) {
         $safes .= '<div class="row sub-category-list">';
 
         while ($query->have_posts()) : $query->the_post();
-            $safes .= '<div class="col-md-4 d-none d-md-block">';
+            $safes .= '<div class="col-md-4">';
             $safes .= '<div class="p-3 p-md-4 shadow-sm border rounded product">';
 
             $safes .= '<div class="text-center">';
