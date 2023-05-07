@@ -30,7 +30,7 @@
                         }
 
                         if (get_sub_field('description')) {
-                            $callout .= '<p class="text-secondary d-none d-md-block">' . get_sub_field('description', $cat) . '</p>';
+                            $callout .= '<p class="text-secondary d-none d-md-block lh-base">' . get_sub_field('description', $cat) . '</p>';
                         }
 
                         $callout .= '</div>';
