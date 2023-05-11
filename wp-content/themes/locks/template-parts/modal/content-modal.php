@@ -25,16 +25,20 @@ $callout_prefix = get_query_var('modal_callouts') ?: '';
                         </div>
                     </div>
                     <div class="row align-items-center justify-content-center px-sm-0">
-                        <div class="col-md-10">
+                        <div class="col-12 col-md-11">
 
                             <?php if ($form_id === 1) { ?>
-                                <p class="lead lh-sm text-center fw-600  mt-4 mb-2 px-md-4 mx-md-4 px-lg-5 mx-lg-5">Get pricing, delivery options and product information on the <?php echo get_the_title(); ?></p>
+                                    <div class="mt-3 mb-4 px-md-4 mx-md-4 text-center">
+                                        <h4 class="text-uppercase text-blue fw-bold mb-0"><?php echo get_the_title(); ?></h4>
+                                        <p class="text-secondary mb-4 pb-3">Latest sale pricing, delivery + installation options & more</p>
+                                    </div>
+
                             <?php } ?>
 
-                            <script data-b24-form="inline/15/9jyzqr" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.com/b24117867/crm/form/loader_15.js');</script>
+<!--                            <script data-b24-form="inline/15/9jyzqr" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.com/b24117867/crm/form/loader_15.js');</script>-->
 
 
-                            <?php //gravity_form( $form_id, $display_title = false, $display_description = false, $ajax = false, $tabindex="10", $echo = true ); ?>
+                            <?php gravity_form( $form_id, $display_title = false, $display_description = false, $ajax = false, $tabindex="10", $echo = true ); ?>
                         </div>
                         <div class="col-md-5 mx-auto text-center">
                             <img src="" class="modal-image" alt="" />

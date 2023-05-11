@@ -34,10 +34,17 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus
 {
-    border: 1px solid #174368 !important;
+    border: 1px solid !important;
+    border-color: #aaa !important;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
     transition: background-color 5000s ease-in-out 0s !important;
     -webkit-text-fill-color: black !important;
+}
+#field_1_7 {
+    margin-bottom: 0 !important;
+}
+input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=range], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], textarea {
+    border: 1px solid #aaa;
 }
 .b24-form form input.b24-form-control-not-empty,.b24-form-control-string .b24-form-control:-webkit-autofill, .b24-form-control-list .b24-form-control:-webkit-autofill, .b24-form-control-text .b24-form-control:-webkit-autofill, .b24-form-control-select .field-item:-webkit-autofill {
     border: 1px solid #174368 !important;
