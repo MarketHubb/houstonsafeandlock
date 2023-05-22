@@ -7,7 +7,7 @@
 
     $btn_text_options = array(
         "Get Pricing & Delivery Options",
-        "Get Current Sale Price",
+        "Get Latest Sale Price",
     );
     $rand_text = rand(0, count($btn_text_options));
     $cta_text = !empty($btn_text_options[$rand_text]) ? $btn_text_options[$rand_text] : 'Get Pricing & Delivery Options';
@@ -15,24 +15,19 @@
     $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-600 rounded-pill  border-1 d-block font-source";
     ?>
 
-    <div class="alert alert-primary rounded-pill w-100 py-2 shadow-sm" role="alert">
-        <p class="font-source text-blue fw-600 fw-normal mb-0 text-center">
-            <i class="fa-solid fa-megaphone me-3"></i><?php echo $sale_copy; ?>
-        </p>
-    </div>
-
     <div class="row align-items-center justify-content-between mt-4 mb-5">
 
         <div class="col-lg-5 d-none d-lg-block">
             <ul class="list-group list-group-flush no-borders ms-0 my-3 lst-none bg-transparent cta-callouts">
-                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
-                    <i class="fa-solid fa-tags text-blue me-3  fa-fw"></i>Latest Sale Price
+                <li class="list-group-item bg-transparent py-0  no-border ps-0 text-secondary">
+                    <i class="fa-solid fa-headset text-blue me-3  fa-fw"></i>Speak to an expert
                 </li>
-                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
-                    <i class="fa-solid fa-truck text-blue me-3  fa-fw"></i>Delivery Times
+                <li class="list-group-item bg-transparent py-0  no-border ps-0 text-secondary">
+                    <i class="fa-regular fa-truck-fast text-blue me-3  fa-fw"></i>Schedule Delivery
+
                 </li>
-                <li class="list-group-item bg-transparent py-1  no-border ps-0 text-secondary">
-                    <i class="fa-solid fa-person-dolly text-blue me-3  fa-fw"></i>Installation Options
+                <li class="list-group-item bg-transparent py-0  no-border ps-0 text-secondary">
+                    <i class="fa-regular fa-person-dolly text-blue me-3  fa-fw"></i>Get installation options
                 </li>
             </ul>
             <ul class="list-group list-group-horizontal list-group-flush  no-borders ms-0 lst-none bg-transparent cta-callouts d-md-none mb-3">
@@ -57,9 +52,14 @@
         <div class="col-md-12 col-lg-7">
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); ?>
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_mobile_classes); ?>
+
+            <div class="pt-3" role="alert">
+                <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center">
+                    <?php echo $sale_copy; ?>
+                </p>
+            </div>
+
         </div>
-
-
 
     </div>
 

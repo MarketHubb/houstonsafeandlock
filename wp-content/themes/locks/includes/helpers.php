@@ -111,9 +111,9 @@ function get_sale_copy_clean($post_id) {
 
         if (isset($msrp) && !empty(trim($msrp))) {
             $price = get_price($msrp, 20);
-            $price_formatted = '<span class="border-bottom border-danger border-3">' . formatMoney($price['discount_amount']) . '</span>';
+            $price_formatted = '<span class="fw-bolder">' . formatMoney($price['discount_amount']) . '</span>';
         } else {
-            $price_formatted = '<span class="border-bottom border-danger border-3">HUNDREDS</span>';
+            $price_formatted = '<span class="fw-bolder">HUNDREDS</span>';
         }
 
         $copy = str_replace('{AMOUNT}', $price_formatted, $copy);

@@ -1,4 +1,7 @@
 /* Global */
+body.single-product .container-fixed:not(:first-of-type) {
+    max-width: none;
+}
 .lst-none {
     list-style-type: none !important;
 }

@@ -1,7 +1,7 @@
 <?php
 set_query_var('modal_callouts', '');
-set_query_var('modal_heading', get_the_title() . ' Product Inquiry');
-set_query_var('modal_mobile_heading', 'Safe Product Inquiry');
+set_query_var('modal_heading', 'Safe Product Inquiry');
+set_query_var('modal_mobile_heading', 'Product Inquiry');
 ?>
 
 <?php get_template_part( 'template-parts/content', 'safebreadcrumbs' ); ?>
@@ -51,8 +51,12 @@ set_query_var('modal_mobile_heading', 'Safe Product Inquiry');
 
 
 
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-5 g-0">
         <?php get_template_part('template-parts/safes/content', 'diff'); ?>
+    </div>
+
+    <div class="container-fluid py-5">
+        <?php get_template_part('template-parts/safes/content', 'delivery-cities'); ?>
     </div>
 
     <div class="container">
