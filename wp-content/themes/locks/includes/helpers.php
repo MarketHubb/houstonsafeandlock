@@ -101,6 +101,7 @@ function get_sticky_sub_category_nav($cats_array) {
 
 function get_sale_copy_clean($post_id) {
     $month = date('F');
+    $percentage_off = (get_field('percentage_off', 'option')) ? get_field('percentage_off', 'option') : 20;
 
     if (get_field('sale_active', 'option')) {
         $copy = get_field('sale_discount_copy', 'option');
@@ -110,7 +111,7 @@ function get_sale_copy_clean($post_id) {
         $msrp = get_field('post_product_gun_msrp', $post_id);
 
         if (isset($msrp) && !empty(trim($msrp))) {
-            $price = get_price($msrp, 20);
+            $price = get_price($msrp, $percentage_off);
             $price_formatted = '<span class="fw-bolder">' . formatMoney($price['discount_amount']) . '</span>';
         } else {
             $price_formatted = '<span class="fw-bolder">HUNDREDS</span>';

@@ -11,7 +11,7 @@
     );
     $rand_text = rand(0, count($btn_text_options));
     $cta_text = !empty($btn_text_options[$rand_text]) ? $btn_text_options[$rand_text] : 'Get Pricing & Delivery Options';
-    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-600 rounded-pill shadow font-lg font-source border-1 w-100";
+    $btn_classes = "d-none d-md-block btn btn-primary bg-orange fw-600 rounded-pill shadow-sm font-lg font-source border-1 w-100";
     $btn_mobile_classes = "d-block d-md-none w-100 btn btn-primary bg-orange fw-600 rounded-pill  border-1 d-block font-source";
     ?>
 
@@ -54,7 +54,7 @@
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_mobile_classes); ?>
 
             <div class="pt-3" role="alert">
-                <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center">
+                <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center lh-sm">
                     <?php echo $sale_copy; ?>
                 </p>
             </div>
