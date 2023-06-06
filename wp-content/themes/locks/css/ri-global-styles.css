@@ -1,3 +1,10 @@
+/* Blog (Parent */
+.blog-list .card-img-top {
+    min-height: 270px;
+    height: 270px;
+    width: 100%;
+    object-fit: cover;
+}
 /* Global */
 body.single-product .container-fixed:not(:first-of-type) {
     max-width: none;
