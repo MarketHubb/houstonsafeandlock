@@ -21,9 +21,11 @@
                         $u .= '<div class="text-center"><h5 class="lh-base mb-0 pb-0 fw-light text-decoration-line-through">';
                         $u .= '$' . get_field('list_price');
                         $u .= '</h5></div>';
-                        $u .= '<div class="text-center"><h5 class="fw-bold fw-bold text-danger mb-0 pb-0">';
-                        $u .= return_discount(get_field('list_price'), get_field('sale_price')) . '% Off Sale';
-                        $u .= '</h5></div>';
+                        $u .= '<div class="text-center">';
+//                        $u .='<h5 class="fw-bold fw-bold text-danger mb-0 pb-0">';
+//                        $u .= return_discount(get_field('list_price'), get_field('sale_price')) . '% Off Sale';
+//                        $u .= '</h5>';
+                        $u .= '</div>';
                         $u .= '<div class="text-center"><h5 class="lh-base mb-0 pb-0">';
                         $u .= '$' . get_field('sale_price');
                         $u .= '</h5></div>';
