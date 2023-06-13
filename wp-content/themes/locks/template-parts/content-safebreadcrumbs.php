@@ -1,6 +1,6 @@
 <?php if (!is_shop()) { ?>
 
-    <div class="container bg-white mt-2" id="breadcrumb-container">
+    <div class="container bg-white" id="breadcrumb-container">
         <div class="row justify-content-end w-100">
             <div class="col">
                 <ol vocab="https://schema.org/" typeof="BreadcrumbList">
@@ -9,13 +9,16 @@
                 <?php
                     $breadcrumb_start_organic = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(2320) . '">
-                                    <span property="name me-1 px-0">Safes <span class="mx-1">›</span></span></a>
+                                    <span property="name me-1 px-0">Safes Types</span></a>
+                                     <span class="mx-1">›</span>
                                     <meta property="position" content="1">
                                     </li>';
 
                     $breadcrumb_start_category = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(3857) . '">
-                                    <span property="name me-1 px-0">Safes <span class="mx-1">›</span></span></a>
+                                    <span property="name me-1 px-0">Safes Types</span>
+                                    <span class="mx-1">›</span>
+                                    </a>
                                     <meta property="position" content="1">
                                     </li>';
 
@@ -42,7 +45,7 @@
                                 $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">';
                                 $breadcrumbs .= '<a property="item" typeof="WebPage"';
                                 $breadcrumbs .= 'href="' . get_term_link($term->term_id , 'product_cat' ) . '">';
-                                $breadcrumbs .= '<span property="name me-1 px-0">' . $term->name . ' <span class="mx-1">›</span></span></a>';
+                                $breadcrumbs .= '<span property="name me-1 px-0">' . $term->name . '</span><span class="mx-1">›</span></a>';
                                 $breadcrumbs .= '<meta property="position" content="' . ($i + 2) . '">';
                                 $breadcrumbs .= '</li>';
 

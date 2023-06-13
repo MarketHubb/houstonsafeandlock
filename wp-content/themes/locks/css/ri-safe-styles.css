@@ -97,8 +97,11 @@ ol[typeof="BreadcrumbList"] li span {
 	font-size: .9em;
 	color: #174368;
 }
-ol[typeof="BreadcrumbList"] li:last-of-type span {
-	font-weight: bold;
+ol[typeof="BreadcrumbList"] li:not(:last-of-type) span[property] {
+	text-decoration: underline;
+}
+ol[typeof="BreadcrumbList"] li:not(:last-of-type) span[property] > span {
+	text-decoration: none;
 }
 /* Safe Details Page */
 div.product div.summary.entry-summary h3.product_title.entry-title {

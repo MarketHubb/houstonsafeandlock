@@ -38,6 +38,7 @@ do_action( 'woocommerce_before_main_content' );
         $object = get_queried_object();
         if (is_object($object)) {
             $cat = get_queried_object();
+            get_template_part( 'template-parts/content', 'safebreadcrumbs' );
             get_template_part('template-parts/hero/content', 'image', $cat);
             get_template_part('template-parts/categories/content', 'safe', $cat);
         }
