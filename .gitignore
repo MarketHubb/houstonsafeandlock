@@ -1,0 +1,5 @@
+prod/
+wp-content/plugins/
+wp-content/mu-plugins/
+wp-content/et-cache/
+wp-content/themes/locks/fontawesome/
