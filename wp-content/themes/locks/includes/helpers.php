@@ -1,5 +1,14 @@
 <?php
 //region Global Helpers
+function get_referring_url() {
+    $ref_url = null;
+
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $ref_url = $_SERVER['HTTP_REFERER'];
+    }
+
+    return $ref_url;
+}
 function formatMoney($number, $cents = 1) { // cents: 0=never, 1=if needed, 2=always
     if (is_numeric($number)) { // a number
         if (!$number) { // zero

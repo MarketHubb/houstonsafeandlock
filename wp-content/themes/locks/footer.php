@@ -132,10 +132,19 @@
 </div><!-- #page -->
 
 <?php
-
+$referring = get_referring_url();
 if (is_front_page()) {
     get_template_part('template-parts/modal/content', 'popup');
+} elseif ($referring && strpos($referring, "houstonsafeandlock") === false) {
+    get_template_part('template-parts/modal/content', 'popup');
 }
+?>
+
+<?php
+
+//if (is_front_page()) {
+//    get_template_part('template-parts/modal/content', 'popup');
+//}
 
 
 if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287) || is_page([6448, 6624, 6839, 7276,7728]) || is_page_template('page-templates/full-width.php')) {
