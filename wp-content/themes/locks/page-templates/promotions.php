@@ -5,7 +5,7 @@
 get_header();
 
 ?>
-    <div id="primary" class="content-area">
+    <div id="primary" class="content-area d-none">
         <main id="main" class="site-main" role="main">
 
 
@@ -25,8 +25,10 @@ get_header();
         </main>
     </div>
 
-    <!-- Panel Content -->
-    <?php get_template_part('template-parts/promotions/content'); ?>
+<!-- Panel Content -->
+<?php get_template_part('template-parts/promotions/content-shared'); ?>
+
+<?php //get_template_part('template-parts/promotions/content'); ?>
 
 
 <?php get_footer(); ?>

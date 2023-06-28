@@ -6,6 +6,31 @@
     object-fit: cover;
 }
 /* Global */
+.max-height-50 {
+    max-height: 50vh;
+}
+.mh-50 {
+    min-height: 50vh;
+}
+.global-alert {
+    font-size: 1.05rem;
+}
+.promotion-cards .card-img-top {
+    min-height: 350px;
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+}
+#popupModal .close {
+    right: -1.5rem;
+    top: -3.5rem;
+}
+#popupModal .close > span {
+    font-size: 3rem;
+}
+#popupModal .modal-body .btn {
+    background-color: #dd7f36 !important;
+}
 body.single-product .container-fixed:not(:first-of-type) {
     max-width: none;
 }

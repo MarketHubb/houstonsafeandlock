@@ -9,6 +9,18 @@
        }
     });
 
+    $(window).load(function() {
+        const myModal = new bootstrap.Modal(document.getElementById('popupModal'), {
+            keyboard: false
+        })
+
+        $('#popupModal .close, #popupModal .close > span').on('click', function() {
+           myModal.hide();
+        });
+
+        myModal.show();
+    });
+
     if($(window).width() <= 768){
 
         // Mobile search
