@@ -1,3 +1,9 @@
+html {
+    scroll-padding-top: 4rem;
+}
+.row.safes.product-grid {
+    scroll-padding-top: 2rem;
+}
 /*region Bitrix Forms */
 .b24-form-header-padding {
     padding: 0 !important;
@@ -327,6 +333,11 @@ ul.flush {
 .btn.bg-orange
 {
     border-color: #AF6228 !important;
+}
+.btn:visited, input[type="submit"]:visited,
+.btn.bg-orange:visited
+{
+    color: #fff !important;
 }
 .bg-grey {
     background-color: #f8f8f8;

@@ -27,7 +27,7 @@ function start_session() {
 function meks_which_template_is_loaded() {
     if ( is_super_admin() ) {
         global $template;
-        print_r( $template );
+       highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");
     }
 }
 
