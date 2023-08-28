@@ -9,7 +9,14 @@ $args = [
     'subheading_mobile' => 'Over 400 models in-stock and ready to deliver. Visit our 5,000 sq. ft. showroom today.'
 
 ];
-get_template_part('template-parts/hero/content', 'simple', $args); ?>
+//get_template_part('template-parts/hero/content', 'simple', $args); ?>
+
+<?php $banner_image = get_home_url() . '/wp-content/uploads/2023/08/Labor-Day-Safes.png'; ?>
+
+<header
+        class="max-height-50 mh-50 shadow-sm"
+        style="background-image: url(<?php echo $banner_image; ?>); background-position: center; background-size: contain; background-repeat: no-repeat;">
+</header>
 
 <?php get_template_part('template-parts/safes/content'); ?>
 
