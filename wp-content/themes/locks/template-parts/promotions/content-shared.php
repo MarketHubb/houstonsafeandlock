@@ -1,19 +1,19 @@
-<?php $banner_image = get_home_url() . '/wp-content/uploads/2023/06/Banner-Popup-1.png'; ?>
+<?php $banner_image = get_home_url() . '/wp-content/uploads/2023/08/Labor-Day-Safes.png'; ?>
 
 <header
         class="max-height-50 mh-50 shadow-sm"
-        style="background-image: url(<?php echo $banner_image; ?>); background-position: center; background-size: cover">
+        style="background-image: url(<?php echo $banner_image; ?>); background-position: center; background-size: contain; background-repeat: no-repeat;">
 </header>
 
 <div class="promotion-cards">
 
-<section class="my-5">
+<section class="py-5">
     <div class="container">
 
-        <div class="row justify-content-center my-5 pt-4">
+        <div class="row justify-content-center pt-4 pb-5">
             <div class="col-md-8 text-center">
                 <h2 class="fs-1 text-blue">Our biggest safe sale, ever</h2>
-                <p class="lead">From now until July 8th, order any new safe and get<br>
+                <p class="lead">From now until September 5th, order any new safe and get<br>
                     <strong>An additional 10% off our lowest marked price + Free shipping + Free installation</strong>
                 </p>
                 <a href="<?php echo get_permalink(3901); ?>" type="button" class="btn btn-primary bg-orange fw-600  text-white shadow-sm font-lg font-source">Shop Safes</a>
@@ -39,14 +39,13 @@
     </div>
 </section>
 
-<section class="my-5 pt-4">
+<section class="py-5 bg-grey">
     <div class="container">
 
-        <div class="row justify-content-center my-5">
+        <div class="row justify-content-center pt-4 pb-5">
             <div class="col-md-8 text-center">
                 <h2 class="fs-1 text-blue">Save on Brivo Access Control</h2>
-                <p class="lead">From now until July 8th, order any new safe and get<br>
-                    <strong>From now until July 8th, save on Brivo - the best in access control systems.</strong>
+                    <p class="lead"><strong>From now until September 5th, save on Brivo - the best in access control systems.</strong></p>
                 </p>
                 <a href="<?php echo get_permalink(7728); ?>" type="button" class="btn btn-primary bg-orange fw-600  text-white shadow-sm font-lg font-source ">Shop Access Control</a>
             </div>
@@ -71,10 +70,10 @@
     </div>
 </section>
 
-    <section class="my-5 py-4">
+    <section class="py-5">
         <div class="container">
 
-            <div class="row justify-content-center my-5">
+            <div class="row justify-content-center pt-4 pb-5">
                 <div class="col-md-8 text-center">
                     <h2 class="fs-1 text-blue">One company, two locations</h2>
                     <p class="lead">We're one company, with two locations to better serve the safe and security needs of our valued Houston customers.
