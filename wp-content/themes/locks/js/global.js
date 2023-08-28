@@ -18,7 +18,7 @@
            myModal.hide();
         });
 
-//        myModal.show();
+       myModal.show();
     });
 
     if($(window).width() <= 768){
