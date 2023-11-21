@@ -44,7 +44,7 @@
 
             $button_text = str_replace("Safes", "", $parent_product_cat->name);
 
-            $mobile_cats  = '<p><a class="small fw-bold" href="' . get_term_link($parent_product_cat) . '">View All ' . $parent_product_cat->name . '<i class="fa-solid fa-arrow-right ps-1"></i></a></p>';
+            $mobile_cats  = '<p class="d-block d-md-none"><a class="small fw-bold" href="' . get_term_link($parent_product_cat) . '">View All ' . $parent_product_cat->name . '<i class="fa-solid fa-arrow-right ps-1"></i></a></p>';
             $mobile_cats .= '<div class="d-inline-block d-md-none dropdown">'; // start mobile dropdown
             $mobile_cats .= '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">';
             $mobile_cats .= 'Jump to ' . $button_text . ' Category' . '</a>';
