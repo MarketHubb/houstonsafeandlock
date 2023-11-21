@@ -1,3 +1,7 @@
+/* Safe Parent */
+.safe-cat .card-img-top {
+	max-height: 300px;
+}
 /* Single-product redesign */
 #custom-product-single .woocommerce-product-gallery {
 	width: 100% !important;
@@ -158,6 +162,10 @@ div.product-list-item .manufacturer-logo {
 }
 /* Medium devices (tablets, 768px and down) */
 @media (max-width: 768px) {
+	.safe-categories-container .safe-categories {
+		margin-bottom: 1rem;
+		border: none;
+	}
 	#safes-phone-container h3 {
 		display: none;
 	}

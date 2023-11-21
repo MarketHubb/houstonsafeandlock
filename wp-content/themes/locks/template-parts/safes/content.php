@@ -1,5 +1,85 @@
+<!-- Safe Categories -->
+<div class="container-fluid py-0 py-md-5 mb-md-5">
 
-<div class="container-fluid">
+    <?php
+    $parent_product_cats = get_terms( array(
+        'taxonomy' => 'product_cat',
+        'hide_empty' => true,
+        'orderby' => 'meta_value_num',
+        'meta_key' => 'output_order',
+        'parent' => 0
+    ));
+
+    ?>
+
+
+    <div class="row justify-content-center safe-categories-container">
+
+        <?php
+        $cats = '';
+
+        foreach ($parent_product_cats as $parent_product_cat) {
+            $term_meta = get_term_meta($parent_product_cat->term_id);
+            $term_img = wp_get_attachment_url($term_meta['thumbnail_id'][0]);
+
+            $cats .= '<div class="col-12 col-md-4 col-lg-3 col-xl-2 safe-categories">';
+            $cats .= '<div class="safe-cat my-1 my-md-3">';
+            $cats .= '<div class="card h-100 border-0 p-3">';
+            $cats .= '<div class="p-4 text-center">';
+            $cats .= '<img src="' . $term_img . '" class="card-img-top">';
+            $cats .= '</div>';
+            $cats .= '<div class="card-body">';
+            $cats .= '<p><span class="badge bg-secondary">' . $parent_product_cat->count . ' models</span></p>';
+            $cats .= '<h4 class="fw-bold">' . $parent_product_cat->name . '</h4>';
+            $cats .= '<p class="product-grid-description">' . $parent_product_cat->description . '</p>';
+
+            $child_product_cats = get_terms(array(
+                'taxonomy' => 'product_cat',
+                'hide_empty' => true,
+                'parent' => $parent_product_cat->term_id,
+//                'orderby' => 'meta_value_num',
+//                'meta_key' => 'output_order',
+            ));
+
+
+            $button_text = str_replace("Safes", "", $parent_product_cat->name);
+
+            $mobile_cats  = '<p><a class="small fw-bold" href="' . get_term_link($parent_product_cat) . '">View All ' . $parent_product_cat->name . '<i class="fa-solid fa-arrow-right ps-1"></i></a></p>';
+            $mobile_cats .= '<div class="d-inline-block d-md-none dropdown">'; // start mobile dropdown
+            $mobile_cats .= '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">';
+            $mobile_cats .= 'Jump to ' . $button_text . ' Category' . '</a>';
+            $mobile_cats .= '<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+
+
+            $desktop_cats  = '<ul class="d-none d-md-block list-group list-group-flush ms-0">'; // start desktop category list
+            $desktop_cats .= '<li class="list-group-item ps-0"><a href="' . get_term_link($parent_product_cat) .  '" class="small fw-bold">';
+            $desktop_cats .= 'View All ' .  $parent_product_cat->name . '<i class="fa-solid fa-arrow-right ps-2"></i></a></li>';
+
+            foreach ($child_product_cats as $child_product_cat) {
+                $mobile_cats .= '<li><a class="dropdown-item" href="' . get_term_link($child_product_cat) . '">' . $child_product_cat->name . '</a></li>';
+
+                $desktop_cats .= '<li class="list-group-item ps-0"><a class="small" href="' . get_term_link($child_product_cat->term_id) . '">';
+                $desktop_cats .= $child_product_cat->name . '</a></li>';
+            }
+
+            $desktop_cats .= '</ul>'; // end desktop category list
+
+            $mobile_cats .= '</ul></div>'; //end mobile dropdown
+
+            $cats .= $desktop_cats . $mobile_cats;
+
+            $cats .= '</div></div></div></div>';
+        }
+
+        echo $cats;
+
+        ?>
+
+    </div>
+</div>
+
+
+<div class="container-fluid d-none">
     <div class="wrapper">
 
         <?php
@@ -50,7 +130,7 @@
                     $i++;
                 }
             }
-            echo $cats;
+           // echo $cats;
             ?>
     </div>
 </div>

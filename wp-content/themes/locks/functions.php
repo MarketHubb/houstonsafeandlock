@@ -587,7 +587,7 @@ function ri_conditional_script_loading() {
      * Register custom styles and scripts
      */
     wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
-    wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper.min.js', array('jquery'), '', true);
+    wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper210.min.js', array('jquery'), '', true);
     wp_register_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
     wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
     wp_register_style( 'ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css' );
@@ -615,7 +615,8 @@ function ri_conditional_script_loading() {
 
     if (!is_admin()) {
         wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
-        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.js', [], '5.1.3', true);
+        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/js/bootstrap513/js/bootstrap.bundle.js', [], '5.1.3', true);
+//        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.js', [], '5.1.3', true);
 //        wp_enqueue_script('bootstrap-5-bundle-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
         wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles'] );
         wp_enqueue_style('font-awesome-6');
@@ -628,10 +629,7 @@ function ri_conditional_script_loading() {
     if (is_page(4149)) {
         wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );
     }
-    if (is_page_template('page-templates/gun-safes.php') || is_page_template('page-templates/category-safes.php') || is_product_category()) {
-        wp_enqueue_script('popper');
-        wp_enqueue_script('bootstrap-scripts');
-//        wp_enqueue_style('bootstrap-styles');
+    if (is_page_template('page-templates/safes.php') || is_page_template('page-templates/gun-safes.php') || is_page_template('page-templates/category-safes.php') || is_product_category()) {
         wp_enqueue_style('ri-category-styles');
         wp_enqueue_script('ri-category-scripts');
         wp_enqueue_script('mixitup');
@@ -664,7 +662,7 @@ function ri_conditional_script_loading() {
     // Safes for Sale
     if (is_page(3901)) {
         wp_enqueue_script('bootstrap-scripts');
-        wp_enqueue_style('bootstrap-styles');
+//        wp_enqueue_style('bootstrap-styles');
     }
     // Locksmith pages
     if (is_page(get_sem_locksmith_pages())) {
