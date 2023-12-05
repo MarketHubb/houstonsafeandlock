@@ -89,15 +89,16 @@ function remove_manufacturer_from_category_name($string) {
 }
 
 function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term_parent_id = null) {
+    $links_container = '<div class="mt-3 mt-md-0 mb-5">';
     $nav = '';
-    $dropdown = '<div class="d-flex justify-content-center mb-4 pb-4" id="dropdown-product-cats">';
+    $dropdown = '<div class="d-flex justify-content-center" id="dropdown-product-cats">';
     $dropdown_links = '';
 
     if ($term_parent_id) {
         $parent = get_term($term_parent_id);
         $nav .= '<p class="text-center mb-1 fw-600">Models of ' . strtolower($parent->name) . ' we carry:</p>';
     }
-    $nav  .= '<nav id="navbar-product-cats" class="navbar bg-transparent mb-4 d-none d-md-block">';
+    $nav  .= '<nav id="navbar-product-cats" class="navbar bg-transparent d-none d-md-block">';
     $nav  .= '<ul class="nav nav-pills ms-0 padding-start-0 nav-fill w-100">';
 
     foreach ($cats_array as $cat) {
@@ -117,7 +118,7 @@ function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term
 
     $nav .= '</ul></nav>';
 
-    $dropdown .= '<div class="dropdown  d-block d-md-none">';
+    $dropdown .= '<div class="dropdown d-block d-md-none">';
     $dropdown .= '<a class="btn btn-brand btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">';
 
     $current_term = get_term($current_term_id);
@@ -128,7 +129,9 @@ function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term
     $dropdown .= $dropdown_links;
     $dropdown .= '</ul></div></div>';
 
-    return $nav . $dropdown;
+    $links_container .= $nav . $dropdown . '</div>';
+
+    return $links_container;
 }
 
 function get_sale_copy_clean($post_id) {

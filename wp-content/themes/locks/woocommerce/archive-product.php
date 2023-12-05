@@ -39,11 +39,7 @@ do_action( 'woocommerce_before_main_content' );
         if (is_object($object)) {
             $cat = get_queried_object();
             get_template_part( 'template-parts/content', 'safebreadcrumbs' );
-
-            if ($object->parent === 0) {
-                get_template_part('template-parts/hero/content', 'image', $cat);
-            }
-
+            get_template_part('template-parts/hero/content', 'image', $cat);
             get_template_part('template-parts/categories/content', 'above');
             get_template_part('template-parts/categories/content', 'safe', $cat);
             get_template_part('template-parts/categories/content', 'below');

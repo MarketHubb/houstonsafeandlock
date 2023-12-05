@@ -16,24 +16,27 @@ $query_args = [
     ),
 ];
 
-$safes .= '<div class="sub-category-container py-3 py-md-3 my-4" id="scrollspyHeading' . $i . '">';
-
 $query = new WP_Query($query_args);
 
 if ($query->have_posts()) :
     $cat_image = get_product_cat_image(get_term($child_term));
 
-    $safes .= '<div class="row sub-category-heading mb-3">';
-    $safes .= '<div class="col-12 col-md-8">';
-    $safes .= '<h2>' . get_term($child_term)->name . '</h2>';
-    $safes .= '<p>' . get_term($child_term)->description . '</p>';
-    $safes .= '</div><div class="col-4 d-none d-md-block text-center">';
+    if ($obj->parent === 0) {
+        $safes .= '<div class="sub-category-container py-3 py-md-3 my-4" id="scrollspyHeading' . $i . '">';
+        $safes .= '<div class="row sub-category-heading mb-3">';
+        $safes .= '<div class="col-12 col-md-8">';
+        $safes .= '<h2>' . get_term($child_term)->name . '</h2>';
+        $safes .= '<p>' . get_term($child_term)->description . '</p>';
+        $safes .= '</div><div class="col-4 d-none d-md-block text-center">';
 
-    if ($cat_image) {
-        $safes .= '<img src="' . $cat_image . '" class="sub-category-image"/>';
+        if ($cat_image) {
+            $safes .= '<img src="' . $cat_image . '" class="sub-category-image"/>';
+        }
+
+        $safes .= '</div></div>';
     }
 
-    $safes .= '</div></div>';
+
 
     // Terms query args
     $child_terms = get_terms(array(
