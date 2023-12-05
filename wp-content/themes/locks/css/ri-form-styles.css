@@ -41,7 +41,7 @@
 }
 #productModal #gform_1 #input_1_7 {
     color: #222 !important;
-    font-weight: normal !important;
+    text-align: center;
 }
 #gform_2 .gform_wrapper li.date-picker input[type="text"].datepicker {
     width: 70% !important;

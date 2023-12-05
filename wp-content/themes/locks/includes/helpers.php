@@ -1,5 +1,8 @@
 <?php
 //region Global Helpers
+function returnIntegerFromString($string) {
+    return intval(str_replace(",","",str_replace(".00","",str_replace("$","", $string))));
+}
 function get_referring_url() {
     $ref_url = null;
 
@@ -80,32 +83,52 @@ function get_formatted_product_attributes($post_id, $attributes) {
 
     return $attribute_array;
 }
-function get_sticky_sub_category_nav($cats_array) {
-    $nav  = '<nav id="navbar-product-cats" class="navbar navbar-light bg-light px-3 fixed-top">';
-    $nav .= '<a class="navbar-brand" href="#">Categories</a>';
-    $nav .= '<ul class="nav nav-pills">';
 
-    $i = 1;
+function remove_manufacturer_from_category_name($string) {
+    return preg_replace('/\sseries\s.*$/i', '', $string);
+}
+
+function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term_parent_id = null) {
+    $nav = '';
+    $dropdown = '<div class="d-flex justify-content-center mb-4 pb-4" id="dropdown-product-cats">';
+    $dropdown_links = '';
+
+    if ($term_parent_id) {
+        $parent = get_term($term_parent_id);
+        $nav .= '<p class="text-center mb-1 fw-600">Models of ' . strtolower($parent->name) . ' we carry:</p>';
+    }
+    $nav  .= '<nav id="navbar-product-cats" class="navbar bg-transparent mb-4 d-none d-md-block">';
+    $nav  .= '<ul class="nav nav-pills ms-0 padding-start-0 nav-fill w-100">';
+
     foreach ($cats_array as $cat) {
-        $nav .= '<li class="nav-item">';
-        $nav .= '<a class="nav-link" href="#scrollspyHeading' . $i . '">';
-        $nav .= get_term($cat)->name . '</a>';
+        $term_link = ($cat->term_id === $current_term_id) ? "#" : get_term_link($cat);
+        $link_class = ($cat->term_id === $current_term_id) ? "active" : "";
+
+        if ($cat->term_id !== $current_term_id) {
+            $dropdown_links .= '<li class="py-1' . $link_class . '"><a class="dropdown-item" href="' . $term_link . '">' . $cat->name . '</a></li>';
+        }
+
+
+        $nav .= '<li class="nav-item ' . $link_class . '">';
+        $nav .= '<a class="nav-link" href="' . $term_link . '">';
+        $nav .= remove_manufacturer_from_category_name(get_term($cat)->name) . ' <span class="d-none d-lg-inline">Series</span></a>';
         $nav .= '</li>';
-        $i++;
     }
 
     $nav .= '</ul></nav>';
 
-    return $nav;
-//    <li class="nav-item dropdown">
-//      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-//      <ul class="dropdown-menu">
-//        <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
-//        <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
-//        <li><hr class="dropdown-divider"></li>
-//        <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
-//      </ul>
+    $dropdown .= '<div class="dropdown  d-block d-md-none">';
+    $dropdown .= '<a class="btn btn-brand btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">';
 
+    $current_term = get_term($current_term_id);
+    $dropdown_text = $current_term ? $current_term->name : "Browse Categories";
+
+    $dropdown .= $dropdown_text . '</a>';
+    $dropdown .= '<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+    $dropdown .= $dropdown_links;
+    $dropdown .= '</ul></div></div>';
+
+    return $nav . $dropdown;
 }
 
 function get_sale_copy_clean($post_id) {

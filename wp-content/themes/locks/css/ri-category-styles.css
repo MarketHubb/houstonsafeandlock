@@ -1,4 +1,6 @@
-/* NEW: Hero */
+.navbar-product-cats ul li {
+	font-size: 1rem;
+}
 .cat-hero-image {
 	max-height: 225px;
 	width: auto;
@@ -9,9 +11,10 @@
 }
 .product-grid-description {
 	display: -webkit-box;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	line-height: 1.3;
 }
 .product-grid-image {
 	height: 150px !important;
@@ -21,6 +24,14 @@
 .product-grid-icon {
 	max-height: 18px;
 	width: auto;
+}
+.grid-attr-key {
+	font-size: .9rem;
+}
+.grid-btn-container a,
+.grid-btn-container button
+{
+	font-size: .9rem;
 }
 .safes.product-grid .product:hover {
 	border-color: #174368 !important;

@@ -1,9 +1,10 @@
 <?php
+$obj = get_queried_object();
 $child_term = $args;
 $safes = '<div class="row safes product-grid" data-bs-spy="scroll" data-bs-target="#navbar-product-cats" data-bs-offset="0" tabindex="0">';
 $i = 1;
 
-// Query args
+// Post query args
 $query_args = [
     'post_type' => 'product',
     'posts_per_page' => -1,
@@ -33,11 +34,23 @@ if ($query->have_posts()) :
     }
 
     $safes .= '</div></div>';
+
+    // Terms query args
+    $child_terms = get_terms(array(
+        'taxonomy' => 'product_cat',
+        'hide_empty' => true,
+        'parent' => $obj->parent
+    ));
+
+    if ($child_terms) {
+        $safes .= get_sticky_sub_category_nav($child_terms, $obj->term_id, $obj->parent);
+    }
+
     $safes .= '<div class="row sub-category-list">';
 
     while ($query->have_posts()) : $query->the_post();
         $safes .= '<div class="col-md-4 mb-3">';
-        $safes .= '<div class="p-3 p-md-4 shadow-sm border rounded product">';
+        $safes .= '<div class="px-4 pt-3 pb-4 p-md-4 shadow-sm border rounded product">';
 
         $safes .= '<div class="text-center">';
         $safes .= '<img src="' . get_the_post_thumbnail_url() . '" class="product-grid-image pt-2 pb-4"/>';
@@ -45,12 +58,12 @@ if ($query->have_posts()) :
         // Capacity for Gun Safes
         if (has_term(37, 'product_cat') && get_field('post_product_gun_capacity_total', $post->ID)) {
             $safes .= '<p class="text-center mb-0 pb-0"><span class="d-none fw-light">Capacity:</span> ';
-            $safes .= '<span class="fw-600">' . get_field('post_product_gun_capacity_total') . ' Guns</span></p>';
+            $safes .= '<span class="fw-600 text-secondary">' . get_field('post_product_gun_capacity_total') . ' Guns</span></p>';
         }
 
         $safes .= '<h4>' . get_the_title() . '</h4>';
         $safes .= '</div>';
-        $safes .= '<p class="product-grid-description">' . get_field('post_product_gun_long_description') . '</p>';
+        $safes .= '<p class="product-grid-description mb-4">' . get_field('post_product_gun_long_description') . '</p>';
 
         $attributes=['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
         $attribute_array = get_formatted_product_attributes($post->ID, $attributes);
@@ -58,27 +71,37 @@ if ($query->have_posts()) :
         if (is_array($attribute_array)) {
             $icon_path = get_home_url() . '/wp-content/uploads/';
             $safes .= '<ul class="list-group list-group-horizontal ps-0 ms-0">';
-            $safes .= '<li class="list-group-item flex-fill p-0 text-center d-flex align-items-center no-border">';
+            $safes .= '<li class="list-group-item flex-fill  text-center d-flex align-items-center justify-content-center no-border">';
             $safes .= '<img src="' . $icon_path . '2022/11/hsl-weigh.svg"  class="product-grid-icon me-2" />';
-            $safes .=  '<span class="fw-600">' . get_field('post_product_gun_weight') . 'lbs</span>';
+            $safes .=  '<span class="fw-500  grid-attr-key">' . get_field('post_product_gun_weight') . 'lbs</span>';
             $safes .= '</li>';
-            $safes .= '<li class="list-group-item flex-fill p-0 text-center d-flex align-items-center no-border">';
+            $safes .= '<li class="list-group-item flex-fill  text-center d-flex align-items-center justify-content-center no-border">';
             $safes .= '<img src="' . $icon_path . '2022/11/sl-height.svg"  class="product-grid-icon me-2" />';
-            $safes .=  '<span class="fw-600">' . get_field('post_product_gun_exterior_height') . '"</span>';
+            $safes .=  '<span class="fw-500  grid-attr-key">' . get_field('post_product_gun_exterior_height') . '"</span>';
             $safes .= '</li>';
-            $safes .= '<li class="list-group-item flex-fill p-0 text-center d-flex align-items-center no-border">';
+            $safes .= '<li class="list-group-item flex-fill  text-center d-flex align-items-center justify-content-center no-border">';
             $safes .= '<img src="' . $icon_path . '2022/11/sl-width.svg"  class="product-grid-icon me-2" />';
-            $safes .=  '<span class="fw-600">' . get_field('post_product_gun_exterior_width') . '"</span>';
+            $safes .=  '<span class="fw-500  grid-attr-key">' . get_field('post_product_gun_exterior_width') . '"</span>';
             $safes .= '</li>';
-            $safes .= '<li class="list-group-item flex-fill p-0 text-center d-flex align-items-center no-border">';
+            $safes .= '<li class="list-group-item flex-fill  text-center d-flex align-items-center justify-content-center no-border">';
             $safes .= '<img src="' . $icon_path . '2022/11/sl-length.svg"  class="product-grid-icon me-2" />';
-            $safes .=  '<span class="fw-600">' . get_field('post_product_gun_exterior_depth') . '"</span>';
+            $safes .=  '<span class="fw-500  grid-attr-key">' . get_field('post_product_gun_exterior_depth') . '"</span>';
             $safes .= '</li>';
             $safes .= '</ul>';
         }
 
+        $safes .= '<div class="d-flex row-cols-2 justify-content-between mt-4 pt-2 gap-2 grid-btn-container">';
+        $safes .= '<div class="grid-btn-container">';
+        $safes .= '<a class="btn px-3 py-1 w-100 small btn-outline-secondary" href="' . get_permalink() . '">View Details</a>';
+        $safes .= '</div>';
+        $safes .= '<div class="grid-btn-container text-end">';
+//        $safes .= '<a class="btn px-3 py-1 w-100 small btn-outline-primary" href="' . get_permalink() . '">Get Sale Price</a>';
+        $safes .= get_product_inquiry_btn($post->ID, "Get Sale Price", $stretched=null, $custom_classes="btn px-3 py-1 w-100 small btn-outline-primary");
+        $safes .= '</div>';
+        $safes .= '</div>';
+
         // Link (Stretched)
-        $safes .= '<a href="' . get_permalink() . '" class="stretched-link"></a>';
+//        $safes .= '<a href="' . get_permalink() . '" class="stretched-link"></a>';
         $safes .= '</div></div>';
 
     endwhile;

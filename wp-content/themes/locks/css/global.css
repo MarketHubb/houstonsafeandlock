@@ -1,3 +1,29 @@
+.btn-brand {
+    background-color: #174368 !important;
+    border-color: #174368 !important;
+    color: #fff;
+}
+.btn-brand:active, .btn-brand:focus, .btn-brand:visited, .btn-brand:hover {
+    color: #fff !important;
+}
+.padding-start-0 {
+    padding-inline-start: 0 !important;
+}
+#navbar-product-cats .nav-item > .nav-link {
+    text-align: left;
+}
+#navbar-product-cats .nav-item:first-of-type > .nav-link {
+    padding-left: 0;
+}
+#navbar-product-cats .nav-item.active > .nav-link
+{
+    color: #222 !important;
+    font-weight: 600 !important;
+    text-decoration: underline !important;
+}
+#navbar-product-cats .nav-item:not(.active):hover > .nav-link {
+    text-decoration: underline !important;
+}
 .badge { -webkit-font-smoothing: antialiased;}
 html {
     scroll-padding-top: 4rem;
@@ -322,6 +348,9 @@ ul.flush {
 .bg-blue,.bg-brand {
     background-color: #174368;
 }
+.mt-n4 {
+    margin-bottom: -2rem;
+}
 .btn {
     font-weight: 600;
     -webkit-font-smoothing: antialiased;
@@ -338,7 +367,20 @@ ul.flush {
 .btn:visited, input[type="submit"]:visited,
 .btn.bg-orange:visited
 {
-    color: #fff !important;
+    color: inherit !important;
+}
+.btn-outline-secondary:visited {
+    color: #6c757d !important;
+}
+.btn-outline-primary:visited {
+    color: #0d6efd !important;
+}
+.mobile-sub {
+    font-size: .75rem;
+    letter-spacing: .03rem;
+}
+.mobile-head {
+    font-size: .95rem;
 }
 .bg-grey {
     background-color: #f8f8f8;
@@ -527,7 +569,19 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
     }
 }
 /* Medium devices (tablets, less than 992px) */
-@media (max-width: 991.98px) {
+@media (max-width: 991.98px){
+    #dropdown-product-cats li a.dropdown-item {
+        font-size: 1.1rem !important;
+        padding-top: .35rem;
+        padding-bottom: .35rem;
+    }
+    #dropdown-product-cats li:not(:last-of-type) {
+        border-bottom: 1px solid #ddd;
+    }
+    #dropdown-product-cats .dropdown-menu.show {
+        width: 100%;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
     #brand-info > .container-fixed,
     header.site-header div#brand-info div.container-fixed {
         padding: 0 !important;
