@@ -1,3 +1,16 @@
+body .btn-outline-secondary:hover
+{
+    background-color: #7f8890 !important;
+    border-color: #7f8890 !important;
+    color: #fff !important;
+}
+body .btn-outline-secondary:visited,
+body .btn-outline-secondary:active,
+body .btn-outline-secondary:focus {
+    color: #6c757d;
+    border-color: #6c757d;
+    background-color: #6c757d;
+}
 .btn-brand {
     background-color: #174368 !important;
     border-color: #174368 !important;
@@ -912,6 +925,16 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p > em,
         font-size: 1.1rem;
     }
 }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .modal-phone-container a {
+        font-size: 1.5rem;
+    }
+
+}
+
+
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
     header.site-header div#brand-info div.container-fixed div#brand-phone {

@@ -19,39 +19,67 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( $related_products ) : ?>
+$custom_related = get_field('related_safes');
 
-    <section class="related products test">
+if (count($custom_related) > 1) { ?>
+
+    <div class="row text-center my-3">
+        <div class="col">
+            <h3>Check out these related products:</h3>
+        </div>
+    </div>
+
+    <div class="row row-cols-<?php echo count($custom_related); ?> sub-category-list">
 
         <?php
-        $heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Related products', 'woocommerce' ) );
+        foreach ($custom_related as $related) {
+            echo safe_grid_item($related->ID, null);
+        }
+        ?>
 
-        if ( $heading ) :
-            ?>
-            <h2><?php echo esc_html( $heading ); ?></h2>
-        <?php endif; ?>
+    </div>
 
-        <?php woocommerce_product_loop_start(); ?>
 
-        <?php foreach ( $related_products as $related_product ) : ?>
+<?php
+
+} else {
+
+
+    if ( $related_products ) : ?>
+
+        <section class="related products test">
 
             <?php
-            $post_object = get_post( $related_product->get_id() );
+            $heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Related products', 'woocommerce' ) );
 
-            if (!substr_count(get_the_title($post_object->ID), "FV")) {
-                setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
+            if ( $heading ) :
+                ?>
+                <h2><?php echo esc_html( $heading ); ?></h2>
+            <?php endif; ?>
 
-                wc_get_template_part( 'content', 'product' );
-            }
-            ?>
+            <?php woocommerce_product_loop_start(); ?>
 
-        <?php endforeach; ?>
+            <?php foreach ( $related_products as $related_product ) : ?>
 
-        <?php woocommerce_product_loop_end(); ?>
+                <?php
+                $post_object = get_post( $related_product->get_id() );
 
-    </section>
-<?php
-endif;
+                if (!substr_count(get_the_title($post_object->ID), "FV")) {
+                    setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 
-wp_reset_postdata();
+                    wc_get_template_part( 'content', 'product' );
+                }
+                ?>
+
+            <?php endforeach; ?>
+
+            <?php woocommerce_product_loop_end(); ?>
+
+        </section>
+    <?php
+    endif;
+
+    wp_reset_postdata();
+}
+
 

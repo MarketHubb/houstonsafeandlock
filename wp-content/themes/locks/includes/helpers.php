@@ -89,7 +89,7 @@ function remove_manufacturer_from_category_name($string) {
 }
 
 function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term_parent_id = null) {
-    $links_container = '<div class="mt-3 mt-md-0 mb-5">';
+    $links_container = '<div class="mt-3 mt-md-0k mb-5">';
     $nav = '';
     $dropdown = '<div class="d-flex justify-content-center" id="dropdown-product-cats">';
     $dropdown_links = '';

@@ -55,12 +55,42 @@
             $desktop_cats .= '<li class="list-group-item ps-0"><a href="' . get_term_link($parent_product_cat) .  '" class="small fw-bold">';
             $desktop_cats .= 'View All ' .  $parent_product_cat->name . '<i class="fa-solid fa-arrow-right ps-2"></i></a></li>';
 
+            $price_array = [];
+            $msrp_array = [];
+            
             foreach ($child_product_cats as $child_product_cat) {
+                
+                $child_cat_posts = get_posts(array(
+                    'post_type' => 'product',
+                    'posts_per_page' => -1,
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'product_cat',
+                            'field'    => 'term_id',
+                            'terms'    => $child_product_cat->term_id
+                        ),
+                    ),     
+                ));
+                
+                foreach ($child_cat_posts as $child_cat_post) {
+                    $number = returnIntegerFromString(get_field('post_product_gun_msrp', $child_cat_post->ID));
+                    $price_array[$child_product_cat->term_id][] = $number;
+                }
+                
                 $mobile_cats .= '<li><a class="dropdown-item" href="' . get_term_link($child_product_cat) . '">' . $child_product_cat->name . '</a></li>';
-
-                $desktop_cats .= '<li class="list-group-item ps-0"><a class="small" href="' . get_term_link($child_product_cat->term_id) . '">';
-                $desktop_cats .= $child_product_cat->name . '</a></li>';
+                $desktop_cats .= '<li class="list-group-item ps-0 lh-sm"><a class="small" href="' . get_term_link($child_product_cat->term_id) . '">';
+                $desktop_cats .= $child_product_cat->name;
+                $desktop_cats .= '<span class="d-block text-secondary">Starting at $' .  min($price_array[$child_product_cat->term_id]) . '</span>';
+                $desktop_cats .= '</a></li>';
             }
+/*            highlight_string("<?php\n\$price_array =\n" . var_export($price_array, true) . ";\n?>");*/
+/*            highlight_string("<?php\n\$msrp_array =\n" . var_export($msrp_array, true) . ";\n?>");*/
+            
+            
+
+
+
+
 
             $desktop_cats .= '</ul>'; // end desktop category list
 

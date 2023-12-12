@@ -26,12 +26,14 @@ $callout_prefix = get_query_var('modal_callouts') ?: '';
                     </div>
 
                     <!-- Form Title -->
-                    <div class="row justify-content-center pt-md-4">
+                    <div class="row justify-content-center pb-md-4 pb-lg-5 pt-md-4">
                         <div class="col-12 col-md-8 col-lg-7">
                             <?php if ($form_id === 1) { ?>
-                                <div class="mt-3 mb-4 text-center">
-                                    <h4 class="text-blue fw-bold">Product Inquiry - <?php echo get_the_title(); ?> </h4>
-                                    <p class="text-secondary mb-4 pb-3 lh-sm">Get our weekly sale pricing, delivery + installation options and more</p>
+                                <div class="mt-2 mb-3 text-center">
+                                    <h4 class="text-blue font-semibold mt-n4 anti">
+                                        Product Inquiry
+                                    </h4>
+                                    <p class="text-secondary mb-4 pb-3 lh-sm d-none">Get our weekly sale pricing, delivery + installation options and more</p>
                                 </div>
                             <?php } ?>
                         </div>

@@ -41,7 +41,6 @@
 }
 #productModal #gform_1 #input_1_7 {
     color: #222 !important;
-    text-align: center;
 }
 #gform_2 .gform_wrapper li.date-picker input[type="text"].datepicker {
     width: 70% !important;
@@ -139,6 +138,9 @@ body .gform_wrapper .top_label div.ginput_container {
 @media (max-width: 767.98px) {
     #productModal .product-field .ginput_container > textarea {
         height: 2rem !important;
+    }
+    #productModal #gform_1 #input_1_7 {
+        text-align: center;
     }
 }
 /* Extra small devices (portrait phones, less than 576px) */

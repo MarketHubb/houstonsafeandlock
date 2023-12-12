@@ -99,7 +99,7 @@ if ($query->have_posts()) :
         $safes .= '</div>';
         $safes .= '<div class="grid-btn-container text-end">';
 //        $safes .= '<a class="btn px-3 py-1 w-100 small btn-outline-primary" href="' . get_permalink() . '">Get Sale Price</a>';
-        $safes .= get_product_inquiry_btn($post->ID, "Get Sale Price", $stretched=null, $custom_classes="btn px-3 py-1 w-100 small btn-outline-primary");
+        $safes .= get_product_inquiry_btn($post->ID, "Request Pricing", $stretched=null, $custom_classes="btn px-3 py-1 w-100 small btn-outline-primary");
         $safes .= '</div>';
         $safes .= '</div>';
 

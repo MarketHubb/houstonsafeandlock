@@ -1,4 +1,5 @@
 <?php
+ require_once 'includes/content.php';
  require_once 'includes/helpers.php';
 
 add_action('init', 'start_session', 1);

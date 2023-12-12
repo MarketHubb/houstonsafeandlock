@@ -30,13 +30,13 @@ $field = $prefix . 'callouts';
 
                 $callouts .= '<div class="col-4 text-center">';
                 $callouts .= '<div class="d-flex flex-column flex-md-row justify-content-center align-items-center">';
-                $callouts .= '<div class="mb-2 mb-md-0 me-0 me-md-3">';
-                $callouts .= '<i class="' . get_sub_field($prefix . 'icon', 'option') . ' fa-lg text-secondary mb-2 mb-md-0"></i>';
+                $callouts .= '<div class="mb-0 me-0 me-md-3">';
+                $callouts .= '<i class="' . get_sub_field($prefix . 'icon', 'option') . '  text-blue opacity-75 mb-md-0"></i>';
                 $callouts .= '</div><div class="text-md-start">';
-                $callouts .= '<p class="mb-0 lh-1 d-block d-md-none"><small class="text-secondary">';
+                $callouts .= '<p class="mb-0 lh-1 d-block d-md-none"><small class="text-secondary mobile-sub">';
                 $callouts .= $mobile_sub . '</small></p>';
-                $callouts .= '<p class="mb-0 lh-1 d-none d-md-block"><small class="text-secondary">' . get_sub_field($prefix . 'subheading', 'option') . '</small></p>';
-                $callouts .= '<p class="lh-1  mb-0 text-body fw-600 d-block d-md-none">' . $mobile_head . '</p>';
+                $callouts .= '<p class="mb-1 lh-1 d-none d-md-block"><small class="text-secondary">' . get_sub_field($prefix . 'subheading', 'option') . '</small></p>';
+                $callouts .= '<p class="lh-1  mb-0 text-body fw-600 d-block d-md-none mobile-head anti">' . $mobile_head . '</p>';
                 $callouts .= '<p class="lh-1 mb-0 text-body d-none d-md-block fw-600"><small class="text-uppercase">' . $heading . '</small></p>';
                 $callouts .= '</div></div></div>';
             endwhile;
