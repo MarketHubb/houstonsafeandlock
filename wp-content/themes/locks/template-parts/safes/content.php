@@ -75,21 +75,19 @@
                 foreach ($child_cat_posts as $child_cat_post) {
                     $number = returnIntegerFromString(get_field('post_product_gun_msrp', $child_cat_post->ID));
                     $price_array[$child_product_cat->term_id][] = $number;
+                    $discounted_price = round(min($price_array[$child_product_cat->term_id]) * .75);
                 }
                 
                 $mobile_cats .= '<li><a class="dropdown-item" href="' . get_term_link($child_product_cat) . '">' . $child_product_cat->name . '</a></li>';
                 $desktop_cats .= '<li class="list-group-item ps-0 lh-sm"><a class="small" href="' . get_term_link($child_product_cat->term_id) . '">';
                 $desktop_cats .= $child_product_cat->name;
-                $desktop_cats .= '<span class="d-block text-secondary">Starting at $' .  min($price_array[$child_product_cat->term_id]) . '</span>';
+
+                if ($discounted_price > 0) {
+                    $desktop_cats .= '<span class="d-block text-secondary">Starting at $' .  $discounted_price . '</span>';
+                }
+
                 $desktop_cats .= '</a></li>';
             }
-/*            highlight_string("<?php\n\$price_array =\n" . var_export($price_array, true) . ";\n?>");*/
-/*            highlight_string("<?php\n\$msrp_array =\n" . var_export($msrp_array, true) . ";\n?>");*/
-            
-            
-
-
-
 
 
             $desktop_cats .= '</ul>'; // end desktop category list
