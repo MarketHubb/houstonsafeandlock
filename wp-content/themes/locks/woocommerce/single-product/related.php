@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $custom_related = get_field('related_safes');
 
-if (count($custom_related) > 1) { ?>
+if (is_array($custom_related) && count($custom_related) > 1) { ?>
 
     <div class="row text-center my-3">
         <div class="col">
