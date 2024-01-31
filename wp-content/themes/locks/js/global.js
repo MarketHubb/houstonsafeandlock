@@ -1,27 +1,46 @@
 /* jQuery (Footer) */
-(function($) {
+(function ($) {
+
+    // Featured
+    const pageId = $('#page').data('pageid');
+    let targetEl = null;
+
+    if (pageId === 7948) {
+        targetEl = $('.hero-home');
+    }  
+    if (pageId === 3901) {
+        targetEl = $('.safe-categories-container')
+    }
+    console.table("clipboard", targetEl);
+    let featuredHome = $('#featured-safe-home');
+
+    if (featuredHome.length > 0 && targetEl.length === 1) {
+        featuredHome.insertAfter(targetEl);
+    }
+
+
 
     // Search
-    $('#searchform').on('submit', function(e) {
-       let searchInput = $(this).find('input.search-field');
-       if (searchInput.val().length === 0) {
-           e.preventDefault();
-       }
+    $('#searchform').on('submit', function (e) {
+        let searchInput = $(this).find('input.search-field');
+        if (searchInput.val().length === 0) {
+            e.preventDefault();
+        }
     });
 
-    $(window).load(function() {
+    $(window).load(function () {
         const myModal = new bootstrap.Modal(document.getElementById('popupModal'), {
             keyboard: false
         })
 
-        $('#popupModal .close, #popupModal .close > span').on('click', function() {
-           myModal.hide();
+        $('#popupModal .close, #popupModal .close > span').on('click', function () {
+            myModal.hide();
         });
 
-       // myModal.show();
+        // myModal.show();
     });
 
-    if($(window).width() <= 768){
+    if ($(window).width() <= 768) {
 
         // Mobile search
         const search = $('#searchform');
@@ -53,4 +72,4 @@
         }
     }
 
-})( jQuery );
+})(jQuery);

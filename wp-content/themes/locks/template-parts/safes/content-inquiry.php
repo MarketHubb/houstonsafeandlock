@@ -53,11 +53,14 @@
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); ?>
             <?php echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_mobile_classes); ?>
 
-            <div class="pt-3" role="alert">
+            <?php if (get_field('post_product_gun_default_discount')) : ?>
+                <div class="pt-3" role="alert">
                 <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center lh-sm">
                     <?php echo $sale_copy; ?>
                 </p>
             </div>
+            <?php endif ?>
+            
 
         </div>
 
