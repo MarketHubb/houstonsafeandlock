@@ -1,9 +1,11 @@
 <?php
 //region Global Helpers
-function returnIntegerFromString($string) {
-    return intval(str_replace(",","",str_replace(".00","",str_replace("$","", $string))));
+function returnIntegerFromString($string)
+{
+    return intval(str_replace(",", "", str_replace(".00", "", str_replace("$", "", $string))));
 }
-function get_referring_url() {
+function get_referring_url()
+{
     $ref_url = null;
 
     if (isset($_SERVER['HTTP_REFERER'])) {
@@ -12,7 +14,8 @@ function get_referring_url() {
 
     return $ref_url;
 }
-function formatMoney($number, $cents = 1) { // cents: 0=never, 1=if needed, 2=always
+function formatMoney($number, $cents = 1)
+{ // cents: 0=never, 1=if needed, 2=always
     if (is_numeric($number)) { // a number
         if (!$number) { // zero
             $money = ($cents == 2 ? '0.00' : '0'); // output zero
@@ -23,7 +26,7 @@ function formatMoney($number, $cents = 1) { // cents: 0=never, 1=if needed, 2=al
                 $money = number_format(round($number, 2), ($cents == 0 ? 0 : 2)); // format
             } // integer or decimal
         } // value
-        return '$'.$money;
+        return '$' . $money;
     } // numeric
 } // formatMoney
 function get_repeater_field_row($repeater_field, $row_index, $sub_field, $post_id)
@@ -38,9 +41,16 @@ function get_repeater_field_row($repeater_field, $row_index, $sub_field, $post_i
 
     return $repeater_field;
 }
+function discounted_price($starting_price, $discount_type, $discount_amount)
+{
+    if ($discount_type === "percentage") {
+        $new_price = $starting_price - ($starting_price * ($discount_amount / 100));
+        return formatMoney($new_price);
+    }
+}
 function return_discount($old, $new)
 {
-    $percentChange =  (1 - ($new/$old)) * 100;
+    $percentChange =  (1 - ($new / $old)) * 100;
 
     return round($percentChange, 0);
     // return $percentChange;
@@ -56,8 +66,7 @@ function return_phone_lead($post_id)
 }
 function return_name_singular($name)
 {
-    if (substr($name, -1) === 's')
-    {
+    if (substr($name, -1) === 's') {
         return substr($name, 0, -1);
     } else {
         return $name;
@@ -66,13 +75,46 @@ function return_name_singular($name)
 //endregion
 
 //region Safes
-function get_product_cat_image($cat) {
-    $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-    return  wp_get_attachment_url( $thumbnail_id );
+function is_featured_safe_active($end_date)
+{
+    $now_timestamp = time();
+    $end_date = date_create($end_date);
+    $day_after = date_add($end_date, date_interval_create_from_date_string("1 day"));
+    $day_after_timestamp = strtotime(date_format($end_date, "Y-m-d"));
+
+    return ($now_timestamp < $day_after_timestamp) ? true : false;
+}
+function featured_safes($location)
+{
+    $featured_safes = get_posts(array(
+        'post_type' => 'product',
+        'posts_per_page'    => -1,
+        'meta_key' => 'featured',
+        'meta_value' => true
+    ));
+
+    $featured = [];
+
+    foreach ($featured_safes as $featured_safe) {
+        $featured_fields = get_field('featured_safe', $featured_safe->ID);
+        $is_active = is_featured_safe_active($featured_fields['end_date']);
+
+        if ($featured_fields[$location] && $is_active) {
+            $featured[] = $featured_safe->ID;
+        }
+    }
+
+    return $featured;
+}
+function get_product_cat_image($cat)
+{
+    $thumbnail_id = get_term_meta($cat->term_id, 'thumbnail_id', true);
+    return  wp_get_attachment_url($thumbnail_id);
 }
 
-function get_formatted_product_attributes($post_id, $attributes) {
-//    $attributes=['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
+function get_formatted_product_attributes($post_id, $attributes)
+{
+    //    $attributes=['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
     $attribute_array = [];
 
     if (is_array($attributes)) {
@@ -84,11 +126,13 @@ function get_formatted_product_attributes($post_id, $attributes) {
     return $attribute_array;
 }
 
-function remove_manufacturer_from_category_name($string) {
+function remove_manufacturer_from_category_name($string)
+{
     return preg_replace('/\sseries\s.*$/i', '', $string);
 }
 
-function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term_parent_id = null) {
+function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term_parent_id = null)
+{
     $links_container = '<div class="mt-3 mt-md-0k mb-5">';
     $nav = '';
     $dropdown = '<div class="d-flex justify-content-center" id="dropdown-product-cats">';
@@ -134,13 +178,13 @@ function get_sticky_sub_category_nav($cats_array, $current_term_id = null, $term
     return $links_container;
 }
 
-function get_sale_copy_clean($post_id) {
+function get_sale_copy_clean($post_id)
+{
     $month = date('F');
     $percentage_off = (get_field('percentage_off', 'option')) ? get_field('percentage_off', 'option') : 20;
 
     if (get_field('sale_active', 'option')) {
         $copy = get_field('sale_discount_copy', 'option');
-
     } else {
         $copy = get_field('default_discount_copy', 'option');
         $msrp = get_field('post_product_gun_msrp', $post_id);
@@ -155,9 +199,10 @@ function get_sale_copy_clean($post_id) {
         $copy = str_replace('{AMOUNT}', $price_formatted, $copy);
     }
 
-    return str_replace('{MONTH}',$month,$copy);
+    return str_replace('{MONTH}', $month, $copy);
 }
-function get_model_name_clean($post_id) {
+function get_model_name_clean($post_id)
+{
     $model = strtoupper(get_the_title($post_id));
     $oems = ['AMSEC', 'ORIGINAL', 'JEWEL'];
 
@@ -167,7 +212,8 @@ function get_model_name_clean($post_id) {
 
     return $model;
 }
-function get_warranty_information($post_id) {
+function get_warranty_information($post_id)
+{
     $series_model = str_replace('AMSEC', '', get_the_title($post_id));
     $series_only = trim(preg_replace('/[0-9]+/', '', $series_model));
     $safe_height = get_field('post_product_gun_exterior_height', $post_id);
@@ -188,14 +234,16 @@ function get_warranty_information($post_id) {
 
     return $warranty;
 }
-function clean_price($price) {
+function clean_price($price)
+{
 
     return str_replace(',', '', substr($price, 0, strpos($price, ".")));
 }
 
-function get_price($msrp, $discount, $type = 'percentage') {
-    $price['msrp_no_cents'] = str_replace('$','',substr($msrp, 0, strpos($msrp, ".")));
-    $price['msrp_no_comma'] = str_replace('$', '',str_replace(',', '', $msrp));
+function get_price($msrp, $discount, $type = 'percentage')
+{
+    $price['msrp_no_cents'] = str_replace('$', '', substr($msrp, 0, strpos($msrp, ".")));
+    $price['msrp_no_comma'] = str_replace('$', '', str_replace(',', '', $msrp));
 
     $msrp = clean_price(str_replace('$', '', $msrp));
     $price['msrp'] = intval($msrp);
@@ -207,7 +255,8 @@ function get_price($msrp, $discount, $type = 'percentage') {
 
     return $price;
 }
-function get_safe_type_attributes($post_id) {
+function get_safe_type_attributes($post_id)
+{
     $safe_type['attribute_label'] = "Safe Type";
 
     if (has_term(37, 'product_cat', $post_id)) {
@@ -217,7 +266,8 @@ function get_safe_type_attributes($post_id) {
 
     return $safe_type;
 }
-function get_clean_attribute_labels($attribute) {
+function get_clean_attribute_labels($attribute)
+{
     $label = ucwords(str_replace('-', ' ', $attribute));
 
     if (str_contains($label, 'Exterior')) {
@@ -232,7 +282,8 @@ function get_clean_attribute_labels($attribute) {
 
     return $label;
 }
-function get_formatted_attributes($label) {
+function get_formatted_attributes($label)
+{
     $label = get_clean_attribute_labels($label);
 
     $attribute['name'] = $label;
@@ -250,16 +301,16 @@ function get_formatted_attributes($label) {
         case str_contains($label, ''):
             $attribute['postfix'] =  '"';
             break;
-
     }
 
     return $attribute;
 }
-function return_manufacturer_attributes_logo($post_id) {
+function return_manufacturer_attributes_logo($post_id)
+{
     $oem = trim(strtolower(get_field('post_product_gun_manufacturer', $post_id)));
 
-    if( have_rows('logos', 'option') ):
-        while ( have_rows('logos', 'option') ) : the_row();
+    if (have_rows('logos', 'option')) :
+        while (have_rows('logos', 'option')) : the_row();
             $oem = trim(strtolower(get_field('post_product_gun_manufacturer', $post_id)));
             $oem_field_name = trim(strtolower(get_sub_field('name', 'option')));
             if ($oem_field_name === $oem) {
@@ -270,10 +321,11 @@ function return_manufacturer_attributes_logo($post_id) {
 
     return $logo;
 }
-function return_manufacturer_logo_for_safe($title) {
+function return_manufacturer_logo_for_safe($title)
+{
     $title = strtolower($title);
 
-    switch(true) {
+    switch (true) {
         case str_contains($title, 'jewel'):
             return '/wp-content/uploads/2016/09/jewel-safes-banner.jpg';
         case str_contains($title, 'amsec'):
@@ -304,7 +356,8 @@ function get_safe_attributes($post_id)
     return $attributes;
 }
 
-function get_safe_attribute_values($post_id, $attribute) {
+function get_safe_attribute_values($post_id, $attribute)
+{
     $val = get_field('post_product_gun_' . str_replace('-', '_', $attribute), $post_id);
     $output_val = [];
 
@@ -312,8 +365,7 @@ function get_safe_attribute_values($post_id, $attribute) {
         $val_clean = get_price($val, 20);
         $output_val['formatted'] = '$' . $val_clean['msrp_no_cents'];
         $output_val['clean'] = $val_clean['msrp'];
-    }
-    else if ($attribute === 'burglary_rating' || $attribute === 'manufacturer') {
+    } else if ($attribute === 'burglary_rating' || $attribute === 'manufacturer') {
         $output_val['formatted'] = str_replace(' Burglary Protection', '', $val);
         $output_val['clean'] = $val;
     } else {
@@ -329,9 +381,9 @@ function get_safe_attribute_values($post_id, $attribute) {
     return $output_val;
 }
 
-function get_product_inquiry_btn($post_id, $btn_text, $stretched=null, $custom_classes=null)
+function get_product_inquiry_btn($post_id, $btn_text, $stretched = null, $custom_classes = null)
 {
-    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'single-post-thumbnail' );
+    $image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'single-post-thumbnail');
     $attr = get_safe_attributes($post_id);
     $stretched_class = $stretched ? 'stretched-link' : '';
     $classes = $custom_classes ?: 'btn btn-primary bg-orange d-block d-md-inline-block border-0';

@@ -617,8 +617,7 @@ function ri_conditional_script_loading() {
     if (!is_admin()) {
         wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
         wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/js/bootstrap513/js/bootstrap.bundle.js', [], '5.1.3', true);
-//        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.js', [], '5.1.3', true);
-//        wp_enqueue_script('bootstrap-5-bundle-scripts', get_stylesheet_directory_uri() . '/bootstrap/js/bootstrap.bundle.min.js', [], '5.1.3', true);
+        wp_enqueue_script('ri-safe-scripts');
         wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles'] );
         wp_enqueue_style('font-awesome-6');
         wp_enqueue_style('banner');
@@ -644,7 +643,6 @@ function ri_conditional_script_loading() {
 
     if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
         wp_enqueue_style('ri-safe-styles');
-        wp_enqueue_script('ri-safe-scripts');
     }
 
     // Category gun safes

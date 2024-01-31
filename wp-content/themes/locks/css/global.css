@@ -1,3 +1,17 @@
+header.site-header nav#site-navigation div.container-fixed>div.menu-primary-menu-container>ul#primary-menu>li.menu-item>a {
+    font-size: 1rem;
+}
+.tracking-wide {
+    letter-spacing: .015rem;
+}
+#page[data-pageid="7948"] #featured-safe-home {
+    position: relative;
+    bottom: 2.5rem;
+}
+.featured-img-home {
+    max-height: 200px;
+    width: auto;
+}
 body .btn-outline-secondary:hover
 {
     background-color: #7f8890 !important;
@@ -242,6 +256,9 @@ span,body,strong
 }
 h3 {
     text-transform: none !important;
+}
+.fw-400 {
+    font-weight: 400 !important;
 }
 .fw-600 {
     font-weight: 600 !important;

@@ -50,6 +50,13 @@ foreach ($sub_category_array as $sub_cat_id) {
             }
 
             $safes .= '<h4>' . get_the_title() . '</h4>';
+
+            if (get_field('post_product_gun_msrp')) {
+                $msrp = "$" . str_replace("$", "", get_field('post_product_gun_msrp'));
+
+                $safes .= '<p class="text-decoration-line-through">' . $msrp . '</p>';
+            }
+
             $safes .= '</div>';
             $safes .= '<p class="product-grid-description">' . get_field('post_product_gun_long_description') . '</p>';
 
