@@ -1,16 +1,36 @@
 /* jQuery (Footer) */
-(function($) {
+(function ($) {
+
+	function update_active_sort_badge(dataSortClean) {
+		$('#sort-badges span').each(function () {
+			$(this).addClass('d-none');
+			
+			if ($(this).hasClass(dataSortClean)) {
+				$(this).removeClass('d-none');
+			}
+		});
+	}
 	
-	var containerEl = document.querySelector('.products');
+	
+	// var containerEl = document.querySelector('.product-list-container');
+	var containerEl = document.querySelector('#safe-products');
 	var mixer = mixitup(containerEl, {
+		load: {
+			sort: 'price:desc'
+		},
 		selectors: {
 			target: '.mix',
 			control: '[data-mixitup-control]'
 		},
 		callbacks: {
-			onMixClick: function(state, originalEvent) {
+			onMixClick: function (state, originalEvent) {
+				// console.table("originalEvent", originalEvent);
 				let dataSort = originalEvent.srcElement.attributes[2].nodeValue;
 				let dataSortClean = dataSort.substr(0, dataSort.indexOf(':'));
+
+				if (dataSortClean.length > 0) {
+					update_active_sort_badge(dataSortClean);
+				}
 				const targetClasses = Object.values(originalEvent.target.classList);
 
 				// Update sort text
@@ -18,15 +38,15 @@
 				$('#sort-filter-nav li.nav-item.dropdown a.dropdown-toggle').text('Sort By: ' + currentSortText);
 
 				if (Object.values(targetClasses).indexOf('filter-link') > -1) {
-				   	$('#sort-filter-nav li.nav-item').not('.dropdown').each(function() {
-				   		$(this).removeClass('active-filter');
-				   	});
-				   	$(this).closest('li.nav-item').not('.dropdown').addClass('active-filter');
+					$('#sort-filter-nav li.nav-item').not('.dropdown').each(function () {
+						$(this).removeClass('active-filter');
+					});
+					$(this).closest('li.nav-item').not('.dropdown').addClass('active-filter');
 				   	
 				} 
 				if (Object.values(targetClasses).indexOf('dropdown-item') > -1) {
-					console.log("targetClasses", targetClasses);
-					$('li.dropdown .dropdown-menu a.dropdown-item').each(function(){
+					// console.log("targetClasses", targetClasses);
+					$('li.dropdown .dropdown-menu a.dropdown-item').each(function () {
 						$(this).removeClass('active-filter');
 					});
 					$(this).addClass('active-filter');
@@ -42,7 +62,7 @@
 				
 				
 				// Sorts
-				$('.product-details-list li span.badge').each(function(){
+				$('.product-details-list li span.badge').each(function () {
 					$(this).closest('li')
 						.removeClass('current-sort');
 					
@@ -74,4 +94,4 @@
 	// 	}
 	// });
 
-})( jQuery );
+})(jQuery);

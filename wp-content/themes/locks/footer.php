@@ -170,9 +170,11 @@ if (is_page(3901)) {
 //if (is_front_page()) {
 //    get_template_part('template-parts/modal/content', 'popup');
 //}
+if (is_page(8854)) {
+    get_template_part( 'template-parts/modal/content', 'filters' );
+}
 
-
-if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287) || is_page([6448, 6624, 6839, 7276, 7728]) || is_page_template('page-templates/full-width.php')) {
+if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287) || is_page([6448, 6624, 6839, 7276, 7728, 8854]) || is_page_template('page-templates/full-width.php')) {
     //    get_template_part('template-parts/global/content', 'modal');
     get_template_part('template-parts/modal/content', 'modal');
 }

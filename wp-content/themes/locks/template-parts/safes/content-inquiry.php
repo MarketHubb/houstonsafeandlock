@@ -1,6 +1,6 @@
 <div class="inquiry">
 
-<!--<div class="d-flex justify-content-center flex-row">-->
+    <!--<div class="d-flex justify-content-center flex-row">-->
 
     <?php
     $sale_copy = get_sale_copy_clean($post->ID);
@@ -55,41 +55,44 @@
 
             <?php if (get_field('post_product_gun_default_discount')) : ?>
                 <div class="pt-3" role="alert">
-                <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center lh-sm">
-                    <?php echo $sale_copy; ?>
-                </p>
-            </div>
+                    <p class="font-source anti fst-italic text-blue fw-normal mb-0 text-center lh-sm">
+                        <?php echo $sale_copy; ?>
+                    </p>
+                </div>
             <?php endif ?>
-            
+
 
         </div>
 
     </div>
 
-<!--            <div class="col-md-7 button-container d-inline-block d-none">-->
-<!--                --><?php //$price = get_price(get_field('post_product_gun_msrp'), 20); ?>
-<!--                <p class="lead fw-600 mb-4">-->
-<!--                    Limited time offer - Save --><?php //echo formatMoney($price['discount_amount']); ?>
-<!--                </p>-->
-<!--                --><?php //echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); ?>
-<!---->
-<!--            </div>-->
+    <!--            <div class="col-md-7 button-container d-inline-block d-none">-->
+    <!--                --><?php //$price = get_price(get_field('post_product_gun_msrp'), 20); 
+                            ?>
+    <!--                <p class="lead fw-600 mb-4">-->
+    <!--                    Limited time offer - Save --><?php //echo formatMoney($price['discount_amount']); 
+                                                            ?>
+    <!--                </p>-->
+    <!--                --><?php //echo get_product_inquiry_btn($post->ID, $cta_text, null, $btn_classes); 
+                            ?>
+    <!---->
+    <!--            </div>-->
 
-<!--            <div class="col-md-5 safe-cta d-inline-block">-->
-<!--                <ul class="list-group list-group-flush no-borders ms-0 lst-none bg-transparent cta-callouts">-->
-<!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
-<!--                        <i class="fa-solid fa-tags text-blue me-2 fa-fw"></i>Sale Price-->
-<!--                    </li>-->
-<!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
-<!--                        <i class="fa-solid fa-truck text-blue me-2 fa-fw"></i>Delivery Times-->
-<!--                    </li>-->
-<!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
-<!--                        <i class="fa-solid fa-person-dolly text-blue me-2 fa-fw"></i>Installation Options-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!---->
+    <!--            <div class="col-md-5 safe-cta d-inline-block">-->
+    <!--                <ul class="list-group list-group-flush no-borders ms-0 lst-none bg-transparent cta-callouts">-->
+    <!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
+    <!--                        <i class="fa-solid fa-tags text-blue me-2 fa-fw"></i>Sale Price-->
+    <!--                    </li>-->
+    <!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
+    <!--                        <i class="fa-solid fa-truck text-blue me-2 fa-fw"></i>Delivery Times-->
+    <!--                    </li>-->
+    <!--                    <li class="list-group-item bg-transparent py-1 no-border text-secondary">-->
+    <!--                        <i class="fa-solid fa-person-dolly text-blue me-2 fa-fw"></i>Installation Options-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <!---->
 </div>

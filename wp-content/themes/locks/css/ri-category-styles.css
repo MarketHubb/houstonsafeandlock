@@ -16,13 +16,14 @@
 	overflow: hidden;
 	line-height: 1.3;
 }
-.product-grid-image {
-	height: 150px !important;
-	min-height: 150px;
+.product-grid-image{
+	height: 200px !important;
+	min-height: 200px;
 	width: auto;
 }
 .product-grid-icon {
-	max-height: 18px;
+	max-height: 20px;
+	opacity: .5;
 	width: auto;
 }
 .grid-attr-key {
@@ -83,10 +84,6 @@
 #sort-filter-nav a[data-sort*="fire-rating:asc"] {
 	display: none;
 }
-#sort-filter-nav {
-	margin-bottom: 2rem;
-	padding-right: 1rem;
-}
 #sort-filter-nav li {
 	margin-left: auto;
 	background-color: rgba(0,0,0,.075);
@@ -103,8 +100,8 @@
 	color: #111;
 }
 .filter-sort-type {
-	color: #111 !important;
-	font-weight: bold;
+	color: #333 !important;
+	font-weight: 600;
 }
 .active-filter, .active-filter:hover {
 	background: #007bff;

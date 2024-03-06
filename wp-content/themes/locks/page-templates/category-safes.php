@@ -9,14 +9,29 @@ set_query_var('modal_headline', 'Product Inquiry');
 <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
 
+        <ul class="nav nav-pills d-none">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </li>
+        </ul>
+
         <?php
 
-        $attributes=['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
+        $attributes = ['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
 
         $sorts  = '<div class="container" id="sort-filter-container">';
-        $sorts .= '<ul id="sort-filter-nav" class="nav nav-pills justify-content-start">';
+        $sorts .= '<ul id="sort-filter-nav" class="nav nav-pills">';
         $sorts .= '<li class="nav-item dropdown">';
-        $sorts .= '<a class="nav-link dropdown-toggle filter-sort-type" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">';
+        $sorts .= '<a class="nav-link dropdown-toggle filter-sort-type" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">';
         $sorts .= 'Sort By:</a>';
         $sorts .= '<div class="dropdown-menu">';
 
@@ -49,13 +64,13 @@ set_query_var('modal_headline', 'Product Inquiry');
         );
 
         $i = 1;
-	    $safes  = '<div class="container products">';
-		$safes .= '<div class="row product-list-container">';
+        $safes  = '<div class="container products">';
+        $safes .= '<div class="row product-list-container">';
 
         $safe_category_query = new WP_Query($safe_category_args);
 
         if ($safe_category_query->have_posts()) :
-        	while ($safe_category_query->have_posts()) : $safe_category_query->the_post();
+            while ($safe_category_query->have_posts()) : $safe_category_query->the_post();
                 // Product data
                 $title = get_the_title();
                 $safes .= '<div class="col-12 col-md-6 col-lg-4 product-list-item mix" ';
@@ -72,7 +87,8 @@ set_query_var('modal_headline', 'Product Inquiry');
                     $labels .=  get_formatted_attributes($attribute)['name'] . ':</strong></span>';
                     $labels .= '<span class="product-detail-value">';
                     $val     = get_field('post_product_gun_' . str_replace('-', '_', $attribute));
-                    $labels .= round($val,2) . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
+                    // $labels .= round($val,2) . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
+                    $labels .= $val . get_formatted_attributes($attribute)['postfix'] . '</span></li>';
 
                     $safes .= 'data-' . $attribute . '="' . $val . '" ';
                 }
@@ -100,7 +116,6 @@ set_query_var('modal_headline', 'Product Inquiry');
                         if ($term->parent !== 0) {
                             $safes .= '<p class="text-secondary mb-1">' . $term->name . '</p>';
                         }
-
                     }
                 }
 
@@ -135,7 +150,7 @@ set_query_var('modal_headline', 'Product Inquiry');
 
         $safes .= '</div>'; // End .products
 
-//        echo $safes;
+        echo $safes;
         ?>
 
 

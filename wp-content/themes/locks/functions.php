@@ -1,12 +1,15 @@
 <?php
- require_once 'includes/content.php';
- require_once 'includes/helpers.php';
+require_once 'includes/plugins.php';
+require_once 'includes/safes.php';
+require_once 'includes/content.php';
+require_once 'includes/helpers.php';
 
 add_action('init', 'start_session', 1);
-function start_session() {
-    if(!session_id()) {
-        session_start();
-    }
+function start_session()
+{
+	if (!session_id()) {
+		session_start();
+	}
 }
 
 /**
@@ -17,83 +20,86 @@ function start_session() {
  * @package locks
  */
 // Disable full-screen editor
- if (is_admin()) {
-    function pa_disable_fullscreen_wp_editor() {
-        $script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
-        wp_add_inline_script( 'wp-blocks', $script );
-    }
-    add_action( 'enqueue_block_editor_assets', 'pa_disable_fullscreen_wp_editor' );
+if (is_admin()) {
+	function pa_disable_fullscreen_wp_editor()
+	{
+		$script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
+		wp_add_inline_script('wp-blocks', $script);
+	}
+	add_action('enqueue_block_editor_assets', 'pa_disable_fullscreen_wp_editor');
 }
 
-function meks_which_template_is_loaded() {
-    if ( is_super_admin() ) {
-        global $template;
-       highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");
-    }
+function meks_which_template_is_loaded()
+{
+	if (is_super_admin()) {
+		global $template;
+		highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");
+	}
 }
 
-add_action( 'wp_footer', 'meks_which_template_is_loaded' );
+add_action('wp_footer', 'meks_which_template_is_loaded');
 
-if ( ! function_exists( 'locks_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
-function locks_setup() {
-	/*
+if (!function_exists('locks_setup')) :
+	/**
+	 * Sets up theme defaults and registers support for various WordPress features.
+	 *
+	 * Note that this function is hooked into the after_setup_theme hook, which
+	 * runs before the init hook. The init hook is too late for some features, such
+	 * as indicating support for post thumbnails.
+	 */
+	function locks_setup()
+	{
+		/*
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on locks, use a find and replace
 	 * to change 'locks' to the name of your theme in all the template files.
 	 */
-	load_theme_textdomain( 'locks', get_template_directory() . '/languages' );
+		load_theme_textdomain('locks', get_template_directory() . '/languages');
 
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support('automatic-feed-links');
 
-	/*
+		/*
 	 * Let WordPress manage the document title.
 	 * By adding theme support, we declare that this theme does not use a
 	 * hard-coded <title> tag in the document head, and expect WordPress to
 	 * provide it for us.
 	 */
-	add_theme_support( 'title-tag' );
+		add_theme_support('title-tag');
 
-	/*
+		/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
 	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	 */
-	add_theme_support( 'post-thumbnails' );
+		add_theme_support('post-thumbnails');
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary', 'locks' ),
-	) );
+		// This theme uses wp_nav_menu() in one location.
+		register_nav_menus(array(
+			'primary' => esc_html__('Primary', 'locks'),
+		));
 
-	/*
+		/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
 	 */
-	add_theme_support( 'html5', array(
-		'search-form',
-		'comment-form',
-		'comment-list',
-		'gallery',
-		'caption',
-	) );
+		add_theme_support('html5', array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+		));
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'locks_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
-}
+		// Set up the WordPress core custom background feature.
+		add_theme_support('custom-background', apply_filters('locks_custom_background_args', array(
+			'default-color' => 'ffffff',
+			'default-image' => '',
+		)));
+	}
 endif;
-add_action( 'after_setup_theme', 'locks_setup' );
+add_action('after_setup_theme', 'locks_setup');
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -102,129 +108,139 @@ add_action( 'after_setup_theme', 'locks_setup' );
  *
  * @global int $content_width
  */
-function locks_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'locks_content_width', 640 );
+function locks_content_width()
+{
+	$GLOBALS['content_width'] = apply_filters('locks_content_width', 640);
 }
-add_action( 'after_setup_theme', 'locks_content_width', 0 );
+add_action('after_setup_theme', 'locks_content_width', 0);
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function locks_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'locks' ),
+function locks_widgets_init()
+{
+	register_sidebar(array(
+		'name'          => esc_html__('Sidebar', 'locks'),
 		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'locks' ),
+		'description'   => esc_html__('Add widgets here.', 'locks'),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
-	) );
-	register_sidebar( array(
-		'name'          => esc_html__( 'Footer Menus', 'locks' ),
+	));
+	register_sidebar(array(
+		'name'          => esc_html__('Footer Menus', 'locks'),
 		'id'            => 'footer-menus',
-		'description'   => esc_html__( 'Add footer menus.', 'locks' ),
+		'description'   => esc_html__('Add footer menus.', 'locks'),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
-	) );
+	));
 }
-add_action( 'widgets_init', 'locks_widgets_init' );
+add_action('widgets_init', 'locks_widgets_init');
 
 /**
  * Enqueue scripts and styles.
  */
-function locks_scripts() {
+function locks_scripts()
+{
 
-//	wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/css/owl.carousel.css' );
+	//	wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/css/owl.carousel.css' );
 
-//	wp_enqueue_script( 'owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '20151217', true );
+	//	wp_enqueue_script( 'owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array('jquery'), '20151217', true );
 
-	wp_enqueue_style( 'owl-theme', get_template_directory_uri() . '/css/owl.theme.css' );
+	wp_enqueue_style('owl-theme', get_template_directory_uri() . '/css/owl.theme.css');
 
-    wp_enqueue_style( 'locks-style', get_stylesheet_uri(), array() );
+	wp_enqueue_style('locks-style', get_stylesheet_uri(), array());
 
-//    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
+	//    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
 
-    wp_enqueue_script( 'locks-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script('locks-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true);
 
-	wp_enqueue_script( 'customimr', get_template_directory_uri() . '/js/custom-imr.js', array('jquery'), '20151216', true );
+	wp_enqueue_script('customimr', get_template_directory_uri() . '/js/custom-imr.js', array('jquery'), '20151216', true);
 
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array('jquery'), '20151216', true );
+	wp_enqueue_script('main', get_template_directory_uri() . '/js/main.js', array('jquery'), '20151216', true);
 
-	wp_enqueue_script( 'locks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script('locks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true);
 
-    if (is_front_page()) {
-        wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-    }
+	// Filter / Sort Safes page
+	if (is_page(8854)) {
+		wp_enqueue_script('safes-new', get_stylesheet_directory_uri() . '/js/safes-new.js', ['jquery'], '1.0', true);
+		wp_enqueue_script('mixitup');
+		wp_enqueue_script('mixitup-controls');
+	}
 
-    if ( is_page_template('page-templates/full-width.php')) {
-        wp_enqueue_style( 'genesis-styles', get_template_directory_uri() . '/css/genesis-styles.css' );
-    }
+	if (is_front_page()) {
+		wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+	}
 
-    if ( is_singular( 'safe' ) ) {
-        wp_enqueue_style( 'magnific-popup-style', get_template_directory_uri() . '/css/magnific-popup.css' );
-        wp_enqueue_style( 'responsive-tables-style', get_template_directory_uri() . '/css/responsive-tables.css' );
-        wp_enqueue_script( 'magnific-popup-script', get_template_directory_uri() . '/js/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
-        wp_enqueue_script( 'responsive-tables-script', get_template_directory_uri() . '/js/responsive-tables.js', array( 'jquery' ), '', true );
+	if (is_page_template('page-templates/full-width.php')) {
+		wp_enqueue_style('genesis-styles', get_template_directory_uri() . '/css/genesis-styles.css');
+	}
 
-    }
+	if (is_singular('safe')) {
+		wp_enqueue_style('magnific-popup-style', get_template_directory_uri() . '/css/magnific-popup.css');
+		wp_enqueue_style('responsive-tables-style', get_template_directory_uri() . '/css/responsive-tables.css');
+		wp_enqueue_script('magnific-popup-script', get_template_directory_uri() . '/js/jquery.magnific-popup.min.js', array('jquery'), '1.1.0', true);
+		wp_enqueue_script('responsive-tables-script', get_template_directory_uri() . '/js/responsive-tables.js', array('jquery'), '', true);
+	}
 
-    if (is_singular('product')) {
-        wp_enqueue_style( 'ri-woo-single-styles', get_template_directory_uri() . '/css/ri-woo-single-styles.css' );
-    }
+	if (is_singular('product')) {
+		wp_enqueue_style('ri-woo-single-styles', get_template_directory_uri() . '/css/ri-woo-single-styles.css');
+	}
 
-    if (!is_admin()) {
-        wp_enqueue_style( 'ri-global-styles', get_template_directory_uri() . '/css/ri-global-styles.css' );
-        wp_enqueue_style( 'genesis-alternate', get_template_directory_uri() . '/css/genesis/alternate.css' );
-        wp_enqueue_style( 'ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css' );
-        wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
+	if (!is_admin()) {
+		wp_enqueue_style('ri-global-styles', get_template_directory_uri() . '/css/ri-global-styles.css');
+		wp_enqueue_style('genesis-alternate', get_template_directory_uri() . '/css/genesis/alternate.css');
+		wp_enqueue_style('ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css');
+		wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
 
-        wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", [], '1.0');
+		wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", [], '1.0');
+	}
 
-    }
-
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if (is_singular() && comments_open() && get_option('thread_comments')) {
+		wp_enqueue_script('comment-reply');
 	}
 }
-add_action( 'wp_enqueue_scripts', 'locks_scripts' );
+add_action('wp_enqueue_scripts', 'locks_scripts');
 
-function deregister_script() {
-    $is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
+function deregister_script()
+{
+	$is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
 
-    if( !$is_page_builder_used ) {
-        wp_dequeue_script('et-builder-modules-global-functions-script');
-        wp_dequeue_script('google-maps-api');
-        wp_dequeue_script('divi-fitvids');
-        wp_dequeue_script('waypoints');
-        wp_dequeue_script('magnific-popup');
+	if (!$is_page_builder_used) {
+		wp_dequeue_script('et-builder-modules-global-functions-script');
+		wp_dequeue_script('google-maps-api');
+		wp_dequeue_script('divi-fitvids');
+		wp_dequeue_script('waypoints');
+		wp_dequeue_script('magnific-popup');
 
-        wp_dequeue_script('hashchange');
-        wp_dequeue_script('salvattore');
-        wp_dequeue_script('easypiechart');
+		wp_dequeue_script('hashchange');
+		wp_dequeue_script('salvattore');
+		wp_dequeue_script('easypiechart');
 
-        wp_dequeue_script('et-jquery-visible-viewport');
+		wp_dequeue_script('et-jquery-visible-viewport');
 
-        wp_dequeue_script('magnific-popup');
-        wp_dequeue_script('et-jquery-touch-mobile');
-        wp_dequeue_script('et-builder-modules-script');
-        wp_dequeue_script('et-core-common-js');
-    }
+		wp_dequeue_script('magnific-popup');
+		wp_dequeue_script('et-jquery-touch-mobile');
+		wp_dequeue_script('et-builder-modules-script');
+		wp_dequeue_script('et-core-common-js');
+	}
 }
-add_action( 'wp_print_scripts', 'deregister_script', 100 );
+add_action('wp_print_scripts', 'deregister_script', 100);
 
-function deregister_styles() {
-//    $is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
+function deregister_styles()
+{
+	//    $is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
 
-    if(is_front_page()) {
-        wp_dequeue_style('divi-builder-dynamic');
-    }
+	if (is_front_page()) {
+		wp_dequeue_style('divi-builder-dynamic');
+	}
 }
-add_action( 'wp_print_styles', 'deregister_styles', 100 );
+add_action('wp_print_styles', 'deregister_styles', 100);
 
 /**
  * Implement the Custom Header feature.
@@ -251,75 +267,73 @@ require get_template_directory() . '/inc/customizer.php';
  */
 require get_template_directory() . '/inc/jetpack.php';
 
-function register_safe_post_type() {
+function register_safe_post_type()
+{
 
-    if ( ! post_type_exists( 'safe' ) ) {
+	if (!post_type_exists('safe')) {
 
-        register_post_type('safe', array(
-            'public' => true,
-            'label' => 'Safe Lines',
-            'supports'     => array( 'title', 'editor', 'thumbnail' )
-        ));
+		register_post_type('safe', array(
+			'public' => true,
+			'label' => 'Safe Lines',
+			'supports'     => array('title', 'editor', 'thumbnail')
+		));
 
-        register_taxonomy('safe_category', 'safe', array(
-            'label'        => __( 'Safe Categories' ),
-            'rewrite'      => array( 'slug' => 'safe-category' ),
-            'hierarchical' => true
-        ));
-
-    }
-
+		register_taxonomy('safe_category', 'safe', array(
+			'label'        => __('Safe Categories'),
+			'rewrite'      => array('slug' => 'safe-category'),
+			'hierarchical' => true
+		));
+	}
 }
 
-add_action( 'init', 'register_safe_post_type' );
+add_action('init', 'register_safe_post_type');
 
-if ( function_exists( 'acf_add_options_page' ) ) {
-    acf_add_options_page( 'Theme Settings' );
+if (function_exists('acf_add_options_page')) {
+	acf_add_options_page('Theme Settings');
 }
 
-function single_post_hero_background() {
+function single_post_hero_background()
+{
 
-    $background_image = get_field( 'hero_background' );
-    $style_str = '';
+	$background_image = get_field('hero_background');
+	$style_str = '';
 
-    if ( !empty( $background_image ) ) {
-        $style_str = 'style="background-image: url(\'' . $background_image['url'] . '\');"';
-    } else {
-        $style_str = 'style="background-image: url(\'/wp-content/themes/locks/images/header/header-back.jpg\');"';
-    }
+	if (!empty($background_image)) {
+		$style_str = 'style="background-image: url(\'' . $background_image['url'] . '\');"';
+	} else {
+		$style_str = 'style="background-image: url(\'/wp-content/themes/locks/images/header/header-back.jpg\');"';
+	}
 
-    return $style_str;
-
+	return $style_str;
 }
 
-function render_single_post_hero_headlines($the_id) {
+function render_single_post_hero_headlines($the_id)
+{
 
-    $headline = get_field( 'page_headline', $the_id );
-    $sub_headline = get_field( 'page_sub_headline', $the_id );
-    $html = '';
+	$headline = get_field('page_headline', $the_id);
+	$sub_headline = get_field('page_sub_headline', $the_id);
+	$html = '';
 
-    if ( !empty( $headline ) ) {
-        $html .= '<h1 class="test">' . $headline . '</h1>';
-    } else {
-        if (is_single()) {
-            $html .= '<h1>' . get_the_title() . '</h1>';
-        } else {
-            $html .= '<h1>' . sanitize_post( get_queried_object() )->name . '</h1>';
-        }
+	if (!empty($headline)) {
+		$html .= '<h1 class="test">' . $headline . '</h1>';
+	} else {
+		if (is_single()) {
+			$html .= '<h1>' . get_the_title() . '</h1>';
+		} else {
+			$html .= '<h1>' . sanitize_post(get_queried_object())->name . '</h1>';
+		}
+	}
 
-    }
+	if (!empty($sub_headline)) {
+		$html .= '<h2>' . $sub_headline . '</h2>';
+	} else {
+		if (is_single()) {
+			$terms = get_the_terms(get_the_ID(), 'safe_category');
+			$html .= '<h2>' . $terms[0]->name . '</h2>';
+		}
+	}
 
-    if ( !empty( $sub_headline) ) {
-        $html .= '<h2>' . $sub_headline . '</h2>';
-    } else {
-        if (is_single()) {
-            $terms = get_the_terms( get_the_ID(), 'safe_category');
-            $html .= '<h2>' . $terms[0]->name . '</h2>';
-        }
-    }
-
-    echo $html;
-
+	echo $html;
 }
 
 /**
@@ -348,14 +362,15 @@ function render_single_post_hero_headlines($the_id) {
  * @param object $query  The original query.
  * @return object $query The amended query.
  */
-function tgm_io_cpt_search( $query ) {
+function tgm_io_cpt_search($query)
+{
 
-	if ( $query->is_search ) {
-		$query->set( 'post_type', array( 'post', 'safe', 'page', 'attachment' ) );
+	if ($query->is_search) {
+		$query->set('post_type', array('post', 'safe', 'page', 'attachment'));
 	}
 
 	return $query;
-/*if ( $query->is_search )
+	/*if ( $query->is_search )
    {
         $query->set('meta_query', array(
             array(
@@ -368,20 +383,17 @@ function tgm_io_cpt_search( $query ) {
 	}
 	return $query;
 */
-
-
 }
 
-add_filter( 'posts_where', 'custom_posts_where', 10, 2 );
-function custom_posts_where( $where, $query ) {
+add_filter('posts_where', 'custom_posts_where', 10, 2);
+function custom_posts_where($where, $query)
+{
 
-    global $wpdb;
-    if ( is_main_query() && is_search() ) {
-        $where .= " OR {$wpdb->posts}.post_title LIKE '%" . esc_sql( get_query_var( 's' ) ) . "%'";
-
-    }
-    return $where;
-
+	global $wpdb;
+	if (is_main_query() && is_search()) {
+		$where .= " OR {$wpdb->posts}.post_title LIKE '%" . esc_sql(get_query_var('s')) . "%'";
+	}
+	return $where;
 }
 
 
@@ -395,9 +407,10 @@ function custom_posts_where( $where, $query ) {
 
 
 
-add_filter( 'wpseo_breadcrumb_links', 'check_links' );
+add_filter('wpseo_breadcrumb_links', 'check_links');
 
-function check_links( $links ) {
+function check_links($links)
+{
 	// $links[0]  => 'Home'
 	// $links[1]  => '_SAFE_TAXONOMY_TERM_LINK_'
 	// $links[2]  => '_SAFE_TAXONOMY_TERM_CPT1'
@@ -410,7 +423,7 @@ function check_links( $links ) {
 	// $links[3]  => '_SAFE_TAXONOMY_TERM_CPT1'
 	// $links[4]  => '_SAFE_TAXONOMY_TERM_CPT2' ....etc
 
- 	if ( is_tax( 'safe_category') || is_singular( 'safe' )) {
+	if (is_tax('safe_category') || is_singular('safe')) {
 		$safes_page_link = array(
 			'text'   	 => 'Safes',
 			'url'    	 => site_url() . '/safes',
@@ -424,13 +437,11 @@ function check_links( $links ) {
 		for ($i = 1; $i < count($links); $i++) {
 			$new_links[] = $links[$i];
 		}
-
 	} else {
 		$new_links = $links;
 	}
 
 	return $new_links;
-
 }
 
 ############ BB
@@ -438,119 +449,117 @@ function check_links( $links ) {
 
 function mycode_add_rewrite_query_vars($vars)
 {
-  //array_push($vars, 'vids');
-  array_push($vars, 'view');
-  array_push($vars, 'viewblogdetail');
-  array_push($vars, 'blog_id_1');
-  array_push($vars, 'pgg');
-   array_push($vars, 'bname');
-  return $vars;
+	//array_push($vars, 'vids');
+	array_push($vars, 'view');
+	array_push($vars, 'viewblogdetail');
+	array_push($vars, 'blog_id_1');
+	array_push($vars, 'pgg');
+	array_push($vars, 'bname');
+	return $vars;
 }
 add_filter('query_vars', 'mycode_add_rewrite_query_vars');
 
 
-add_rewrite_rule('^blog/([^/]*)/?', 'index.php?blog=blog','top');
+add_rewrite_rule('^blog/([^/]*)/?', 'index.php?blog=blog', 'top');
 //add_rewrite_rule( 'blogdetail/([^/]*)/?','index.php?pagename=blogdetail&blog_id_1=$matches[1]', 'top' );
 
-add_rewrite_rule( 'Blog/([^/]*)/?','index.php?blog=blogg&pgg=$matches[1]', 'top' );
+add_rewrite_rule('Blog/([^/]*)/?', 'index.php?blog=blogg&pgg=$matches[1]', 'top');
 
-add_rewrite_rule( 'blogdetail/([^/]*)/([^/]*)/?','index.php?blogdetail=blogdetail&bname=$matches[2]&blog_id_1=$matches[1]', 'top' );
+add_rewrite_rule('blogdetail/([^/]*)/([^/]*)/?', 'index.php?blogdetail=blogdetail&bname=$matches[2]&blog_id_1=$matches[1]', 'top');
 
 
 //add_rewrite_rule('^blog/([^/]*)/([^/]*)/?', 'index.php?blog=blog&pgg=pg&pgg=$matches[1]','top');
 
 function my_page_function()
-	{
+{
 
-		if(isset($_REQUEST['view']) && $_REQUEST['view']=='blog' && !isset($_REQUEST['page']))
-		{
-		    wp_redirect( home_url( "/blog/" ));
-		   ///require('myblog.php');   exit;
-		}
-		elseif(isset($_REQUEST['view']) && $_REQUEST['view']=='blog' && isset($_REQUEST['page']))
-		{
-		    wp_redirect( home_url( "/blog/" ).$_REQUEST['page']."/");
-		   ///require('myblog.php');   exit;
-		}
-		elseif(isset($_REQUEST['blogdetail']) && $_REQUEST['blogdetail']!='')
+	if (isset($_REQUEST['view']) && $_REQUEST['view'] == 'blog' && !isset($_REQUEST['page'])) {
+		wp_redirect(home_url("/blog/"));
+		///require('myblog.php');   exit;
+	} elseif (isset($_REQUEST['view']) && $_REQUEST['view'] == 'blog' && isset($_REQUEST['page'])) {
+		wp_redirect(home_url("/blog/") . $_REQUEST['page'] . "/");
+		///require('myblog.php');   exit;
+	} elseif (isset($_REQUEST['blogdetail']) && $_REQUEST['blogdetail'] != '') {
+		//require('blog_detail.php');
+		// wp_redirect( home_url( "/blogdetail/" ).sanitize_title_with_dashes($_REQUEST['bname'])."/".$_REQUEST['blogdetail']."/");
+		//exit;
 
-		{
-		     //require('blog_detail.php');
-			// wp_redirect( home_url( "/blogdetail/" ).sanitize_title_with_dashes($_REQUEST['bname'])."/".$_REQUEST['blogdetail']."/");
-			 //exit;
+	}
+}
 
-		}
-    }
-
-add_action("template_redirect","my_page_function");
+add_action("template_redirect", "my_page_function");
 
 /*
  * Woo Commerce functions
  * https://docs.woocommerce.com/document/third-party-custom-theme-compatibility/
  */
-remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
-function my_theme_wrapper_start() {
-//  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
+function my_theme_wrapper_start()
+{
+	//  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
 
-//  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
-//  if (!has_term(37, 'product_cat')) {
-      echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
-      get_template_part( 'template-parts/content', 'header-hero-safe' );
-      echo '<div class="container-fixed">';
-//  }
+	//  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
+	//  if (!has_term(37, 'product_cat')) {
+	echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
+	get_template_part('template-parts/content', 'header-hero-safe');
+	echo '<div class="container-fixed">';
+	//  }
 
 }
-function my_theme_wrapper_end() {
-  echo '</div></main></div>';
+function my_theme_wrapper_end()
+{
+	echo '</div></main></div>';
 }
-add_filter( 'woocommerce_breadcrumb_defaults', 'jk_change_breadcrumb_delimiter' );
-function jk_change_breadcrumb_delimiter( $defaults ) {
+add_filter('woocommerce_breadcrumb_defaults', 'jk_change_breadcrumb_delimiter');
+function jk_change_breadcrumb_delimiter($defaults)
+{
 	// Change the breadcrumb delimeter from '/' to '>'
 	$defaults['delimiter'] = ' &gt; ';
 	return $defaults;
 }
 
-add_action( 'after_setup_theme', 'woocommerce_support' );
-function woocommerce_support() {
-    add_theme_support( 'woocommerce' );
+add_action('after_setup_theme', 'woocommerce_support');
+function woocommerce_support()
+{
+	add_theme_support('woocommerce');
 }
 
 //-----------------------------------------------------
 // RI - Global functions
 //-----------------------------------------------------
 
-function ri_get_product_parent_tax( $term = array() ) {
+function ri_get_product_parent_tax($term = array())
+{
 
 	$term_parent = ($term[0]->parent == 0) ? $term : get_term($term[0]->parent, 'product_cat');
 
 	if (is_array($term_parent)) {
 
 		$term_parent = $term_parent[0];
-
 	}
 
 	return $term_parent;
 }
 
-function ri_get_product_alert($parent_id) {
+function ri_get_product_alert($parent_id)
+{
 
 	$alert = [];
 
-	if( have_rows('global_safes_category_alerts', 'option') ):
+	if (have_rows('global_safes_category_alerts', 'option')) :
 
-		while ( have_rows('global_safes_category_alerts', 'option') ) : the_row();
+		while (have_rows('global_safes_category_alerts', 'option')) : the_row();
 
 			if (get_sub_field('global_safes_category_alerts_safe_category', 'option') == $parent_id) {
 
 				$alert['desktop'] = get_sub_field('global_safes_category_alerts_category_message', 'option');
 				$alert['mobile'] = get_sub_field('global_safes_category_message_mobile', 'option');
-
 			}
 
-        endwhile;
+		endwhile;
 
 	endif;
 
@@ -558,23 +567,23 @@ function ri_get_product_alert($parent_id) {
 
 		$alert['desktop'] = get_field('field_5dea85d0f82c7', 'option');
 		$alert['mobile'] = get_field('field_5defc058afe02', 'option');
-
 	}
 
 	return $alert;
 }
 
-function get_sem_locksmith_pages() {
-    $page_ids = [];
-    if( have_rows('global_safes_sem_locksmith_pages', 'option') ):
-        while ( have_rows('global_safes_sem_locksmith_pages', 'option') ) : the_row();
+function get_sem_locksmith_pages()
+{
+	$page_ids = [];
+	if (have_rows('global_safes_sem_locksmith_pages', 'option')) :
+		while (have_rows('global_safes_sem_locksmith_pages', 'option')) : the_row();
 
-            $page_ids[] = get_sub_field('global_safes_sem_locksmith_page', 'option');
+			$page_ids[] = get_sub_field('global_safes_sem_locksmith_page', 'option');
 
-        endwhile;
-    endif;
+		endwhile;
+	endif;
 
-    return $page_ids;
+	return $page_ids;
 }
 
 //-----------------------------------------------------
@@ -583,107 +592,108 @@ function get_sem_locksmith_pages() {
 /**
  * Conditionally enqueue custom styles and scripts
  */
-function ri_conditional_script_loading() {
-    /**
-     * Register custom styles and scripts
-     */
-    wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
-    wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper210.min.js', array('jquery'), '', true);
-    wp_register_style( 'bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
-    wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
-    wp_register_style( 'ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css' );
-    wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
-    wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
-    wp_register_style( 'ri-safe-styles', get_stylesheet_directory_uri() . '/css/ri-safe-styles.css' );
-    wp_register_style( 'ri-alert-styles', get_stylesheet_directory_uri() . '/css/ri-alert-styles.css' );
-    wp_register_style( 'ri-locksmith-styles', get_stylesheet_directory_uri() . '/css/ri-locksmith-styles.css' );
-    wp_register_script('ri-safe-scripts', get_stylesheet_directory_uri() . '/js/ri-safe-scripts.js', array('jquery'), '', true);
-// Category Gun Safes
-    wp_register_script('ri-sem-gun-scripts', get_stylesheet_directory_uri() . '/js/ri-sem-gun-scripts.js', array('jquery'), '', true);
-// Bootstrap Slider
-    wp_register_script('slider-min-js', get_stylesheet_directory_uri() . '/js/bootstrap-slider.min.js', array('jquery'), '', true);
-    wp_register_script('perfect-gun-safe-scripts', get_stylesheet_directory_uri() . '/js/perfect-gun-safe-scripts.js', array('jquery'), '', true);
-    wp_register_style( 'slider-min-css', get_stylesheet_directory_uri() . '/css/bootstrap-slider.min.css' );
-    wp_register_style( 'perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css' );
-// Font Awesome Pro
-    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all.min.css' );
-//    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all-clean.css' );
-// Hero Banner
-    wp_register_style( 'banner', get_stylesheet_directory_uri() . '/css/banner.css' );
-// Global Customizations
-    wp_register_style( 'global', get_stylesheet_directory_uri() . '/css/global.css' );
-    wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), '', true);
+function ri_conditional_script_loading()
+{
+	/**
+	 * Register custom styles and scripts
+	 */
+	wp_register_script('bootstrap-scripts', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array('jquery', 'popper'), '', true);
+	wp_register_script('popper', get_stylesheet_directory_uri() . '/js/popper210.min.js', array('jquery'), '', true);
+	wp_register_style('bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css');
+	wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
+	wp_register_style('ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css');
+	wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
+	wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
+	wp_register_style('ri-safe-styles', get_stylesheet_directory_uri() . '/css/ri-safe-styles.css');
+	wp_register_style('ri-alert-styles', get_stylesheet_directory_uri() . '/css/ri-alert-styles.css');
+	wp_register_style('ri-locksmith-styles', get_stylesheet_directory_uri() . '/css/ri-locksmith-styles.css');
+	wp_register_script('ri-safe-scripts', get_stylesheet_directory_uri() . '/js/ri-safe-scripts.js', array('jquery'), '', true);
+	// Category Gun Safes
+	wp_register_script('ri-sem-gun-scripts', get_stylesheet_directory_uri() . '/js/ri-sem-gun-scripts.js', array('jquery'), '', true);
+	// Bootstrap Slider
+	wp_register_script('slider-min-js', get_stylesheet_directory_uri() . '/js/bootstrap-slider.min.js', array('jquery'), '', true);
+	wp_register_script('perfect-gun-safe-scripts', get_stylesheet_directory_uri() . '/js/perfect-gun-safe-scripts.js', array('jquery'), '', true);
+	wp_register_style('slider-min-css', get_stylesheet_directory_uri() . '/css/bootstrap-slider.min.css');
+	wp_register_style('perfect-gun-safe-styles', get_stylesheet_directory_uri() . '/css/perfect-gun-safe-styles.css');
+	// Font Awesome Pro
+	wp_register_style('font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all.min.css');
+	//    wp_register_style( 'font-awesome-6', get_stylesheet_directory_uri() . '/fontawesome/css/all-clean.css' );
+	// Hero Banner
+	wp_register_style('banner', get_stylesheet_directory_uri() . '/css/banner.css');
+	// Global Customizations
+	wp_register_style('global', get_stylesheet_directory_uri() . '/css/global.css');
+	wp_register_script('global', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), '', true);
 
-    if (!is_admin()) {
-        wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
-        wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/js/bootstrap513/js/bootstrap.bundle.js', [], '5.1.3', true);
-        wp_enqueue_script('ri-safe-scripts');
-        wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles'] );
-        wp_enqueue_style('font-awesome-6');
-        wp_enqueue_style('banner');
-        wp_enqueue_script('global');
-        wp_enqueue_style('global');
-        wp_enqueue_style('container', get_stylesheet_directory_uri() . '/css/containers.css');
-        wp_enqueue_style('header', get_stylesheet_directory_uri() . '/css/header.css');
-    }
-    if (is_page(4149)) {
-        wp_enqueue_style( 'locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css' );
-    }
-    if (is_page_template('page-templates/safes.php') || is_page_template('page-templates/gun-safes.php') || is_page_template('page-templates/category-safes.php') || is_product_category()) {
-        wp_enqueue_style('ri-category-styles');
-        wp_enqueue_script('ri-category-scripts');
-        wp_enqueue_script('mixitup');
-        wp_enqueue_script('mixitup-controls');
-        wp_enqueue_style('ri-safe-styles');
-    }
+	if (!is_admin()) {
+		wp_enqueue_style('bootstrap-5-styles', get_stylesheet_directory_uri() . '/bootstrap/css/bootstrap.min.css', [], '5.1.3');
+		wp_enqueue_script('bootstrap-5-scripts', get_stylesheet_directory_uri() . '/js/bootstrap513/js/bootstrap.bundle.js', [], '5.1.3', true);
+		wp_enqueue_script('ri-safe-scripts');
+		wp_enqueue_style('bootstrap-overrides', get_stylesheet_directory_uri() . '/css/bootstrap-overrides.css', ['bootstrap-5-styles']);
+		wp_enqueue_style('font-awesome-6');
+		wp_enqueue_style('banner');
+		wp_enqueue_script('global');
+		wp_enqueue_style('global');
+		wp_enqueue_style('ri-category-styles');
+		wp_enqueue_style('container', get_stylesheet_directory_uri() . '/css/containers.css');
+		wp_enqueue_style('header', get_stylesheet_directory_uri() . '/css/header.css');
+	}
+	if (is_page(4149)) {
+		wp_enqueue_style('locksmith-styles', get_template_directory_uri() . '/css/locksmith-styles.css');
+	}
+	if (is_page_template('page-templates/safes.php') || is_page_template('page-templates/gun-safes.php') || is_page_template('page-templates/category-safes.php') || is_product_category()) {
+		wp_enqueue_script('ri-category-scripts');
+		wp_enqueue_script('mixitup');
+		wp_enqueue_script('mixitup-controls');
+		wp_enqueue_style('ri-safe-styles');
+	}
 
-    if (is_singular('product')) {
-        wp_enqueue_style('ri-category-styles');
-    }
+	if (is_singular('product')) {
+		wp_enqueue_style('ri-category-styles');
+	}
 
-    if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
-        wp_enqueue_style('ri-safe-styles');
-    }
+	if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287)) {
+		wp_enqueue_style('ri-safe-styles');
+	}
 
-    // Category gun safes
-    if (is_page(3857)) {
-        wp_enqueue_script('ri-sem-gun-scripts');
-    }
+	// Category gun safes
+	if (is_page(3857)) {
+		wp_enqueue_script('ri-sem-gun-scripts');
+	}
 
-    if (is_page(3895)) {
-        wp_enqueue_script('bootstrap-scripts');
-        wp_enqueue_style('bootstrap-styles');
-        wp_enqueue_script('slider-min-js');
-        wp_enqueue_script('perfect-gun-safe-scripts');
-        wp_enqueue_style('slider-min-css');
-        wp_enqueue_style('perfect-gun-safe-styles');
-    }
-    // Safes for Sale
-    if (is_page(3901)) {
-        wp_enqueue_script('bootstrap-scripts');
-//        wp_enqueue_style('bootstrap-styles');
-    }
-    // Locksmith pages
-    if (is_page(get_sem_locksmith_pages())) {
-        wp_enqueue_style('ri-safe-styles');
-        wp_enqueue_style('ri-locksmith-styles');
-    }
-    // Safe category pages
-    if (is_product_category()) {
-    	wp_enqueue_style( 'safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
-    }
-    // Safe category pages
-    if (is_page_template('page-templates/full-width.php') || is_page_template('page-templates/genesis-custom.php')) {
-    	wp_enqueue_style( 'genesis-global', get_stylesheet_directory_uri() . '/css/genesis/global.css');
-    	wp_enqueue_script('genesis-scripts', get_stylesheet_directory_uri() . '/js/genesis-scripts.js', [], '', true);
-    }
+	if (is_page(3895)) {
+		wp_enqueue_script('bootstrap-scripts');
+		wp_enqueue_style('bootstrap-styles');
+		wp_enqueue_script('slider-min-js');
+		wp_enqueue_script('perfect-gun-safe-scripts');
+		wp_enqueue_style('slider-min-css');
+		wp_enqueue_style('perfect-gun-safe-styles');
+	}
+	// Safes for Sale
+	if (is_page(3901)) {
+		wp_enqueue_script('bootstrap-scripts');
+		//        wp_enqueue_style('bootstrap-styles');
+	}
+	// Locksmith pages
+	if (is_page(get_sem_locksmith_pages())) {
+		wp_enqueue_style('ri-safe-styles');
+		wp_enqueue_style('ri-locksmith-styles');
+	}
+	// Safe category pages
+	if (is_product_category()) {
+		wp_enqueue_style('safe-category-styles', get_stylesheet_directory_uri() . '/css/safe-category-styles.css');
+	}
+	// Safe category pages
+	if (is_page_template('page-templates/full-width.php') || is_page_template('page-templates/genesis-custom.php')) {
+		wp_enqueue_style('genesis-global', get_stylesheet_directory_uri() . '/css/genesis/global.css');
+		wp_enqueue_script('genesis-scripts', get_stylesheet_directory_uri() . '/js/genesis-scripts.js', [], '', true);
+	}
 
-    // Custom Woocommerce theme style
-    wp_register_style( 'mytheme-woocommerce', get_stylesheet_directory_uri() . '/woocommerce/css/woocommerce.css' );
+	// Custom Woocommerce theme style
+	wp_register_style('mytheme-woocommerce', get_stylesheet_directory_uri() . '/woocommerce/css/woocommerce.css');
 
-    if ( class_exists( 'woocommerce' ) ) {
-        wp_enqueue_style( 'mytheme-woocommerce' );
-    }
+	if (class_exists('woocommerce')) {
+		wp_enqueue_style('mytheme-woocommerce');
+	}
 }
 add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 
@@ -692,19 +702,21 @@ add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 //-----------------------------------------------------
 
 // Dequeue default WooCommerce css (general) and replace with minified and reduced version
-add_filter( 'woocommerce_enqueue_styles', 'jk_dequeue_styles' );
-function jk_dequeue_styles( $enqueue_styles ) {
-//    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
-    return $enqueue_styles;
+add_filter('woocommerce_enqueue_styles', 'jk_dequeue_styles');
+function jk_dequeue_styles($enqueue_styles)
+{
+	//    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
+	return $enqueue_styles;
 }
-add_action( 'wp_enqueue_scripts', 'mh_child_deregister_styles', 11 );
-function mh_child_deregister_styles() {
-    wp_dequeue_style( 'font-awesome' );
+add_action('wp_enqueue_scripts', 'mh_child_deregister_styles', 11);
+function mh_child_deregister_styles()
+{
+	wp_dequeue_style('font-awesome');
 }
 /**
  * Register global options page for safes
  */
-if( function_exists('acf_add_options_page') ) {
+if (function_exists('acf_add_options_page')) {
 
 	acf_add_options_page(array(
 		'page_title' 	=> 'Alerts',
@@ -714,7 +726,7 @@ if( function_exists('acf_add_options_page') ) {
 		'redirect'		=> false
 	));
 
-    acf_add_options_page(array(
+	acf_add_options_page(array(
 		'page_title' 	=> 'Global - Safes',
 		'menu_title'	=> 'Global - Safes',
 		'menu_slug' 	=> 'safe-settings',
@@ -722,37 +734,39 @@ if( function_exists('acf_add_options_page') ) {
 		'redirect'		=> false
 	));
 
-    acf_add_options_page(array(
-        'page_title' 	=> 'Global - Locksmith',
-        'menu_title'	=> 'Global - Locksmith',
-        'menu_slug' 	=> 'locksmith-settings',
-        'capability'	=> 'edit_posts',
-        'redirect'		=> false
-    ));
+	acf_add_options_page(array(
+		'page_title' 	=> 'Global - Locksmith',
+		'menu_title'	=> 'Global - Locksmith',
+		'menu_slug' 	=> 'locksmith-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
 }
-function compare_published_updated_dates($post_id) {
-    $dates = [];
-    $published_time = strtotime(get_the_date('', $post_id));
-    $updated_time = strtotime(get_the_modified_date('', $post_id));
-    $date_diff = $updated_time - $published_time;
-    $days_diff = round($date_diff / (60 * 60 * 24));
+function compare_published_updated_dates($post_id)
+{
+	$dates = [];
+	$published_time = strtotime(get_the_date('', $post_id));
+	$updated_time = strtotime(get_the_modified_date('', $post_id));
+	$date_diff = $updated_time - $published_time;
+	$days_diff = round($date_diff / (60 * 60 * 24));
 
-    if ($days_diff > 30) {
-        $dates['updated'] = get_the_modified_date('', $post_id);
-    } else {
-        $dates['published'] = get_the_date('', $post_id);
-    }
+	if ($days_diff > 30) {
+		$dates['updated'] = get_the_modified_date('', $post_id);
+	} else {
+		$dates['published'] = get_the_date('', $post_id);
+	}
 
-    return $dates;
+	return $dates;
 }
 /**
  * Dynamically populate select field for safe category alerts
  */
-function acf_populate_safe_alert_select_field_choices( $field ) {
+function acf_populate_safe_alert_select_field_choices($field)
+{
 
-    $field['choices'] = array();
+	$field['choices'] = array();
 
-    $terms = get_terms( array(
+	$terms = get_terms(array(
 		'taxonomy' => 'product_cat',
 
 	));
@@ -761,31 +775,29 @@ function acf_populate_safe_alert_select_field_choices( $field ) {
 
 	foreach ($terms as $term) {
 
-		if ( !$term->parent ) {
+		if (!$term->parent) {
 			$choices[] = array($term->term_id, $term->name);
 		}
-
 	}
 
-    if( is_array($choices) ) {
+	if (is_array($choices)) {
 
-        foreach( $choices as $key => $value) {
+		foreach ($choices as $key => $value) {
 
-            $field['choices'][ $value[0] ] = $value[1];
+			$field['choices'][$value[0]] = $value[1];
+		}
+	}
 
-        }
-
-    }
-
-    return $field;
+	return $field;
 }
 
 add_filter('acf/load_field/key=field_5dea8663fe06f', 'acf_populate_safe_alert_select_field_choices');
 
-function show_template() {
-    if( is_super_admin() ){
-        global $template;
-        print_r($template);
-    }
+function show_template()
+{
+	if (is_super_admin()) {
+		global $template;
+		print_r($template);
+	}
 }
 add_action('wp_footer', 'show_template');

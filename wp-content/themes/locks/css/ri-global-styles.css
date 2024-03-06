@@ -5,57 +5,82 @@
     width: 100%;
     object-fit: cover;
 }
+
+/* Safes (New) */
+
 /* Global */
+.text-sm {
+    font-size: .95rem;
+}
+.clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
 .max-height-50 {
     max-height: 50vh;
 }
+
 .mh-50 {
     min-height: 50vh;
 }
+
 .global-alert {
     font-size: 1.05rem;
 }
+
 .promotion-cards .card-img-top {
     min-height: 350px;
     max-height: 350px;
     width: 100%;
     object-fit: contain;
 }
+
 #popupModal .close {
     right: -1.5rem;
     top: -3.5rem;
 }
-#popupModal .close > span {
+
+#popupModal .close>span {
     font-size: 3rem;
 }
+
 #popupModal .modal-body .btn {
     background-color: #dd7f36 !important;
 }
+
 body.single-product .container-fixed:not(:first-of-type) {
     max-width: none;
 }
+
 .lst-none {
     list-style-type: none !important;
 }
+
 /* Footer */
 .footer-container ul li a,
 .footer-container ul li a:focus,
 .footer-container ul li a:visited,
-.footer-schema div
-{
-        color: #eee;
+.footer-schema div {
+    color: #eee;
 }
+
 .footer-schema div {
     font-family: "Source Sans Pro";
     font-size: 18px;
     font-weight: 400;
 }
+
 .footer-schema div a {
     color: #fff;
     font-weight: bold;
 }
+
 /*.safe-categories .safe-cat-images*/
-.btn, .gform_footer input[type="submit"] {
+.btn,
+.gform_footer input[type="submit"] {
     font-family: "Oxygen";
     webkit-box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
     box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
@@ -73,29 +98,39 @@ body.single-product .container-fixed:not(:first-of-type) {
     padding: .3rem .75rem .375rem;
     line-height: 1.5;
     border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     letter-spacing: .02rem;
 }
-.btn-primary:hover, .gform_footer input[type="submit"]:hover {
-    color:#fff;
-    background-color:#0069d9;
-    border-color:#0062cc;
+
+.btn-primary:hover,
+.gform_footer input[type="submit"]:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
 }
-.btn-primary.focus,.btn-primary:focus, .gform_footer input[type="submit"]:focus {
-    color:#fff;
-    background-color:#0069d9;
-    border-color:#0062cc;
-    box-shadow:0 0 0 .2rem rgba(38,143,255,.5);
+
+.btn-primary.focus,
+.btn-primary:focus,
+.gform_footer input[type="submit"]:focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5);
 }
-.btn.shadow:hover, .btn.shadow-sm:hover {
+
+.btn.shadow:hover,
+.btn.shadow-sm:hover {
     box-shadow: none !important;
 }
+
 .fw-500 {
     font-weight: 500 !important;
 }
+
 #locksmith-btn {
     font-size: 1rem !important;
 }
+
 .inquiry-container {
     position: relative;
 }
@@ -105,25 +140,25 @@ body.single-product .container-fixed:not(:first-of-type) {
 *****************************************/
 /* Large devices (desktops, less than 1200px) */
 @media (max-width: 1199.98px) {}
+
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
+
     /* Footer */
     .footer-container ul li a,
-    .footer-schema div
-    {
+    .footer-schema div {
         font-size: 1.1rem;
     }
 }
+
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+
     /* Modal */
-    .modal-callouts p > small {
+    .modal-callouts p>small {
         text-transform: uppercase;
     }
 }
+
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {}
-
-
-
-
