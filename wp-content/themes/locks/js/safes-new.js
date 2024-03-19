@@ -113,12 +113,15 @@
 
     function update_active_filter_badges(activeFiltersArray) {
         activeFiltersArray = removeDoubleDashAndAfter(activeFiltersArray);
-        $('.filter-badges tw-badge').addClass('d-none');
+        $('.badge-filter').addClass('d-none');
 
+        let i = 1;
         for (const filterName of activeFiltersArray) {
+            console.table("i", i);
             console.table("filterName", filterName);
             let filerBadge = $('.filter-badges').find('.' + filterName);
             filerBadge.removeClass('d-none');
+            i++;
         }
 
         // $('#sort-badges span').each(function () {
