@@ -3,6 +3,7 @@
     // region ## Global vars ##
 
     const reset = $('input[value="reset"]');
+    var test = "1";
 
     function add_badges_to_safes(activeFilters) {
         if (activeFilters.length > 0) {
@@ -57,8 +58,11 @@
     // endregion
 
     // region Update & reset filters
-    function reset_all_filters() {
-        $('#safe-filters .form-check input:checkbox').each(function () {
+    function reset_all_filters(filterContainer) {
+        filterContainer = (filterContainer) || '#safe-filters';
+        console.table("filterContainer", filterContainer);
+
+        $(filterContainer + ' .form-check input:checkbox').each(function () {
             $(this)
                 .attr('disabled', false)
                 .prop('checked', false);
@@ -70,7 +74,6 @@
     }
 
     function update_available_filters(remainingFilters, filterContainer) {
-        console.table("filterContainer", filterContainer);
         filterContainer = (filterContainer) || '#safe-filters';
 
         $(filterContainer + ' .form-check input:checkbox').each(function () {
@@ -98,6 +101,34 @@
     }
     // endregion 
 
+    function removeDoubleDashAndAfter(arr) {
+        return arr.map(item => {
+            const index = item.indexOf('--');
+            if (index !== -1) {
+                return item.slice(0, index);
+            }
+            return item;
+        });
+    }
+
+    function update_active_filter_badges(activeFiltersArray) {
+        activeFiltersArray = removeDoubleDashAndAfter(activeFiltersArray);
+        $('.filter-badges tw-badge').addClass('d-none');
+
+        for (const filterName of activeFiltersArray) {
+            console.table("filterName", filterName);
+            let filerBadge = $('.filter-badges').find('.' + filterName);
+            filerBadge.removeClass('d-none');
+        }
+
+        // $('#sort-badges span').each(function () {
+        //     $(this).addClass('d-none');
+            
+        //     if ($(this).hasClass(dataSortClean)) {
+        //         $(this).removeClass('d-none');
+        //     }
+        // });
+    }
 
     function apply_filters_to_grid(activeFiltersArray, filterContainer) {
 
@@ -124,6 +155,8 @@
             }
 
         });
+
+        update_active_filter_badges(activeFiltersArray);
 
         if (remainingFilters.length > 0) {
             update_available_filters(remainingFilters, filterContainer);
@@ -202,6 +235,19 @@
     remove_empty_safe_filters();
 
     // endregion
+
+    // region Mobile
+    if ($(window).width() <= 768) {
+        let filterContainer = $('#safe-filters');
+        let filterModalBody = $('body #modal-safe-filters .modal-body');
+
+        filterModalBody.html(filterContainer);
+
+        $('#modal-reset').on('click', function () {
+            reset_all_filters('#modal-safe-filters');
+            
+        });
+    }
 
 
     

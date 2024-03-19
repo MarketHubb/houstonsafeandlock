@@ -99,7 +99,7 @@ function safe_grid_attributes($post_id)
             $field_value = $concat_value;
         }
 
-        $safe_attribute['value'] = $field_value;
+        $safe_attribute['value'] = ($safe_attribute['label'] === 'Security Rating' && $field_value === 'Not rated') ? 'B-rated' : $field_value;
     }
 
     return $safe_attributes;
@@ -164,6 +164,22 @@ function safe_sort_badges($safe_attribute)
     }
 }
 
+function safe_filter_badge($safe_attribute)
+{
+    if ($safe_attribute['value']) {
+        $pre_attribute = (isset($safe_attribute['pre'])) ? $safe_attribute['pre'] : '';
+        $post_attribute = (isset($safe_attribute['post'])) ? $safe_attribute['post'] : '';
+        $attribute_value = $pre_attribute . $safe_attribute['value'] . $post_attribute;
+
+        $filter_badge  = '<span class="tw-badge badge-filter d-none ' . sanitize_attribute_value($safe_attribute['label']) . '">';
+        // $sort_badge .= '<img class="d-inline filter-badge safe-sort-icon" src="' . get_template_directory_uri() . '/images/' . $safe_attribute['icon'] . '" />';
+        $filter_badge .= $attribute_value;
+        $filter_badge .= '</span>';
+
+        return $filter_badge;
+    }
+}
+
 function safe_grid_item($post_id, $col_width = 4, $classes = null)
 {
     $columns = ($col_width) ? 'col-md-' .  $col_width : "";
@@ -177,6 +193,7 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
     if (!empty($safe_attributes)) {
         $class_names = '';
         $sort_badges = '';
+        $filter_badges = '';
         $attribute_list = '';
         $attribute_output = '';
 
@@ -186,13 +203,13 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
             // Class list
             if ($safe_attribute['type'] === 'filter') {
                 $class_names .= format_attribute_class_name($safe_attribute);
+                $filter_badges .= safe_filter_badge($safe_attribute);
             }
 
             // Sort badgets
             if ($safe_attribute['type'] === 'sort') {
                 $sort_badges .= safe_sort_badges($safe_attribute);
             }
-
 
             // Date attributes
             if ($safe_attribute['type'] === 'sort') {
@@ -244,11 +261,10 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
 
     $safes .= '<div class="text-center">';
 
-    // Type Badges
+    // Sort Badges
     if (!empty($sort_badges)) {
         $safes .= '<div class="d-flex flex-wrap justify-content-center gap-x-6 mb-4" id="sort-badges">';
         $safes .= $sort_badges;
-        // $safes .= '<span class="tw-badge invisible sort-badge"></span>';
         $safes .= '</div>';
     }
 
@@ -259,6 +275,13 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
     $description_classes = $classes['description'] ?: '';
     $safes .= '<p class="product-grid-description mb-4 ' . $description_classes . '">' . get_field('post_product_gun_long_description', $post_id) . '</p>';
     $safes .= '</div>';
+
+    // Filter badges
+    if (!empty($filter_badges)) {
+        $safes .= '<div class="d-flex flex-wrap justify-content-center badge-gap my-3 filter-badges" id="">';
+        $safes .= $filter_badges;
+        $safes .= '</div>';
+    }
 
     $attributes = ['weight', 'fire-rating', 'exterior-depth', 'exterior-width', 'exterior-height'];
 

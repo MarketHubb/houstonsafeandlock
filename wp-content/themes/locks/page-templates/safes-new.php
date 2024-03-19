@@ -20,14 +20,16 @@ get_header();
                 </p>
             </div>
 
-            <div class="row justify-content-end align-items-center">
-                <div class="col-6 d-block d-md-none">
+            <div class="row justify-content-end align-items-center" id="filter-sort-container-mobile">
+
+                <!-- Mobile -->
+                <div class="col-4 col-md-6 d-block d-md-none">
                     <!-- Button trigger modal -->
                     <p class="fw-600 mb-0 text-normal ps-2" data-bs-toggle="modal" data-bs-target="#modal-safe-filters">
-                        Filter safes
+                        Filters <i class="fa-solid fa-up-right-from-square fa-sm opacity-80 ps-1"></i>
                     </p>
                 </div>
-                <div class="col-6 text-end" id="sort-filter-container">
+                <div class="col-8 col-md-6 text-end" id="sort-filter-container">
                     <!-- Sorts -->
                     <?php echo output_safe_sorts(); ?>
                 </div>
@@ -35,21 +37,24 @@ get_header();
 
             <div class="row gx-5 bg-gray-50 p4-5">
 
-                <!-- Filters -->
-                <div class="col-md-4 col-lg-3 d-none d-md-block" id="safe-filters">
+                <!-- Desktop -->
+                <!-- <div class="col-md-4 col-lg-3 d-none d-md-block" id="safe-filters"> -->
+                <div class="col-12 col-md-4 col-lg-3" id="safe-filters">
 
-                    <p class="fw-bold">Filter safes:</p>
-
-                    <!-- Default (Reset) -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="reset" id="reset">
-                        <label class="form-check-label" for="reset">
-                            Reset filters
-                        </label>
+                    <div class="d-none d-md-block">
+                        <p class="fw-bold">Filter safes:</p>
+                        
+                        <!-- Default (Reset) -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="reset" id="reset">
+                            <label class="form-check-label" for="reset">
+                                Reset filters
+                            </label>
+                        </div>
+                        
+                        <hr>
                     </div>
-
-                    <hr>
-
+                    
                     <?php echo output_safe_filters(); ?>
 
                 </div>

@@ -10,13 +10,26 @@
 			}
 		});
 	}
-	
+
+	function update_active_sort_class(order) {
+		$('.grid-sort-order').each(function () {
+			$(this).removeClass('active-sort-order');
+		});
+
+		let sortOrderItem = $('.grid-sort-order[data-type="' + order + '"]');
+
+		if (sortOrderItem.length == 1) {
+			sortOrderItem.addClass('active-sort-order');
+		}
+	}
+
 	
 	// var containerEl = document.querySelector('.product-list-container');
 	var containerEl = document.querySelector('#safe-products');
+	var defaultSort = "price:desc";
 	var mixer = mixitup(containerEl, {
 		load: {
-			sort: 'price:desc'
+			sort: defaultSort
 		},
 		selectors: {
 			target: '.mix',
@@ -24,7 +37,9 @@
 		},
 		callbacks: {
 			onMixClick: function (state, originalEvent) {
+				console.table("originalEvent", originalEvent);
 				// console.table("originalEvent", originalEvent);
+				// console.table("state", state);
 				let dataSort = originalEvent.srcElement.attributes[2].nodeValue;
 				let dataSortClean = dataSort.substr(0, dataSort.indexOf(':'));
 
@@ -35,31 +50,10 @@
 
 				// Update sort text
 				let currentSortText = originalEvent.srcElement.text;
-				$('#sort-filter-nav li.nav-item.dropdown a.dropdown-toggle').text('Sort By: ' + currentSortText);
-
-				if (Object.values(targetClasses).indexOf('filter-link') > -1) {
-					$('#sort-filter-nav li.nav-item').not('.dropdown').each(function () {
-						$(this).removeClass('active-filter');
-					});
-					$(this).closest('li.nav-item').not('.dropdown').addClass('active-filter');
-				   	
-				} 
-				if (Object.values(targetClasses).indexOf('dropdown-item') > -1) {
-					// console.log("targetClasses", targetClasses);
-					$('li.dropdown .dropdown-menu a.dropdown-item').each(function () {
-						$(this).removeClass('active-filter');
-					});
-					$(this).addClass('active-filter');
-				}
-
-				// Filters
-				// if (originalEvent.srcElement.hasClass('filter-link')) {
-				// 	$('#sort-filter-nav li.nav-item').not('.dropdown').each(function() {
-				// 		$(this).removeClass('active-filter');
-				// 	});
-				// 	$(this).closest('li.nav-item').addClass('active-filter');
-				// }
-				
+				let selectedSortText = originalEvent.srcElement.innerHTML
+				let sortHtml = '<span class="text-secondary">Sort by: </span><span>' + selectedSortText + '</span></span>';
+				// $('#sort-filter-nav li.nav-item.dropdown a.dropdown-toggle').text(currentSortText);
+				$('#sort-filter-nav li.nav-item.dropdown a.dropdown-toggle').html(sortHtml);
 				
 				// Sorts
 				$('.product-details-list li span.badge').each(function () {
@@ -70,28 +64,22 @@
 						$(this).closest('li')
 							.addClass('current-sort');
 					}
-					
 				});
+
+				update_active_sort_class('desc');
 			}
 		}
 	});
-	
-	
-	
-	// $('.sort-select').on('change', function(){
-	// 	let selected = $(this).val()
-	// 	mixer.filter('.' + selected);
-	// });
 
-	// var mixer = mixitup('.products');
+	$('.grid-sort-order').on('click', function () {
+		let currentState = mixer.getState();
+		let sortOrder = $(this).attr('data-type');
+		let currentSortType = currentState.activeSort.attribute;
 
-	// var mixer = mixitup(containerEl, {
-	// 	"animation": {
-	// 		"duration": 0,
-	// 		"nudge": false,
-	// 		"reverseOut": false,
-	// 		"effects": ""
-	// 	}
-	// });
+		update_active_sort_class(sortOrder);
+
+		let newSort = currentSortType + ':' + sortOrder;
+		mixer.sort(newSort);
+	});
 
 })(jQuery);
