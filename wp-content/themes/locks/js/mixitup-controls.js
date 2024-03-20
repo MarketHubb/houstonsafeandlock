@@ -22,10 +22,7 @@
 			sortOrderItem.addClass('active-sort-order');
 		}
 	}
-
-	
-	// var containerEl = document.querySelector('.product-list-container');
-	var containerEl = document.querySelector('#safe-products');
+	var containerEl = $('#safe-products');
 	var defaultSort = "price:desc";
 	var mixer = mixitup(containerEl, {
 		load: {
@@ -37,9 +34,6 @@
 		},
 		callbacks: {
 			onMixClick: function (state, originalEvent) {
-				console.table("originalEvent", originalEvent);
-				// console.table("originalEvent", originalEvent);
-				// console.table("state", state);
 				let dataSort = originalEvent.srcElement.attributes[2].nodeValue;
 				let dataSortClean = dataSort.substr(0, dataSort.indexOf(':'));
 
@@ -82,4 +76,4 @@
 		mixer.sort(newSort);
 	});
 
-})(jQuery);
+})( jQuery );
