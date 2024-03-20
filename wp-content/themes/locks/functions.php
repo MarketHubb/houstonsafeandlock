@@ -3,7 +3,6 @@ require_once 'includes/plugins.php';
 require_once 'includes/safes.php';
 require_once 'includes/content.php';
 require_once 'includes/helpers.php';
-require_once 'includes/ajax.php';
 
 add_action('init', 'start_session', 1);
 function start_session()
