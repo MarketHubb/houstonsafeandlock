@@ -102,14 +102,6 @@
             });
         })(jQuery);
     </script>
-
-    <?php
-    session_start();
-    if (!isset($_SESSION['safe_price_group'])) {
-        $_SESSION['safe_price_group'] = rand(0, 1);
-    }
-    ?>
-
 </head>
 
 <body <?php body_class(); ?>>
