@@ -3,6 +3,7 @@ require_once 'includes/plugins.php';
 require_once 'includes/safes.php';
 require_once 'includes/content.php';
 require_once 'includes/helpers.php';
+require_once 'includes/ajax.php';
 
 add_action('init', 'start_session', 1);
 function start_session()
@@ -169,8 +170,10 @@ function locks_scripts()
 	// Filter / Sort Safes page
 	if (is_page_template('page-templates/safes-new.php')) {
 		wp_enqueue_script('safes-new', get_stylesheet_directory_uri() . '/js/safes-new.js', ['jquery'], '1.0', true);
-		wp_enqueue_script('mixitup');
-		wp_enqueue_script('mixitup-controls');
+		wp_enqueue_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
+		wp_enqueue_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
+		// wp_enqueue_script('mixitup');
+		// wp_enqueue_script('mixitup-controls');
 	}
 
 	if (is_front_page()) {
@@ -602,8 +605,8 @@ function ri_conditional_script_loading()
 	wp_register_style('bootstrap-styles', get_stylesheet_directory_uri() . '/css/bootstrap.min.css');
 	wp_register_script('ri-category-scripts', get_stylesheet_directory_uri() . '/js/ri-category-scripts.js', array('jquery'), '', true);
 	wp_register_style('ri-category-styles', get_stylesheet_directory_uri() . '/css/ri-category-styles.css');
-	wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
-	wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
+	// wp_register_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
+	// wp_register_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
 	wp_register_style('ri-safe-styles', get_stylesheet_directory_uri() . '/css/ri-safe-styles.css');
 	wp_register_style('ri-alert-styles', get_stylesheet_directory_uri() . '/css/ri-alert-styles.css');
 	wp_register_style('ri-locksmith-styles', get_stylesheet_directory_uri() . '/css/ri-locksmith-styles.css');
