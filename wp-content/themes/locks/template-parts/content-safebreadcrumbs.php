@@ -6,7 +6,7 @@
                 <ol vocab="https://schema.org/" typeof="BreadcrumbList">
 
 
-                <?php
+                    <?php
                     $breadcrumb_start_organic = '<li class="px-0" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage"
                                     href="' . get_permalink(2320) . '">
                                     <span property="name me-1 px-0">Safes Types</span></a>
@@ -24,7 +24,7 @@
 
                     $breadcrumbs = '';
 
-                    $terms = get_the_terms( $post->ID, 'product_cat' );
+                    $terms = get_the_terms($post->ID, 'product_cat');
 
                     $i = 0;
 
@@ -32,54 +32,36 @@
 
                         $title = get_the_title();
 
-                        $request_referrer = $_SERVER['HTTP_REFERER'];
+                        $breadcrumbs .= $breadcrumb_start_organic;
 
-                        $pos = strpos($request_referrer, 'category-gun-safes');
+                        foreach (array_reverse($terms) as $term) {
 
-//                        if ($pos === false) {
+                            $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">';
+                            $breadcrumbs .= '<a property="item" typeof="WebPage"';
+                            $breadcrumbs .= 'href="' . get_term_link($term->term_id, 'product_cat') . '">';
+                            $breadcrumbs .= '<span property="name me-1 px-0">' . $term->name . '</span><span class="mx-1">›</span></a>';
+                            $breadcrumbs .= '<meta property="position" content="' . ($i + 2) . '">';
+                            $breadcrumbs .= '</li>';
 
-                            $breadcrumbs .= $breadcrumb_start_organic;
-
-                            foreach (array_reverse($terms) as $term) {
-
-                                $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">';
-                                $breadcrumbs .= '<a property="item" typeof="WebPage"';
-                                $breadcrumbs .= 'href="' . get_term_link($term->term_id , 'product_cat' ) . '">';
-                                $breadcrumbs .= '<span property="name me-1 px-0">' . $term->name . '</span><span class="mx-1">›</span></a>';
-                                $breadcrumbs .= '<meta property="position" content="' . ($i + 2) . '">';
-                                $breadcrumbs .= '</li>';
-
-                                $i++;
-
-
-                            }
-
-//                        }
-//                    else {
-//
-//                            $breadcrumbs .= $breadcrumb_start_category;
-//
-//                        }
-
-
+                            $i++;
+                        }
                     } else if (is_archive() && !is_shop()) {
 
                         $breadcrumbs .= $breadcrumb_start_organic;
 
-                        $title = woocommerce_page_title( false );
-
+                        $title = woocommerce_page_title(false);
                     }
 
 
                     $title_clean = trim(str_replace('AMSEC', '', $title));
                     $breadcrumbs .= '<li class="px-0" property="itemListElement" typeof="ListItem">
                                     <span property="name me-1 px-0">' . $title_clean . '</span>
-                                    <meta property="position" content="' . ( count($terms) + 1) . '">
+                                    <meta property="position" content="' . (count($terms) + 1) . '">
                                     </li>';
 
-                echo $breadcrumbs;
+                    echo $breadcrumbs;
 
-                ?>
+                    ?>
 
                 </ol>
             </div>
