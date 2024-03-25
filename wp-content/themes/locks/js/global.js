@@ -11,7 +11,6 @@
     if (pageId === 3901) {
         targetEl = $('.safe-categories-container')
     }
-    console.table("clipboard", targetEl);
     let featuredHome = $('#featured-safe-home');
 
     if (featuredHome.length > 0 && targetEl.length === 1) {
@@ -41,6 +40,8 @@
     });
 
     if ($(window).width() <= 768) {
+
+        
 
         // Mobile search
         const search = $('#searchform');

@@ -40,7 +40,7 @@ function safe_filters()
 function output_safe_sorts()
 {
 	$filters = safe_attribute_array();
-	$sorts  = '<ul id="sort-filter-nav" class="nav nav-pills">';
+	$sorts  = '<ul id="sort-filter-nav" class="nav nav-pills d-inline-flex mb-2 pe-0 pe-md-3" data-sort-order="desc">';
 	$sorts .= '<li class="nav-item dropdown bg-transparent">';
 	$sorts .= '<a class="nav-link dropdown-toggle border-0 filter-sort-type" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">';
 	$sorts .= 'Sort by:</a>';
@@ -63,6 +63,20 @@ function output_safe_sorts()
 	}
 
 	$sorts .= '</div></li></ul>';
+
+	$order_array = [
+		['DESC', 'fa-arrow-down-wide-short'],
+		['ASC', 'fa-arrow-down-short-wide']
+	];
+
+	foreach ($order_array as $order) {
+		$sort_color_class = ($order[0] === 'DESC') ? 'active-sort-order' : '';
+		$sorts .= '<span id="grid-sort-' . $order[0] . '" class="grid-sort-order px-2 ms-1 ' . $sort_color_class . '" ';
+		$sorts .= 'data-type="' . strtolower($order[0]) . '" >';
+		$sorts .= '<i class="fa-regular ' . $order[1] . '"></i>';
+		$sorts .= '<span class="d-none d-md-inline text-sm ps-2 text-secondary">' . $order[0] . '</span>';
+		$sorts .= '</span>';
+	}
 
 	return $sorts;
 }

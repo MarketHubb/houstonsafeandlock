@@ -1027,7 +1027,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
 
-    #filter-sort-container-mobile {
+    #sort-container {
         position: relative;
         bottom: 1rem;
     }

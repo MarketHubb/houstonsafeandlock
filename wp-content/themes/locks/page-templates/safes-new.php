@@ -20,7 +20,7 @@ get_header();
                 </p>
             </div>
 
-            <div class="row justify-content-end align-items-center" id="filter-sort-container-mobile">
+            <div class="row justify-content-end align-items-center" id="sort-container">
 
                 <!-- Mobile -->
                 <div class="col-4 col-md-6 d-block d-md-none">
@@ -54,7 +54,6 @@ get_header();
                         
                         <hr>
                     </div>
-                    
                     <?php echo output_safe_filters(); ?>
 
                 </div>
