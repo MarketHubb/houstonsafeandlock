@@ -1,3 +1,39 @@
+#safe-container {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+    }
+
+    #safe-filters {
+        position: sticky;
+        top: 100px;
+        /* Adjust this value based on the height of your header */
+        align-self: flex-start;
+    }
+
+    #sort-container {
+        position: sticky;
+        top: 0;
+        background-color: #fcfcfd;
+        /* Changed to match the bg-gray-50 class */
+        z-index: 10;
+        /* Ensure the sorting container appears above other elements */
+        padding-top: 20px;
+        /* Add some padding to the top */
+        padding-bottom: 20px;
+        /* Add some padding to the bottom */
+    }
+
+    #sort-container.fixed-top {
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+    }
+    
+body div.site.safes-new {
+    overflow: visible !important;
+}
 .grid-sort-order,
 .grid-sort-order span {
     cursor: pointer;
@@ -743,9 +779,8 @@ input[type="submit"],
     border-color: #AF6228 !important;
 }
 
-.btn:visited,
-input[type="submit"]:visited,
-.btn.bg-orange:visited {
+input[type="submit"]:visited
+{
     color: inherit !important;
 }
 
@@ -1027,11 +1062,11 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 768px) {
 
-    #sort-container {
+/*    #sort-container {
         position: relative;
         bottom: 1rem;
     }
-
+*/
     .active-sort-order i {
         background: #eee !important;
         padding: 5px;

@@ -1,6 +1,5 @@
 /* jQuery (Footer) */
 (function ($) {
-
     // Featured
     const pageId = $('#page').data('pageid');
     let targetEl = null;
@@ -28,15 +27,19 @@
     });
 
     $(window).load(function () {
-        const myModal = new bootstrap.Modal(document.getElementById('popupModal'), {
-            keyboard: false
-        })
+        let saleModal = $('#popupModal');
+        if (saleModal.length > 0) {
+            const myModal = new bootstrap.Modal(document.getElementById('popupModal'), {
+                keyboard: false
+            })
 
-        $('#popupModal .close, #popupModal .close > span').on('click', function () {
-            myModal.hide();
-        });
+            myModal.show();
 
-        // myModal.show();
+            $('#popupModal .close, #popupModal .close > span').on('click', function () {
+                myModal.hide();
+            });
+
+        }
     });
 
     if ($(window).width() <= 768) {

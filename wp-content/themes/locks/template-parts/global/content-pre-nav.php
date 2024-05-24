@@ -1,5 +1,5 @@
 <div id="pre-nav" class="">
-    <div class="container-fixed py-2">
+    <div class="container-fixed tw-mx-auto py-2">
 
         <?php if (!get_field('active', 'options')) { ?>
 

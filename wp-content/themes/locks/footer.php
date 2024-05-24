@@ -135,15 +135,6 @@
 </footer><!-- #colophon -->
 </div><!-- #page -->
 
-<?php
-$referring = get_referring_url();
-if (is_front_page()) {
-    get_template_part('template-parts/modal/content', 'popup');
-} elseif ($referring && strpos($referring, "houstonsafeandlock") === false) {
-    get_template_part('template-parts/modal/content', 'popup');
-}
-?>
-
 <!-- Featured Safes -->
 <?php
 
@@ -166,10 +157,16 @@ if (is_page(3901)) {
 
 
 <?php
+// Sale / popup modal
+if (get_field('is_sale_active', 'option')) {
+    $referring = get_referring_url();
+    if (is_front_page()) {
+        get_template_part('template-parts/modal/content', 'popup');
+    } elseif ($referring && strpos($referring, "houstonsafeandlock") === false) {
+        get_template_part('template-parts/modal/content', 'popup');
+    }
+}
 
-//if (is_front_page()) {
-//    get_template_part('template-parts/modal/content', 'popup');
-//}
 if (is_page_template('page-templates/safes-new.php')) {
     get_template_part( 'template-parts/modal/content', 'filters' );
 }

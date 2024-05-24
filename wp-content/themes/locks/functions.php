@@ -5,8 +5,7 @@ require_once 'includes/content.php';
 require_once 'includes/helpers.php';
 
 add_action('init', 'start_session', 1);
-function start_session()
-{
+function start_session() {
 	if (!session_id()) {
 		session_start();
 	}
@@ -21,16 +20,14 @@ function start_session()
  */
 // Disable full-screen editor
 if (is_admin()) {
-	function pa_disable_fullscreen_wp_editor()
-	{
+	function pa_disable_fullscreen_wp_editor() {
 		$script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
 		wp_add_inline_script('wp-blocks', $script);
 	}
 	add_action('enqueue_block_editor_assets', 'pa_disable_fullscreen_wp_editor');
 }
 
-function meks_which_template_is_loaded()
-{
+function meks_which_template_is_loaded() {
 	if (is_super_admin()) {
 		global $template;
 		highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");
@@ -39,7 +36,7 @@ function meks_which_template_is_loaded()
 
 add_action('wp_footer', 'meks_which_template_is_loaded');
 
-if (!function_exists('locks_setup')) :
+if (!function_exists('locks_setup')):
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -47,32 +44,31 @@ if (!function_exists('locks_setup')) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function locks_setup()
-	{
+	function locks_setup() {
 		/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on locks, use a find and replace
-	 * to change 'locks' to the name of your theme in all the template files.
-	 */
+			 * Make theme available for translation.
+			 * Translations can be filed in the /languages/ directory.
+			 * If you're building a theme based on locks, use a find and replace
+			 * to change 'locks' to the name of your theme in all the template files.
+		*/
 		load_theme_textdomain('locks', get_template_directory() . '/languages');
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support('automatic-feed-links');
 
 		/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
+			 * Let WordPress manage the document title.
+			 * By adding theme support, we declare that this theme does not use a
+			 * hard-coded <title> tag in the document head, and expect WordPress to
+			 * provide it for us.
+		*/
 		add_theme_support('title-tag');
 
 		/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	 */
+			 * Enable support for Post Thumbnails on posts and pages.
+			 *
+			 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		*/
 		add_theme_support('post-thumbnails');
 
 		// This theme uses wp_nav_menu() in one location.
@@ -81,9 +77,9 @@ if (!function_exists('locks_setup')) :
 		));
 
 		/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
+			 * Switch default core markup for search form, comment form, and comments
+			 * to output valid HTML5.
+		*/
 		add_theme_support('html5', array(
 			'search-form',
 			'comment-form',
@@ -108,8 +104,7 @@ add_action('after_setup_theme', 'locks_setup');
  *
  * @global int $content_width
  */
-function locks_content_width()
-{
+function locks_content_width() {
 	$GLOBALS['content_width'] = apply_filters('locks_content_width', 640);
 }
 add_action('after_setup_theme', 'locks_content_width', 0);
@@ -119,25 +114,24 @@ add_action('after_setup_theme', 'locks_content_width', 0);
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function locks_widgets_init()
-{
+function locks_widgets_init() {
 	register_sidebar(array(
-		'name'          => esc_html__('Sidebar', 'locks'),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__('Add widgets here.', 'locks'),
+		'name' => esc_html__('Sidebar', 'locks'),
+		'id' => 'sidebar-1',
+		'description' => esc_html__('Add widgets here.', 'locks'),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'after_widget' => '</section>',
+		'before_title' => '<h2 class="widget-title">',
+		'after_title' => '</h2>',
 	));
 	register_sidebar(array(
-		'name'          => esc_html__('Footer Menus', 'locks'),
-		'id'            => 'footer-menus',
-		'description'   => esc_html__('Add footer menus.', 'locks'),
+		'name' => esc_html__('Footer Menus', 'locks'),
+		'id' => 'footer-menus',
+		'description' => esc_html__('Add footer menus.', 'locks'),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'after_widget' => '</section>',
+		'before_title' => '<h2 class="widget-title">',
+		'after_title' => '</h2>',
 	));
 }
 add_action('widgets_init', 'locks_widgets_init');
@@ -145,8 +139,7 @@ add_action('widgets_init', 'locks_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
-function locks_scripts()
-{
+function locks_scripts() {
 
 	//	wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/css/owl.carousel.css' );
 
@@ -199,7 +192,7 @@ function locks_scripts()
 		wp_enqueue_style('genesis-alternate', get_template_directory_uri() . '/css/genesis/alternate.css');
 		wp_enqueue_style('ri-form-styles', get_template_directory_uri() . '/css/ri-form-styles.css');
 		wp_enqueue_style('web-fonts', "https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap", [], '1.0');
-
+		wp_enqueue_style('tailwind-styles', get_template_directory_uri() . '/css/tailwind.css');
 		wp_enqueue_style('web-fonts-source', "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", [], '1.0');
 	}
 
@@ -209,8 +202,7 @@ function locks_scripts()
 }
 add_action('wp_enqueue_scripts', 'locks_scripts');
 
-function deregister_script()
-{
+function deregister_script() {
 	$is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
 
 	if (!$is_page_builder_used) {
@@ -234,8 +226,7 @@ function deregister_script()
 }
 add_action('wp_print_scripts', 'deregister_script', 100);
 
-function deregister_styles()
-{
+function deregister_styles() {
 	//    $is_page_builder_used = function_exists("et_pb_is_pagebuilder_used") ? et_pb_is_pagebuilder_used(get_the_ID()) : null;
 
 	if (is_front_page()) {
@@ -269,21 +260,20 @@ require get_template_directory() . '/inc/customizer.php';
  */
 require get_template_directory() . '/inc/jetpack.php';
 
-function register_safe_post_type()
-{
+function register_safe_post_type() {
 
 	if (!post_type_exists('safe')) {
 
 		register_post_type('safe', array(
 			'public' => true,
 			'label' => 'Safe Lines',
-			'supports'     => array('title', 'editor', 'thumbnail')
+			'supports' => array('title', 'editor', 'thumbnail'),
 		));
 
 		register_taxonomy('safe_category', 'safe', array(
-			'label'        => __('Safe Categories'),
-			'rewrite'      => array('slug' => 'safe-category'),
-			'hierarchical' => true
+			'label' => __('Safe Categories'),
+			'rewrite' => array('slug' => 'safe-category'),
+			'hierarchical' => true,
 		));
 	}
 }
@@ -294,8 +284,7 @@ if (function_exists('acf_add_options_page')) {
 	acf_add_options_page('Theme Settings');
 }
 
-function single_post_hero_background()
-{
+function single_post_hero_background() {
 
 	$background_image = get_field('hero_background');
 	$style_str = '';
@@ -309,8 +298,7 @@ function single_post_hero_background()
 	return $style_str;
 }
 
-function render_single_post_hero_headlines($the_id)
-{
+function render_single_post_hero_headlines($the_id) {
 
 	$headline = get_field('page_headline', $the_id);
 	$sub_headline = get_field('page_sub_headline', $the_id);
@@ -364,8 +352,7 @@ function render_single_post_hero_headlines($the_id)
  * @param object $query  The original query.
  * @return object $query The amended query.
  */
-function tgm_io_cpt_search($query)
-{
+function tgm_io_cpt_search($query) {
 
 	if ($query->is_search) {
 		$query->set('post_type', array('post', 'safe', 'page', 'attachment'));
@@ -373,23 +360,22 @@ function tgm_io_cpt_search($query)
 
 	return $query;
 	/*if ( $query->is_search )
-   {
-        $query->set('meta_query', array(
-            array(
-                'key' => 'models_%_model_code',
-                'value' => $query->query_vars['s'],
-                'compare' => 'LIKE'
-            )
-        ));
-         $query->set('post_type', '__your_post_type__'); // optional
-	}
-	return $query;
-*/
+		   {
+		        $query->set('meta_query', array(
+		            array(
+		                'key' => 'models_%_model_code',
+		                'value' => $query->query_vars['s'],
+		                'compare' => 'LIKE'
+		            )
+		        ));
+		         $query->set('post_type', '__your_post_type__'); // optional
+			}
+			return $query;
+	*/
 }
 
 add_filter('posts_where', 'custom_posts_where', 10, 2);
-function custom_posts_where($where, $query)
-{
+function custom_posts_where($where, $query) {
 
 	global $wpdb;
 	if (is_main_query() && is_search()) {
@@ -397,7 +383,6 @@ function custom_posts_where($where, $query)
 	}
 	return $where;
 }
-
 
 //function wpse_load_custom_search_template(){
 //    if( isset($_REQUEST['search']) == 'advanced' ) {
@@ -407,12 +392,9 @@ function custom_posts_where($where, $query)
 //}
 //add_action('init','wpse_load_custom_search_template');
 
-
-
 add_filter('wpseo_breadcrumb_links', 'check_links');
 
-function check_links($links)
-{
+function check_links($links) {
 	// $links[0]  => 'Home'
 	// $links[1]  => '_SAFE_TAXONOMY_TERM_LINK_'
 	// $links[2]  => '_SAFE_TAXONOMY_TERM_CPT1'
@@ -427,9 +409,9 @@ function check_links($links)
 
 	if (is_tax('safe_category') || is_singular('safe')) {
 		$safes_page_link = array(
-			'text'   	 => 'Safes',
-			'url'    	 => site_url() . '/safes',
-			'allow_html' => 'true'
+			'text' => 'Safes',
+			'url' => site_url() . '/safes',
+			'allow_html' => 'true',
 		);
 
 		$new_links = array();
@@ -448,9 +430,7 @@ function check_links($links)
 
 ############ BB
 
-
-function mycode_add_rewrite_query_vars($vars)
-{
+function mycode_add_rewrite_query_vars($vars) {
 	//array_push($vars, 'vids');
 	array_push($vars, 'view');
 	array_push($vars, 'viewblogdetail');
@@ -461,7 +441,6 @@ function mycode_add_rewrite_query_vars($vars)
 }
 add_filter('query_vars', 'mycode_add_rewrite_query_vars');
 
-
 add_rewrite_rule('^blog/([^/]*)/?', 'index.php?blog=blog', 'top');
 //add_rewrite_rule( 'blogdetail/([^/]*)/?','index.php?pagename=blogdetail&blog_id_1=$matches[1]', 'top' );
 
@@ -469,11 +448,9 @@ add_rewrite_rule('Blog/([^/]*)/?', 'index.php?blog=blogg&pgg=$matches[1]', 'top'
 
 add_rewrite_rule('blogdetail/([^/]*)/([^/]*)/?', 'index.php?blogdetail=blogdetail&bname=$matches[2]&blog_id_1=$matches[1]', 'top');
 
-
 //add_rewrite_rule('^blog/([^/]*)/([^/]*)/?', 'index.php?blog=blog&pgg=pg&pgg=$matches[1]','top');
 
-function my_page_function()
-{
+function my_page_function() {
 
 	if (isset($_REQUEST['view']) && $_REQUEST['view'] == 'blog' && !isset($_REQUEST['page'])) {
 		wp_redirect(home_url("/blog/"));
@@ -499,8 +476,7 @@ remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wra
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 add_action('woocommerce_before_main_content', 'my_theme_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'my_theme_wrapper_end', 10);
-function my_theme_wrapper_start()
-{
+function my_theme_wrapper_start() {
 	//  echo '<div id="primary" class="content-area"><main id="main" class="site-main" role="main">';
 
 	//  if (!has_term(37, 'product_cat') && !has_term(28, 'product_cat')) {
@@ -511,21 +487,18 @@ function my_theme_wrapper_start()
 	//  }
 
 }
-function my_theme_wrapper_end()
-{
+function my_theme_wrapper_end() {
 	echo '</div></main></div>';
 }
 add_filter('woocommerce_breadcrumb_defaults', 'jk_change_breadcrumb_delimiter');
-function jk_change_breadcrumb_delimiter($defaults)
-{
+function jk_change_breadcrumb_delimiter($defaults) {
 	// Change the breadcrumb delimeter from '/' to '>'
 	$defaults['delimiter'] = ' &gt; ';
 	return $defaults;
 }
 
 add_action('after_setup_theme', 'woocommerce_support');
-function woocommerce_support()
-{
+function woocommerce_support() {
 	add_theme_support('woocommerce');
 }
 
@@ -533,8 +506,7 @@ function woocommerce_support()
 // RI - Global functions
 //-----------------------------------------------------
 
-function ri_get_product_parent_tax($term = array())
-{
+function ri_get_product_parent_tax($term = array()) {
 
 	$term_parent = ($term[0]->parent == 0) ? $term : get_term($term[0]->parent, 'product_cat');
 
@@ -546,14 +518,13 @@ function ri_get_product_parent_tax($term = array())
 	return $term_parent;
 }
 
-function ri_get_product_alert($parent_id)
-{
+function ri_get_product_alert($parent_id) {
 
 	$alert = [];
 
-	if (have_rows('global_safes_category_alerts', 'option')) :
+	if (have_rows('global_safes_category_alerts', 'option')):
 
-		while (have_rows('global_safes_category_alerts', 'option')) : the_row();
+		while (have_rows('global_safes_category_alerts', 'option')): the_row();
 
 			if (get_sub_field('global_safes_category_alerts_safe_category', 'option') == $parent_id) {
 
@@ -574,11 +545,10 @@ function ri_get_product_alert($parent_id)
 	return $alert;
 }
 
-function get_sem_locksmith_pages()
-{
+function get_sem_locksmith_pages() {
 	$page_ids = [];
-	if (have_rows('global_safes_sem_locksmith_pages', 'option')) :
-		while (have_rows('global_safes_sem_locksmith_pages', 'option')) : the_row();
+	if (have_rows('global_safes_sem_locksmith_pages', 'option')):
+		while (have_rows('global_safes_sem_locksmith_pages', 'option')): the_row();
 
 			$page_ids[] = get_sub_field('global_safes_sem_locksmith_page', 'option');
 
@@ -594,8 +564,7 @@ function get_sem_locksmith_pages()
 /**
  * Conditionally enqueue custom styles and scripts
  */
-function ri_conditional_script_loading()
-{
+function ri_conditional_script_loading() {
 	/**
 	 * Register custom styles and scripts
 	 */
@@ -705,14 +674,12 @@ add_action('wp_enqueue_scripts', 'ri_conditional_script_loading');
 
 // Dequeue default WooCommerce css (general) and replace with minified and reduced version
 add_filter('woocommerce_enqueue_styles', 'jk_dequeue_styles');
-function jk_dequeue_styles($enqueue_styles)
-{
+function jk_dequeue_styles($enqueue_styles) {
 	//    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
 	return $enqueue_styles;
 }
 add_action('wp_enqueue_scripts', 'mh_child_deregister_styles', 11);
-function mh_child_deregister_styles()
-{
+function mh_child_deregister_styles() {
 	wp_dequeue_style('font-awesome');
 }
 /**
@@ -721,31 +688,30 @@ function mh_child_deregister_styles()
 if (function_exists('acf_add_options_page')) {
 
 	acf_add_options_page(array(
-		'page_title' 	=> 'Alerts',
-		'menu_title'	=> 'Alerts',
-		'menu_slug' 	=> 'global-alerts',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
+		'page_title' => 'Alerts',
+		'menu_title' => 'Alerts',
+		'menu_slug' => 'global-alerts',
+		'capability' => 'edit_posts',
+		'redirect' => false,
 	));
 
 	acf_add_options_page(array(
-		'page_title' 	=> 'Global - Safes',
-		'menu_title'	=> 'Global - Safes',
-		'menu_slug' 	=> 'safe-settings',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
+		'page_title' => 'Global - Safes',
+		'menu_title' => 'Global - Safes',
+		'menu_slug' => 'safe-settings',
+		'capability' => 'edit_posts',
+		'redirect' => false,
 	));
 
 	acf_add_options_page(array(
-		'page_title' 	=> 'Global - Locksmith',
-		'menu_title'	=> 'Global - Locksmith',
-		'menu_slug' 	=> 'locksmith-settings',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
+		'page_title' => 'Global - Locksmith',
+		'menu_title' => 'Global - Locksmith',
+		'menu_slug' => 'locksmith-settings',
+		'capability' => 'edit_posts',
+		'redirect' => false,
 	));
 }
-function compare_published_updated_dates($post_id)
-{
+function compare_published_updated_dates($post_id) {
 	$dates = [];
 	$published_time = strtotime(get_the_date('', $post_id));
 	$updated_time = strtotime(get_the_modified_date('', $post_id));
@@ -763,8 +729,7 @@ function compare_published_updated_dates($post_id)
 /**
  * Dynamically populate select field for safe category alerts
  */
-function acf_populate_safe_alert_select_field_choices($field)
-{
+function acf_populate_safe_alert_select_field_choices($field) {
 
 	$field['choices'] = array();
 
@@ -795,8 +760,7 @@ function acf_populate_safe_alert_select_field_choices($field)
 
 add_filter('acf/load_field/key=field_5dea8663fe06f', 'acf_populate_safe_alert_select_field_choices');
 
-function show_template()
-{
+function show_template() {
 	if (is_super_admin()) {
 		global $template;
 		print_r($template);

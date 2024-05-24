@@ -5,9 +5,22 @@
 get_header();
 
 ?>
+
+<?php if(get_field('simple_header')) { ?>
+    <?php 
+    $header_args = [
+        'heading' => get_the_title(get_the_id()),
+        'callout' => 'From now until May 31st',
+        'description' => get_field('header_description')
+    ];
+     ?>
+
+    <?php get_template_part( 'template-parts/tw/content', 'header-center', $header_args ); ?>
+    
+<?php } else { ?>
+
     <div id="primary" class="content-area d-none">
         <main id="main" class="site-main" role="main">
-
 
             <!-- Hero Banner -->
             <?php
@@ -24,6 +37,7 @@ get_header();
 
         </main>
     </div>
+<?php } ?>
 
 <!-- Panel Content -->
 <?php get_template_part('template-parts/promotions/content-shared'); ?>
