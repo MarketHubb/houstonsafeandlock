@@ -201,12 +201,12 @@ if (is_page(3901)) {
 
 <?php
 // Sale / popup modal
-if (get_field('is_sale_active', 'option')) {
-    $referring = get_referring_url();
-    if (is_front_page()) {
+if (get_field('is_sale_active', 'option') && is_front_page()) {
+    $popup_type = get_field('popup_type', 'option');
+    if ($type === 'Banner') {
         get_template_part('template-parts/modal/content', 'popup');
-    } elseif ($referring && strpos($referring, "houstonsafeandlock") === false) {
-        get_template_part('template-parts/modal/content', 'popup');
+    } else {
+        get_template_part('template-parts/modal/content', 'bg-image-overlay');
     }
 }
 
@@ -247,6 +247,28 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
 <?php } ?>
 
 <?php wp_footer(); ?>
+
+<!-- Safes for Sale: Sticky sorts/filters -->
+<?php if (is_page(8854) || is_page(3901)) { ?>
+    <script>
+        window.addEventListener('scroll', function() {
+            const masthead = document.getElementById('masthead');
+            const sortContainer = document.getElementById('sort-container');
+            // const sortContainer = document.getElementById('safe-container');
+
+            const mastheadBottom = masthead.getBoundingClientRect().bottom;
+            if (scrollY >= mastheadBottom) {
+                sortContainer.style.top = mastheadBottom + 'px'; // Stick under the header
+                sortContainer.style.borderTop = '.1rem solid rgba(0, 0, 0, 0.24)'; // Add border
+                console.log('Sticky element set to position and border added:', mastheadBottom + 'px'); // Debugging statement
+            } else {
+                sortContainer.style.top = '-1000px'; // Reset to initial out-of-view position
+                sortContainer.style.borderTop = 'none'; // Remove border
+                console.log('Sticky element reset to initial position and border removed'); // Debugging statement
+            }
+        });
+    </script>
+<?php } ?>
 
 <!-- Google Code for Remarketing Tag -->
 <script type="text/javascript">
