@@ -1,3 +1,12 @@
+.btn-close {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(114deg) brightness(107%) contrast(103%) !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+}
+.dialog-mobile {
+    margin: 1rem !important;
+}
+
 .strikethrough {
     position: relative;
 }
@@ -189,3 +198,6 @@ body.single-product .container-fixed:not(:first-of-type) {
         min-height: calc(80% - 3.5rem) !important;
     }
 }
+
+t phones,
+less than 576px) */ @media (max-width: 575.98px) {}
