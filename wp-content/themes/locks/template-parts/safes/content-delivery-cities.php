@@ -1,11 +1,16 @@
-<div class="container">
-    <div class="row  justify-content-between">
+<div class="container tw-py-24">
+    <div class="row justify-content-between">
         <div class="col-md-4">
-            <img src="<?php echo get_stylesheet_directory_uri() . '/images/houston-location-map.jpg'; ?>" alt="">
+            <div class="tw-aspect-h-2 tw-aspect-w-3 tw-overflow-hidden tw-rounded-lg tw-bg-gray-100">
+                <img src="<?php echo get_home_url() . '/wp-content/uploads/2024/08/Delivery.webp'; ?>" alt="">
+            </div>
+
+
         </div>
         <div class="col-md-7">
-            <h2 class="mt-4 mt-md-0">Delivery &amp; installation to the most cities in Texas</h2>
-            <p class="lead">We deliver up to 100 miles from our location in Houston</p>
+            <p class="text-base tw-tracking-wide tw-text-primary tw-font-semibold tw-uppercase tw-mb-3">Delivery to your location</p>
+            <h2 class="mt-4 mt-md-0">Delivery &amp; installation to more cities in Texas</h2>
+            <p class="lead tw-mb-6">We deliver up to 100 miles from our location in Houston</p>
             <div class="row">
                 <div class="col-md-4">
                     <ul class="list-group ms-4 ms-md-0">

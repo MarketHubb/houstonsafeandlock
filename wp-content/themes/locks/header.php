@@ -112,7 +112,9 @@
 
     <?php $body_class =  sanitize_post(get_queried_object())->post_name ?: ''; ?>
 
-    <div id="page" class="site <?php echo $body_class; ?>" data-pageid="<?php echo get_the_id(); ?>">
+    <?php $data_type = (is_singular('product')) ? 'single-product' : ''; ?>
+
+    <div id="page" class="site <?php echo $body_class; ?>" data-pageid="<?php echo get_the_id(); ?>" data-type="<?php echo $data_type; ?>">
         <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'locks'); ?></a>
         <header id="masthead" class="site-header" role="banner">
 
@@ -193,6 +195,7 @@
                 </div>
             </nav>
         </header><!-- #masthead -->
+
         <div id="content" class="site-content">
 
             <?php

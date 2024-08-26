@@ -84,29 +84,6 @@ li.product a.product_type_simple {
 .safes-alert-btn:visited {
 	color: #fff;
 }
-#breadcrumb-container {
-	background-color: #f7f7f7;
-}
-ol[typeof="BreadcrumbList"] {
-	padding: .4rem 0;
-	margin-bottom: 0;
-	text-align: right;
-	list-style: none;
-}
-ol[typeof="BreadcrumbList"] li {
-	display: inline;
-	padding: 0 .5em;
-}
-ol[typeof="BreadcrumbList"] li span {
-	font-size: .9em;
-	color: #174368;
-}
-ol[typeof="BreadcrumbList"] li:not(:last-of-type) span[property] {
-	text-decoration: underline;
-}
-ol[typeof="BreadcrumbList"] li:not(:last-of-type) span[property] > span {
-	text-decoration: none;
-}
 /* Safe Details Page */
 div.product div.summary.entry-summary h3.product_title.entry-title {
 	display: none;

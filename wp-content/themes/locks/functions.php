@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/queries.php';
 require_once 'includes/plugins.php';
 require_once 'includes/safes.php';
 require_once 'includes/content.php';

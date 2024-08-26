@@ -1,3 +1,16 @@
+#breadcrumbs li:last-of-type .breadcrumb-divide {
+    display: none;
+}
+p {
+    margin-bottom: 0;
+}
+header.site-header.is-scrolling {
+    height: auto !important;
+    z-index: 20;
+}
+div[data-pageid="3901"] {
+   overflow: unset !important; 
+}
 #safe-container {
         display: flex;
         align-items: flex-start;
@@ -7,21 +20,14 @@
     #safe-filters {
         position: sticky;
         top: 100px;
-        /* Adjust this value based on the height of your header */
         align-self: flex-start;
     }
 
     #sort-container {
         position: sticky;
         top: 0;
-        background-color: #fcfcfd;
-        /* Changed to match the bg-gray-50 class */
+        background-color: #fff;
         z-index: 10;
-        /* Ensure the sorting container appears above other elements */
-        padding-top: 20px;
-        /* Add some padding to the top */
-        padding-bottom: 20px;
-        /* Add some padding to the bottom */
     }
 
     #sort-container.fixed-top {
@@ -62,20 +68,9 @@ body div.site.safes-new {
 }
 
 .safe-sort-icon {
-    height: 20px;
-    margin-right: .75rem;
+    display: none !important;
 }
 
-.safe-sort-icon {
-    height: 1rem;
-    float: right;
-}
-
-/*#sort-filter-container .dropdown-item:hover {
-    color: inherit !important;
-    background-color: inherit !important;
-}
-*/
 #safe-sort {
     background-position: right 0rem center !important;
 }
@@ -86,6 +81,7 @@ body div.site.safes-new {
 
 .tw-badge.price {
     text-decoration: line-through;
+    text-decoration-thickness: 1px;
 }
 
 /* Tailwind Utilities */
@@ -96,11 +92,11 @@ body div.site.safes-new {
 .tw-badge {
     filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
     border-radius: 9999px;
-    color: rgb(29, 78, 216);
+    color:#0F172A;
     display: inline-flex;
     padding: 6px 8px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 16px;
     background-color: rgb(239, 246, 255);
     font-weight: 600;
@@ -227,6 +223,13 @@ body div.site.safes-new {
 
 #safe-products .accordion-button {
     padding-left: 0 !important;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: .5rem !important;
+    padding-right: 0;
+    font-weight: normal !important;
+    letter-spacing: .015rem;
+    color: #334155 !important;
+    text-transform: capitalize;
 }
 
 .accordion-button:not(.collapsed) {
@@ -974,7 +977,11 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 *** MEDIA QUERIES - MINIMUMS ***
 *****************************************/
 /*X-Large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+    #safe-products .product h4 {
+        font-size: 1.25rem;
+    }
+}
 
 /*XX-Large devices (larger desktops, 1400px and up)*/
 @media (min-width: 1400px) {}

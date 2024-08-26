@@ -4,7 +4,7 @@ set_query_var('modal_heading', 'Safe Product Inquiry');
 set_query_var('modal_mobile_heading', 'Product Inquiry');
 ?>
 
-<?php get_template_part( 'template-parts/content', 'safebreadcrumbs' ); ?>
+<?php //get_template_part( 'template-parts/content', 'safebreadcrumbs' ); ?>
 
 <div class="product-single-container py-4 mt-3 mb-5" id="custom-product-single">
 

@@ -1,5 +1,37 @@
 (function ($) {
 
+    var offsetSet = false;
+
+    function set_sort_filter_sticky_offset() {
+        if ($(window).width() <= 768) {
+            let headerHeight = $('#masthead').height();
+        } else {
+            $('body').on('scroll', function() {
+                let header = $('masthead');
+                if (header.hasClass('is-scrolling')) {
+                    let headerHeight = header.height();
+                }
+            });
+        }
+
+        if (headerHeight && headerHeight.length > 0) {
+            offsetSet = true;
+            console.table("headerHeight", headerHeight);
+        }
+    }
+
+$(window).load(function () {
+    $('#safe-grid-container').scroll(function() {
+        let test = "test";
+        console.table("test", test);
+        console.table("offsetSet", offsetSet);
+        if (!offsetSet) {
+            
+            set_sort_filter_sticky_offset();
+        }
+    });
+});
+
     // region ## Global vars ##
 
     const reset = $('input[value="reset"]');

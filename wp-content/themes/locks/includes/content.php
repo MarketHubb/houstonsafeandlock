@@ -1,4 +1,170 @@
 <?php
+function remove_extra_parent_term_from_breadcrumbs($terms)
+{
+    // Count items with parent = 0
+    $parentZeroCount = 0;
+    $parentZeroIds = [];
+    $childItem = null;
+    $indexToRemove = null;
+
+    foreach ($terms as $index => $item) {
+        if (is_array($item) && isset($item['parent']) && $item['parent'] === 0) {
+            $parentZeroCount++;
+            $parentZeroIds[] = $item['id'];
+        } elseif (is_array($item) && isset($item['parent']) && $item['parent'] !== 0) {
+            $childItem = $item;
+        }
+    }
+
+    // If there's more than one item with parent = 0 and a child item exists
+    if ($parentZeroCount > 1 && $childItem !== null) {
+        // Check if the child's parent matches one of the parent = 0 items
+        if (in_array($childItem['parent'], $parentZeroIds)) {
+            // Find the item to remove (the one that doesn't match)
+            foreach ($terms as $index => $item) {
+                if (is_array($item) && isset($item['parent']) && $item['parent'] === 0 && $item['id'] !== $childItem['parent']) {
+                    $indexToRemove = $index;
+                    break;
+                }
+            }
+
+            // Remove the item if found
+            if ($indexToRemove !== null) {
+                unset($terms[$indexToRemove]);
+            }
+        }
+    }
+
+    // Re-index the array
+    return array_values($terms);
+}
+function get_breadcrumbs_from_queried_object($queried_object)
+{
+    $terms = get_the_terms($queried_object, 'product_cat');
+    $breadcrumbs = [];
+
+    $breadcrumbs[] = [
+        'page' => 'Safes',
+        'url' => get_permalink(3901)
+    ];
+
+    if ($terms && !is_wp_error($terms)) {
+        // Custom sorting function
+        usort($terms, function ($a, $b) {
+            // If 'a' has no parent, it should come first
+            if ($a->parent == 0) return -1;
+            // If 'b' has no parent, it should come first
+            if ($b->parent == 0) return 1;
+            // If both have parents, maintain original order or sort by term_order if needed
+            return $a->term_order <=> $b->term_order;
+        });
+
+        $childTerm = $terms[count($terms) - 1];
+
+        if ($childTerm->parent !== 0) {
+            $child_term_parent_id = $childTerm->parent;
+        }
+
+        $parent_count = 0;
+        // Now $terms is sorted with "no parent" term first
+        foreach ($terms as $term) {
+
+            if ($term->parent === 0) {
+                $parent_count++;
+            }
+
+            $breadcrumbs[] = [
+                'page' => $term->name,
+                'url' => get_term_link($term),
+                'id' => $term->term_id,
+                'parent' => $term->parent
+            ];
+        }
+    }
+
+    $breadcrumbs = remove_extra_parent_term_from_breadcrumbs($breadcrumbs);
+
+    return $breadcrumbs;
+}
+
+function output_breadcrumbs($queried_object)
+{
+    $breadcrumb_data = get_breadcrumbs_from_queried_object($queried_object);
+
+    if (!empty($breadcrumb_data)) {
+        $breadcrumbs = '<ol role="list" class="tw-flex tw-items-center tw-space-x-2 tw-pl-0 tw-ml-0 tw-list-none" vocab="https://schema.org/" typeof="BreadcrumbList" id="breadcrumbs">';
+
+        foreach ($breadcrumb_data as $breadcrumb) {
+            $link_text = str_replace('by AMSEC', '', $breadcrumb['page']);
+            $breadcrumbs .= '<li property="iitemListElement" typeof="ListItem">';
+            $breadcrumbs .= '<div class="tw-flex tw-items-center tw-text-sm">';
+            $breadcrumbs .= '<a href="' . $breadcrumb['url'] . '" property="item" typeof="WebPage" class="tw-text-gray-500 tw-tracking-wide hover:tw-text-blue-600 hover:tw-underline">';
+            $breadcrumbs .= $link_text . '</a>';
+            $breadcrumbs .= '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="breadcrumb-divide tw-ml-2 tw-h-5 tw-w-5 tw-flex-shrink-0 tw-text-gray-300"><path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" /></svg>';
+            $breadcrumbs .= '</div></li>';
+        }
+
+        $breadcrumbs .= '</ol>';
+    }
+
+    return $breadcrumbs;
+}
+
+function get_product_featured_image_id($product_id)
+{
+    $product = wc_get_product($product_id);
+
+    if (!$product) {
+        return null;
+    }
+
+    return $product->get_image_id();
+}
+
+function custom_product_image_gallery($post_id)
+{
+    $product = wc_get_product($post_id);
+
+    if (!$product) {
+        return;
+    }
+
+    $attachment_ids = $product->get_gallery_image_ids();
+    $main_image_id = $product->get_image_id();
+
+    if ($main_image_id) {
+        array_unshift($attachment_ids, $main_image_id);
+    }
+
+    if ($attachment_ids) {
+        echo '<div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4">';
+        echo '<div class="woocommerce-product-gallery__wrapper">';
+
+        foreach ($attachment_ids as $attachment_id) {
+            $image_url = wp_get_attachment_image_url($attachment_id, 'full');
+            $image_alt = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
+            $image_title = get_the_title($attachment_id);
+
+            echo '<div class="woocommerce-product-gallery__image">';
+            echo '<a href="' . esc_url($image_url) . '">';
+            echo wp_get_attachment_image($attachment_id, 'woocommerce_single', false, array(
+                'class' => 'wp-post-image',
+                'alt' => $image_alt,
+                'title' => $image_title,
+                'data-src' => $image_url,
+                'data-large_image' => $image_url,
+                'data-large_image_width' => wp_get_attachment_image_src($attachment_id, 'full')[1],
+                'data-large_image_height' => wp_get_attachment_image_src($attachment_id, 'full')[2],
+            ));
+            echo '</a>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+        echo '</div>';
+    }
+}
+
 function safe_attribute_array()
 {
     return [
@@ -7,20 +173,23 @@ function safe_attribute_array()
             'field' => 'post_product_gun_price',
             'pre' => '$',
             'type' => 'sort',
-            'icon' => 'price.svg'
+            'icon' => 'price.svg',
+            'attribute' => 'detail'
         ],
         [
             'label' => 'Weight',
             'field' => 'post_product_gun_weight',
             'post' => 'lbs',
             'type' => 'sort',
-            'icon' => 'weight.svg'
+            'icon' => 'weight.svg',
+            'attribute' => 'size'
         ],
         [
             'label' => 'Brand',
             'field' => 'post_product_manufacturer',
             'global_field' => 'filter_brand',
             'type' => 'filter',
+            'attribute' => 'detail'
         ],
         [
             'label' => 'Fire Rating',
@@ -33,6 +202,7 @@ function safe_attribute_array()
             'field' => 'post_product_security_rating',
             'global_field' => 'filter_security_ratings',
             'type' => 'filter',
+            'attribute' => 'rating'
         ],
         [
             'label' => 'Type',
@@ -40,27 +210,31 @@ function safe_attribute_array()
             'global_field' => 'filter_type',
             'taxonomy' => 'safe_type',
             'type' => 'filter',
+            'attribute' => 'detail'
         ],
         [
             'label' => 'Width',
             'field' => 'post_product_gun_exterior_width',
             'post' => '"',
             'type' => 'sort',
-            'icon' => 'width.svg'
+            'icon' => 'width.svg',
+            'attribute' => 'size'
         ],
         [
             'label' => 'Depth',
             'field' => 'post_product_gun_exterior_depth',
             'post' => '"',
             'type' => 'sort',
-            'icon' => 'depth.svg'
+            'icon' => 'depth.svg',
+            'attribute' => 'size'
         ],
         [
             'label' => 'Height',
             'field' => 'post_product_gun_exterior_height',
             'post' => '"',
             'type' => 'sort',
-            'icon' => 'height.svg'
+            'icon' => 'height.svg',
+            'attribute' => 'size'
         ]
     ];
 }
@@ -180,6 +354,21 @@ function safe_filter_badge($safe_attribute)
     }
 }
 
+function get_safe_price_from_attributes($attributes)
+{
+    foreach ($attributes as $attribute) {
+        if (
+            isset($attribute['label'], $attribute['value']) &&
+            $attribute['label'] === 'Price' &&
+            !empty($attribute['value']) &&
+            $attribute['value'] != 0
+        ) {
+            return $attribute['value'];
+        }
+    }
+    return null;
+}
+
 function safe_grid_item($post_id, $col_width = 4, $classes = null)
 {
     $columns = ($col_width) ? 'col-md-' .  $col_width : "";
@@ -241,7 +430,7 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
     }
 
     $safes .= '>';
-    $safes .= '<div class="product bg-white">';
+    $safes .= '<div class="product h-100 bg-white">';
 
 
     // ## IMAGE ##
@@ -261,6 +450,13 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
 
     $safes .= '<div class="text-center">';
 
+
+    // Price
+    $safe_price = get_safe_price_from_attributes($safe_attributes);
+    if ($safe_price) {
+        $safes .= '<p class="fs-5 tracking-wide">$' . $safe_price . '</p>';
+    }
+
     // Sort Badges
     if (!empty($sort_badges)) {
         $safes .= '<div class="d-flex flex-wrap justify-content-center gap-x-6 mb-4" id="sort-badges">';
@@ -273,7 +469,7 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
 
     // Description
     $description_classes = $classes['description'] ?: '';
-    $safes .= '<p class="product-grid-description mb-4 ' . $description_classes . '">' . get_field('post_product_gun_long_description', $post_id) . '</p>';
+    $safes .= '<p class="product-grid-description mb-0 ' . $description_classes . '">' . get_field('post_product_gun_long_description', $post_id) . '</p>';
     $safes .= '</div>';
 
     // Filter badges
@@ -290,8 +486,8 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
         $safes .= '<div class="accordion accordion-flush" id="productAttributeAccordion">';
         $safes .= '<div class="accordion-item bg-transparent">';
         $safes .= '<h2 class="accordion-header" id="flush-headingOne">';
-        $safes .= '<button class="fw-600 anti bg-transparent accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#product_' . $post_id . '" aria-expanded="false" aria-controls="product_' . $post_id . '">';
-        $safes .= 'Product attributes';
+        $safes .= '<button class="fw-600 anti bg-transparent accordion-button py-0 text-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#product_' . $post_id . '" aria-expanded="false" aria-controls="product_' . $post_id . '">';
+        $safes .= 'Product details';
         $safes .= '</button>';
         $safes .= '</h2>';
         $safes .= '<div id="product_' . $post_id . '" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#productAttributeAccordion">';

@@ -12,8 +12,9 @@
 ?>
 </div><!-- #content -->
 
-<!-- One company, two locations -->
+<?php if (!is_singular('product')) { ?>
 
+<!-- One company, two locations -->
 <section class="tw-py-24">
     <div class="container">
 
@@ -54,7 +55,7 @@
         </div>
     </div>
 </section>
-
+<?php } ?>
 <div class="footer-container bg-blue text-white py-5">
     <div class="container py-4 my-2">
         <div class="row">
@@ -225,7 +226,7 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
 
 <?php if (is_product_category() || is_singular("product")) { ?>
 
-    <nav class="fixed-bottom bg-orange">
+    <nav class="tw-hidden fixed-bottom bg-orange">
         <div class="container">
 
             <div class="row">
@@ -286,6 +287,45 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
     </div>
 </noscript>
 <script type="text/javascript" src="//cdn.callrail.com/companies/327335430/7f0018b85cb8e567f0f9/12/swap.js"></script>
+<script src="//www.socialintents.com/api/chat/socialintents.1.3.js#2c9faa358ff9500401900d1331041380" async="async"></script>
+
+<?php if (is_singular('product')) { ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordion = document.getElementById('accordion');
+
+            accordion.addEventListener('click', function(e) {
+                const button = e.target.closest('.tw-accordion-button');
+                if (!button) return;
+
+                const item = button.closest('.accordion-item');
+                const content = item.querySelector('.accordion-content');
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                // Close all items
+                accordion.querySelectorAll('.tw-accordion-button').forEach(btn => {
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.querySelector('.plus-icon').classList.remove('tw-hidden');
+                    btn.querySelector('.minus-icon').classList.add('tw-hidden');
+                    btn.querySelector('span:first-child').classList.add('tw-text-gray-500');
+                });
+                accordion.querySelectorAll('.accordion-content').forEach(content => {
+                    content.classList.add('tw-hidden');
+                });
+
+                // If the clicked item wasn't expanded, open it
+                if (!isExpanded) {
+                    button.setAttribute('aria-expanded', 'true');
+                    content.classList.remove('tw-hidden');
+                    button.querySelector('.plus-icon').classList.add('tw-hidden');
+                    button.querySelector('.minus-icon').classList.remove('tw-hidden');
+                    button.querySelector('span:first-child').classList.remove('tw-text-gray-500');
+                }
+            });
+        });
+    </script>
+<?php } ?>
+
 </body>
 
 </html>

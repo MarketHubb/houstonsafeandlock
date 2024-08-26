@@ -31,11 +31,21 @@ if ( post_password_required() ) {
     return;
 }
 ?>
+
+
+<?php 
+if (has_term(75, 'product_cat')) { 
+    get_template_part('template-parts/tw/content', 'product-single');
+} else {
+    get_template_part('template-parts/safes/content', 'single');
+}
+?>
+
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 
     <?php if (has_term(37, 'product_cat') || has_term(28, 'product_cat') || has_term(27, 'product_cat') || has_term(42, 'product_cat')) { ?>
 
-        <?php get_template_part('template-parts/safes/content', 'single'); ?>
+        <?php //get_template_part('template-parts/safes/content', 'single'); ?>
 
     <?php } else { ?>
 

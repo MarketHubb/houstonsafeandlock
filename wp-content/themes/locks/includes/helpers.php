@@ -1,4 +1,69 @@
 <?php
+function get_product_pricing($post_id)
+{
+    // Get the global discount percentage
+    $discount_percentage = intval(get_field('global_safes_discount_percentage', 'option'));
+
+    // Get the product price
+    $msrp_price = floatval(get_field('post_product_gun_price', $post_id));
+
+    // Calculate the discounted price
+    $discount_amount = $msrp_price * ($discount_percentage / 100);
+    $discounted_price = $msrp_price - $discount_amount;
+
+    // Round the prices to 2 decimal places
+    $msrp_price = round($msrp_price, 2);
+    $discounted_price = round($discounted_price, 2);
+    $discount_amount = round($discount_amount, 2);
+
+    // Separate dollars and cents for msrp_price
+    $msrp_dollars = intval(floor($msrp_price));
+    $msrp_cents = intval(round(($msrp_price - $msrp_dollars) * 100));
+
+    // Separate dollars and cents for discounted_price
+    $discounted_dollars = intval(floor($discounted_price));
+    $discounted_cents = intval(round(($discounted_price - $discounted_dollars) * 100));
+
+    // Separate dollars and cents for discount_amount
+    $discount_dollars = intval(floor($discount_amount));
+    $discount_cents = intval(round(($discount_amount - $discount_dollars) * 100));
+
+    // Return the array with pricing details
+    return array(
+        'msrp_price' => $msrp_dollars,
+        'msrp_price_cents' => $msrp_cents,
+        'discounted_price' => $discounted_dollars,
+        'discounted_price_cents' => $discounted_cents,
+        'discount_percentage' => $discount_percentage,
+        'discount_amount' => $discount_dollars,
+        'discount_amount_cents' => $discount_cents
+    );
+}
+
+function get_product_pricing_details($post_id)
+{
+    // Get the global discount percentage
+    $discount_percentage = intval(get_field('global_safes_discount_percentage', 'option'));
+
+    // Get the product price
+    $msrp_price = floatval(get_field('post_product_gun_price', $post_id));
+
+    // Calculate the discounted price
+    $discount_amount = $msrp_price * ($discount_percentage / 100);
+    $discounted_price = $msrp_price - $discount_amount;
+
+    // Round the prices to 2 decimal places
+    $msrp_price = round($msrp_price, 2);
+    $discounted_price = round($discounted_price, 2);
+
+    // Return the array with pricing details
+    return array(
+        'msrp_price' => $msrp_price,
+        'discounted_price' => $discounted_price,
+        'discount_percentage' => $discount_percentage
+    );
+}
+
 //region Global Helpers
 function returnIntegerFromString($string)
 {
@@ -379,6 +444,21 @@ function get_safe_attribute_values($post_id, $attribute)
     }
 
     return $output_val;
+}
+function get_tw_product_btn($post_id, $btn_text)
+{
+    $image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'single-post-thumbnail');
+    $attr = get_safe_attributes($post_id);
+    $classes = 'tw-flex tw-w-full tw-items-center tw-justify-center tw-rounded-md tw-border tw-border-transparent tw-bg-orange tw-px-8 tw-py-3 tw-text-base tw-font-medium tw-text-white hover:tw-bg-orangeLight focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-orangeDark tw-tracking-wide focus:tw-ring-offset-2 focus:tw-ring-offset-gray-50';
+
+    $btn  = '<button type="button" class="' . $classes . '" ';
+    $btn .= 'data-bs-toggle="modal" data-bs-target="#productModal" ';
+    $btn .= 'data-safeimage="' . $image[0] . '" ';
+    $btn .= 'data-safetype="' . $attr['safe_type'] . '" ';
+    $btn .= 'data-safename="' . get_the_title($post_id) . '">';
+    $btn .= $btn_text . '</button>';
+
+    return $btn;
 }
 
 function get_product_inquiry_btn($post_id, $btn_text, $stretched = null, $custom_classes = null)
