@@ -452,9 +452,11 @@ function safe_grid_item($post_id, $col_width = 4, $classes = null)
 
 
     // Price
-    $safe_price = get_safe_price_from_attributes($safe_attributes);
-    if ($safe_price) {
-        $safes .= '<p class="fs-5 tracking-wide">$' . $safe_price . '</p>';
+    // $safe_price = get_safe_price_from_attributes($safe_attributes);
+    $safe_price = get_product_pricing($post_id); 
+    if (!empty($safe_price)) {
+        // $safes .= '<p class="fs-5 tracking-wide">$' . $safe_price . '</p>';
+        $safes .= '<p class="safe-price fs-5 inline tracking-wide">$' . $safe_price['discounted_price'] . '</p>';
     }
 
     // Sort Badges

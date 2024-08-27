@@ -37,6 +37,18 @@
 				let dataSort = originalEvent.srcElement.attributes[2].nodeValue;
 				let dataSortClean = dataSort.substr(0, dataSort.indexOf(':'));
 
+
+				const safePriceElements = document.querySelectorAll('.safe-price');
+
+				// Toggle visibility based on dataSortClean value
+				safePriceElements.forEach(element => {
+					if (dataSortClean === 'price') {
+						element.classList.remove('tw-hidden');
+					} else {
+						element.classList.add('tw-hidden');
+					}
+				});
+
 				if (dataSortClean.length > 0) {
 					update_active_sort_badge(dataSortClean);
 				}
@@ -76,4 +88,4 @@
 		mixer.sort(newSort);
 	});
 
-})( jQuery );
+})(jQuery);
