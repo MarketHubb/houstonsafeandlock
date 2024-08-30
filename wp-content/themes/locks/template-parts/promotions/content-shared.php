@@ -1,6 +1,11 @@
 <?php $banner_image = get_field('hero_image')['url']; ?>
+<div class="container">
+    <div class="row">
+        <img src="<?php echo $banner_image; ?>" class="rounded-3 shadow-lg" alt="">
+    </div>
+</div>
 
-<header class="max-height-50 mh-50 tw-py-12" style="background-image: url(<?php echo $banner_image; ?>); background-position: center; background-size: contain; background-repeat: no-repeat;">
+<header class="d-none max-height-50 mh-50 tw-py-12 rounded-4 shadow-lg" style="background-image: url(<?php echo $banner_image; ?>); background-position: center; background-size: contain; background-repeat: no-repeat;">
 </header>
 
 <div class="promotion-cards">
@@ -10,11 +15,14 @@
 
             <div class="row justify-content-center pt-4 pb-5">
                 <div class="col-md-8 col-lg-6 text-center">
+
+                    <p class="tw-text-base tw-font-semibold tw-leading-7 text-blue text-uppercase mb-0">
+                        Our lowest prices of the year
+                    </p>
                     <h2 class="mb-4">
-                        <span class="text-blue anit d-md-block mb-1">Home, Office & Gun Safes</span>
-                        <span class="fw-normal">At our lowest prices of the year</span>
+                        Save 10% on Home, Office & Gun Safes
                     </h2>
-                    <p class="lead fw-normal mb-5">From now until <strong>May 31st</strong>, order any new safe and get an additional 15% off our lowest marked price + Free shipping + Free installation
+                    <p class="lead fw-normal">From now until <strong>September 5th</strong>, order any new safe and get an additional 10% off our lowest marked price + Free shipping + Free installation
                     </p>
                     <div class="my-3">
                         <a href="<?php echo get_permalink(3901); ?>" type="button" class="btn tw-text-white btn-primary bg-orange fw-600  text-white shadow-sm font-lg font-source">Shop Our Safes</a>
@@ -45,12 +53,15 @@
 
             <div class="row justify-content-center pt-4 pb-5">
                 <div class="col-md-8 col-lg-6 text-center">
+                    
+                    <p class="tw-text-base tw-font-semibold tw-leading-7 text-blue text-uppercase mb-0">
+                        Free on-site quotes
+                    </p>
                     <h2 class="mb-4">
-                        <span class="text-blue anit d-md-block mb-1">Access Control Systems</span>
-                        <span class="fw-normal">Save on cameras, alarm and more</span>
+                        Access Control Systems
                     </h2>
 
-                    <p class="lead mb-5"><strong>From security cameras, to alarm systems we have the best security equipment and expert installers.</strong></p>
+                    <p class="lead"><strong>From security cameras, to alarm systems we have the best security equipment and expert installers.</strong></p>
                     </p>
                     <div class="my-3">
                         <a href="<?php echo get_permalink(7728); ?>" type="button" class="btn tw-text-white btn-primary bg-orange fw-600  text-white shadow-sm font-lg font-source ">Shop Access Control</a>
@@ -77,7 +88,7 @@
         </div>
     </section>
 
-    <section class="tw-py-24">
+    <section class="tw-py-24 d-none">
         <div class="container">
 
             <div class="row justify-content-center pt-4 pb-5">
