@@ -28,7 +28,8 @@
 
         <div class="row justify-content-between">
             <div class="col-md-6">
-                <div class="card h-100 shadow-sm"><img src="<?php echo home_url() . '/wp-content/uploads/2023/06/HSL-Storefront.jpg'; ?>" class="card-img-top" alt="...">
+                <div class="card h-100  shadow-sm">
+                    <img src="<?php echo home_url() . '/wp-content/uploads/2023/06/HSL-Storefront.jpg'; ?>" class="card-img-top md:tw-h-[300px] tw-object-cover tw-object-center" alt="...">
                     <div class="card-body bg-grey-light p-4">
                         <h3 class="card-title">Houston Safe & Lock - Westheimer</h3>
                         <p class="card-text">
@@ -40,7 +41,8 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card h-100 shadow-sm"><img src="<?php echo home_url() . '/wp-content/uploads/2023/06/KSL-Showroom-4.jpg'; ?>" class="card-img-top" alt="...">
+                <div class="card h-100  shadow-sm">
+                    <img src="<?php echo home_url() . '/wp-content/uploads/2024/06/HSL-Memorial.webp'; ?>" class="card-img-top md:tw-h-[300px] tw-object-cover tw-object-center" alt="...">
                     <div class="card-body bg-grey-light p-4">
                         <h3 class="card-title">Houston Safe & Lock - Memorial</h3>
                         <p class="card-text">
