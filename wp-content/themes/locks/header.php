@@ -106,6 +106,8 @@
 
 <body <?php body_class(); ?>>
 
+    <?php get_template_part('template-parts/tw-shared/content', 'header'); ?>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9MW374" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
@@ -114,87 +116,9 @@
 
     <?php $data_type = (is_singular('product')) ? 'single-product' : ''; ?>
 
-    <div id="page" class="site <?php echo $body_class; ?>" data-pageid="<?php echo get_the_id(); ?>" data-type="<?php echo $data_type; ?>">
+    <div id="page" class="site md:pt-[67.5px] <?php echo $body_class; ?>" data-pageid="<?php echo get_the_ID(); ?>" data-type="<?php echo $data_type; ?>">
         <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'locks'); ?></a>
-        <header id="masthead" class="site-header" role="banner">
-
-            <!-- Pre-nav -->
-            <?php get_template_part('template-parts/global/content', 'pre-nav'); ?>
-
-
-            <!-- CURRENT:: Fixed header (when scrolling) -->
-            <?php if (!is_product_category() && !is_singular("product")) { ?>
-
-                <div class="scrolling-brand-phone">
-                    <div class="brand-phone">
-                        <h3>Call Now</h3>
-                        <p><a href="tel:713-522-5555">713-522-5555</a></p>
-                    </div>
-                </div>
-
-            <?php } ?>
-
-
-            <!-- CURRENT:: Logo & Phone (pre scroll) -->
-            <div id="brand-info">
-                <div class="container-fixed">
-                    <div id="brand-logo">
-                        <a href="<?php echo esc_url(home_url('/')); ?>">
-                            <img src="<?php echo get_home_url() . '/wp-content/uploads/2022/10/HSL-Logo-Brand.svg'; ?>" alt="Houston Safe And Lock Logo" />
-                        </a>
-                    </div>
-
-                    <div id="brand-phone">
-
-                        <!-- CURRENT:: Global Call CTA ( pre scroll)  -->
-                        <h3 class="text-grey anti fw-bold text-uppercase lh-sm">Call Now</h3>
-                        <p><a class="text-orange" href="tel:713-522-5555">713-522-5555</a></p>
-
-                    </div>
-
-                    <div id="menu-responsive">
-                        <button id="menu-responsive-trigger">
-                            <span class="closed-menu-text is-active">MENU</span>
-                            <span class="opened-menu-text">CLOSE</span>
-                            <div class="responsive-menu-icon">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </button>
-                        <div id="menu-responsive-container">
-                            <?php wp_nav_menu(array('theme_location' => 'primary', 'menu_id' => 'primary-menu', 'before' => '<div class="arrow"></div>')); ?>
-
-                            <div class="menu-responsive-bottom-container">
-                                <div class="lock-separator-container">
-                                    <hr class="separator">
-                                    <span class="lock">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/images/header/key-icon.png" alt="key icon">
-                                    </span>
-                                    <hr class="separator">
-                                </div>
-                                <div class="menu-responsive-icons-container">
-                                    <a href="<?php the_field('facebook_url');  ?>">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/images/header/fb-icon-responsive.png" alt="facebook icon">
-                                    </a>
-                                    <a href="<?php the_field('twitter_url'); ?>">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/images/header/twitter-icon-responsive.png" alt="twitter icon">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <nav id="site-navigation" class="main-navigation" role="navigation">
-                <div class="container-fixed">
-                    <?php wp_nav_menu(array('theme_location' => 'primary', 'menu_id' => 'primary-menu')); ?>
-                </div>
-            </nav>
-        </header><!-- #masthead -->
+        <!-- #masthead -->
 
         <div id="content" class="site-content">
 
