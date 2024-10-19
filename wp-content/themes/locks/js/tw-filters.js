@@ -1,63 +1,80 @@
-// Wait until the DOM content is fully loaded before running the JavaScript
 window.addEventListener('DOMContentLoaded', () => {
-    // Get all slider inputs and product elements
     const sliders = document.querySelectorAll('input[type="range"]');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const products = document.querySelectorAll('.product-item');
 
-    // Add an input event listener for each slider
+    // Add event listeners for both sliders and checkboxes
     sliders.forEach((slider) => {
-        slider.addEventListener('input', () => {
-            console.log(`Slider ${slider.name} changed to value: ${slider.value}`);
-            // Call the filter function whenever the slider value changes
-            filterProducts();
-        });
+        slider.addEventListener('input', filterProducts);
+    });
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', filterProducts);
     });
 
     function filterProducts() {
-        // Create an object to hold the current values of each slider
         const filterValues = {};
+        const checkedFilters = {};
 
-        // Populate the filterValues object with slider name and current value
+        // Populate filterValues for sliders
         sliders.forEach((slider) => {
             filterValues[slider.name] = parseFloat(slider.value);
-            console.log(`Filter value for ${slider.name}: ${filterValues[slider.name]}`);
         });
 
-        // Iterate over each product and determine whether it should be shown or hidden
+        // Populate checkedFilters for checkboxes
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                if (!checkedFilters[checkbox.name]) {
+                    checkedFilters[checkbox.name] = new Set();
+                }
+                checkedFilters[checkbox.name].add(checkbox.value);
+            }
+        });
+
         products.forEach((product) => {
             let isVisible = true;
 
-            // Check each data attribute of the product against the corresponding slider value
+            // Check slider filters
             for (let key in filterValues) {
                 const productValue = parseFloat(product.getAttribute(`data-${key}`));
                 const sliderValue = filterValues[key];
 
-                if (isNaN(productValue)) {
-                    console.error(`Product ${product.id} is missing data-${key} attribute or has invalid value.`);
+                if (isNaN(productValue) || productValue > sliderValue) {
                     isVisible = false;
-                    break;
-                }
-
-                console.log(`Product ${product.id} - ${key}: ${productValue}, Slider value: ${sliderValue}`);
-
-                if (productValue > sliderValue) {
-                    // If the product value is greater than the slider value, hide the product
-                    isVisible = false;
-                    console.log(`Product ${product.id} will be hidden`);
                     break;
                 }
             }
 
-            // Show or hide the product based on the visibility condition
+            // Check checkbox filters
             if (isVisible) {
-                console.log(`Product ${product.id} will be shown`);
+                for (let key in checkedFilters) {
+                    if (checkedFilters[key].size > 0) {
+                        const productValue = product.getAttribute(`data-${key}`);
+                        if (productValue === null) {
+                            // If the product doesn't have this attribute, it doesn't match the filter
+                            isVisible = false;
+                            break;
+                        }
+                        // Split the product value in case it's a comma-separated list
+                        const productValues = productValue.split(',').map(v => v.trim());
+                        // Check if any of the product's values match the checked filters
+                        const hasMatch = productValues.some(value => checkedFilters[key].has(value));
+                        if (!hasMatch) {
+                            isVisible = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Show or hide the product with fade effect
+            if (isVisible) {
                 product.style.transition = 'opacity 0.5s ease';
                 product.style.opacity = '1';
                 setTimeout(() => {
                     product.style.display = 'block';
                 }, 500);
             } else {
-                console.log(`Product ${product.id} will be hidden with fade-out`);
                 product.style.transition = 'opacity 0.5s ease';
                 product.style.opacity = '0';
                 setTimeout(() => {
