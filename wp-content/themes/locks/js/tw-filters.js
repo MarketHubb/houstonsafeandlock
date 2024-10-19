@@ -1,7 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
     const sliders = document.querySelectorAll('input[type="range"]');
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const products = document.querySelectorAll('.product-item');
+    const productsContainer = document.querySelector('.product-grid');
+    const products = Array.from(document.querySelectorAll('.product-item'));
+    const sortOptions = document.querySelectorAll('[role="menuitem"]');
 
     // Add event listeners for both sliders and checkboxes
     sliders.forEach((slider) => {
@@ -10,6 +12,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', filterProducts);
+    });
+
+    sortOptions.forEach((option) => {
+        option.addEventListener('click', (event) => {
+            event.preventDefault();
+            const attribute = option.getAttribute('data-attribute');
+            sortProducts(attribute);
+            highlightSortedAttribute(attribute);
+        });
     });
 
     function filterProducts() {
@@ -80,6 +91,45 @@ window.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     product.style.display = 'none';
                 }, 500);
+            }
+        });
+    }
+
+    function sortProducts(attribute) {
+        // Sort products array based on the selected attribute
+        products.sort((a, b) => {
+            const aValue = parseFloat(a.getAttribute(`data-${attribute}`)) || 0;
+            const bValue = parseFloat(b.getAttribute(`data-${attribute}`)) || 0;
+
+            if (aValue === 0 && bValue === 0) return 0;
+            if (aValue === 0) return 1;
+            if (bValue === 0) return -1;
+            return aValue - bValue;
+        });
+
+        // Remove all products from the container
+        productsContainer.innerHTML = '';
+
+        // Append sorted products back to the container
+        products.forEach((product) => {
+            productsContainer.appendChild(product);
+        });
+    }
+
+    function highlightSortedAttribute(attribute) {
+        // Remove font-bold from all spans in featured-attributes
+        products.forEach((product) => {
+            const featuredAttributes = product.querySelectorAll('.featured-attributes span');
+            featuredAttributes.forEach((span) => {
+                span.classList.remove('font-bold');
+            });
+        });
+
+        // Add font-bold to the span matching the sorted attribute
+        products.forEach((product) => {
+            const matchingSpan = product.querySelector(`.featured-attributes span[data-sort-type="${attribute}"]`);
+            if (matchingSpan) {
+                matchingSpan.classList.add('font-bold');
             }
         });
     }
