@@ -4,10 +4,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const productsContainer = document.querySelector('.product-grid');
     const products = Array.from(document.querySelectorAll('.product-item'));
     const sortOptions = document.querySelectorAll('[role="menuitem"]');
+    const sortsContainer = document.getElementById('sorts');
+    const filtersContainer = document.getElementById('filters');
+    const filterSortContainer = document.getElementById('filter-sort-container');
+    let originalSortsParent = sortsContainer.parentElement;
+    let originalFiltersParent = filtersContainer.parentElement;
 
     // Add event listeners for both sliders and checkboxes
     sliders.forEach((slider) => {
-        slider.addEventListener('input', filterProducts);
+        slider.addEventListener('input', (event) => {
+            updateSliderOutput(event.target);
+            filterProducts();
+        });
     });
 
     checkboxes.forEach((checkbox) => {
@@ -22,6 +30,16 @@ window.addEventListener('DOMContentLoaded', () => {
             highlightSortedAttribute(attribute);
         });
     });
+
+    window.addEventListener('resize', moveSortsAndFilters);
+    moveSortsAndFilters();
+
+    function updateSliderOutput(slider) {
+        const output = document.querySelector(`output[for="${slider.id}"]`);
+        if (output) {
+            output.textContent = slider.value;
+        }
+    }
 
     function filterProducts() {
         const filterValues = {};
@@ -132,5 +150,23 @@ window.addEventListener('DOMContentLoaded', () => {
                 matchingSpan.classList.add('font-bold');
             }
         });
+    }
+
+    function moveSortsAndFilters() {
+        if (window.innerWidth < 768) {
+            if (!filterSortContainer.contains(sortsContainer)) {
+                filterSortContainer.appendChild(sortsContainer);
+            }
+            if (!filterSortContainer.contains(filtersContainer)) {
+                filterSortContainer.appendChild(filtersContainer);
+            }
+        } else {
+            if (sortsContainer.parentElement !== originalSortsParent) {
+                originalSortsParent.appendChild(sortsContainer);
+            }
+            if (filtersContainer.parentElement !== originalFiltersParent) {
+                originalFiltersParent.appendChild(filtersContainer);
+            }
+        }
     }
 });
