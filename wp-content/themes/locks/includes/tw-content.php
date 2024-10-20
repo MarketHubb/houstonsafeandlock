@@ -6,7 +6,7 @@ function get_parent_link_with_dropdown($args = [])
     foreach ($args as $parent => $children) {
     }
 
-    $output = '<div class="hs-dropdown-menu transition-[opacity,margin] ease-in-out duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-48 z-10 bg-white sm:shadow-md rounded-lg p-1 space-y-1 dark:bg-neutral-800 sm:dark:border dark:border-neutral-700 dark:divide-neutral-700 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5 hidden"';
+    $output = '<div class="hs-dropdown-menu transition-[opacity,margin] ease-in-out duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-48 z-10 bg-white sm:shadow-md rounded-lg p-1 space-y-1 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5 hidden"';
 
     foreach ($args as $link) {
     }
@@ -14,14 +14,14 @@ function get_parent_link_with_dropdown($args = [])
 
 function get_header_nav_open()
 {
-    $output  = '<header class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-4 dark:bg-neutral-800 shadow-lg">';
-    $output .= '<nav class="container px-4 sm:px-6 lg:px-8 w-full mx-auto px-4 sm:flex  sm:justify-between sm:items-center">';
+    $output  = '<header class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-4 shadow-lg">';
+    $output .= '<nav class="container px-4 sm:px-6 lg:px-8 w-full mx-auto sm:flex  sm:justify-between sm:items-center">';
     $output .= '<div class="flex items-center justify-between">';
     $output .= '<a href="' . esc_url(home_url('/')) . '">';
     $output .= '<img class="!max-w-24 !sm:max-w-32 !h-auto" src="' . get_home_url() . '/wp-content/uploads/2022/10/HSL-Logo-Brand.svg' . '" alt="Houston Safe And Lock Logo" />';
     $output .= '</a>';
     $output .= '<div class="sm:hidden">';
-    $output .= '<button type="button" class="hs-collapse-toggle relative size-7 flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10" id="hs-navbar-example-collapse" aria-expanded="false" aria-controls="hs-navbar-example" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-example">';
+    $output .= '<button type="button" class="hs-collapse-toggle relative size-7 flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" id="hs-navbar-example-collapse" aria-expanded="false" aria-controls="hs-navbar-example" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-example">';
     $output .= '<svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6" /><line x1="3" x2="21" y1="12" y2="12" /><line x1="3" x2="21" y1="18" y2="18" /></svg>';
     $output .= '<svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>';
     $output .= '<span class="sr-only">Toggle navigation</span>';

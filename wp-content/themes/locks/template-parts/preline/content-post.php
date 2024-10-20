@@ -7,12 +7,12 @@
 
          <div class="space-y-3">
             <!-- Post Title -->
-            <h2 class="text-2xl font-bold md:text-3xl dark:text-white">
+            <h2 class="text-2xl font-bold md:text-3xl">
                <?php the_title(); ?>
             </h2>
 
             <!-- Post Excerpt -->
-            <p class="text-lg text-gray-800 dark:text-neutral-200 italic">
+            <p class="text-lg text-gray-800 italic">
                <?php echo strip_tags(get_the_excerpt()); ?>
             </p>
          </div>
@@ -21,14 +21,14 @@
          <?php if (has_post_thumbnail()) : ?>
             <figure>
                <?php the_post_thumbnail('large', ['class' => 'w-full object-cover rounded-xl']); ?>
-               <figcaption class="mt-3 text-sm text-center text-gray-500 dark:text-neutral-500">
+               <figcaption class="mt-3 text-sm text-center text-gray-500">
                   <?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?>
                </figcaption>
             </figure>
          <?php endif; ?>
 
          <!-- Post Content -->
-         <div class="text-lg text-gray-800 dark:text-neutral-200">
+         <div class="text-lg text-gray-800">
             <?php echo remove_tw_prefix_from_classes(get_the_content()); ?>
          </div>
       </div>
