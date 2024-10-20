@@ -1,9 +1,74 @@
 <?php
+function remove_tw_prefix_from_classes($content) {
+    // Use a regular expression to find all class attributes
+    return preg_replace_callback('/class\s*=\s*"([^"]*)"/', function ($matches) {
+        // Get the class list and split by spaces
+        $class_list = explode(' ', $matches[1]);
+        
+        // Remove the 'tw-' prefix from each class name if it exists
+        $updated_class_list = array_map(function ($class) {
+            return preg_replace('/^tw-/', '', $class);
+        }, $class_list);
+        
+        // Join the updated class list back into a string
+        return 'class="' . implode(' ', $updated_class_list) . '"';
+    }, $content);
+}
+
+function display_contact_info($post_id)
+{
+    // Set timezone
+    date_default_timezone_set('America/Chicago');
+
+    // Get current time and day
+    $current_time = new DateTime();
+    $current_day = strtolower($current_time->format('l'));
+    $current_hour = (int)$current_time->format('G');
+    $current_minute = (int)$current_time->format('i');
+
+    // Define business hours
+    $business_hours = [
+        'monday'    => ['start' => 8, 'end' => 17],
+        'tuesday'   => ['start' => 8, 'end' => 17],
+        'wednesday' => ['start' => 8, 'end' => 17],
+        'thursday'  => ['start' => 8, 'end' => 17],
+        'friday'    => ['start' => 8, 'end' => 17],
+        'saturday'  => ['start' => 9, 'end' => 16],
+        'sunday'    => ['start' => 0, 'end' => 0]  // Closed on Sunday
+    ];
+
+    // Check if current time is within business hours
+    $is_business_hours = false;
+    if (isset($business_hours[$current_day])) {
+        $start = $business_hours[$current_day]['start'];
+        $end = $business_hours[$current_day]['end'];
+
+        if ($current_hour > $start || ($current_hour == $start && $current_minute >= 0)) {
+            if ($current_hour < $end || ($current_hour == $end && $current_minute == 0)) {
+                $is_business_hours = true;
+            }
+        }
+    }
+
+    // Display appropriate contact info
+    if ($is_business_hours) {
+        // Phone number during business hours
+        $phone = '713-522-5555';  // Replace with actual phone number
+        $contact_callout = "<a href='tel:$phone'>Call us: $phone</a>";
+    } else {
+        // Email outside business hours
+        $email = 'sales@houstonsafeandlock.com';  // Replace with actual email
+        $location = get_the_title($post_id);
+        $contact_callout = "<a href='mailto:$email'>Email Houston Safe & Lock - ' . $location . '</a>";
+    }
+
+    return $contact_callout;
+}
+
 function get_product_pricing($post_id)
 {
     // Get the global discount percentage
     $discount_percentage = intval(get_field('global_safes_discount_percentage', 'option'));
-
     // Get the product price
     $msrp_price = floatval(get_field('post_product_gun_price', $post_id));
 

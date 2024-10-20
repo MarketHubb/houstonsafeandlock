@@ -1,23 +1,14 @@
-<div class="tw-relative tw-w-full tw-h-screen">
-  <div class="tw-absolute tw-inset-0 tw-bg-cover tw-backdrop-blur-lg" style="background-image: url(<?php echo get_home_url() . '/wp-content/uploads/2023/03/Safes-Row-2-1.jpg'; ?>);"></div>
-  <div class="tw-relative tw-z-10 tw-text-white tw-p-8">
-    <!-- Your content here -->
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </div>
-</div>
-
-
 <div class="tw-isolate tw-overflow-hidden tw-bg-primary" style="background-image: url(<?php echo get_home_url() . '/wp-content/uploads/2023/03/Safes-Row-2-1.jpg'; ?>); background-size: cover;">
    <div class="tw-mx-auto tw-max-w-7xl tw-px-6 tw-pb-96 tw-pt-24 tw-text-center sm:tw-pt-32 lg:tw-px-8">
+      <!-- <div class="tw-absolute tw-bg-gradient-to-b tw-from-gray-800 tw-to-gray-700 tw-inset-0 tw-h-full tw-w-full"></div> -->
       <div class="tw-mx-auto tw-max-w-4xl">
-         <h2 class="tw-text-base tw-font-semibold tw-leading-7 tw-text-indigo-400">Pricing</h2>
-         <p class="tw-mt-2 tw-text-4xl tw-font-bold tw-tracking-tight tw-text-white sm:tw-text-5xl">
-             The right price for you, <br class="tw-hidden sm:tw-inline lg:tw-hidden">whoever you are
+         <p class="tw-mt-2 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-white sm:tw-text-7xl">
+             Houston Safe & Lock
          </p>
       </div>
       <div class="tw-relative tw-mt-6">
-         <p class="tw-mx-auto tw-max-w-2xl tw-text-lg tw-leading-8 tw-text-white/60">
-             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos odit doloribus molestiae voluptatum.
+         <p class="tw-mx-auto tw-max-w-2xl tw-text-lg sm:tw-text-2xl tw-leading-8 tw-text-white">
+             One brand, now with two locations to better server you
          </p>
          <svg viewBox="0 0 1208 1024" class="tw-hidden tw-absolute -tw-top-10 tw-left-1/2 -tw-z-10 tw-h-[64rem] -tw-translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:-tw-top-12 md:-tw-top-20 lg:-tw-top-12 xl:tw-top-0">
             <ellipse cx="604" cy="512" fill="url(#6d1bd035-0dd1-437e-93fa-59d316231eb0)" rx="604" ry="512" />

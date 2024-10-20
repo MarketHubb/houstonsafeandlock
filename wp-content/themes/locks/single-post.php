@@ -2,7 +2,7 @@
 
 <?php
 if (get_field('new_layout', get_the_id())) {
-    get_template_part('template-parts/tw/content', 'blog-single');
+    get_template_part( 'template-parts/preline/content', 'post');
 } else {
     $content = get_the_content(null, false, $post->ID);
     $content_array = explode("/n", $content);

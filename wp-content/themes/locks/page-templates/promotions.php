@@ -10,7 +10,7 @@ get_header();
     <?php 
     $header_args = [
         'heading' => get_the_title(get_the_id()),
-        'callout' => 'From now until May 31st',
+        'callout' => get_field('callout', get_the_id()),
         'description' => get_field('header_description')
     ];
      ?>

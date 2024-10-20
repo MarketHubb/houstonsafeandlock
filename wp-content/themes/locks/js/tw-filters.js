@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const sortsContainer = document.getElementById('sorts');
     const filtersContainer = document.getElementById('filters');
     const filterSortContainer = document.getElementById('filter-sort-container');
+    const productListAnchor = document.getElementById('product-list');
     let originalSortsParent = sortsContainer.parentElement;
     let originalFiltersParent = filtersContainer.parentElement;
 
@@ -33,6 +34,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', moveSortsAndFilters);
     moveSortsAndFilters();
+
+    const modalInstance = HSOverlay.getInstance('[data-hs-overlay="#hs-full-screen-modal"]', true);
+    modalInstance.element.on('close', () => {
+        productListAnchor.scrollIntoView({ behavior: 'smooth' });
+    });
 
     function updateSliderOutput(slider) {
         const output = document.querySelector(`output[for="${slider.id}"]`);

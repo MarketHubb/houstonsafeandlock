@@ -11,7 +11,7 @@ get_header(); ?>
 
 <?php if (get_post_type() === 'post') {
 
-    get_template_part( 'template-parts/posts/content');
+    get_template_part( 'template-parts/preline/content', 'posts');
 
 } else { ?>
 

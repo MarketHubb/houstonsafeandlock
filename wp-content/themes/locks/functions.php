@@ -2,6 +2,7 @@
 require_once 'includes/queries.php';
 require_once 'includes/plugins.php';
 require_once 'includes/safes.php';
+require_once 'includes/tw-safes.php';
 require_once 'includes/content.php';
 require_once 'includes/tw-content.php';
 require_once 'includes/helpers.php';
@@ -16,13 +17,14 @@ function start_session()
 function enqueue_product_category_scripts() {
     // Enqueue your JavaScript
     wp_enqueue_script('tw-product-category-script', get_template_directory_uri() . '/js/tw-safe-cat.js', array('jquery'), '1.0', true);
-    wp_enqueue_script('tw-filter-sort', get_template_directory_uri() . '/js/tw-filter-sort.js', array('jquery'), '1.0', true);
+    // wp_enqueue_script('tw-filter-sort', get_template_directory_uri() . '/js/tw-filter-sort.js', array('jquery'), '1.0', true);
+    wp_enqueue_script('tw-filters', get_template_directory_uri() . '/js/tw-filters.js', array('jquery'), '1.0', true);
 
     // Enqueue your CSS (if needed)
     wp_enqueue_style('tw-product-category-style', get_template_directory_uri() . '/css/tw-safe-cat.css', array(), '1.0');
 }
 function conditionally_enqueue_product_category_assets() {
-    if (is_tax('product_cat')) {
+    if (is_tax('product_cat') || is_page( 3901 )) {
         enqueue_product_category_scripts();
     }
 }
@@ -205,9 +207,9 @@ function locks_scripts()
 
 	// Filter / Sort Safes page
 	if (is_page_template('page-templates/safes-new.php')) {
-		wp_enqueue_script('safes-new', get_stylesheet_directory_uri() . '/js/safes-new.js', ['jquery'], '1.0', true);
-		wp_enqueue_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
-		wp_enqueue_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
+		// wp_enqueue_script('safes-new', get_stylesheet_directory_uri() . '/js/safes-new.js', ['jquery'], '1.0', true);
+		// wp_enqueue_script('mixitup', get_stylesheet_directory_uri() . '/js/mixitup.min.js', array('jquery'), '', true);
+		// wp_enqueue_script('mixitup-controls', get_stylesheet_directory_uri() . '/js/mixitup-controls.js', array('jquery'), '', true);
 		// wp_enqueue_script('mixitup');
 		// wp_enqueue_script('mixitup-controls');
 	}
@@ -708,7 +710,7 @@ function ri_conditional_script_loading()
 	}
 	// Safes for Sale
 	if (is_page(3901)) {
-		wp_enqueue_script('bootstrap-scripts');
+		// wp_enqueue_script('bootstrap-scripts');
 		//        wp_enqueue_style('bootstrap-styles');
 	}
 	// Locksmith pages

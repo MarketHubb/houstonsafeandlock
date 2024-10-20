@@ -1,0 +1,15 @@
+.expand-icon {
+    display: inline-block;
+}
+
+.collapse-icon {
+    display: none;
+}
+
+[aria-expanded="true"] .expand-icon {
+    display: none;
+}
+
+[aria-expanded="true"] .collapse-icon {
+    display: inline-block;
+}

@@ -15,11 +15,11 @@
 <?php if (!is_singular('product')) { ?>
 
     <!-- One company, two locations -->
-    <section class="tw-py-24">
-        <div class="container">
+    <section class="py-24 bg-gray-100">
+        <div class="container mx-auto">
 
             <div class="row justify-content-center pt-4 pb-5">
-                <div class="col-md-8 text-center">
+                <div class="col-md-7 text-center pb-12">
                     <h2 class="">One company, two locations</h2>
                     <p class="lead fw-normal">We're one company, with two locations to better serve the safe and security needs of our valued Houston customers. <a href="<?php echo get_permalink(8988); ?>">Read more about the rebrand of King Safe & Lock here</a>
                     </p>
@@ -29,7 +29,7 @@
             <div class="row justify-content-between">
                 <div class="col-md-6">
                     <div class="card h-100  shadow-sm">
-                        <img src="<?php echo home_url() . '/wp-content/uploads/2023/06/HSL-Storefront.jpg'; ?>" class="card-img-top md:tw-h-[300px] tw-object-cover tw-object-center" alt="...">
+                        <img src="<?php echo home_url() . '/wp-content/uploads/2023/06/HSL-Storefront.jpg'; ?>" class="card-img-top md:h-[300px] object-cover object-center" alt="...">
                         <div class="card-body bg-grey-light p-4">
                             <h3 class="card-title">Houston Safe & Lock - Westheimer</h3>
                             <p class="card-text">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card h-100  shadow-sm">
-                        <img src="<?php echo home_url() . '/wp-content/uploads/2024/06/HSL-Memorial.webp'; ?>" class="card-img-top md:tw-h-[300px] tw-object-cover tw-object-center" alt="...">
+                        <img src="<?php echo home_url() . '/wp-content/uploads/2024/06/HSL-Memorial.webp'; ?>" class="card-img-top md:h-[300px] object-cover object-center" alt="...">
                         <div class="card-body bg-grey-light p-4">
                             <h3 class="card-title">Houston Safe & Lock - Memorial</h3>
                             <p class="card-text">
@@ -151,7 +151,7 @@
                 }
                 ?>
             </div>
-            <img class="size-full wp-image-1720 aligncenter" src="http://www.houstonsafeandlock.net/wp-content/uploads/2016/11/creditCards.png" alt="Credit cards that we accept" width="300" height="75" />
+            <img class=" wp-image-1720 aligncenter" src="http://www.houstonsafeandlock.net/wp-content/uploads/2016/11/creditCards.png" alt="Credit cards that we accept" width="300" height="75" />
             <div id="footer-logos">
                 <?php
                 $images = get_field('footer_images', 'option');
@@ -228,7 +228,7 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
 
 <?php if (is_product_category() || is_singular("product")) { ?>
 
-    <nav class="tw-hidden fixed-bottom bg-orange">
+    <nav class="hidden fixed-bottom bg-orange">
         <div class="container">
 
             <div class="row">
@@ -253,24 +253,7 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
 
 <!-- Safes for Sale: Sticky sorts/filters -->
 <?php if (is_page(8854) || is_page(3901)) { ?>
-    <script>
-        window.addEventListener('scroll', function() {
-            const masthead = document.getElementById('masthead');
-            const sortContainer = document.getElementById('sort-container');
-            // const sortContainer = document.getElementById('safe-container');
-
-            const mastheadBottom = masthead.getBoundingClientRect().bottom;
-            if (scrollY >= mastheadBottom) {
-                sortContainer.style.top = mastheadBottom + 'px'; // Stick under the header
-                sortContainer.style.borderTop = '.1rem solid rgba(0, 0, 0, 0.24)'; // Add border
-                console.log('Sticky element set to position and border added:', mastheadBottom + 'px'); // Debugging statement
-            } else {
-                sortContainer.style.top = '-1000px'; // Reset to initial out-of-view position
-                sortContainer.style.borderTop = 'none'; // Remove border
-                console.log('Sticky element reset to initial position and border removed'); // Debugging statement
-            }
-        });
-    </script>
+<!--  -->
 <?php } ?>
 
 <!-- Google Code for Remarketing Tag -->
@@ -297,7 +280,7 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
             const accordion = document.getElementById('accordion');
 
             accordion.addEventListener('click', function(e) {
-                const button = e.target.closest('.tw-accordion-button');
+                const button = e.target.closest('.accordion-button');
                 if (!button) return;
 
                 const item = button.closest('.accordion-item');
@@ -305,23 +288,23 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
                 const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
                 // Close all items
-                accordion.querySelectorAll('.tw-accordion-button').forEach(btn => {
+                accordion.querySelectorAll('.accordion-button').forEach(btn => {
                     btn.setAttribute('aria-expanded', 'false');
-                    btn.querySelector('.plus-icon').classList.remove('tw-hidden');
-                    btn.querySelector('.minus-icon').classList.add('tw-hidden');
-                    btn.querySelector('span:first-child').classList.add('tw-text-gray-500');
+                    btn.querySelector('.plus-icon').classList.remove('hidden');
+                    btn.querySelector('.minus-icon').classList.add('hidden');
+                    btn.querySelector('span:first-child').classList.add('text-gray-500');
                 });
                 accordion.querySelectorAll('.accordion-content').forEach(content => {
-                    content.classList.add('tw-hidden');
+                    content.classList.add('hidden');
                 });
 
                 // If the clicked item wasn't expanded, open it
                 if (!isExpanded) {
                     button.setAttribute('aria-expanded', 'true');
-                    content.classList.remove('tw-hidden');
-                    button.querySelector('.plus-icon').classList.add('tw-hidden');
-                    button.querySelector('.minus-icon').classList.remove('tw-hidden');
-                    button.querySelector('span:first-child').classList.remove('tw-text-gray-500');
+                    content.classList.remove('hidden');
+                    button.querySelector('.plus-icon').classList.add('hidden');
+                    button.querySelector('.minus-icon').classList.remove('hidden');
+                    button.querySelector('span:first-child').classList.remove('text-gray-500');
                 }
             });
         });

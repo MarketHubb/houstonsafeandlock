@@ -101,17 +101,17 @@ function format_menu_items($menu_items)
 
 function navbar_base_link_classes()
 {
-    return 'text-lg sm:text-[15px] font-semibold text-brand-600 visited:text-gray-700 hover:text-blue-500 focus:outline-none pt-3 sm:pt-0'; 
+    return 'text-lg sm:text-[15px] font-semibold text-brand-600 visited:text-gray-700 hover:text-blue-500 focus:outline-none';
 }
 
 function navbar_parent_link_classes()
 {
-    return ' hs-dropdown-toggle p-0 flex items-center w-full text-lg sm:text-[15px] font-semibold text-brand-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 font-medium dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500 '; 
+    return ' hs-dropdown-toggle p-0 flex items-center w-full text-lg sm:text-[15px] font-semibold text-brand-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 font-medium dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500 ';
 }
 
 function navbar_children_link_classes()
 {
-    return ' flex items-center gap-x-3.5 py-2 px-3 rounded-lg hover:bg-gray-100 hover:text-brand-600 ' . navbar_base_link_classes(); 
+    return ' flex items-center gap-x-3.5 py-2 px-3 rounded-lg hover:bg-gray-100 hover:text-brand-600 ' . navbar_base_link_classes();
 }
 
 function construct_navbar($items = [])
@@ -129,9 +129,18 @@ function construct_navbar($items = [])
             $output .= get_sublinks_children_container_open();
 
             foreach ($attributes['children'] as $children) {
-               $output .= '<a class="' . navbar_children_link_classes() . '" ';
-               $output .= 'href="' . $children['url'] . '">';
-               $output .= $children['title'] . '</a>';
+                $output .= '<a class="' . navbar_children_link_classes() . '" ';
+                $output .= 'href="' . $children['url'] . '">';
+                $output .= $children['title'];
+
+                if ($children['title'] === 'Memorial' || str_contains($children['url'], '/memorial')) {
+                    $output .= '<span class="relative inline-flex items-center py-1 px-3 rounded-full text-xs tracking-tight font-semibold antialiased border border-[#F6D4DF] text-[#7A193A] bg-[#fefbfc] shadow-sm">
+                    Formally King Safe & Lock
+                    </span>';
+                }
+
+
+                $output .= '</a>';
             }
 
             $output .= get_sublink_containers_close();

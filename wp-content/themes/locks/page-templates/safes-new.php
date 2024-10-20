@@ -5,93 +5,47 @@
 get_header();
 
 ?>
-<div id="primary" class="content-area" data-url="<?php echo home_url(); ?>">
-    <main id="main" class="site-main" role="main">
 
-        <!-- Hero -->
-        <div class="container-xxl">
-            <div class="row py-5 mt-5">
-                <h1>Safes for Sale</h1>
-                <p class="hero-sub text-sm">
-                    We carry the largest selection of in-stock, ready-to-ship safes in Houston.<br>
-                    Have questions? Our team of safe & security experts can help.
-                </p>
-            </div>
-        </div>
+<?php get_template_part('template-parts/tw-shared/content', 'grid'); ?>
 
-        <!-- Parent Grid -->
-        <div class="" id="safe-grid-container">
+<?php
+$safe_parent_categories = get_product_cat_tax_terms();
+$output = '';
+$attributes = [];
 
-            <!-- Sorts -->
-            <div class="container-xxl shadow-sm" id="sort-container">
-                <div class="row justify-content-end align-items-center gx-5 sticky-top" id="sort-container-sticky">
-                    <!-- Mobile -->
-                    <div class="col-4 col-md-6 d-block d-md-none">
-                        <!-- Button trigger modal -->
-                        <p class="fw-600 mb-0 text-normal ps-2" data-bs-toggle="modal" data-bs-target="#modal-safe-filters">
-                            Filters <i class="fa-solid fa-up-right-from-square fa-sm opacity-80 ps-1"></i>
-                        </p>
-                    </div>
-                    <div class="col-8 col-md-6 text-end" id="sort-filter-container">
-                        <!-- Sorts -->
-                        <?php echo output_safe_sorts(); ?>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Filters + Grid -->
-            <div class="container-xxl" id="safe-container">
-                <div class="row bg-gray-50 p4-5">
-                    <!-- Desktop -->
-                    <div class="col-12 col-md-4 col-lg-3" id="safe-filters">
+foreach ($safe_parent_categories as $parent_category) {
+    $products_by_parent_term = get_product_posts_by_tax($parent_category->term_id);
+    $output .= $products_by_parent_term['output'];
+    
+    if (empty($attributes)) {
+        $attributes = $products_by_parent_term['attributes'];
+    } else {
+        foreach ($products_by_parent_term['attributes'] as $key => $attribute) {
+            if (isset($attribute['values'])) {
+                $attributes[$key]['values'] = array_unique(
+                    array_merge(
+                        $attributes[$key]['values'],
+                        $attribute['values']
+                    )
+                );
+            }
+        }
+    }
+}
 
-                        <div class="d-none d-md-block">
-                            <p class="fw-bold">Filter safes:</p>
+$products = [
+    'output' => $output,
+    'attributes' => $attributes,
+];
 
-                            <!-- Default (Reset) -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="reset" id="reset">
-                                <label class="form-check-label" for="reset">
-                                    Reset filters
-                                </label>
-                            </div>
+$grid_args = [
+    'heading' => 'Safes for Sale',
+    'description' => 'We carry the largest selection of in-stock, ready-to-ship safes in HoustonHave questions? Our team of safe & security experts can help.',
+    'products' => $products,
+];
 
-                            <hr>
-                        </div>
-                        <?php echo output_safe_filters(); ?>
+get_template_part('template-parts/tw-shared/content', 'grid', $grid_args); ?>
 
-                    </div>
-
-                    <!-- Product Grid -->
-                    <div class="col-md-8 col-lg-9" id="safe-products">
-
-                        <?php
-                        // $output  = '<div class="container">';
-                        $output = '<div class="row" id="#filter-container">';
-                        $safes = all_safes();
-
-                        // $test = safe_grid_attributes(8821);
-
-                        $safe_grid_classes = [
-                            'image' => 'product-img',
-                            'description' => 'clamp-3 text-sm lh-base',
-                        ];
-
-                        foreach ($safes as $safe) {
-                            $output .= safe_grid_item($safe->ID, '4', $safe_grid_classes);
-                        }
-
-                        $output .= '</div>';
-
-                        echo $output;
-
-                        ?>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
+</section>
 <?php get_footer(); ?>

@@ -1,3 +1,6 @@
+.filter-white {
+    filter: invert(93%) sepia(7%) saturate(29%) hue-rotate(237deg) brightness(106%) contrast(107%);
+}
 div[data-type="single-product"] #main > .container-fixed {
     max-width: unset !important;
 } 

@@ -1,6 +1,6 @@
 <?php /* Template Name: Full-width */
 
-get_header();
+get_header('tw');
 
 if (is_page([6448, 6624, 6839, 7276,7728])) {
     set_query_var('form_id', 2);
