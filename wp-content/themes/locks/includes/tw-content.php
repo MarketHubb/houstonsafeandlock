@@ -60,7 +60,7 @@ function get_sublinks_parent_button($title)
 
 function get_sublinks_children_container_open()
 {
-    $output  = '<div class="hs-dropdown-menu transition-[opacity,margin] ease-in-out duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-fit z-10 bg-white sm:shadow-lg rounded-lg p-2 space-y-1 dark:bg-neutral-800 sm:dark:border dark:border-neutral-700 dark:divide-neutral-700 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5 hidden" ';
+    $output  = '<div class="hs-dropdown-menu transition-[opacity,margin] ease-in-out duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-fit z-10 bg-white sm:shadow-lg rounded-lg p-2 space-y-1 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5 hidden" ';
     $output .= 'role="menu" aria-orientation="vertical" aria-labelledby="hs-navbar-example-dropdown">';
 
     return $output;
@@ -106,7 +106,7 @@ function navbar_base_link_classes()
 
 function navbar_parent_link_classes()
 {
-    return ' hs-dropdown-toggle p-0 flex items-center w-full text-lg sm:text-[15px] font-semibold text-brand-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 font-medium dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500 ';
+    return ' hs-dropdown-toggle p-0 flex items-center w-full text-lg sm:text-[15px] font-semibold text-brand-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 font-medium ';
 }
 
 function navbar_children_link_classes()

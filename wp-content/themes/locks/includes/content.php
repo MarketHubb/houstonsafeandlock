@@ -543,7 +543,7 @@ function safe_grid_item($post_id)
     $badges .= '</div>';
 
     // $product_card  = '<div' . $data_attributes . ' class="product-item text-center md:text-left h-full sm:h-auto flex flex-col bg-white border-gray-200 rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70 group/card">';
-    $product_card = '<a ' . $data_attributes . ' href="' . get_permalink( $post_id ) . '" class="group product-item text-center md:text-left h-full sm:h-auto flex flex-col bg-white border-gray-200 rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70 group/card">';
+    $product_card = '<a ' . $data_attributes . ' href="' . get_permalink( $post_id ) . '" class="group product-item text-center md:text-left h-full sm:h-auto flex flex-col bg-white border-gray-200 rounded-xl group/card">';
     $product_card .= '<div class="overflow-hidden h-48 w-full mx-auto">';
 
     $image_url = get_the_post_thumbnail_url($post_id, 'medium');
@@ -562,12 +562,12 @@ function safe_grid_item($post_id)
     $price = get_field('post_product_gun_price', $post_id) ? '$' . get_field('post_product_gun_price', $post_id) : 'Call for pricing';
     $product_card .= '<p class="text-base font-medium">' . $price . '</p>';
 
-    $product_card .= '<h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:underline">';
+    $product_card .= '<h3 class="text-lg font-bold text-gray-800">';
     $product_card .= get_the_title($post_id) . '</h3>';
 
     $product_card .= output_featured_attributes($post_id);
 
-    $product_card .= '<p class="mt-1 mb-6 text-gray-500 dark:text-neutral-400 text-base line-clamp-2">';
+    $product_card .= '<p class="mt-1 mb-6 text-gray-500 text-base line-clamp-2">';
     $product_card .= get_field("post_product_gun_long_description", $post_id) . '</p>';
     $product_card .= '</div></a>';
 
