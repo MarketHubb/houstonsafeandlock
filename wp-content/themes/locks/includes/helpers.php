@@ -514,7 +514,7 @@ function get_tw_product_btn($post_id, $btn_text)
 {
     $image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'single-post-thumbnail');
     $attr = get_safe_attributes($post_id);
-    $classes = 'tw-flex tw-w-full tw-items-center tw-justify-center tw-rounded-md tw-border tw-border-transparent tw-bg-orange tw-px-8 tw-py-3 tw-text-base tw-font-medium tw-text-white hover:tw-bg-orangeLight focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-orangeDark tw-tracking-wide focus:tw-ring-offset-2 focus:tw-ring-offset-gray-50';
+    $classes = 'flex w-full items-center justify-center rounded-md border border-transparent bg-orange px-8 py-3 text-base font-medium text-white hover:bg-orangeLight focus:outline-none focus:ring-2 focus:ring-orangeDark tracking-wide focus:ring-offset-2 focus:ring-offset-gray-50';
 
     $btn  = '<button type="button" class="' . $classes . '" ';
     $btn .= 'data-bs-toggle="modal" data-bs-target="#productModal" ';
