@@ -16,7 +16,6 @@ function range_slider($data = [])
     $slider .= '[&::-webkit-slider-thumb]:transition-all';
     $slider .= '[&::-webkit-slider-thumb]:duration-150';
     $slider .= '[&::-webkit-slider-thumb]:ease-in-out';
-    $slider .= '[&::-webkit-slider-thumb]:dark:bg-neutral-700';
 
     $slider .= '[&::-moz-range-thumb]:w-2.5';
     $slider .= '[&::-moz-range-thumb]:h-2.5';
@@ -33,7 +32,6 @@ function range_slider($data = [])
     $slider .= '[&::-webkit-slider-runnable-track]:h-2';
     $slider .= '[&::-webkit-slider-runnable-track]:bg-gray-100';
     $slider .= '[&::-webkit-slider-runnable-track]:rounded-full';
-    $slider .= '[&::-webkit-slider-runnable-track]:dark:bg-neutral-700';
 
     $slider .= '[&::-moz-range-track]:w-full';
     $slider .= '[&::-moz-range-track]:h-2';
@@ -188,6 +186,20 @@ function get_product_posts_by_tax($parent_tax_id = null)
     ];
 }
 
+function get_safe_price($post_id)
+{
+
+    $shopify_data = get_pricing_data_for_safe($post_id);
+
+    $price_field_val = (is_array($shopify_data) && !empty($shopify_data[0]['price']))
+        ? $shopify_data[0]['price']
+        : get_field('post_product_gun_price', $post_id);
+
+    $price = !empty($price_field_val) ? intval($price_field_val) : 'Call for price';
+
+    return $price ?: null;
+}
+
 // Region :: Content 
 function output_featured_attributes($post_id)
 {
@@ -312,7 +324,6 @@ function output_filter_slider($attributes = [])
             [&::-webkit-slider-thumb]:transition-all
             [&::-webkit-slider-thumb]:duration-150
             [&::-webkit-slider-thumb]:ease-in-out
-            [&::-webkit-slider-thumb]:dark:bg-neutral-700
             [&::-moz-range-thumb]:w-2.5
             [&::-moz-range-thumb]:h-2.5
             [&::-moz-range-thumb]:appearance-none
@@ -327,7 +338,6 @@ function output_filter_slider($attributes = [])
             [&::-webkit-slider-runnable-track]:h-2
             [&::-webkit-slider-runnable-track]:bg-gray-100
             [&::-webkit-slider-runnable-track]:rounded-full
-            [&::-webkit-slider-runnable-track]:dark:bg-neutral-700
             [&::-moz-range-track]:w-full
             [&::-moz-range-track]:h-2
             [&::-moz-range-track]:bg-gray-100
