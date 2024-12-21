@@ -1,16 +1,56 @@
-.accordion-button::after 
-{
+/*input[type=color],input[type=date],input[type=datetime-local],input[type=datetime],input[type=email],input[type=month],input[type=number],input[type=password],input[type=range],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],textarea {
+    color: unset;
+    border: unset;
+    border-radius: unset;
+    padding: unset;
+}
+*/
+
+.hs-overlay .modal-body {
+    font-size: 1.1rem !important;
+}
+
+.hs-overlay .modal-body ul {
+    margin-top: 2rem;
+    list-style-type: inherit !important;
+    display: grid !important;
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    justify-content: center;
+}
+
+.hs-overlay .modal-body ul li {
+    text-align: left !important;
+    padding: 3px 0;
+}
+
+.hs-overlay .modal-body .links-horizontal {
+    display: flex !important;
+    list-style-type: none !important;
+}
+
+.hs-overlay .modal-body .links-horizontal li {
+    flex-grow: 1 !important;
+    text-align: center !important;
+}
+
+#primary.is-scrolling {
+    margin-top: 0 !important;
+}
+
+.accordion-button::after {
     content: none !important;
 }
+
 .accordion-button:focus {
-   border: none !important; 
-   outline: none !important; 
-   box-shadow: none !important; 
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 #features-content table tbody tr {
-    border-top: 1px solid rgb(209,213,219);
+    border-top: 1px solid rgb(209, 213, 219);
 }
+
 #features-content table tbody tr th {
     display: none;
 }
@@ -242,9 +282,6 @@ body div.site.safes-new {
     color: #334155 !important;
     text-transform: capitalize;
 }
-.text-xs {
-    font-size: .85rem !important;
-}
 
 .accordion-button::after {
     width: 1rem !important;
@@ -413,7 +450,7 @@ input[type=time],
 input[type=url],
 input[type=week],
 textarea {
-    border: 1px solid #aaa;
+    /*    border: 1px solid #aaa;*/
 }
 
 input[type=range] {
@@ -496,7 +533,6 @@ h2,
 h3,
 h4 {
     font-family: 'Source Sans Pro', sans-serif !important;
-    color: inherit !important;
 }
 
 header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
@@ -514,10 +550,9 @@ header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
 .modal-callouts [class*="col"]:not(:last-of-type) {
     border-right: 1px solid #eee;
 }
-
-a,
-a:focus,
-a:visited {
+a:not([class*="text-"]),
+a:not([class*="text-"]):focus,
+a:not([class*="text-"]):active {
     color: #0d6efd;
 }
 
@@ -610,6 +645,10 @@ h3,
 h4,
 h5 {
     font-family: 'Oxygen', sans-serif;
+}
+
+.font-oxygen {
+    font-family: 'Oxygen', sans-serif !important;
 }
 
 .font-source,
@@ -1007,6 +1046,22 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 
 /* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
+    h2:not([class*="text-"]),
+    h2.has-text-align-center
+    {
+        font-size: 2rem !important;
+    }
+    h3:not([class*="text-"]),
+    h3.has-text-align-center
+    {
+        font-size: 1.75rem !important;
+    }
+    h4:not([class*="text-"]),
+    h4.has-text-align-center
+    {
+        font-size: 1.5rem !important;
+    }
+
     header.is-scrolling .container-fixed .global-alert {
         padding-left: 2rem;
     }
