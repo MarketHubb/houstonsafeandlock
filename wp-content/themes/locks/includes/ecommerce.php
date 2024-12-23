@@ -1,8 +1,257 @@
 <?php
 /* region Filters & Sorts */
-function get_product_sliders() {}
+function get_filter_slider_keys()
+{
+    return [
+        'price',
+        'weight',
+        'width',
+        'depth',
+        'height'
+    ];
+}
 
-function get_product_filters($attributes_collection)
+function get_filter_checkbox_keys()
+{
+    return [
+        'security_rating',
+        'fire_rating',
+        'category',
+        'brand',
+    ];
+}
+
+function get_sort_keys()
+{
+    return [
+        'price',
+        'weight',
+        'width',
+        'depth',
+        'height'
+    ];
+}
+
+function get_filter_slider($attributes)
+{
+    $sliders = [];
+
+    foreach ($attributes as $slider_name => $slider_values) {
+        $slider_name_formatted = strtolower(str_replace(' ', '_', $slider_name));
+        $slider_name_label = ucfirst($slider_name);
+        $start_value = (int)$slider_values[0];  // Cast to integer
+        $middle_value = (int)round(count($slider_values) / 2);
+        $end_value = (int)$slider_values[count($slider_values) - 1];
+        
+        // Create the JSON configuration separately
+        $slider_config = json_encode([
+            'start' => (int)$slider_values[$middle_value], // Cast to integer
+            'connect' => 'lower',
+            'range' => [
+                'min' => $start_value,
+                'max' => $end_value
+            ],
+            'tooltips' => true,
+            'formatter' => 'integer',
+            'step' => 1,
+            'cssClasses' => [
+                'target' => 'relative h-2 rounded-full bg-gray-100',
+                'base' => 'w-full h-full relative z-1',
+                'origin' => 'absolute top-0 end-0 w-full h-full origin-[0_0] rounded-full',
+                'handle' => 'absolute !top-1/2 !end-0 !w-[1.125rem] !h-[1.125rem] bg-white border-4 border-blue-600 rounded-full cursor-pointer translate-x-2/4 -translate-y-2/4',
+                'connects' => 'relative z-0 w-full h-full rounded-full overflow-hidden',
+                'connect' => 'absolute top-0 end-0 z-1 w-full h-full bg-blue-600 origin-[0_0]',
+                'touchArea' => 'absolute -top-1 -bottom-1 -start-1 -end-1',
+                'tooltip' => 'bg-white border border-gray-200 text-sm text-gray-800 py-1 px-2 rounded-lg mb-3 absolute bottom-full start-2/4 -translate-x-2/4'
+            ]
+        ], JSON_NUMERIC_CHECK);  // Added JSON_NUMERIC_CHECK flag
+        
+        $slider_html = <<<STRING
+        <label class="sr-only">{$slider_name}</label>
+        <div 
+            id="hs-pass-value-to-html-element" 
+            class="relative h-2 rounded-full bg-gray-100 filter-range-slider" 
+            data-type="{$slider_name}"
+            data-hs-range-slider='{$slider_config}'
+        >
+        </div>
+        <div class="font-semibold mt-5">{$slider_name_label}: <span id="hs-{$slider_name_formatted}-slider-target" class="text-blue-600">{$middle_value}</span></div>
+        STRING;
+
+        $sliders[$slider_name] = $slider_html;
+    }
+
+    return $sliders;
+}
+
+function filter_sort($attributes)
+{
+    if (empty($attributes)) return;
+
+    $filters = '';
+
+    foreach ($attributes as $filter_name => $attribute) {
+        $label = $filter_name;
+        $name = strtolower(str_replace(' ', '', $label));
+        $min = min($attribute['values']);
+        $max = max($attribute['values']);
+
+        $filters .= '<div class="py-3" data-slider="' . $name . '">';
+
+        $filters .= <<<HTML
+        <label for="min-and-max-range-slider-usage" class="font-bold antialiased">{$label}</label>
+        <input name="{$name}" id="{$name}" type="range" value="{$max}" 
+            class="w-full bg-transparent cursor-pointer appearance-none disabled:opacity-50 disabled:pointer-events-none focus:outline-none
+            [&::-webkit-slider-thumb]:w-2.5
+            [&::-webkit-slider-thumb]:h-2.5
+            [&::-webkit-slider-thumb]:-mt-0.5
+            [&::-webkit-slider-thumb]:appearance-none
+            [&::-webkit-slider-thumb]:bg-white
+            [&::-webkit-slider-thumb]:shadow-[0_0_0_4px_rgba(37,99,235,1)]
+            [&::-webkit-slider-thumb]:rounded-full
+            [&::-webkit-slider-thumb]:transition-all
+            [&::-webkit-slider-thumb]:duration-150
+            [&::-webkit-slider-thumb]:ease-in-out
+            [&::-moz-range-thumb]:w-2.5
+            [&::-moz-range-thumb]:h-2.5
+            [&::-moz-range-thumb]:appearance-none
+            [&::-moz-range-thumb]:bg-white
+            [&::-moz-range-thumb]:border-4
+            [&::-moz-range-thumb]:border-blue-600
+            [&::-moz-range-thumb]:rounded-full
+            [&::-moz-range-thumb]:transition-all
+            [&::-moz-range-thumb]:duration-150
+            [&::-moz-range-thumb]:ease-in-out
+            [&::-webkit-slider-runnable-track]:w-full
+            [&::-webkit-slider-runnable-track]:h-2
+            [&::-webkit-slider-runnable-track]:bg-gray-100
+            [&::-webkit-slider-runnable-track]:rounded-full
+            [&::-moz-range-track]:w-full
+            [&::-moz-range-track]:h-2
+            [&::-moz-range-track]:bg-gray-100
+            [&::-moz-range-track]:rounded-full" 
+            id="min-and-max-range-slider-usage" 
+            aria-orientation="horizontal" 
+            min="{$min}" 
+            max="{$max}">
+        HTML;
+
+        if ($attribute['pre']) {
+            $filters .= '<span>' . $attribute['pre'] . '</span>';
+        }
+
+        $filters .= '<output for="' . $name . '" id="' . $name . 'Value">' . $max . '</output>';
+
+        if ($attribute['post']) {
+            $filters .= '<span>' . $attribute['post'] . '</span>';
+        }
+
+
+        $filters .= '</div>';
+    }
+
+    return $filters;
+}
+
+function get_product_filters_sorts($attributes_collection)
+{
+    $filter_slider_keys = get_filter_slider_keys();
+    $filter_checkbox_keys = get_filter_checkbox_keys();
+    $sort_keys = get_sort_keys();
+
+    $result = [
+        'sliders' => [],
+        'filters' => [],
+        'sorts' => []
+    ];
+
+    if (!isset($attributes_collection['attributes']) || !is_array($attributes_collection['attributes'])) {
+        return $result;
+    }
+
+    $attributes = $attributes_collection['attributes'];
+
+    // Custom sorting function
+    $sortValues = function (&$array, $key) {
+        if ($key === 'fire_rating') {
+            $order = [
+                '30 minute' => 1,
+                '60 minute' => 2,
+                '90 minute' => 3,
+                '120 minute' => 4,
+                'Not rated' => 5
+            ];
+            usort($array, function ($a, $b) use ($order) {
+                return ($order[$a] ?? PHP_INT_MAX) <=> ($order[$b] ?? PHP_INT_MAX);
+            });
+        } elseif ($key === 'security_rating') {
+            $order = [
+                'B-rated' => 1,
+                'RSC-rated' => 2,
+                'Not rated' => 3
+            ];
+            usort($array, function ($a, $b) use ($order) {
+                return ($order[$a] ?? PHP_INT_MAX) <=> ($order[$b] ?? PHP_INT_MAX);
+            });
+        } else {
+            // For numeric values, convert to float for proper sorting
+            if (is_numeric($array[0])) {
+                usort($array, function ($a, $b) {
+                    return (float)$a <=> (float)$b;
+                });
+            } else {
+                // For strings, use regular sorting
+                sort($array, SORT_STRING);
+            }
+        }
+        return $array;
+    };
+
+    // Get and sort sliders
+    $result['sliders'] = array_filter(
+        $attributes,
+        function ($key) use ($filter_slider_keys) {
+            return in_array($key, $filter_slider_keys);
+        },
+        ARRAY_FILTER_USE_KEY
+    );
+
+    // Get and sort filters
+    $result['filters'] = array_filter(
+        $attributes,
+        function ($key) use ($filter_checkbox_keys) {
+            return in_array($key, $filter_checkbox_keys);
+        },
+        ARRAY_FILTER_USE_KEY
+    );
+
+    // Get and sort sorts
+    $result['sorts'] = array_filter(
+        $attributes,
+        function ($key) use ($sort_keys) {
+            return in_array($key, $sort_keys);
+        },
+        ARRAY_FILTER_USE_KEY
+    );
+
+    // Apply sorting to all arrays
+    foreach ($result as &$category) {
+        foreach ($category as $key => &$values) {
+            $sortValues($values, $key);
+        }
+    }
+
+    $filters_sorts = [];
+
+    if (!empty($result['sliders'])) {
+        $filters_sorts['sliders'] = get_filter_slider($result['sliders']);
+    }
+
+    // return $result;
+    return $filters_sorts;
+}
+
+function get_product_filters_sorts_legacy($attributes_collection)
 {
     if (empty($attributes_collection)) {
         return;
@@ -34,6 +283,7 @@ function get_product_filters($attributes_collection)
 function get_product_sorts_by_tax() {}
 
 function set_product_filter_array() {}
+
 /* endregion */
 
 /* region Attributes */
