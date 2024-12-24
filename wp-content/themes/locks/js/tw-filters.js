@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const sliders = document.querySelectorAll('input[type="range"]');
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const rangeSliders = document.querySelectorAll('.filter-range-slider');
+    const checkboxes = document.querySelectorAll('.filter-group input[type="checkbox"]');
     const productsContainer = document.querySelector('.product-grid');
     const products = Array.from(document.querySelectorAll('.product-item'));
     const sortOptions = document.querySelectorAll('[role="menuitem"]');
@@ -8,15 +8,25 @@ window.addEventListener('DOMContentLoaded', () => {
     const filtersContainer = document.getElementById('filters');
     const filterSortContainer = document.getElementById('filter-sort-container');
     const productListAnchor = document.getElementById('product-list');
-    let originalSortsParent = sortsContainer.parentElement;
-    let originalFiltersParent = filtersContainer.parentElement;
+    let originalSortsParent = sortsContainer?.parentElement;
+    let originalFiltersParent = filtersContainer?.parentElement;
 
-    // Add event listeners for both sliders and checkboxes
-    sliders.forEach((slider) => {
-        slider.addEventListener('input', (event) => {
-            updateSliderOutput(event.target);
-            filterProducts();
-        });
+    // Initialize data-visible attribute on all products
+    products.forEach(product => {
+        product.setAttribute('data-visible', 'true');
+    });
+
+    rangeSliders.forEach((slider) => {
+        const noUiSlider = slider.noUiSlider;
+        if (noUiSlider) {
+            noUiSlider.on('end', (values, handleIndex) => {
+                console.log('Slider interaction ended:', {
+                    type: slider.getAttribute('data-type'),
+                    finalValue: values[handleIndex],
+                });
+                filterProducts();
+            });
+        }
     });
 
     checkboxes.forEach((checkbox) => {
@@ -40,38 +50,52 @@ window.addEventListener('DOMContentLoaded', () => {
         productListAnchor.scrollIntoView({ behavior: 'smooth' });
     });
 
-    function updateSliderOutput(slider) {
-        const output = document.querySelector(`output[for="${slider.id}"]`);
-        if (output) {
-            output.textContent = slider.value;
-        }
-    }
-
     function filterProducts() {
         const filterValues = {};
         const checkedFilters = {};
 
-        // Populate filterValues for sliders
-        sliders.forEach((slider) => {
-            filterValues[slider.name] = parseFloat(slider.value);
+        // Get slider values
+        rangeSliders.forEach((slider) => {
+            const type = slider.getAttribute('data-type');
+            const handle = slider.querySelector('.noUi-handle-lower');
+            if (handle) {
+                const value = handle.getAttribute('aria-valuenow');
+                filterValues[type] = parseFloat(value);
+            }
         });
 
-        // Populate checkedFilters for checkboxes
-        checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                if (!checkedFilters[checkbox.name]) {
-                    checkedFilters[checkbox.name] = new Set();
-                }
-                checkedFilters[checkbox.name].add(checkbox.value);
+        // Get checkbox values grouped by filter type
+        const filterGroups = document.querySelectorAll('#filter-checkbox .filter-group');
+        filterGroups.forEach((group) => {
+            const filterType = group.getAttribute('data-filter-group');
+            if (!checkedFilters[filterType]) {
+                checkedFilters[filterType] = new Set();
             }
+        
+            const checkedBoxes = group.querySelectorAll('input[type="checkbox"]:checked');
+            checkedBoxes.forEach((checkbox) => {
+                checkedFilters[filterType].add(checkbox.value);
+            });
         });
 
         products.forEach((product) => {
             let isVisible = true;
+            const productTitle = product.querySelector('h3').textContent;
 
             // Check slider filters
             for (let key in filterValues) {
-                const productValue = parseFloat(product.getAttribute(`data-${key}`));
+                let rawProductValue;
+                if (key === 'price') {
+                    if (!product.hasAttribute('data-price')) {
+                        console.log(`${productTitle} price check: no price attribute, passing filter`);
+                        continue;
+                    }
+                    rawProductValue = product.getAttribute('data-list-price');
+                } else {
+                    rawProductValue = product.getAttribute(`data-${key}`);
+                }
+            
+                const productValue = parseFloat(rawProductValue);
                 const sliderValue = filterValues[key];
 
                 if (isNaN(productValue) || productValue > sliderValue) {
@@ -80,21 +104,17 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Check checkbox filters
+            // If product passes slider filters, check each filter group
             if (isVisible) {
-                for (let key in checkedFilters) {
-                    if (checkedFilters[key].size > 0) {
-                        const productValue = product.getAttribute(`data-${key}`);
-                        if (productValue === null) {
-                            // If the product doesn't have this attribute, it doesn't match the filter
-                            isVisible = false;
-                            break;
-                        }
-                        // Split the product value in case it's a comma-separated list
-                        const productValues = productValue.split(',').map(v => v.trim());
-                        // Check if any of the product's values match the checked filters
-                        const hasMatch = productValues.some(value => checkedFilters[key].has(value));
-                        if (!hasMatch) {
+                // Check each filter group
+                for (let filterType in checkedFilters) {
+                    // If this filter group has checked boxes
+                    if (checkedFilters[filterType].size > 0) {
+                        const productValue = product.getAttribute(`data-${filterType}`);
+                    
+                        // Product must have this attribute and match one of the checked values
+                        if (!productValue || !Array.from(checkedFilters[filterType]).some(value => 
+                            productValue.includes(value))) {
                             isVisible = false;
                             break;
                         }
@@ -102,25 +122,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Show or hide the product with fade effect
-            if (isVisible) {
-                product.style.transition = 'opacity 0.5s ease';
-                product.style.opacity = '1';
-                setTimeout(() => {
-                    product.style.display = 'block';
-                }, 500);
-            } else {
-                product.style.transition = 'opacity 0.5s ease';
-                product.style.opacity = '0';
-                setTimeout(() => {
-                    product.style.display = 'none';
-                }, 500);
-            }
+            product.setAttribute('data-visible', isVisible.toString());
         });
     }
 
     function sortProducts(attribute) {
-        // Sort products array based on the selected attribute
         products.sort((a, b) => {
             const aValue = parseFloat(a.getAttribute(`data-${attribute}`)) || 0;
             const bValue = parseFloat(b.getAttribute(`data-${attribute}`)) || 0;
@@ -131,17 +137,13 @@ window.addEventListener('DOMContentLoaded', () => {
             return aValue - bValue;
         });
 
-        // Remove all products from the container
         productsContainer.innerHTML = '';
-
-        // Append sorted products back to the container
         products.forEach((product) => {
             productsContainer.appendChild(product);
         });
     }
 
     function highlightSortedAttribute(attribute) {
-        // Remove font-bold from all spans in featured-attributes
         products.forEach((product) => {
             const featuredAttributes = product.querySelectorAll('.featured-attributes span');
             featuredAttributes.forEach((span) => {
@@ -149,7 +151,6 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Add font-bold to the span matching the sorted attribute
         products.forEach((product) => {
             const matchingSpan = product.querySelector(`.featured-attributes span[data-sort-type="${attribute}"]`);
             if (matchingSpan) {
