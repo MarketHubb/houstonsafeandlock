@@ -11,7 +11,62 @@ window.addEventListener('DOMContentLoaded', () => {
     let originalSortsParent = sortsContainer?.parentElement;
     let originalFiltersParent = filtersContainer?.parentElement;
 
-    // Initialize data-visible attribute on all products
+    // Initialize sort inputs
+    const sortInputs = document.querySelectorAll('#sorts input[type="radio"]');
+    console.log('Sort inputs found:', sortInputs.length);
+
+    // Add event listeners for sort inputs
+    sortInputs.forEach(input => {
+        console.log('Setting up sort input:', {
+            id: input.id,
+            sortType: input.getAttribute('data-sort'),
+            direction: input.getAttribute('data-direction')
+        });
+
+        input.addEventListener('change', (e) => {
+            const sortType = e.target.getAttribute('data-sort');
+            const direction = e.target.getAttribute('data-direction');
+        
+            console.log('Sort changed:', {
+                sortType,
+                direction
+            });
+
+            // Sort the products array
+            products.sort((a, b) => {
+                let aValue, bValue;
+
+                // Handle price specifically
+                if (sortType === 'price') {
+                    // Check if either product lacks a price
+                    const aHasPrice = a.hasAttribute('data-price');
+                    const bHasPrice = b.hasAttribute('data-price');
+
+                    // If either product lacks a price, move it to the end
+                    if (!aHasPrice && !bHasPrice) return 0;  // Both no price, keep original order
+                    if (!aHasPrice) return 1;  // a goes last
+                    if (!bHasPrice) return -1; // b goes last
+
+                    // Both have prices, sort normally
+                    aValue = parseFloat(a.getAttribute('data-list-price')) || 0;
+                    bValue = parseFloat(b.getAttribute('data-list-price')) || 0;
+                } else {
+                    aValue = parseFloat(a.getAttribute(`data-${sortType}`)) || 0;
+                    bValue = parseFloat(b.getAttribute(`data-${sortType}`)) || 0;
+                }
+
+                // Handle direction
+                return direction === 'asc' ? aValue - bValue : bValue - aValue;
+            });
+
+            // Clear and repopulate the products container
+            productsContainer.innerHTML = '';
+            products.forEach(product => {
+                productsContainer.appendChild(product);
+            });
+        });
+    });
+
     products.forEach(product => {
         product.setAttribute('data-visible', 'true');
     });
@@ -71,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (!checkedFilters[filterType]) {
                 checkedFilters[filterType] = new Set();
             }
-        
+    
             const checkedBoxes = group.querySelectorAll('input[type="checkbox"]:checked');
             checkedBoxes.forEach((checkbox) => {
                 checkedFilters[filterType].add(checkbox.value);
@@ -94,7 +149,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 } else {
                     rawProductValue = product.getAttribute(`data-${key}`);
                 }
-            
+        
                 const productValue = parseFloat(rawProductValue);
                 const sliderValue = filterValues[key];
 
@@ -107,23 +162,34 @@ window.addEventListener('DOMContentLoaded', () => {
             // If product passes slider filters, check each filter group
             if (isVisible) {
                 // Check each filter group
-                for (let filterType in checkedFilters) {
-                    // If this filter group has checked boxes
+                filterGroups.forEach((group) => {
+                    const filterType = group.getAttribute('data-filter-group');
+                    const checkedBoxes = group.querySelectorAll('input[type="checkbox"]:checked');
+            
+                    // If no boxes are checked in this group, product should be hidden
+                    if (checkedBoxes.length === 0) {
+                        isVisible = false;
+                        return;
+                    }
+            
+                    // If boxes are checked, product must match one of them
                     if (checkedFilters[filterType].size > 0) {
                         const productValue = product.getAttribute(`data-${filterType}`);
-                    
-                        // Product must have this attribute and match one of the checked values
+                
                         if (!productValue || !Array.from(checkedFilters[filterType]).some(value => 
                             productValue.includes(value))) {
                             isVisible = false;
-                            break;
+                            return;
                         }
                     }
-                }
+                });
             }
 
             product.setAttribute('data-visible', isVisible.toString());
         });
+
+        // Update available filters after all products have been processed
+        // updateAvailableFilters();
     }
 
     function sortProducts(attribute) {
@@ -176,4 +242,5 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
 });
