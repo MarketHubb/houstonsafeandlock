@@ -273,7 +273,7 @@ $(window).load(function () {
 
     // region Mobile
     if ($(window).width() <= 768) {
-        let filterContainer = $('#safe-filters');
+        let filterContainer = $('#filters');
         let filterModalBody = $('body #modal-safe-filters .modal-body');
 
         filterModalBody.html(filterContainer);

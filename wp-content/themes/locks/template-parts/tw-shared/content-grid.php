@@ -1,42 +1,40 @@
-<?php if (empty($args)) return; ?>
+<?php
+if (empty($args)) return;
+$product_collection = $args;
+$filters_sorts = get_product_filters_sorts($product_collection);
+?>
 
-<?php get_template_part('template-parts/preline/content', 'modal-fullscreen'); ?>
+<!-- Sorts -->
+<?php get_template_part('template-parts/product/content', 'sort', $filters_sorts); ?>
 
-<div class="bg-white pt-12 md:pt-0">
-	<div>
-		<main class="mx-auto container px-6 lg:px-8">
-			<div class="flex flex-col items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-				<div class="md:max-w-[50%]">
-					<h1 class="text-4xl font-bold tracking-tight text-gray-900">
-						<?php echo $args['heading']; ?>
-					</h1>
-					<p class="inline text-sm md:text-base">
-						<?php echo $args['description']; ?>
-					</p>
-				</div>
-				<div class="w-full grid justify-end" id="sorts">
-					<div class="items-center w-full flex">
-						<?php echo tw_sort_dropdown($args['products']['attributes']); ?>
-					</div>
-				</div>
+<section aria-labelledby="products-heading" class="pb-24 pt-0 md:pt-6" id="product-list">
+	<h2 id="products-heading" class="sr-only">Products</h2>
+	<div class="grid grid-cols-1 gap-x-8 lg:grid-cols-4">
+
+		<!-- Filters -->
+		<?php get_template_part('template-parts/product/content', 'filter-sidebar', $filters_sorts); ?>
+
+		<!-- Products -->
+		<div class="lg:col-span-3 lg:pl-12">
+			<div class="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 lg:gap-x-5 lg:gap-y-6 product-grid">
+
+				<?php
+				$products = '';
+				$products_sorted = sort_products_by_price($product_collection['data']);
+
+				foreach ($products_sorted as $product_data) {
+					if ($product_data['brand']) {
+						$products .= get_product_grid_item($product_data);
+					}
+				}
+				echo $products;
+				?>
+
 			</div>
+		</div>
 
-			<section aria-labelledby="products-heading" class="pb-24 pt-6" id="product-list">
-				<h2 id="products-heading" class="sr-only">Products</h2>
-
-				<div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-					<!-- Filters -->
-					<?php echo output_filters_safes($args['products']['attributes']); ?>
-					<!-- Product grid -->
-					<div class="lg:col-span-3 lg:pl-12">
-						<div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 sm:gap-0 gap-y-8 lg:gap-y-16 product-grid">
-							<?php echo $args['products']['output']; ?>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
 	</div>
-</div>
+</section>
 
-<?php get_template_part('template-parts/preline/content', 'toast'); ?>
+<?php //get_template_part('template-parts/preline/content', 'toast'); 
+?>

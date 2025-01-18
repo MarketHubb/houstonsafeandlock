@@ -117,8 +117,9 @@ body.single-product .container-fixed:not(:first-of-type) {
 }
 
 /*.safe-categories .safe-cat-images*/
-.btn,
-.gform_footer input[type="submit"] {
+/*.gform_footer input[type="submit"] */
+.btn
+{
     font-family: "Oxygen";
     webkit-box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
     box-shadow: 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 20%);
@@ -140,16 +141,18 @@ body.single-product .container-fixed:not(:first-of-type) {
     letter-spacing: .02rem;
 }
 
-.btn-primary:hover,
-.gform_footer input[type="submit"]:hover {
+/*.gform_footer input[type="submit"]:hover {*/
+.btn-primary:hover
+{
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;
 }
 
+/*.gform_footer input[type="submit"]:focus */
 .btn-primary.focus,
-.btn-primary:focus,
-.gform_footer input[type="submit"]:focus {
+.btn-primary:focus
+{
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;

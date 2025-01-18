@@ -53,9 +53,6 @@
 .btn-shadow {
 	box-shadow: 0 .15rem .5rem rgba(0,0,0,.15)!important;
 }
-.block {
-	display: block;
-}
 /* All Safe Pages */
 li.product a.product_type_simple {
 	display: none !important;

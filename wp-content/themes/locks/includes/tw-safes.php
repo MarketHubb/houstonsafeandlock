@@ -42,6 +42,74 @@ function range_slider($data = [])
 }
 
 // Region :: Filters & Sorts
+function get_safe_attributes_array()
+{
+    $attributes = [
+        'details' => [
+            'price' => [
+                'field' => 'post_product_gun_price',
+                'val' => '$' . $args['discounted_price'] . ' (' . $args['discount_percentage'] . '% off)',
+                'prefix' => '$',
+                'postfix' => null,
+                'icon' => '/wp-content/uploads/2024/08/noun-price-tag-7101751.svg'
+            ],
+            'brand' => [
+                'field' => 'post_product_manufacturer',
+                'prefix' => null,
+                'postfix' => null,
+                'icon' => '/wp-content/uploads/2024/08/AMSEC-Wings.png'
+            ],
+            'type' => [
+                'field' => 'post_product_gun_type',
+                'val' => $type_val,
+                'prefix' => null,
+                'postfix' => null,
+                'icon' => '/wp-content/uploads/2022/10/type-gun-4.svg'
+            ],
+        ],
+        'rating' => [
+            'fire rating' => [
+                'field' => 'post_product_fire_rating',
+                'prefix' => null,
+                'postfix' => null,
+                'icon' => '/wp-content/uploads/2022/11/hsl-fire.svg'
+            ],
+            'security rating' => [
+                'field' => 'post_product_security_rating',
+                'prefix' => null,
+                'postfix' => null,
+                'icon' => '/wp-content/uploads/2022/11/rating.svg'
+            ],
+        ],
+        'size' => [
+            'weight' => [
+                'field' => 'post_product_gun_weight',
+                'prefix' => null,
+                'postfix' => 'lbs',
+                'icon' => '/wp-content/uploads/2022/11/hsl-weigh.svg',
+            ],
+            'width' => [
+                'field' => 'post_product_gun_exterior_width',
+                'prefix' => null,
+                'postfix' => '"',
+                'icon' => '/wp-content/uploads/2022/11/sl-width.svg'
+            ],
+            'depth' => [
+                'field' => 'post_product_gun_exterior_depth',
+                'prefix' => null,
+                'postfix' => '"',
+                'icon' => '/wp-content/uploads/2022/11/sl-length.svg'
+            ],
+            'height' => [
+                'field' => 'post_product_gun_exterior_height',
+                'prefix' => null,
+                'postfix' => '"',
+                'icon' => '/wp-content/uploads/2022/11/sl-height.svg'
+            ],
+        ]
+    ];
+}
+
 function tw_safe_filters_array()
 {
     $filters = [
@@ -105,16 +173,6 @@ function tw_safe_filters_array()
         ],
     ];
     return $filters;
-}
-
-// Region :: Queries
-function get_product_cat_child_terms($parent_term)
-{
-    return get_terms(array(
-        'taxonomy' => 'product_cat',
-        'parent' => $parent_term->term_id,
-        'hide_empty' => true
-    ));
 }
 
 function get_product_posts_by_tax($parent_tax_id = null)
@@ -230,10 +288,17 @@ function output_featured_attributes($post_id)
     $icon_path = get_home_url() . '/wp-content/uploads/';
 
     foreach ($featured_attributes as $attribute => $values) {
-        $value = get_field($values['field'], $post_id) . $values['post'];
-        $attributes .= '<li class="block md:flex list-group-item flex-fill p-0  d-flex align-items-center no-border">';
-        $attributes .= '<img src="' . $icon_path . $values['image'] . '" class="!max-w-[17px] h-auto opacity-80 me-2" />';
-        $attributes .= '<span class="text-base" data-sort-type="' . strtolower($attribute) . '">' . $value . '</span>';
+        $value = floatval(get_field($values['field'], $post_id));
+        $attributes .= '<li class="flex flex-col xl:flex-row justify-center sm:justify-start list-group-item flex-fill p-0  d-flex align-items-center no-border bg-transparent">';
+        $attributes .= '<img src="' . $icon_path . $values['image'] . '" class="!max-w-[15px] sm:!max-w-[17px] h-auto opacity-80 mr-1 mb-1 sm:mb-0" />';
+        $attributes .= '<span class="text-xs sm:text-sm md:text-base font-semibold tracking-tight sm:tracking-normal" data-sort-type="' . strtolower($attribute) . '">' . round($value, 1);
+
+        if (!empty($values['post'])) {
+            $attributes .= '<span class="text-xs text-gray-600 pl-[1px]">' . $values['post'] . '</span>';
+        }
+
+        $attributes .= '</span>';
+
         $attributes .= '</li>';
     }
 

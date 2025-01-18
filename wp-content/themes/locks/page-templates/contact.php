@@ -2,8 +2,6 @@
 
 get_header(); ?>
 
-<?php //get_template_part('template-parts/tw-shared/content', 'one-company'); ?>
-
 <?php get_template_part('template-parts/global/content', 'hero-simple'); ?>
 
 <div class="container-fluid px-4 py-5" id="hanging-icons">

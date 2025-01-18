@@ -1,5 +1,5 @@
   <!-- Toast -->
-  <div class="mx-auto w-full sticky md:hidden z-50 bottom-0">
+  <div class="mx-auto w-full sticky z-50 bottom-0">
      <div class="max-w-xs inline-flex" role="alert" tabindex="-1" aria-labelledby="hs-toast-normal-example-label">
         <div class="flex px-4 py-2 items-center bg-brand-500 text-white rounded-r shadow-xl">
            <div class="shrink-0">

@@ -1,5 +1,18 @@
 /*Homepage*/
 
+/*.hs-overlay .modal-body ul {
+    margin-top: 2rem;
+    list-style-type: inherit !important;
+    display: grid !important;
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    justify-content: center;
+}
+
+.hs-overlay .modal-body ul li {
+    text-align: left !important;
+    padding: 3px 0;
+}*/
+
 .genesis-container ul {
 	list-style-type: disc;
 }

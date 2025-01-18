@@ -116,7 +116,7 @@
 
     <?php $data_type = (is_singular('product')) ? 'single-product' : ''; ?>
 
-    <div id="page" class="site pt-[102px] <?php echo $body_class; ?>" data-pageid="<?php echo get_the_ID(); ?>" data-type="<?php echo $data_type; ?>">
+    <div id="page" class="site pt-[15px] md:pt-[102px] <?php echo $body_class; ?>" data-pageid="<?php echo get_the_ID(); ?>" data-type="<?php echo $data_type; ?>">
         <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'locks'); ?></a>
         <!-- #masthead -->
 

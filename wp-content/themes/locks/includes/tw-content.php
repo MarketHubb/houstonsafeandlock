@@ -14,12 +14,26 @@ function get_parent_link_with_dropdown($args = [])
 
 function get_header_nav_open()
 {
-    $output  = '<header class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-4 shadow-lg">';
+    $output  = '<header class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3 md:py-4 shadow-lg border-b border-b-gray-300">';
     $output .= '<nav class="container px-4 sm:px-6 lg:px-8 w-full mx-auto sm:flex  sm:justify-between sm:items-center">';
     $output .= '<div class="flex items-center justify-between">';
     $output .= '<a href="' . esc_url(home_url('/')) . '">';
-    $output .= '<img class="!max-w-24 !sm:max-w-32 !h-auto" src="' . get_home_url() . '/wp-content/uploads/2022/10/HSL-Logo-Brand.svg' . '" alt="Houston Safe And Lock Logo" />';
+    $output .= '<img class="!max-w-20 sm:!max-w-32 !h-auto" src="' . get_home_url() . '/wp-content/uploads/2022/10/HSL-Logo-Brand.svg' . '" alt="Houston Safe And Lock Logo" />';
     $output .= '</a>';
+
+    if (is_tax('product_cat') || is_page(3901)) {
+        $output .= '<div class="inline-flex justify-center items-center md:hidden">';
+        $output .= '<button class="rounded-md bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" ';
+        $output .= 'aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-full-screen-modal" data-hs-overlay="#hs-full-screen-modal">Filters';
+        $output .= '<div class="shrink-0 inline-block pl-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-3 inline-block align-middle">
+                          <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>';
+        $output .= '</button></div>';
+    }
+
+
     $output .= '<div class="sm:hidden">';
     $output .= '<button type="button" class="hs-collapse-toggle relative size-7 flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" id="hs-navbar-example-collapse" aria-expanded="false" aria-controls="hs-navbar-example" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-example">';
     $output .= '<svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6" /><line x1="3" x2="21" y1="12" y2="12" /><line x1="3" x2="21" y1="18" y2="18" /></svg>';
@@ -70,7 +84,6 @@ function get_sublink_containers_close()
 {
     return '</div></div>';
 }
-
 
 function format_menu_items($menu_items)
 {

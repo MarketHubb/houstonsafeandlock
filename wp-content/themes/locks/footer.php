@@ -181,6 +181,13 @@
 </footer><!-- #colophon -->
 </div><!-- #page -->
 
+<!-- Lucide icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+
+
 <!-- Featured Safes -->
 <?php
 
@@ -213,17 +220,10 @@ if (get_field('is_sale_active', 'option') && is_front_page()) {
     }
 }
 
-if (is_page_template('page-templates/safes-new.php')) {
-    get_template_part('template-parts/modal/content', 'filters');
-}
-
 if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_page(6287) || is_page([6448, 6624, 6839, 7276, 7728, 8854]) || is_page_template('page-templates/full-width.php') || is_page_template('page-templates/safes-new.php')) {
     //    get_template_part('template-parts/global/content', 'modal');
     get_template_part('template-parts/modal/content', 'modal');
 }
-//if (is_page(4149) || is_page_template('page-templates/full-width.php')) {
-//    get_template_part('template-parts/global/content', 'modal-locksmith');
-//}
 ?>
 
 <?php if (is_product_category() || is_singular("product")) { ?>
@@ -250,11 +250,6 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
 <?php } ?>
 
 <?php wp_footer(); ?>
-
-<!-- Safes for Sale: Sticky sorts/filters -->
-<?php if (is_page(8854) || is_page(3901)) { ?>
-<!--  -->
-<?php } ?>
 
 <!-- Google Code for Remarketing Tag -->
 <script type="text/javascript">
@@ -317,7 +312,7 @@ if (is_shop() || is_archive() || is_singular('product') || is_page(3857) || is_p
     });
 </script>
 <?php get_template_part('template-parts/tw-shared/content', 'modal-global') ?>
-
+<?php get_template_part('template-parts/shopify/content', 'shopify-modal'); ?>
 </body>
 
 </html>

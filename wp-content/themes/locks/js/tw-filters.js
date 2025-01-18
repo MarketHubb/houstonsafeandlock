@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize sort inputs
     const sortInputs = document.querySelectorAll('#sorts input[type="radio"]');
-    console.log('Sort inputs found:', sortInputs.length);
 
     // Add event listeners for sort inputs
     sortInputs.forEach(input => {
@@ -26,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('change', (e) => {
             const sortType = e.target.getAttribute('data-sort');
             const direction = e.target.getAttribute('data-direction');
-        
+
             console.log('Sort changed:', {
                 sortType,
                 direction
@@ -38,25 +37,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // Handle price specifically
                 if (sortType === 'price') {
-                    // Check if either product lacks a price
-                    const aHasPrice = a.hasAttribute('data-price');
-                    const bHasPrice = b.hasAttribute('data-price');
+                    aValue = a.getAttribute('data-list-price');
+                    bValue = b.getAttribute('data-list-price');
 
-                    // If either product lacks a price, move it to the end
-                    if (!aHasPrice && !bHasPrice) return 0;  // Both no price, keep original order
-                    if (!aHasPrice) return 1;  // a goes last
-                    if (!bHasPrice) return -1; // b goes last
+                    // If both values are falsy, maintain original order
+                    if (!aValue && !bValue) return 0;
 
-                    // Both have prices, sort normally
-                    aValue = parseFloat(a.getAttribute('data-list-price')) || 0;
-                    bValue = parseFloat(b.getAttribute('data-list-price')) || 0;
+                    // If one value is falsy, move it to the end regardless of sort direction
+                    if (!aValue) return 1;  // a goes last
+                    if (!bValue) return -1; // b goes last
+
+                    // Both have valid prices, convert to numbers and compare
+                    aValue = parseFloat(aValue);
+                    bValue = parseFloat(bValue);
                 } else {
-                    aValue = parseFloat(a.getAttribute(`data-${sortType}`)) || 0;
-                    bValue = parseFloat(b.getAttribute(`data-${sortType}`)) || 0;
+                    aValue = a.getAttribute(`data-${sortType}`);
+                    bValue = b.getAttribute(`data-${sortType}`);
+
+                    // Handle falsy values for other attributes
+                    if (!aValue && !bValue) return 0;
+                    if (!aValue) return 1;
+                    if (!bValue) return -1;
+
+                    aValue = parseFloat(aValue);
+                    bValue = parseFloat(bValue);
                 }
 
-                // Handle direction
-                return direction === 'asc' ? aValue - bValue : bValue - aValue;
+                // Compare valid values based on direction
+                const comparison = direction === 'asc' ? aValue - bValue : bValue - aValue;
+                return comparison;
             });
 
             // Clear and repopulate the products container
@@ -65,6 +74,51 @@ window.addEventListener('DOMContentLoaded', () => {
                 productsContainer.appendChild(product);
             });
         });
+
+
+        // input.addEventListener('change', (e) => {
+        //     const sortType = e.target.getAttribute('data-sort');
+        //     const direction = e.target.getAttribute('data-direction');
+        
+        //     console.log('Sort changed:', {
+        //         sortType,
+        //         direction
+        //     });
+
+        //     // Sort the products array
+        //     products.sort((a, b) => {
+        //         let aValue, bValue;
+
+        //         // Handle price specifically
+        //         if (sortType === 'price') {
+        //             // Check if either product lacks a price
+        //             const aHasPrice = a.hasAttribute('data-price');
+        //             const bHasPrice = b.hasAttribute('data-price');
+
+        //             // If either product lacks a price, move it to the end
+        //             if (!aHasPrice && !bHasPrice) return 0;  // Both no price, keep original order
+        //             if (!aHasPrice) return 1;  // a goes last
+        //             if (!bHasPrice) return -1; // b goes last
+
+        //             // Both have prices, sort normally
+        //             aValue = parseFloat(a.getAttribute('data-list-price')) || 0;
+        //             bValue = parseFloat(b.getAttribute('data-list-price')) || 0;
+        //         } else {
+        //             aValue = parseFloat(a.getAttribute(`data-${sortType}`)) || 0;
+        //             bValue = parseFloat(b.getAttribute(`data-${sortType}`)) || 0;
+        //         }
+
+        //         // Handle direction
+        //         return direction === 'asc' ? aValue - bValue : bValue - aValue;
+        //     });
+
+        //     // Clear and repopulate the products container
+        //     productsContainer.innerHTML = '';
+        //     products.forEach(product => {
+        //         productsContainer.appendChild(product);
+        //     });
+        // });
+
     });
 
     products.forEach(product => {

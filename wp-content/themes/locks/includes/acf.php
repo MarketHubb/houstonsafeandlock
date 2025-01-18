@@ -31,10 +31,26 @@ if (function_exists('acf_add_options_page')) {
         'redirect'   => false,
     ));
 
+    acf_add_options_page(array(
+        'page_title' => 'Sales & Promotions',
+        'menu_title' => 'Sales & Promos',
+        'menu_slug'  => 'sales-promotions',
+        'capability' => 'edit_posts',
+        'redirect'   => false,
+    ));
+
+    acf_add_options_page(array(
+        'page_title' => 'Global',
+        'menu_title' => 'Global',
+        'menu_slug'  => 'global',
+        'capability' => 'edit_posts',
+        'redirect'   => false,
+    ));
+
     // Global Safe Settings
     acf_add_options_page(array(
         'page_title' => 'Global - Safes',
-        'menu_title' => 'Global - Safes',
+        'menu_title' => 'Safes',
         'menu_slug'  => 'safe-settings',
         'capability' => 'edit_posts',
         'redirect'   => false,
@@ -43,7 +59,7 @@ if (function_exists('acf_add_options_page')) {
     // Global Locksmith Settings
     acf_add_options_page(array(
         'page_title' => 'Global - Locksmith',
-        'menu_title' => 'Global - Locksmith',
+        'menu_title' => 'Locksmith',
         'menu_slug'  => 'locksmith-settings',
         'capability' => 'edit_posts',
         'redirect'   => false,

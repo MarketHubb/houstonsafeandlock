@@ -116,26 +116,34 @@
 
     <?php $data_type = (is_singular('product')) ? 'single-product' : ''; ?>
 
-    <div id="page" class="site pt-[102px] <?php echo $body_class; ?>" data-pageid="<?php echo get_the_ID(); ?>" data-type="<?php echo $data_type; ?>">
+    <div id="page" class="site pt-[15px] md:pt-[102px] <?php echo $body_class; ?>" data-pageid="<?php echo get_the_ID(); ?>" data-type="<?php echo $data_type; ?>">
         <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'locks'); ?></a>
         <!-- #masthead -->
 
-        <div id="content" class="site-content">
+        <div id="content" class="site-content pt-[81px] sm:pt-[7px] lg:pt-[11px]">
+
+            <?php 
+            if (is_sale_active()) {
+                $alert = get_alert_by_page(get_queried_object_id());
+                
+                if ($alert) echo $alert;
+            }
+             ?>
 
             <?php
-            if (get_query_var('name') == 'blog' && get_query_var('page') == "0") {
-                //$_REQUEST['Team']=get_query_var('Team');
-                include('myblog.php');
-                exit;
-            } else if (get_query_var('bname') && get_query_var('blog_id_1'))
-            //else if(get_query_var( 'name' )=='blogdetail')
-            {
-                $_REQUEST['blogdetail'] = get_query_var('bname');
-                include('blog_detail.php');
-                exit;
-            } else if (get_query_var('name') == 'blog' && get_query_var('page') && get_query_var('page') != "0") {
-                $_REQUEST['paging'] = get_query_var('page');
-                include('myblog.php');
-                exit;
-            }
+            // if (get_query_var('name') == 'blog' && get_query_var('page') == "0") {
+            //     //$_REQUEST['Team']=get_query_var('Team');
+            //     include('myblog.php');
+            //     exit;
+            // } else if (get_query_var('bname') && get_query_var('blog_id_1'))
+            // //else if(get_query_var( 'name' )=='blogdetail')
+            // {
+            //     $_REQUEST['blogdetail'] = get_query_var('bname');
+            //     include('blog_detail.php');
+            //     exit;
+            // } else if (get_query_var('name') == 'blog' && get_query_var('page') && get_query_var('page') != "0") {
+            //     $_REQUEST['paging'] = get_query_var('page');
+            //     include('myblog.php');
+            //     exit;
+            // }
             ?>

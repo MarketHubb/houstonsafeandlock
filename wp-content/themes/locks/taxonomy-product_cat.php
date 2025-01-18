@@ -2,25 +2,25 @@
 
 <?php
 $queried_obj = get_queried_object();
+
 if ($queried_obj->count == 0 || $queried_obj->term_id == 75) {
 	exit();
 }
+
+$args = [];
+$callout_name = strip_trailing_s(get_queried_object()->name);
+
+$hero_args = [
+	'callout' => "Houston's #1 " . $callout_name . ' dealer',
+	'heading' => "Shop " . get_queried_object()->name,
+	'description' => $queried_obj->description,
+];
+
+$args['hero'] = $hero_args;
+$args['collection'] = get_products_by_tax($queried_obj);
+
+get_template_part('template-parts/product/content', 'archive', $args);
 ?>
 
-<?php 
-$object = get_queried_object();
-$term_id = $object->term_id;
-if (isset($term_id) && is_int($term_id)) {
-	$products_by_parent_term = get_product_posts_by_tax($term_id);
-}
-
-$grid_args = [
-	'heading' => get_queried_object()->name,
-	'description' => $object->description,
-	'products' => $products_by_parent_term,
-];
- ?>
-
-<?php get_template_part('template-parts/tw-shared/content', 'grid', $grid_args); ?>
 
 <?php get_footer(); ?>

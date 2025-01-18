@@ -1,4 +1,127 @@
 <?php
+
+/**
+ * Generate a Shopify Buy Now button using ACF field data
+ * 
+ * @param int $post_id Post ID (optional, defaults to current post)
+ * @param array $args Optional button customization arguments
+ * @return string|false HTML button if fields exist, false if missing data
+ */
+function get_shopify_buy_button($post_id = null, $args = array())
+{
+    // Get post ID if not provided
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $inventory_repeater = get_field('product_inventory', $post_id);
+
+    if (empty($inventory_repeater) || !isset($inventory_repeater[0])) {
+        return false;
+    }
+
+    // Get ACF fields
+    $variant_id = $inventory_repeater[0]['variant_id'];
+    $sku = $post_id;
+    $price = $inventory_repeater[0]['discount_price'];
+
+    // Verify all fields are populated
+    if (empty($variant_id) || empty($sku) || empty($price)) {
+        return "no fields";
+    }
+
+    // Default args
+    $defaults = array(
+        'button_text' => 'Buy Now',
+        'button_class' => 'shopify-buy-button',
+        'quantity' => 1,
+        'show_price' => true,
+        'discount_code' => '25OFFSAFES3100'
+    );
+    $args = wp_parse_args($args, $defaults);
+
+    // Demo customer information
+    $customer_info = array(
+        'email' => 'test@example.com',
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+        'address1' => '123 Main Street',
+        'city' => 'Houston',
+        'zip' => '77001',
+        'country' => 'United States',
+        'phone' => '713-555-0123'
+    );
+
+    // Construct the checkout URL with prefilled fields and discount code
+    $url = sprintf(
+        'https://%s/cart/%s:%d?checkout' .
+            '&checkout[email]=%s' .
+            '&checkout[shipping_address][first_name]=%s' .
+            '&checkout[shipping_address][last_name]=%s' .
+            '&checkout[shipping_address][address1]=%s' .
+            '&checkout[shipping_address][city]=%s' .
+            '&checkout[shipping_address][zip]=%s' .
+            '&checkout[shipping_address][country]=%s' .
+            '&checkout[shipping_address][phone]=%s' .
+            '&discount=' . urlencode($args["discount_code"]),
+        SHOPIFY_STORE_URL,
+        $variant_id,
+        $args['quantity'],
+        urlencode($customer_info['email']),
+        urlencode($customer_info['first_name']),
+        urlencode($customer_info['last_name']),
+        urlencode($customer_info['address1']),
+        urlencode($customer_info['city']),
+        urlencode($customer_info['zip']),
+        urlencode($customer_info['country']),
+        urlencode($customer_info['phone'])
+    );
+
+    // Rest of your code remains the same...
+    $button_html = '<div class="shopify-buy-wrapper">';
+
+    $button_html .= sprintf(
+        '<a href="%s" class="%s" target="_blank">%s</a>',
+        esc_url($url),
+        esc_attr($args['button_class']),
+        esc_html($args['button_text'])
+    );
+
+    $button_html .= '</div>';
+
+    // Add default styling if not disabled
+    if (!isset($args['disable_default_styles'])) {
+        $button_html = '<style>
+            .shopify-buy-wrapper {
+                margin: 20px 0;
+            }
+            .shopify-buy-button {
+                display: inline-block;
+                padding: 12px 24px;
+                background-color: #008060;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+            .shopify-buy-button:hover {
+                background-color: #006048;
+                color: white;
+            }
+            .shopify-price {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        </style>' . $button_html;
+    }
+
+    return $button_html;
+}
+
+
+
 function all_safes()
 {
     return get_posts([

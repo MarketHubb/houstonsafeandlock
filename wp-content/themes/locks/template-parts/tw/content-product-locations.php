@@ -3,7 +3,7 @@
    <section aria-labelledby="details-heading">
       <div class="flex flex-col items-center text-center">
          <p class="text-base tracking-wide text-primary font-semibold uppercase mb-3">Try before you buy</p>
-         <h2 id="details-heading" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+         <h2 id="details-heading" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
             See the <?php echo get_the_title(); ?> today
          </h2>
          <p class="mt-3 max-w-3xl text-lg text-gray-600">

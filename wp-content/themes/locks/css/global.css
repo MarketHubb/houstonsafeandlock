@@ -1,28 +1,34 @@
-/*input[type=color],input[type=date],input[type=datetime-local],input[type=datetime],input[type=email],input[type=month],input[type=number],input[type=password],input[type=range],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week],textarea {
-    color: unset;
-    border: unset;
-    border-radius: unset;
-    padding: unset;
+#primary {
+    margin-top: 0 !important;
 }
-*/
+.woocommerce-breadcrumb {
+    display: none;
+}
+.product-grid .product-item[data-visible="false"] {
+    display: none;
+}
+
+.product-grid .product-item[data-visible="true"] {
+    display: flex;
+}
 
 .hs-overlay .modal-body {
     font-size: 1.1rem !important;
 }
 
-.hs-overlay .modal-body ul {
+/*.hs-overlay .modal-body ul {
     margin-top: 2rem;
     list-style-type: inherit !important;
     display: grid !important;
     grid-template-rows: repeat(1, minmax(0, 1fr));
     justify-content: center;
 }
-
-.hs-overlay .modal-body ul li {
+*/
+/*.hs-overlay .modal-body ul li {
     text-align: left !important;
     padding: 3px 0;
 }
-
+*/
 .hs-overlay .modal-body .links-horizontal {
     display: flex !important;
     list-style-type: none !important;
@@ -250,10 +256,10 @@ body div.site.safes-new {
     /* 8px */
 }
 
-.bg-gray-50 {
-    background-color: #fcfcfd !important;
+/*.bg-gray-50 {
+    background-color: #fcfcfd;
 }
-
+*/
 /* Bootstrap Overrides */
 .py-4-5 {
     padding-top: 2rem;
@@ -650,7 +656,9 @@ h5 {
 .font-oxygen {
     font-family: 'Oxygen', sans-serif !important;
 }
-
+.font-system {
+    font-family: system-ui !important;
+}
 .font-source,
 span,
 body,
@@ -999,7 +1007,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
     opacity: .6;
 }
 
-.gform_footer input[type="submit"] {
+/*.gform_footer input[type="submit"] {
     background-color: #ce742e !important;
     color: #fff !important;
     padding-top: 15px !important;
@@ -1013,7 +1021,7 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 .gform_footer input[type="submit"]:hover {
     box-shadow: none !important;
 }
-
+*/
 .anchor-container {
     scroll-padding-top: 150px;
 }

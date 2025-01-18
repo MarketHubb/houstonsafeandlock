@@ -1,9 +1,13 @@
 <?php
+require_once 'includes/new/content.php';
+require_once 'includes/gravity-forms.php';
+
 require_once 'includes/enqueue.php';
 require_once 'includes/acf.php';
 require_once 'includes/admin.php';
 require_once 'includes/sales.php';
 require_once 'includes/ecommerce.php';
+require_once 'includes/notifications.php';
 require_once 'includes/products.php';
 require_once 'includes/safe-helpers.php';
 require_once 'includes/safes-schema.php';
