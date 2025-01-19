@@ -6,7 +6,7 @@ $image_src = $product
     ? wp_get_attachment_image_url($product[0], 'full')
     : '';
 $title = get_product_attribute_brand_and_model($args)['title'] ?? '';
-$product_name = get_product_attribute_brand_and_model($product_attributes);
+$product_name = get_product_attribute_brand_and_model($args);
 $btn_text = !empty($product_name['title'])
     ? $product_name['title']
     : get_the_title($args['post_id']);
