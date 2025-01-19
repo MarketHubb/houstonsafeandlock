@@ -1,4 +1,15 @@
 <?php
+// In your theme's functions.php or plugin file
+add_action( 'wp_enqueue_scripts', function() {
+    gravity_form_enqueue_scripts(7, true); // 7 is your form ID
+});
+
+
+add_filter( 'gform_form_args', function ( $args ) {
+    $args['submission_method'] = GFFormDisplay::SUBMISSION_METHOD_AJAX;
+    return $args;
+});
+
 // Add these filters to handle the choices at different form stages
 add_filter('gform_pre_render_7', 'customize_form_7_radio_choices');
 add_filter('gform_pre_validation_7', 'customize_form_7_radio_choices');
@@ -27,7 +38,8 @@ function customize_form_7_radio_choices($form)
                     'price' => '',
                     // Preserve the additional custom data
                     'icon' => $choice['icon'],
-                    'description' => $choice['description']
+                    'description' => $choice['description'],
+                    'message' => $choice['message'],
                 );
             }, $custom_choices);
 
@@ -52,8 +64,9 @@ function customize_radio_field_markup($content, $field, $value, $lead_id, $form_
         return $content;
     }
 
-    $output = '<fieldset>';
-    $output .= '<legend class="!text-sm !font-medium !text-gray-900">' . esc_html($field->label) . '</legend>';
+    // $output = '<fieldset id="field_7_3" class="gfield" data-js-reload="field_7_3">';
+    $output  = '<legend class="!text-sm !font-medium !text-gray-900">' . esc_html($field->label) . '</legend>';
+    $output .= '<div class="gfield_radio" id="input_7_3">';
     $output .= '<div class="mt-6 grid grid-cols-1 gap-4 sm:gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
 
     foreach ($field->choices as $i => $choice) {
@@ -61,7 +74,7 @@ function customize_radio_field_markup($content, $field, $value, $lead_id, $form_
         $is_checked = $value == $choice['value'] ? 'checked="checked"' : '';
 
         $output .= sprintf(
-            '<label aria-label="%1$s" class="group relative flex !text-sm cursor-pointer rounded-lg border bg-white p-3 sm:p-4 shadow-sm focus:outline-none peer-checked:border-indigo-600 peer-checked:ring-2 peer-checked:ring-indigo-600">',
+            '<label aria-label="%1$s" class="group relative !flex !text-sm cursor-pointer rounded-lg border bg-white p-3 sm:p-4 shadow-sm focus:outline-none peer-checked:border-indigo-600 peer-checked:ring-2 peer-checked:ring-indigo-600">',
             esc_attr($choice['value'])
         );
 
@@ -84,7 +97,8 @@ function customize_radio_field_markup($content, $field, $value, $lead_id, $form_
 
         // Value
         $output .= sprintf(
-            '<span class="block text-sm sm:text-base/5 font-semibold antialiased text-gray-900 pr-4 pb-2" data-type="value">%s</span>',
+            '<span class="block text-sm sm:text-base/5 font-semibold antialiased text-gray-900 pr-4 pb-2" data-type="value" data-message="%s">%s</span>',
+            esc_attr($choice['message']), // Add message as data attribute
             esc_html($choice['text'])
         );
 
@@ -107,7 +121,7 @@ function customize_radio_field_markup($content, $field, $value, $lead_id, $form_
         $output .= '</label>';
     }
 
-    $output .= '</div></fieldset>';
+    $output .= '</div></div></fieldset>';
 
     return $output;
 }
@@ -178,7 +192,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
             $content .= 'aria-required="true" ';
         }
 
-        $content .= 'class="!block !resize-y !w-full min-h-36 sm:m-h-28 !rounded-md !bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 placeholder:!text-gray-400 focus:!outline focus:!outline-2 focus:!-outline-offset-2 focus:!outline-indigo-600 sm:!text-sm/6 !-mt-2">';
+        $content .= 'class="!block !resize-y !w-full min-h-36 sm:!min-h-24 !rounded-md !bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 placeholder:!text-gray-400 focus:!outline focus:!outline-2 focus:!-outline-offset-2 focus:!outline-indigo-600 sm:!text-sm/6 !-mt-2">';
         $content .= esc_textarea($value);
         $content .= '</textarea>';
         $content .= '</div>';
@@ -279,23 +293,23 @@ add_filter('gform_field_content', function ($field_content, $field) {
  * @param object $form The form object
  * @return string Modified button HTML
  */
-add_filter('gform_submit_button', function($button_input, $form) {
+add_filter('gform_submit_button', function ($button_input, $form) {
     $dom = new DOMDocument();
     $dom->loadHTML($button_input, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     $input = $dom->getElementsByTagName('input')->item(0);
-    
+
     // Add custom classes
     $custom_classes = ' !w-full !rounded-md !border !border-transparent !bg-secondary-500 !px-4 !py-3 !text-base !font-medium !text-white !shadow-xs hover:!bg-secondary-600 focus:!ring-2 focus:!ring-secondary-500 focus:!ring-offset-2 focus:!ring-offset-gray-50 focus:!outline-hidden';
-    
+
     // Get existing classes if any
     $existing_classes = $input->getAttribute('class');
-    
+
     // Combine existing and new classes
     $all_classes = trim($existing_classes . ' ' . $custom_classes);
-    
+
     // Set the combined classes
     $input->setAttribute('class', $all_classes);
-    
+
     // Return the modified button HTML
     return $dom->saveHTML();
 }, 10, 2);

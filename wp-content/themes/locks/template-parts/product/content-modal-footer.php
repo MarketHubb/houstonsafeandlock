@@ -3,7 +3,7 @@
         <!-- <p class=" relative bottom-5 text-sm sm:text-base antialiased text-center !leading-tight tracking-tight">Our team will review your information & respond <span class="underline font-semibold">today</span> with everything you need to order this safe</p> -->
         <span class="text-xs sm:text-sm font-medium italic text-gray-600">Avg. response time less than 1 hour</span>
     </div>
-    <div class="grid grid-cols-2 sticky items-center bottom-0 bg-brand-500 text-white py-2.5 px-4 sm:px-8 border-t mt-auto md:mt-0">
+    <div class="grid grid-cols-2 sticky items-center bottom-0 bg-brand-500 text-white py-2.5 px-4 sm:px-8 rounded-b-lg border-t mt-auto md:mt-0">
         <!-- <div class="grid grid-cols-2 items-center bg-brand-500 text-white py-2.5 px-4 sm:px-8 border-t mt-auto md:mt-0"> -->
         <div>
             <?php

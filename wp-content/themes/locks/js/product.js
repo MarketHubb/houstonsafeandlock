@@ -3,6 +3,87 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('hs-full-screen-modal-below-md');
     const formFooter = document.querySelector('#gform_7 .gform-footer');
     const buttonContainer = document.querySelector('.product-cta-buttons');
+    const radioGroup = document.getElementById('input_7_3');
+    const hiddenField = document.getElementById('field_7_8');    // const form = document.getElementById('gform_7');
+    const submitButton = document.getElementById('gform_submit_button_7');
+    const requiredInputs = form.querySelectorAll('[aria-required="true"]');
+    
+    /* region Validaton Logic (Custom) */ 
+    submitButton.disabled = true;
+    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+    
+    function checkRequiredFields() {
+        let allFilled = true;
+        
+        requiredInputs.forEach(input => {
+            if (input.type === 'radio') {
+                const radioGroup = form.querySelectorAll(`[name="${input.name}"]`);
+                const radioChecked = Array.from(radioGroup).some(radio => radio.checked);
+                if (!radioChecked) allFilled = false;
+            } 
+            else {
+                if (!input.value.trim()) allFilled = false;
+            }
+        });
+        
+        if (allFilled) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    }
+    
+    form.addEventListener('change', checkRequiredFields);
+    
+    form.addEventListener('input', checkRequiredFields);
+
+    if (hiddenField) {
+        hiddenField.classList.add('hidden');
+    }
+    /* endregion */ 
+
+    // Add event listener to radio group
+    radioGroup.addEventListener('change', function (e) {
+        if (e.target.type === 'radio' && e.target.checked) {
+            // Find the parent label and then the value span with data-message
+            const label = e.target.closest('label');
+            const valueSpan = label.querySelector('[data-type="value"]');
+            const message = valueSpan.getAttribute('data-message');
+        
+            // Update the label
+            const targetLabel = document.querySelector('label[for="input_7_8"]');
+            if (targetLabel && message) {
+                targetLabel.textContent = message;
+            }
+        
+            // Show the hidden field with fade effect
+            if (hiddenField) {
+                hiddenField.style.opacity = '0';
+                hiddenField.classList.remove('hidden');
+                // Trigger reflow
+                hiddenField.offsetHeight;
+                // Add transition
+                hiddenField.style.transition = 'opacity 0.3s ease-in-out';
+                hiddenField.style.opacity = '1';
+            }
+        }
+    });
+
+
+    // Rest of your existing code...
+    radioGroup.addEventListener('change', function (e) {
+        if (e.target.type === 'radio') {
+            console.log('Selected value:', e.target.value);
+        }
+    });
+    
+    radioGroup.addEventListener('change', function (e) {
+        if (e.target.type === 'radio') {
+            console.log('Selected value:', e.target.value);
+        }
+    });
     
     if (buttonContainer) {
         // Add click event listeners to all buttons within the container
@@ -24,7 +105,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (titleEl && title) {
                         titleEl.textContent = title;
                     }
-                    
+
+                    // Find and update the input val (input_7_1)
+                    const inputField = document.querySelector('#input_7_1');
+                    if (inputField && title) {
+                        inputField.value = title;
+                        // Trigger change event if needed for Gravity Forms
+                        inputField.dispatchEvent(new Event('change'));
+                    }
+
                     // Find and update the callout element
                     const calloutEl = modal.querySelector('[data-type="callout"]');
                     if (calloutEl && callout) {
@@ -33,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     // Find and update the image element
                     const imageEl = modal.querySelector('[data-type="image"]');
-                    console.log(imageEl); 
                     if (imageEl && image) {
                         imageEl.setAttribute('src', image);
                     }
@@ -125,8 +213,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!productInput) return;
         
         // Get product name and set input value
-        const productName = getProductName();
-        productInput.value = productName;
+        // const productName = getProductName();
+        // productInput.value = productName;
         
         // Disable the input
         productInput.disabled = true;

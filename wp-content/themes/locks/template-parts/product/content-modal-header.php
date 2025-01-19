@@ -11,9 +11,9 @@ $callout = empty($args) || empty($args['callout'])
 <div class="relative">
     <div class="text-center">
 
-        <div class="mx-4 sm:mx-8 md:mx-14 lg:mx-20 py-6 mb-3 border-b border-gray-200">
-            <div class="flex flex-row items-end justify-between">
-                <div class="product-modal-heading text-left">
+        <div class="mx-4 sm:mx-8 md:mx-14 lg:mx-20 pt-6">
+            <div class="flex flex-row items-baseline justify-between">
+                <div class="product-modal-heading text-left border-b border-gray-200 flex-1 pb-6">
                     <h3 class="font-bold text-brand-600 font-source text-xl sm:text-2xl lg:text-3xl" data-type="title">
                         AMSEC NF6030E5
                     </h3>
@@ -29,7 +29,7 @@ $callout = empty($args) || empty($args['callout'])
 
         <?php $modal_callouts  = get_gf_header_callouts(); ?>
 
-        <ul class="text-[.9rem] text-gray-600 grid grid-cols-3 justify-center px-4 sm:px-0 gap-x-3 sm:gap-x-6 w-full sm:w-[85%] mx-auto my-5 sm:my-10">
+        <ul class="text-[.9rem] text-gray-600 grid grid-cols-3 justify-center px-4 sm:px-0 gap-x-3 sm:gap-x-6 w-full sm:w-[85%] mx-auto my-5 sm:my-9">
 
             <?php foreach ($modal_callouts as $callout): ?>
 

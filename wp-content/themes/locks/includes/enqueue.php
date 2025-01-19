@@ -213,6 +213,7 @@ function locks_scripts()
     if (is_singular('product')) {
         wp_enqueue_style('ri-woo-single-styles', get_template_directory_uri() . '/css/ri-woo-single-styles.css');
         wp_enqueue_script('product-script', get_template_directory_uri() . '/js/product.js', array(), '', true);
+        wp_enqueue_script('product-confirmation-script', get_template_directory_uri() . '/js/product-confirmation.js', array(), '', true);
     }
 
     if (!is_admin()) {

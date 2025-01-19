@@ -1,9 +1,64 @@
+#gform_wrapper_7 .gform_heading {
+    display: none !important;
+}
+
+#gform_wrapper_7 .gfield_required.gfield_required_asterisk {
+    display: none !important;
+}
+.gform_wrapper.gravity-theme .gform_validation_errors {
+/*    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    padding-inline-start: 0 !important;*/
+}
+h2.gform_submission_error.hide_summary {
+    font-size: 1rem !important;
+    display: flex !important;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.gform_wrapper.gravity-theme .gform_validation_errors>h2 .gform-icon {
+    display: block !important;
+    height: fit-content !important;
+    font-size: 1rem !important;
+    position: relative !important;
+}
+
+.gform_wrapper.gravity-theme .gform_validation_errors:focus {
+   outline: none !important; 
+}
+
+.gfield_description.validation_message.gfield_validation_message {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: .9rem !important;
+}
+
+/*.gform_wrapper.gravity-theme .gform_validation_errors>h2,
+.gfield_validation_message {
+    font-size: .9rem !important;
+}
+
+.gfield_validation_message {
+    border-radius: 5px !important;
+    border: 1.5px solid #c02b0a !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .11), 0 0 4px rgba(18, 25, 97, .0405344) !important;
+}
+*/
+
 #primary {
     margin-top: 0 !important;
 }
+
 .woocommerce-breadcrumb {
     display: none;
 }
+
 .product-grid .product-item[data-visible="false"] {
     display: none;
 }
@@ -556,6 +611,7 @@ header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
 .modal-callouts [class*="col"]:not(:last-of-type) {
     border-right: 1px solid #eee;
 }
+
 a:not([class*="text-"]),
 a:not([class*="text-"]):focus,
 a:not([class*="text-"]):active {
@@ -656,9 +712,11 @@ h5 {
 .font-oxygen {
     font-family: 'Oxygen', sans-serif !important;
 }
+
 .font-system {
     font-family: system-ui !important;
 }
+
 .font-source,
 span,
 body,
@@ -1054,19 +1112,19 @@ div[class*="authority-section-quote"] .gb-block-layout-column-inner p>em,
 
 /* Medium devices (tablets, 768px and UP) */
 @media (min-width: 768px) {
+
     h2:not([class*="text-"]),
-    h2.has-text-align-center
-    {
+    h2.has-text-align-center {
         font-size: 2rem !important;
     }
+
     h3:not([class*="text-"]),
-    h3.has-text-align-center
-    {
+    h3.has-text-align-center {
         font-size: 1.75rem !important;
     }
+
     h4:not([class*="text-"]),
-    h4.has-text-align-center
-    {
+    h4.has-text-align-center {
         font-size: 1.5rem !important;
     }
 
