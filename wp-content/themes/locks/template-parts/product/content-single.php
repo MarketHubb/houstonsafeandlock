@@ -3,6 +3,11 @@
 <?php
 do_shortcode('[gravityform id="1" title="false" description="false" ajax="false" tabindex="10"]');
 $product_data = get_product_attributes(get_the_ID(), false);
+
+if ($product_data) {
+	set_query_var('product_data', $product_data);
+}
+
 $terms = get_the_terms(get_the_ID(), 'product_cat');
 $attr = get_product_attributes(get_the_ID());
 ?>
@@ -83,16 +88,6 @@ if (! $product) {
 						?>
 					</div>
 				</div>
-
-				<!-- Modal -->
-				<?php
-				get_template_part(
-					"template-parts/product/content",
-					"modal",
-					$product_data
-				);
-				?>
-
 			</div>
 		</div>
 	</div>
