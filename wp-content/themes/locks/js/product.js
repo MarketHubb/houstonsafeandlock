@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hiddenField = document.getElementById('field_7_8');    // const form = document.getElementById('gform_7');
     const submitButton = document.getElementById('gform_submit_button_7');
     const requiredInputs = form.querySelectorAll('[aria-required="true"]');
-    
+
     /* region Validaton Logic (Custom) */ 
     submitButton.disabled = true;
     submitButton.classList.add('opacity-50', 'cursor-not-allowed');
@@ -217,8 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // productInput.value = productName;
         
         // Disable the input
-        productInput.disabled = true;
-        
+        // productInput.disabled = true;
+        productInput.readOnly = true;
+
         // Optional: Add visual indication that field is disabled
         productInput.classList.add('!bg-gray-50', '!cursor-not-allowed');
     }

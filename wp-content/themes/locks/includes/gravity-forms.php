@@ -1,11 +1,11 @@
 <?php
 // In your theme's functions.php or plugin file
-add_action( 'wp_enqueue_scripts', function() {
+add_action('wp_enqueue_scripts', function () {
     gravity_form_enqueue_scripts(7, true); // 7 is your form ID
 });
 
 
-add_filter( 'gform_form_args', function ( $args ) {
+add_filter('gform_form_args', function ($args) {
     $args['submission_method'] = GFFormDisplay::SUBMISSION_METHOD_AJAX;
     return $args;
 });
@@ -60,8 +60,18 @@ add_filter('gform_field_content', 'customize_radio_field_markup', 10, 5);
 function customize_radio_field_markup($content, $field, $value, $lead_id, $form_id)
 {
     // Only modify radio field with ID 3 in form 7
-    if ($form_id !== 7 || $field->type !== 'radio' || $field->id !== 3) {
-        return $content;
+    // if ($form_id !== 7 || $field->type !== 'radio' || $field->id !== 3) {
+    //     return $content;
+    // }
+
+    if (
+        $form_id !== 7 ||
+        $field->type !== 'radio' ||
+        $field->id !== 3 ||
+        GFCommon::is_form_editor() ||
+        GFCommon::is_entry_detail()
+    ) {
+        return $content; // Return default content
     }
 
     // $output = '<fieldset id="field_7_3" class="gfield" data-js-reload="field_7_3">';
@@ -142,6 +152,16 @@ function disable_chosen_for_select($form)
 add_filter('gform_field_input', 'custom_field_input', 10, 5);
 function custom_field_input($input, $field, $value, $entry_id, $form_id)
 {
+    // If we are in the admin editor or entries screen, bail.
+    if (GFCommon::is_form_editor() || GFCommon::is_entry_detail()) {
+        return $input;
+    }
+
+    // Skip radio fields so they are handled by customize_radio_field_markup only
+    if ($field->type === 'radio') {
+        return $input;
+    }
+    
     if ($field->type === 'section') {
         $content  = '<div class="border-b border-gray-900/10 pb-12">';
         $content .= '<h3 class="text-base/7 font-semibold text-gray-900">' . $field->label . '</h3>';
@@ -313,95 +333,3 @@ add_filter('gform_submit_button', function ($button_input, $form) {
     // Return the modified button HTML
     return $dom->saveHTML();
 }, 10, 2);
-
-
-// add_filter('gform_field_content', 'custom_radio_field_input_12', 10, 5);
-// function custom_radio_field_input_12($content, $field, $value, $lead_id, $form_id)
-// {
-//     // Only modify radio field with ID 12
-//     if (!$form_id === 7 && $field->type !== 'radio' || $field->id !== 3) {
-//         return $content;
-//     }
-
-//     // Get custom choices data
-//     $custom_choices = get_gf_args_input_12();
-
-//     $output = '<fieldset>';
-//     $output .= '<legend class="!text-base/6 !font-semibold !antialiased !text-gray-900">' . esc_html($field->label) . '</legend>';
-//     $output .= '<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-4">';
-
-//     foreach ($custom_choices as $i => $choice) {
-//         $choice_id = 'choice_' . $form_id . '_' . $field->id . '_' . $i;
-
-//         $output .= sprintf(
-//             '<label aria-label="%1$s" class="group relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none peer-checked:border-indigo-600 peer-checked:ring-2 peer-checked:ring-indigo-600">',
-//             esc_attr($choice['value'])
-//         );
-
-//         $output .= sprintf(
-//             '<input type="radio" name="input_%d" id="%s" value="%s" class="peer sr-only">',
-//             $field->id,
-//             $choice_id,
-//             esc_attr($choice['value'])
-//         );
-
-//         $output .= '<span class="flex flex-1">';
-//         $output .= '<span class="flex flex-col">';
-
-//         // Icon (new)
-//         $output .= sprintf(
-//             '<span class="mb-1 text-base text-gray-500" data-type="icon">%s</span>',
-//             $choice['icon']
-//         );
-
-//         // Main value
-//         $output .= sprintf(
-//             '<span class="block text-sm sm:text-base/5 font-semibold text-gray-900 pr-4" data-type="value">%s</span>',
-//             esc_html($choice['value'])
-//         );
-
-//         // Description
-//         $output .= sprintf(
-//             '<span class="hidden mt-1 flex items-center text-pretty text-sm text-gray-500" data-type="description">%s</span>',
-//             esc_html($choice['description'])
-//         );
-
-//         $output .= '</span></span>';
-
-//         // Check icon
-//         $output .= '<svg class="size-5 text-indigo-600 invisible peer-checked:visible" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-//             <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
-//         </svg>';
-
-//         // Border element
-//         $output .= '<span class="pointer-events-none absolute -inset-px rounded-lg border-2 peer-checked:border-indigo-600 border-transparent" aria-hidden="true"></span>';
-
-//         $output .= '</label>';
-//     }
-
-//     $output .= '</div></fieldset>';
-
-//     return $output;
-// }
-
-// add_filter('gform_pre_render_7', 'customize_form_7_fields');
-// add_filter('gform_pre_validation_7', 'customize_form_7_fields');
-// add_filter('gform_pre_submission_filter_7', 'customize_form_7_fields');
-// add_filter('gform_admin_pre_render_7', 'customize_form_7_fields');
-
-// function customize_form_7_fields($form)
-// {
-//     // Only proceed if this is form ID 7
-//     if ($form['id'] != 7) {
-//         return $form;
-//     }
-
-//     // Loop through fields and hide all except field 7_3
-//     foreach ($form['fields'] as &$field) {
-//         if ($field->id != 3) {
-//             $field->cssClass .= ' hidden opacity-0 transition-all duration-300';
-//         }
-//     }
-
-//     return $form;
-// }
