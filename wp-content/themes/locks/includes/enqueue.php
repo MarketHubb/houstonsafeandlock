@@ -10,25 +10,25 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function enqueue_zipcode_distance()
-{
-    wp_enqueue_script(
-        'zipcode-distance',
-        get_template_directory_uri() . '/js/dist/distance-calculator.bundle.js',
-        array(),
-        '1.0.0',
-        true
-    );
+// function enqueue_zipcode_distance()
+// {
+//     wp_enqueue_script(
+//         'zipcode-distance',
+//         get_template_directory_uri() . '/js/dist/distance-calculator.bundle.js',
+//         array(),
+//         '1.0.0',
+//         true
+//     );
 
-    wp_enqueue_script(
-        'delivery-calculator',
-        get_template_directory_uri() . '/js/delivery-calculator.js',
-        array('zipcode-distance'),
-        '1.0.0',
-        true
-    );
-}
-add_action('wp_enqueue_scripts', 'enqueue_zipcode_distance');
+//     wp_enqueue_script(
+//         'delivery-calculator',
+//         get_template_directory_uri() . '/js/delivery-calculator.js',
+//         array('zipcode-distance'),
+//         '1.0.0',
+//         true
+//     );
+// }
+// add_action('wp_enqueue_scripts', 'enqueue_zipcode_distance');
 
 function enqueue_product_category_scripts()
 {
