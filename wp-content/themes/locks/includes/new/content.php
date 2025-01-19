@@ -20,25 +20,23 @@ function get_product_modal_tabs_data()
 function get_gf_args_input_12()
 {
     return [
-        // [
-        //     'icon' => '<i class="fa-light fa-cart-shopping"></i>',
-        //     'value' => 'Place an order',
-        //     'description' => "Contact our team to start your order today + ensure you're getting our guaranteed best price."
-        // ],
         [
             'icon' => '<i class="fa-light fa-vault"></i>',
             'value' => 'Product information',
-            'description' => 'Specs or product recommendations by certified safe experts'
+            'description' => 'Specs or product recommendations by certified safe experts',
+            'message' => 'Product questions or comments'
         ],
         [
             'icon' => '<i class="fa-light fa-truck"></i>',
             'value' => 'Delivery information',
-            'description' => 'Pickup & delivery options + custom installation quotes'
+            'description' => 'Pickup & delivery options + custom installation quotes',
+            'message' => 'Delivery questions or comments'
         ],
         [
             'icon' => '<i class="fa-light fa-square-question"></i>',
             'value' => 'Need something else?',
-            'description' => 'Ask a question or leave a comment - our team is here to help you'
+            'description' => 'Ask a question or leave a comment - our team is here to help you',
+            'message' => 'Questions or comments?'
         ],
     ];
 }
