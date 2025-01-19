@@ -8,7 +8,7 @@ $callout = empty($args) || empty($args['callout'])
     : 'Get same-day information on the <span data-type="title"></span> from our team';
 ?>
 <!-- Title -->
-<div class="relative">
+<div class="">
     <div class="text-center">
 
         <div class="mx-4 sm:mx-8 md:mx-14 lg:mx-20 pt-6">
