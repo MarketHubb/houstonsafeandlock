@@ -27,7 +27,7 @@ $btn_text = !empty($product_name['title'])
 
     <button
         type="button"
-        class="flex flex-1 items-center justify-center px-3 py-3 gap-x-2 text-sm font-semibold antialiased rounded-lg border border-gray-200 text-gray-500 hover:border-gray-400 hover:text-gray-700 focus:outline-none focus:border-blue-600 focus:text-blue-600"
+        class="flex flex-1 items-center justify-center px-3 py-3 gap-x-2 text-sm font-semibold antialiased rounded-lg border border-solid border-gray-200 text-gray-500 hover:border-gray-400 hover:text-gray-700 focus:outline-none focus:border-blue-600 focus:text-blue-600"
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="hs-full-screen-modal-below-md"
