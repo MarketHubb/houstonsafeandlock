@@ -36,7 +36,7 @@ function get_alert_by_page($object_id)
 
             // Check if it's a product category
             $term = get_term($object_id);
-            if ($term && $term->taxonomy === 'product_cat') {
+            if (isset($term->taxonomy) && $term->taxonomy === 'product_cat') {
                 return get_template_part('template-parts/product/content', 'alert');
             }
 

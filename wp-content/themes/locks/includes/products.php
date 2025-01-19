@@ -194,6 +194,8 @@ function get_icon_for_attribute($attribute)
 
 function get_product_attribute_brand_and_model($product_attributes)
 {
+    if (empty($product_attributes['post_id'])) return null;
+    
     $title = get_the_title($product_attributes['post_id']);
     $brand = $product_attributes['brand'] ?? null;
     $model = str_replace($brand, '', $title);

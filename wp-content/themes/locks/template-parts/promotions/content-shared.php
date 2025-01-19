@@ -1,4 +1,12 @@
-<?php $banner_image = get_field('hero_image')['url']; ?>
+<?php 
+$hero = get_field('hero_image');
+$banner_image = !empty($hero['url'])
+    ? $hero['url']
+    : null; 
+
+if (!$banner_image) return;
+
+?>
 <div class="container">
     <div class="row">
         <img src="<?php echo $banner_image; ?>" class="rounded-3 shadow-lg" alt="">
