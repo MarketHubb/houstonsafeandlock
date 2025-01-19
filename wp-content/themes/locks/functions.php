@@ -23,14 +23,6 @@ require_once 'includes/content.php';
 require_once 'includes/tw-content.php';
 require_once 'includes/helpers.php';
 
-add_action('init', 'start_session', 1);
-function start_session()
-{
-	if (!session_id()) {
-		session_start();
-	}
-}
-
 /**
  * locks functions and definitions.
  *
