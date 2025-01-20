@@ -369,6 +369,14 @@ function get_product_attribute_brand($post_id)
     return get_field('post_product_manufacturer', $post_id) ?? null;
 }
 
+function get_product_attribute_terms_all($post_id)
+{
+    $terms = get_the_terms($post_id, 'product_cat');
+
+    return !empty($terms)
+        ? $terms
+        : null;
+}
 function get_product_attribute_terms($post_id, $tax_page = true)
 {
     $terms = get_the_terms($post_id, 'product_cat');
