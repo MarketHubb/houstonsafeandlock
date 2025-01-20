@@ -1,5 +1,4 @@
 <!-- New single-product template -->
-
 <?php
 do_shortcode('[gravityform id="1" title="false" description="false" ajax="false" tabindex="10"]');
 $product_data = get_product_attributes(get_the_ID(), false);
@@ -111,8 +110,16 @@ if (! $product) {
 	<!-- Delivery (zip codes) -->
 	<?php
 	get_template_part(
-		"template-parts/safes/content",
-		"delivery-cities"
+		"template-parts/product/content",
+		"cities"
+	);
+	?>
+
+	<!-- Related -->
+	<?php
+	get_template_part(
+		"template-parts/product/content",
+		"related-products"
 	);
 	?>
 
