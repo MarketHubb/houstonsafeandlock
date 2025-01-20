@@ -1,3 +1,6 @@
+button {
+   border: unset; 
+}
 #gform_wrapper_7 .gform_heading {
     display: none !important;
 }
