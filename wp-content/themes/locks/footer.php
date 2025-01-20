@@ -78,7 +78,11 @@ if (is_front_page()) {
 
 <!-- Lead Form (Safes) -->
 <?php
-if (isset($product_data) && !empty($product_data)) {
+$product_data = isset($product_data) && !empty($product_data)
+    ? $product_data
+    : get_product_attributes(get_queried_object_id(), false);
+
+if ($product_data) {
     get_template_part("template-parts/product/content", "modal", $product_data);
 }
 ?>
