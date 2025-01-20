@@ -9,12 +9,6 @@ if ($product_data) {
 
 $terms = get_the_terms(get_the_ID(), 'product_cat');
 $attr = get_product_attributes(get_the_ID());
-?>
-
-
-<?php $attribute_badges = get_attribute_badges_for_safes(get_the_ID()); ?>
-
-<?php
 $product = wc_get_product(get_the_ID());
 
 if (! $product) {
@@ -131,5 +125,4 @@ if (! $product) {
 	);
 	?>
 
-</div>
 </div>

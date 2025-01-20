@@ -74,7 +74,11 @@ if (is_front_page()) {
 <!-- Modals -->
 
 <!-- Sale/Promo -->
-<?php get_template_part('template-parts/tw-shared/content', 'modal-global') ?>
+<?php
+if (is_front_page()) {
+    get_template_part('template-parts/tw-shared/content', 'modal-global');
+}
+?>
 
 <!-- Lead Form (Safes) -->
 <?php
