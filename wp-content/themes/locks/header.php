@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The header for our theme.
  *
@@ -127,21 +126,3 @@
                 if ($alert) echo $alert;
             }
              ?>
-
-            <?php
-            // if (get_query_var('name') == 'blog' && get_query_var('page') == "0") {
-            //     //$_REQUEST['Team']=get_query_var('Team');
-            //     include('myblog.php');
-            //     exit;
-            // } else if (get_query_var('bname') && get_query_var('blog_id_1'))
-            // //else if(get_query_var( 'name' )=='blogdetail')
-            // {
-            //     $_REQUEST['blogdetail'] = get_query_var('bname');
-            //     include('blog_detail.php');
-            //     exit;
-            // } else if (get_query_var('name') == 'blog' && get_query_var('page') && get_query_var('page') != "0") {
-            //     $_REQUEST['paging'] = get_query_var('page');
-            //     include('myblog.php');
-            //     exit;
-            // }
-            ?>

@@ -37,7 +37,7 @@ function get_store_status()
     if ($today_hours && !empty($today_hours['open']) && !empty($today_hours['close'])) {
         $open_time = DateTime::createFromFormat('g:i a', $today_hours['open']);
         $close_time = DateTime::createFromFormat('g:i a', $today_hours['close']);
-        
+
         // Set closes_at regardless of whether we're open or not
         $return['closes_at'] = $today_hours['close'];
 
@@ -691,4 +691,3 @@ function get_product_inquiry_btn($post_id, $btn_text, $stretched = null, $custom
 
     return $btn;
 }
-//endregion

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function schema_title($post_id)
 {

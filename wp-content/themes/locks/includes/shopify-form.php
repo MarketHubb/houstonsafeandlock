@@ -13,7 +13,7 @@ function form_section_heading($heading, $description = null)
     return $form_heading;
 }
 
-function form_continue_btn($btn_text) 
+function form_continue_btn($btn_text)
 {
     $form_continue_btn = '<div class="my-8">';
     $form_continue_btn .= '<button type="submit" class="w-full rounded-md border border-transparent bg-brandBlue-500 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-brandBlue-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">' . $btn_text . '</button>';

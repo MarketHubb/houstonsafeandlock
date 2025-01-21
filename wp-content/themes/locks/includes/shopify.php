@@ -120,7 +120,7 @@ function get_title($post_id)
     if (!empty($terms) && in_array(75, array_column($terms, 'term_id'))) {
         $title .= '<span class="block font-normal tracking-[.25rem] text-gray-400 text-base uppercase">American Security</span>';
     }
-    
+
     $title .= $title_text;
     $title .= '</h1>';
     $title .= '</div>';
@@ -149,5 +149,3 @@ function get_callout_attributes($post_id)
 
     return $callouts;
 }
-
-// endregion

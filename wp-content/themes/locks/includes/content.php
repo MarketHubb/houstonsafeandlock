@@ -1,5 +1,6 @@
 <?php
-function replace_placeholders_in_string($string) {
+function replace_placeholders_in_string($string)
+{
     // Check if the string contains any placeholders
     if (strpos($string, '{') === false) {
         return $string;
@@ -14,12 +15,12 @@ function replace_placeholders_in_string($string) {
     // Use a callback function to replace placeholders
     $result = preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($placeholderFunctions) {
         $placeholder = $matches[1];
-        
+
         // Check if the function exists for the given placeholder
         if (isset($placeholderFunctions[$placeholder]) && function_exists($placeholderFunctions[$placeholder])) {
             return call_user_func($placeholderFunctions[$placeholder]);
         }
-        
+
         // Return the original placeholder if no function is found
         return $matches[0];
     }, $string);
@@ -27,7 +28,8 @@ function replace_placeholders_in_string($string) {
     return $result;
 }
 
-function strip_trailing_s($string) {
+function strip_trailing_s($string)
+{
     return substr($string, -1) === 's' ? substr($string, 0, -1) : $string;
 }
 
@@ -906,244 +908,3 @@ function safe_grid_item($post_id)
 
     return $safes ?: null;
 }
-// function safe_grid_item($post_id, $col_width = 4, $classes = null)
-// {
-//     $columns = $col_width ? "col-md-" . $col_width : "";
-
-//     // ## CONTAINER ##
-//     $safes = '<div class="mix ' . $columns . " mb-3 ";
-
-//     // Data-attributes
-//     $safe_attributes = safe_grid_attributes($post_id);
-
-//     if (!empty($safe_attributes)) {
-//         $class_names = "";
-//         $sort_badges = "";
-//         $filter_badges = "";
-//         $attribute_list = "";
-//         $attribute_output = "";
-
-//         foreach ($safe_attributes as $safe_attribute) {
-//             $sanitized_val = sanitize_attribute_value($safe_attribute["value"]);
-
-//             // Class list
-//             if ($safe_attribute["type"] === "filter") {
-//                 $class_names .= format_attribute_class_name($safe_attribute);
-//                 $filter_badges .= safe_filter_badge($safe_attribute);
-//             }
-
-//             // Sort badgets
-//             if ($safe_attribute["type"] === "sort") {
-//                 $sort_badges .= safe_sort_badges($safe_attribute);
-//             }
-
-//             // Date attributes
-//             if ($safe_attribute["type"] === "sort") {
-//                 $attribute_list .=
-//                     "data-" .
-//                     sanitize_attribute_value($safe_attribute["label"]) .
-//                     '="' .
-//                     sanitize_attribute_value($safe_attribute["value"]) .
-//                     '" ';
-//             }
-
-//             if ($safe_attribute["label"] === "Brand") {
-//                 $type_badge = safe_type_badge($safe_attribute["value"]);
-//             }
-
-//             // Attribute grid & badge (output)
-//             if (!empty($safe_attribute["value"])) {
-//                 $attribute_output .= '<div class="col-span-6">';
-//                 $attribute_output .=
-//                     '<p class="text-xs mb-0 text-capitalize fw-600">' .
-//                     $safe_attribute["label"] .
-//                     "</p>";
-//                 $attribute_output .= "</div>";
-//                 $attribute_output .= '<div class="col-span-6">';
-
-//                 $pre_attribute = isset($safe_attribute["pre"])
-//                     ? $safe_attribute["pre"]
-//                     : "";
-//                 $post_attribute = isset($safe_attribute["post"])
-//                     ? $safe_attribute["post"]
-//                     : "";
-//                 $attribute_value =
-//                     $pre_attribute . $safe_attribute["value"] . $post_attribute;
-
-//                 $attribute_output .=
-//                     '<p class="text-xs mb-0">' . $attribute_value . "</p>";
-//                 $attribute_output .= "</div>";
-//             }
-//         }
-
-//         $safes .= $class_names . '" ';
-//         $safes .= $attribute_list;
-//     }
-
-//     $safes .= ">";
-//     $safes .= '<div class="product h-100 bg-white">';
-
-//     // ## IMAGE ##
-//     $safes .= '<div class="text-center p-4 pb-0 product-img-container">';
-//     $image_classes = $classes["image"] ?: "";
-//     $safes .=
-//         '<img src="' .
-//         get_the_post_thumbnail_url($post_id) .
-//         '" class="product-grid-image pb-4 ' .
-//         $image_classes .
-//         '"/>';
-//     $safes .= "</div>";
-
-//     // ## CONTENT ##
-//     $safes .= '<div class="px-4 pb-4-5 product-text-container">';
-
-//     // Capacity for Gun Safes
-//     if (
-//         has_term(37, "product_cat") &&
-//         get_field("post_product_gun_capacity_total", $post_id)
-//     ) {
-//         $safes .=
-//             '<p class="text-center mb-0 pb-0"><span class="d-none fw-light">Capacity:</span> ';
-//         $safes .=
-//             '<span class="fw-600 text-secondary">' .
-//             get_field("post_product_gun_capacity_total", $post_id) .
-//             " Guns</span></p>";
-//     }
-
-//     $safes .= '<div class="text-center">';
-
-//     // Price
-//     // $safe_price = get_safe_price_from_attributes($safe_attributes);
-//     $safe_price = get_product_pricing($post_id);
-//     if (!empty($safe_price)) {
-//         // $safes .= '<p class="fs-5 tracking-wide">$' . $safe_price . '</p>';
-//         $safes .=
-//             '<p class="safe-price fs-5 inline tracking-wide">$' .
-//             $safe_price["discounted_price"] .
-//             "</p>";
-//     }
-
-//     // Sort Badges
-//     if (!empty($sort_badges)) {
-//         $safes .=
-//             '<div class="d-flex flex-wrap justify-content-center gap-x-6 mb-4" id="sort-badges">';
-//         $safes .= $sort_badges;
-//         $safes .= "</div>";
-//     }
-
-//     // Product name
-//     $safes .= "<h4>" . get_the_title($post_id) . "</h4>";
-
-//     // Description
-//     $description_classes = $classes["description"] ?: "";
-//     $safes .=
-//         '<p class="product-grid-description mb-0 ' .
-//         $description_classes .
-//         '">' .
-//         get_field("post_product_gun_long_description", $post_id) .
-//         "</p>";
-//     $safes .= "</div>";
-
-//     // Filter badges
-//     if (!empty($filter_badges)) {
-//         $safes .=
-//             '<div class="d-flex flex-wrap justify-content-center badge-gap my-3 filter-badges" id="">';
-//         $safes .= $filter_badges;
-//         $safes .= "</div>";
-//     }
-
-//     $attributes = [
-//         "weight",
-//         "fire-rating",
-//         "exterior-depth",
-//         "exterior-width",
-//         "exterior-height",
-//     ];
-
-//     // All attributes (new)
-//     if (isset($attribute_output)) {
-//         $safes .=
-//             '<div class="accordion accordion-flush" id="productAttributeAccordion">';
-//         $safes .= '<div class="accordion-item bg-transparent">';
-//         $safes .= '<h2 class="accordion-header" id="flush-headingOne">';
-//         $safes .=
-//             '<button class="fw-600 anti bg-transparent accordion-button py-0 text-secondary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#product_' .
-//             $post_id .
-//             '" aria-expanded="false" aria-controls="product_' .
-//             $post_id .
-//             '">';
-//         $safes .= "Product details";
-//         $safes .= "</button>";
-//         $safes .= "</h2>";
-//         $safes .=
-//             '<div id="product_' .
-//             $post_id .
-//             '" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#productAttributeAccordion">';
-//         $safes .= '<div class="accordion-body px-0">';
-//         $safes .= '<div class="grid grid-cols-12 gap-x-2 divide-y">';
-//         $safes .= $attribute_output;
-//         $safes .= "</div></div></div></div></div>";
-//     }
-//     // Dimension attributes (legacy)
-//     else {
-//         $attribute_array = get_formatted_product_attributes(
-//             $post_id,
-//             $attributes
-//         );
-
-//         $safe_attributes = [
-//             ["2022/11/hsl-weigh.svg", "post_product_gun_weight", "lbs"],
-//             ["2022/11/sl-height.svg", "post_product_gun_exterior_height", '"'],
-//             ["2022/11/sl-width.svg", "post_product_gun_exterior_width", '"'],
-//             ["2022/11/sl-length.svg", "post_product_gun_exterior_depth", '"'],
-//         ];
-
-//         if (is_array($attribute_array)) {
-//             $icon_path = get_home_url() . "/wp-content/uploads/";
-//             $safes .= '<ul class="list-group list-group-horizontal ps-0 ms-0">';
-
-//             foreach ($safe_attributes as $safe_attribute) {
-//                 $safes .=
-//                     '<li class="list-group-item flex-fill  text-center d-flex flex-column align-items-center justify-content-center no-border">'; // code...
-//                 $safes .=
-//                     '<img src="' .
-//                     $icon_path .
-//                     $safe_attribute["0"] .
-//                     '"  class="product-grid-icon mb-1" />';
-//                 $attribute_value = (float) get_field(
-//                     $safe_attribute[1],
-//                     $post_id
-//                 );
-//                 $safes .=
-//                     '<span class="fw-600 grid-attr-key">' .
-//                     round($attribute_value, 2) .
-//                     $safe_attribute[2] .
-//                     "</span>";
-//                 $safes .= "</li>";
-//             }
-
-//             $safes .= "</ul>";
-//         }
-//     }
-
-//     $safes .=
-//         '<div class="d-flex row-cols-2 justify-content-between mt-4 pt-2 gap-2 grid-btn-container">';
-//     $safes .= '<div class="grid-btn-container">';
-//     $safes .=
-//         '<a class="btn px-3 py-1 w-100 small btn-outline-secondary" href="' .
-//         get_permalink($post_id) .
-//         '">View</a>';
-//     $safes .= "</div>";
-//     $safes .= '<div class="grid-btn-container text-end">';
-//     $safes .= get_product_inquiry_btn(
-//         $post_id,
-//         "Inquiry",
-//         null,
-//         "btn px-2 py-1 w-100 small btn-outline-primary"
-//     );
-//     $safes .= "</div>";
-//     $safes .= "</div>";
-//     $safes .= "</div></div></div>";
-
-//     return $safes ?: null;
-// }
