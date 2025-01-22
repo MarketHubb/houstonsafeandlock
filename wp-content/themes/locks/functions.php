@@ -13,7 +13,6 @@ require_once 'includes/safes-schema.php';
 require_once 'includes/shopify.php';
 require_once 'includes/shopify-admin.php';
 require_once 'includes/shopify-form.php';
-// require_once 'includes/shopify-admin-delivery.php';
 require_once 'includes/queries.php';
 require_once 'includes/plugins.php';
 require_once 'includes/safes.php';
