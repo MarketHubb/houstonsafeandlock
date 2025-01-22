@@ -1,23 +1,4 @@
-
 <?php
-/**
- * Advanced Custom Fields Configuration
- *
- * @package locks
- */
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
-}
-
-/**
- * Register ACF Options Pages
- * 
- * - Theme Settings: General theme configuration options
- * - Alerts: Global alert messages and notifications
- * - Global Safes: Safe-specific settings and configurations
- * - Global Locksmith: Locksmith service settings and configurations
- */
 if (function_exists('acf_add_options_page')) {
     // Theme Settings
     acf_add_options_page('Theme Settings');
