@@ -1,6 +1,15 @@
 <?php
-
 function is_sale_active()
+{
+    if (!is_sale_enabled()) return null;
+
+    $endDateTime = DateTime::createFromFormat('m/d/Y', get_sale_end_date());
+    $today = new DateTime('today');
+
+    return $today < $endDateTime;
+}
+
+function is_sale_enabled()
 {
     return get_field('enable_sale', 'option');
 }
@@ -22,7 +31,7 @@ function get_alert_locations()
 
 function get_alert_by_page($object_id)
 {
-    if (is_sale_active() && is_alert_active()) {
+    if (is_sale_enabled() && is_alert_active()) {
         $alert_locations = get_alert_locations();
 
         if (!$alert_locations) return null;
@@ -63,7 +72,13 @@ function get_sale_title()
 
 function get_sale_discount()
 {
-    return get_field('discount_amount', get_current_sale());
+    if (is_sale_active()) {
+        $discount = get_field('discount_amount', get_current_sale());
+    }
+
+    $discount = get_field('safe_discount', 'option');
+
+    return $discount ?? null;
 }
 
 function get_sale_start_date()

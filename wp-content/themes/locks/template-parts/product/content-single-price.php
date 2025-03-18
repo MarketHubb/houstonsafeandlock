@@ -5,7 +5,7 @@
     <h2 class="sr-only">Product information</h2>
     <div class="flex items-center justify-center gap-x-2">
 
-        <?php if (is_sale_active()) { ?>
+        <?php if (is_sale_enabled()) { ?>
             <!-- MSRP -->
             <?php if (!empty($args['price'])) { ?>
                 <p class="line-through decoration-1 text-gray-500 text-sm">
