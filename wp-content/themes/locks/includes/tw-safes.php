@@ -216,14 +216,14 @@ function output_featured_attributes($post_id)
         ],
     ];
 
-    $attributes = '<ul class="flex flex-none my-3 ps-0 ms-0 featured-attributes">';
+    $attributes = '<ul class="flex flex-none my-4 ps-0 ms-0 featured-attributes">';
     $icon_path = get_home_url() . '/wp-content/uploads/';
 
     foreach ($featured_attributes as $attribute => $values) {
         $value = floatval(get_field($values['field'], $post_id));
-        $attributes .= '<li class="flex flex-col xl:flex-row justify-center sm:justify-start list-group-item flex-fill p-0  d-flex align-items-center no-border bg-transparent">';
-        $attributes .= '<img src="' . $icon_path . $values['image'] . '" class="!max-w-[15px] sm:!max-w-[17px] h-auto opacity-80 mr-1 mb-1 sm:mb-0" />';
-        $attributes .= '<span class="text-xs sm:text-sm md:text-base font-semibold tracking-tight sm:tracking-normal" data-sort-type="' . strtolower($attribute) . '">' . round($value, 1);
+        $attributes .= '<li class="flex flex-1 flex-col justify-center items-center p-0 border-0 bg-transparent">';
+        $attributes .= '<img src="' . $icon_path . $values['image'] . '" class="!w-[20px] sm:!w-[22px] md:!w-[35px] h-auto opacity-[.4] mb-2 inline-block" />';
+        $attributes .= '<span class="text-xs sm:text-sm md:text-base font-medium tracking-tight" data-sort-type="' . strtolower($attribute) . '">' . round($value, 1);
 
         if (!empty($values['post'])) {
             $attributes .= '<span class="text-xs text-gray-600 pl-[1px]">' . $values['post'] . '</span>';

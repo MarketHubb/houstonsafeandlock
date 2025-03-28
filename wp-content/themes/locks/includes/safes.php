@@ -1,5 +1,11 @@
 <?php
-
+require_once "safes/init.php";
+require_once "safes/views.php";
+require_once "safes/filters-sorts.php";
+require_once "safes/models.php";
+require_once "safes/view-components.php";
+require_once "safes/content.php";
+require_once "safes/helpers.php";
 /**
  * Generate a Shopify Buy Now button using ACF field data
  * 
@@ -119,8 +125,6 @@ function get_shopify_buy_button($post_id = null, $args = array())
 
     return $button_html;
 }
-
-
 
 function all_safes()
 {

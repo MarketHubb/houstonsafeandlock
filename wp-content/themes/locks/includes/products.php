@@ -27,7 +27,7 @@ function get_global_discount()
 
 function get_product_discount_percentage()
 {
-    if (is_sale_active() && get_sale_discount() > 0) {
+    if (is_sale_enabled() && get_sale_discount() > 0) {
         return get_sale_discount();
     }
 

@@ -1,7 +1,12 @@
 <?php
+require_once 'includes/rest-api.php';
 require_once 'includes/new/content.php';
-require_once 'includes/gravity-forms.php';
+require_once 'includes/tw-gravity-forms.php';
+// require_once 'includes/tw-gravity-forms-admin.php';
+require_once 'includes/tw-gravity-forms-helpers.php';
+// require_once 'includes/gravity-forms.php';
 require_once 'includes/enqueue.php';
+// require_once 'includes/gform-enqueue.php';
 require_once 'includes/acf.php';
 require_once 'includes/admin.php';
 require_once 'includes/sales.php';

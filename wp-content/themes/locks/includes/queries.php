@@ -3,11 +3,11 @@ function get_related_safe_products($post_id)
 {
     // Get all terms for the current product
     $terms_all = get_the_terms($post_id, 'product_cat');
-    if (!$terms_all || is_wp_error($terms_all)) {
+    if ( ! $terms_all || is_wp_error($terms_all)) {
         return [];
     }
 
-    $related_ids = [];
+    $related_ids    = [];
     $posts_per_page = 4;
 
     // Determine which term to use
@@ -20,38 +20,38 @@ function get_related_safe_products($post_id)
     }
 
     // If no suitable term found, use the last term in the array
-    if (!$term_to_use) {
+    if ( ! $term_to_use) {
         $term_to_use = end($terms_all);
     }
 
     // First query using the selected term
-    $args = array(
-        'post_type' => 'product',
+    $args = [
+        'post_type'      => 'product',
         'posts_per_page' => $posts_per_page,
-        'post__not_in' => array($post_id),
-        'tax_query' => array(
-            array(
+        'post__not_in'   => [$post_id],
+        'tax_query'      => [
+            [
                 'taxonomy' => 'product_cat',
-                'field' => 'term_id',
-                'terms' => $term_to_use->term_id
-            )
-        ),
-        'fields' => 'ids' // Only get post IDs
-    );
+                'field'    => 'term_id',
+                'terms'    => $term_to_use->term_id,
+            ],
+        ],
+        'fields'         => 'ids', // Only get post IDs
+    ];
 
     $related_products = get_posts($args);
-    $related_ids = $related_products;
+    $related_ids      = $related_products;
 
     // If we don't have enough products, try the parent category
     if (count($related_ids) < $posts_per_page && isset($term_to_use->parent) && $term_to_use->parent != 0) {
         $remaining_needed = $posts_per_page - count($related_ids);
 
-        $args['posts_per_page'] = $remaining_needed;
-        $args['post__not_in'] = array_merge(array($post_id), $related_ids);
+        $args['posts_per_page']        = $remaining_needed;
+        $args['post__not_in']          = array_merge([$post_id], $related_ids);
         $args['tax_query'][0]['terms'] = $term_to_use->parent;
 
         $additional_products = get_posts($args);
-        $related_ids = array_merge($related_ids, $additional_products);
+        $related_ids         = array_merge($related_ids, $additional_products);
     }
 
     return array_slice($related_ids, 0, $posts_per_page);
@@ -65,7 +65,7 @@ function get_product_cat_tax_terms($include_children = null)
         'exclude'    => [75, 78],
     ];
 
-    if (! $include_children) {
+    if ( ! $include_children) {
         $tax_query['parent'] = 0;
     }
 
@@ -81,23 +81,28 @@ function get_product_cat_child_terms($parent_term)
     ]);
 }
 
-function get_products_by_category($category_id)
+function get_featured_product_ids()
 {
-    $args = [
-        'post_type'   => 'product',
-        'post_status' => 'publish',
-        'tax_query'   => [
+    return get_field('featured_safes', 'option');
+}
+
+function get_product_ids_by_tax($category_id)
+{
+    $ids = get_posts([
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'fields'         => 'ids',
+        'tax_query'      => [
             [
                 'taxonomy' => 'product_cat',
                 'field'    => 'term_id',
                 'terms'    => $category_id,
             ],
         ],
-    ];
+    ]);
 
-    $query = new WP_Query($args);
-
-    return $query->posts;
+    return $ids ?? null;
 }
 
 function add_amsec_tag_to_products()
@@ -140,4 +145,15 @@ function query_products_by_tax_term($term)
     ]);
 
     return  ! empty($term_posts) ? $term_posts : null;
+}
+
+function query_all_safe_ids()
+{
+    $safe_ids = get_posts([
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+    ]);
+
+    return $safe_ids ?? null;
 }
