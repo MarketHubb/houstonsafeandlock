@@ -7,111 +7,79 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Function to get slider value for a specific slider and update target span
-    function getSliderValue(slider) {
-        // Find the parent container with data-filter-group
-        const filterGroupContainer = slider.closest('[data-filter-group]');
-        if (!filterGroupContainer) return null;
+    // Function to collect and log all slider values
+    function logAllSliderValues() {
+        const sliderState = {};
 
-        // Get the filter group name
-        const groupName = filterGroupContainer.getAttribute('data-filter-group');
+        // Get all slider groups
+        const sliderGroups = sliderContainer.querySelectorAll('[data-filter-group]');
 
-        // Get the current value from the handle
-        const handle = slider.querySelector('.noUi-handle');
-        if (!handle) return null;
+        // Process each slider group
+        sliderGroups.forEach(group => {
+            const groupName = group.getAttribute('data-filter-group');
 
-        const value = parseInt(handle.getAttribute('aria-valuenow'), 10);
+            // Find the slider element
+            const slider = group.querySelector('.filter-range-slider');
+            if (!slider) return;
 
-        // Update the target span if it exists
-        // First, try to find a target with the slider's ID pattern
-        const sliderId = slider.id;
-        if (sliderId) {
-            const targetSpan = document.getElementById(`${sliderId}-target`);
-            if (targetSpan) {
-                targetSpan.textContent = value;
-                console.log(`Updated ${sliderId}-target to ${value}`);
-            }
-        }
+            // Get the current value from the aria-valuenow attribute
+            const handle = slider.querySelector('.noUi-handle');
+            if (!handle) return;
 
-        // Also try with the filter group name pattern as fallback
-        const groupTargetSpan = document.getElementById(`hs-${groupName}-target`);
-        if (groupTargetSpan) {
-            groupTargetSpan.textContent = value;
-            console.log(`Updated hs-${groupName}-target to ${value}`);
-        }
+            const value = parseInt(handle.getAttribute('aria-valuenow'), 10);
 
-        // Return the slider state object
-        return {
-            type: groupName,
-            selected: value
-        };
+            // Add this slider's state to the overall state object
+            sliderState[groupName] = {
+                type: groupName,
+                value: value
+            };
+        });
+
+        // Log the complete slider state
+        console.log('Slider state:', sliderState);
+
+        return sliderState;
     }
 
-    // Direct approach: manually attach to noUiSlider instances
-    function setupNoUiSliderListeners() {
-        const sliders = sliderContainer.querySelectorAll('.filter-range-slider');
+    // Listen for Preline's custom range slider events
+    document.addEventListener('hs.range-slider.change', function (e) {
+        // Check if the event is from one of our filter sliders
+        const slider = e.detail.target;
+        if (slider && slider.closest('#filter-sliders')) {
+            console.log('Range slider changed:', e.detail);
 
-        sliders.forEach(slider => {
-            console.log(`Setting up listeners for slider: ${slider.id || 'unnamed'}`);
-
-            // Check if noUiSlider instance exists on this element
-            if (slider.noUiSlider) {
-                console.log('noUiSlider instance found, attaching events');
-
-                // Listen for the 'update' event which fires after the slider value is updated
-                slider.noUiSlider.on('update', function(values, handle) {
-                    const value = parseInt(values[handle], 10);
-                    console.log(`Slider updated: ${value}`);
-
-                    // Update the value display
-                    const sliderValue = getSliderValue(slider);
-                    if (sliderValue) {
-                        console.log('Range slider updated:', sliderValue);
-                    }
-                });
-
-                // Also listen for the 'change' event which fires when user stops interacting
-                slider.noUiSlider.on('change', function(values, handle) {
-                    const value = parseInt(values[handle], 10);
-                    console.log(`Slider changed: ${value}`);
-
-                    // Update the value display
-                    const sliderValue = getSliderValue(slider);
-                    if (sliderValue) {
-                        console.log('Range slider changed:', sliderValue);
-                    }
-                });
-            } else {
-                console.log('No noUiSlider instance found on this element yet');
-            }
-        });
-    }
-
-    // Try to set up listeners immediately
-    setupNoUiSliderListeners();
-
-    // Also try again after a short delay to ensure noUiSlider is initialized
-    setTimeout(setupNoUiSliderListeners, 500);
-
-    // As a fallback, use MutationObserver to detect when noUiSlider might be initialized
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' &&
-                mutation.target.classList.contains('filter-range-slider') &&
-                mutation.target.classList.contains('noUi-target')) {
-
-                console.log('Slider appears to be initialized, setting up listeners');
-                setupNoUiSliderListeners();
-            }
-        });
+            // Log all slider values
+            logAllSliderValues();
+        }
     });
 
-    // Start observing the slider container for attribute changes
-    observer.observe(sliderContainer, {
-        attributes: true,
-        subtree: true,
-        attributeFilter: ['class']
+    // Also listen for the native input event on the slider handles
+    sliderContainer.addEventListener('input', function (e) {
+        const handle = e.target.closest('.noUi-handle');
+        if (handle) {
+            // Use setTimeout to ensure the aria-valuenow is updated
+            setTimeout(logAllSliderValues, 50);
+        }
     });
 
-    console.log('Range slider handler setup complete');
+    // Listen for mouseup events on the handles to catch when dragging ends
+    sliderContainer.addEventListener('mouseup', function (e) {
+        const handle = e.target.closest('.noUi-handle');
+        if (handle) {
+            // Use setTimeout to ensure the aria-valuenow is updated
+            setTimeout(logAllSliderValues, 50);
+        }
+    });
+
+    // Listen for touchend events for mobile support
+    sliderContainer.addEventListener('touchend', function (e) {
+        const handle = e.target.closest('.noUi-handle');
+        if (handle) {
+            // Use setTimeout to ensure the aria-valuenow is updated
+            setTimeout(logAllSliderValues, 50);
+        }
+    });
+
+    // Log initial state when page loads
+    setTimeout(logAllSliderValues, 100); // Small delay to ensure sliders are initialized
 });
