@@ -5,10 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentFilterStates = {
         checkboxes: {},
         ranges: {},
-        advancedSelects: {}
+        advancedSelects: {} // Ensure this key always exists
     };
+    let currentSearchPostId = null; // State for the selected Post ID from search
     const productGrid = document.querySelector('.product-grid');
-    let isFiltering = false; // Flag to prevent concurrent filtering operations
+    const searchInput = document.querySelector('[data-hs-combo-box-input]');
+    const searchBoxWrapper = document.querySelector('[data-hs-combo-box]');
+    const searchOutputContainer = document.querySelector('[data-hs-combo-box-output]');
+    const searchClearButton = document.querySelector('[data-hs-combo-box-close]');
+    let isFiltering = false;
 
     // --- Utility Functions ---
     const debounce = (func, delay) => {
@@ -19,201 +24,208 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     };
 
-    // --- State Getters (called by update function or init) ---
-    function getCheckboxStates() {
-        if (typeof window.getCheckboxFilterState === 'function') {
-            try { return window.getCheckboxFilterState(); }
-            catch (e) { console.error("Error getting checkbox state:", e); return {}; }
-        } else { console.warn('Checkbox state function not found.'); return {}; }
-    }
+    // --- State Getters ---
+    function getCheckboxStates() { /* ... same ... */ }
+    function getRangeStates() { /* ... same ... */ }
+    function getAdvancedSelectStates() { /* ... same ... */ }
 
-    function getRangeStates() {
-        if (typeof window.getRangeFilterState === 'function') {
-            try { return window.getRangeFilterState(); }
-            catch (e) { console.error("Error getting range state:", e); return {}; }
-        } else { console.warn('Range state function not found.'); return {}; }
-    }
-
-    function getAdvancedSelectStates() {
-        if (typeof window.getAdvancedSelectState === 'function') {
-            try { return window.getAdvancedSelectState(); }
-            catch (e) { console.error("Error getting advanced select state:", e); return {}; }
-        } else { console.warn('Advanced select state function not found.'); return {}; }
-    }
-
-    // --- Product Filtering Logic ---
-    function filterProducts(filters) {
-        if (!productGrid) {
-            console.error("Product grid container (.product-grid) not found for filtering.");
-            return;
-        }
-        if (isFiltering) {
-            console.log("Filter requested but previous filter is still running.");
-            return; // Exit if already processing
-        }
+    // --- Product Filtering Logic (Reads global state) ---
+    function filterProducts() {
+        if (!productGrid) { console.error("Product grid missing!"); return; }
+        if (isFiltering) { return; }
         isFiltering = true;
-        console.log("Starting filter process with state:", filters);
+
+        const filters = currentFilterStates;
+        const searchPostId = currentSearchPostId; // Use the global search Post ID state
+
+        // Ensure sub-objects exist before accessing
+        filters.checkboxes = filters.checkboxes || {};
+        filters.ranges = filters.ranges || {};
+        filters.advancedSelects = filters.advancedSelects || {};
+
+
+        console.log("FILTERING - Search Post ID:", `'${searchPostId || 'None'}'`, "Filters:", filters);
 
         const productItems = productGrid.querySelectorAll('a.product-item');
-        if (productItems.length === 0) {
-            console.log("No product items found to filter.");
-            isFiltering = false;
-            return;
-        }
+        if (productItems.length === 0) { isFiltering = false; return; }
 
-        // Animation: Start Hide Grid
+        // Start Hide Animation
         productGrid.style.transition = 'opacity 0.3s ease-in-out';
         productGrid.style.opacity = '0';
 
-        // Use requestAnimationFrame to ensure the style change is applied before timeout
         requestAnimationFrame(() => {
             setTimeout(() => {
                 productItems.forEach(item => {
                     let shouldBeVisible = true;
+                    const itemPostId = item.dataset.post_id; // Get product's post ID
 
-                    // 1. Advanced Select Filter (Series)
-                    if (filters.advancedSelects && Object.keys(filters.advancedSelects).length > 0) {
-                        for (const groupKey in filters.advancedSelects) {
-                            const selectedValues = filters.advancedSelects[groupKey];
-                            if (selectedValues && selectedValues.length > 0) {
+                    // --- 1. Check Search Post ID FIRST ---
+                    if (searchPostId) {
+                        // Visibility depends ONLY on matching the product's data-post_id
+                        shouldBeVisible = (itemPostId === searchPostId);
+                    } else {
+                        // --- 2. Apply Standard Filters (ONLY if no search Post ID) ---
+                        const titleElement = item.querySelector('h3'); // Needed for potential debug/future use
+                        const itemTitle = titleElement ? titleElement.textContent.trim() : '';
+
+                        // Advanced Select (check if filters.advancedSelects is valid)
+                        if (shouldBeVisible && filters.advancedSelects && typeof filters.advancedSelects === 'object' && Object.keys(filters.advancedSelects).length > 0) {
+                            for (const groupKey in filters.advancedSelects) {
+                                const selectedValues = filters.advancedSelects[groupKey];
+                                if (selectedValues && selectedValues.length > 0) {
+                                    const itemValue = item.dataset[groupKey];
+                                    if (!itemValue || !selectedValues.includes(itemValue)) {
+                                        shouldBeVisible = false; break;
+                                    }
+                                }
+                            }
+                        }
+                        // Checkboxes (check if filters.checkboxes is valid)
+                        if (shouldBeVisible && filters.checkboxes && typeof filters.checkboxes === 'object' && Object.keys(filters.checkboxes).length > 0) {
+                            for (const groupKey in filters.checkboxes) {
+                                const selectedValues = filters.checkboxes[groupKey];
+                                if (!selectedValues || selectedValues.length === 0 || selectedValues.includes('all')) continue;
+                                if (groupKey === 'category' && selectedValues.includes('featured')) {
+                                    if (item.dataset.featured !== '1') { shouldBeVisible = false; }
+                                    if (!shouldBeVisible) break; else continue;
+                                }
                                 const itemValue = item.dataset[groupKey];
                                 if (!itemValue || !selectedValues.includes(itemValue)) {
                                     shouldBeVisible = false; break;
                                 }
                             }
                         }
-                    }
-
-                    // 2. Checkbox Filters
-                    if (shouldBeVisible && filters.checkboxes && Object.keys(filters.checkboxes).length > 0) {
-                        for (const groupKey in filters.checkboxes) {
-                            const selectedValues = filters.checkboxes[groupKey];
-                            if (!selectedValues || selectedValues.length === 0 || selectedValues.includes('all')) continue;
-
-                            if (groupKey === 'category' && selectedValues.includes('featured')) {
-                                if (item.dataset.featured !== '1') {
-                                    shouldBeVisible = false;
+                        // Ranges (check if filters.ranges is valid)
+                        if (shouldBeVisible && filters.ranges && typeof filters.ranges === 'object' && Object.keys(filters.ranges).length > 0) {
+                            for (const groupKey in filters.ranges) {
+                                const filterValue = parseFloat(filters.ranges[groupKey]);
+                                const itemValueStr = item.dataset[groupKey];
+                                if (isNaN(filterValue)) continue;
+                                if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') {
+                                    shouldBeVisible = false; break;
                                 }
-                                // Apply featured rule, then skip other category checks for this item
-                                if (!shouldBeVisible) break; else continue;
-                            }
-
-                            const itemValue = item.dataset[groupKey];
-                            // Treat checkbox filters as requiring an EXACT match from the product's attribute
-                            // Check if the specific itemValue exists within the selectedValues array
-                            if (!itemValue || !selectedValues.includes(itemValue)) {
-                                shouldBeVisible = false; break;
+                                const itemValue = parseFloat(itemValueStr);
+                                if (isNaN(itemValue) || itemValue < filterValue) {
+                                    shouldBeVisible = false; break;
+                                }
                             }
                         }
-                    }
-
-                    // 3. Range Filters
-                    if (shouldBeVisible && filters.ranges && Object.keys(filters.ranges).length > 0) {
-                        for (const groupKey in filters.ranges) {
-                            const filterValue = parseFloat(filters.ranges[groupKey]);
-                            const itemValueStr = item.dataset[groupKey];
-
-                            if (isNaN(filterValue)) continue;
-
-                            // If item lacks the attribute, hide it (unless filter is at max? - decide requirement)
-                            // Current logic: hide if attribute missing
-                            if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') {
-                                shouldBeVisible = false; break;
-                            }
-
-                            const itemValue = parseFloat(itemValueStr);
-                            // Hide if item value is invalid or less than the filter value
-                            if (isNaN(itemValue) || itemValue < filterValue) {
-                                shouldBeVisible = false; break;
-                            }
-                        }
-                    }
+                    } // End standard filter block
 
                     // Apply Visibility
-                    if (shouldBeVisible) {
-                        item.classList.remove('hidden');
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                }); // End forEach productItem
+                    if (shouldBeVisible) { item.classList.remove('hidden'); }
+                    else { item.classList.add('hidden'); }
+                }); // End forEach
 
-                // Animation: End Show Grid
+                // End Show Animation
                 productGrid.style.opacity = '1';
                 isFiltering = false;
-                console.log("Filtering complete. Grid revealed.");
-
-            }, 300); // Match timeout duration to CSS transition time
+                console.log("Filtering complete.");
+            }, 300); // Match CSS transition
         }); // End requestAnimationFrame
+    } // End filterProducts
 
-    } // End filterProducts function
+    // *** FIX: Define debounced function AFTER the base function is defined ***
+    const debouncedFilterProducts = debounce(filterProducts, 300);
 
 
     // --- Event Handling ---
 
-    // Function to update state and trigger filtering
-    function updateStateAndFilter(eventType, eventDetail) {
+    // Listener for Checkbox/Range/AdvancedSelect filter changes
+    document.addEventListener('filterChanged', (event) => {
+        const eventType = event.detail?.type;
+        const group = event.detail?.group;
+        const values = event.detail?.values;
         let stateChanged = false;
-        const group = eventDetail?.group;
-        const values = eventDetail?.values;
 
-        console.log(`Handling state update for: ${eventType}`);
+        console.log(`Filter component changed: ${eventType}`);
 
-        if (eventType === 'advanced-select' && group && values !== undefined) {
-            currentFilterStates.advancedSelects[group] = values;
-            stateChanged = true;
+        // *** FIX: Ensure currentFilterStates.advancedSelects exists ***
+        if (typeof currentFilterStates.advancedSelects !== 'object' || currentFilterStates.advancedSelects === null) {
+            currentFilterStates.advancedSelects = {};
+        }
+
+        // Update the corresponding state
+        if (eventType === 'advanced-select' && typeof group === 'string' && group.length > 0 && values !== undefined) {
+            currentFilterStates.advancedSelects[group] = values; stateChanged = true;
         } else if (eventType === 'checkbox') {
-            currentFilterStates.checkboxes = getCheckboxStates();
-            stateChanged = true;
+            currentFilterStates.checkboxes = getCheckboxStates(); stateChanged = true;
         } else if (eventType === 'range') {
-            currentFilterStates.ranges = getRangeStates();
-            stateChanged = true;
+            currentFilterStates.ranges = getRangeStates(); stateChanged = true;
+        } else {
+            console.warn("filterChanged event received without expected details:", event.detail);
         }
 
         if (stateChanged) {
-            console.log("State updated by user interaction, triggering filtering:", currentFilterStates);
-            filterProducts(currentFilterStates); // Trigger filtering now
+            if (currentSearchPostId !== null) {
+                console.log("Clearing search Post ID because another filter changed.");
+                currentSearchPostId = null;
+                if (searchInput) { searchInput.value = ''; }
+            }
+            // *** FIX: Call the correctly defined debounced function ***
+            debouncedFilterProducts();
         }
-    }
+    });
 
-    // Debounced version for handling filter events
-    const debouncedUpdateAndFilter = debounce(updateStateAndFilter, 250);
+    // Listener for Search ITEM SELECTION (Click on Dropdown Item)
+    if (searchOutputContainer && searchInput) {
+        searchOutputContainer.addEventListener('click', (event) => {
+            const clickedItemElement = event.target.closest('[data-hs-combo-box-output-item]');
+            if (clickedItemElement) {
+                // *** Simplified: Try reading directly on click ***
+                const valueSpan = clickedItemElement.querySelector('[data-hs-combo-box-value][data-postid]');
+                if (valueSpan) {
+                    const newPostId = valueSpan.getAttribute('data-postid');
+                    const displayText = valueSpan.getAttribute('data-hs-combo-box-value').trim();
 
-    // Main event listener for changes from filter components
-    function handleFilterUpdate(event) {
-        const eventType = event.detail?.type;
-        console.log(`Filter change event received. Type: ${eventType}`);
-        // Use the debounced handler for all filter types triggered by user
-        debouncedUpdateAndFilter(eventType, event.detail);
-    }
+                    if (newPostId && newPostId !== currentSearchPostId) {
+                        console.log(`Search item selected: Post ID '${newPostId}', Text: '${displayText}'`);
+                        currentSearchPostId = newPostId;
+                        // Preline should update the input, but set it just in case
+                        searchInput.value = displayText;
+                        filterProducts(); // Filter immediately
+                    }
+                } else {
+                    console.warn("Clicked item span missing value or postid attribute.");
+                }
+            }
+        });
+    } else { console.warn("Search output container or input not found."); }
 
-    document.addEventListener('filterChanged', handleFilterUpdate);
+    // Listener for Search CLEAR Button
+    if (searchClearButton && searchInput) {
+        searchClearButton.addEventListener('click', () => {
+            console.log("Search clear button clicked.");
+            if (currentSearchPostId !== null || searchInput.value !== '') {
+                currentSearchPostId = null;
+                searchInput.value = '';
+                debouncedFilterProducts();
+            }
+        });
+    } else { console.warn("Search clear button or input not found."); }
+
+
+    // REMOVED: Listeners for 'input', 'keydown', 'blur' on searchInput
 
     // --- Initial Application Setup ---
     function initializeApp() {
-        if (!productGrid) {
-            console.error("Product grid container (.product-grid) not found on initialization.");
-            return;
-        }
+        if (!productGrid) { return; }
         console.log('--- Fetching Initial Filter States (for reference) ---');
-        // Fetch initial state just to have it available if needed, but DON'T filter yet.
         currentFilterStates.checkboxes = getCheckboxStates();
         currentFilterStates.ranges = getRangeStates();
         currentFilterStates.advancedSelects = getAdvancedSelectStates();
+        currentSearchPostId = null;
+        if (searchInput) { searchInput.value = ''; } // Start with empty search
 
-        console.log('--- Initial Filter States ---');
-        console.log(JSON.stringify(currentFilterStates, null, 2));
-        console.log('-----------------------------');
+        console.log('--- Initial State ---');
+        console.log("Filters:", JSON.stringify(currentFilterStates, null, 2));
+        console.log("Search Post ID:", currentSearchPostId);
+        console.log('--------------------');
 
-        // *** FIX: REMOVED the automatic filtering call on load ***
-        // The setTimeout block that called filterProducts is removed.
-
-        // Ensure grid is visible by default (if not hidden by CSS initially)
-        // If AJAX loads hidden items, they stay hidden until a filter potentially reveals them.
-        productGrid.style.opacity = '1'; // Make sure grid container is visible
-        console.log("Initialization complete. Waiting for user filter interaction.");
+        productGrid.style.opacity = '1';
+        console.log("Initialization complete. Waiting for user interaction.");
     }
 
-    // Initialize the application state without triggering filtering
     initializeApp();
 
 });
