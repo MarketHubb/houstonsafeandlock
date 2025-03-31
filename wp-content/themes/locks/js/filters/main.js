@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentFilterStates = {
         checkboxes: {},
         ranges: {},
-        advancedSelects: {} // Ensure this key always exists
+        advancedSelects: {}
     };
-    let currentSearchPostId = null; // State for the selected Post ID from search
+    let currentSearchPostId = null; // NEW: State for the selected Post ID from search
     const productGrid = document.querySelector('.product-grid');
     const searchInput = document.querySelector('[data-hs-combo-box-input]');
     const searchBoxWrapper = document.querySelector('[data-hs-combo-box]');
@@ -25,24 +25,30 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // --- State Getters ---
-    function getCheckboxStates() { /* ... same ... */ }
-    function getRangeStates() { /* ... same ... */ }
-    function getAdvancedSelectStates() { /* ... same ... */ }
+    function getCheckboxStates() { /* ... same ... */
+        if (typeof window.getCheckboxFilterState === 'function') {
+            try { return window.getCheckboxFilterState(); } catch (e) { console.error("Error getting checkbox state:", e); return {}; }
+        } else { return {}; }
+    }
+    function getRangeStates() { /* ... same ... */
+        if (typeof window.getRangeFilterState === 'function') {
+            try { return window.getRangeFilterState(); } catch (e) { console.error("Error getting range state:", e); return {}; }
+        } else { return {}; }
+    }
+    function getAdvancedSelectStates() { /* ... same ... */
+        if (typeof window.getAdvancedSelectState === 'function') {
+            try { return window.getAdvancedSelectState(); } catch (e) { console.error("Error getting advanced select state:", e); return {}; }
+        } else { return {}; }
+    }
 
     // --- Product Filtering Logic (Reads global state) ---
-    function filterProducts() {
+    function filterProducts() { // Reads global currentFilterStates and currentSearchPostId
         if (!productGrid) { console.error("Product grid missing!"); return; }
         if (isFiltering) { return; }
         isFiltering = true;
 
         const filters = currentFilterStates;
         const searchPostId = currentSearchPostId; // Use the global search Post ID state
-
-        // Ensure sub-objects exist before accessing
-        filters.checkboxes = filters.checkboxes || {};
-        filters.ranges = filters.ranges || {};
-        filters.advancedSelects = filters.advancedSelects || {};
-
 
         console.log("FILTERING - Search Post ID:", `'${searchPostId || 'None'}'`, "Filters:", filters);
 
@@ -57,32 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => {
                 productItems.forEach(item => {
                     let shouldBeVisible = true;
-                    const itemPostId = item.dataset.post_id; // Get product's post ID
 
                     // --- 1. Check Search Post ID FIRST ---
-                    if (searchPostId) {
+                    if (searchPostId) { // If a specific post ID is selected via search
                         // Visibility depends ONLY on matching the product's data-post_id
-                        shouldBeVisible = (itemPostId === searchPostId);
+                        shouldBeVisible = (item.dataset.post_id === searchPostId);
                     } else {
                         // --- 2. Apply Standard Filters (ONLY if no search Post ID) ---
-                        const titleElement = item.querySelector('h3'); // Needed for potential debug/future use
-                        const itemTitle = titleElement ? titleElement.textContent.trim() : '';
-
-                        // Advanced Select (check if filters.advancedSelects is valid)
-                        if (shouldBeVisible && filters.advancedSelects && typeof filters.advancedSelects === 'object' && Object.keys(filters.advancedSelects).length > 0) {
-                            for (const groupKey in filters.advancedSelects) {
+                        // Advanced Select
+                        if (shouldBeVisible && filters.advancedSelects && Object.keys(filters.advancedSelects).length > 0) {
+                            for (const groupKey in filters.advancedSelects) { /* ... same logic ... */
                                 const selectedValues = filters.advancedSelects[groupKey];
                                 if (selectedValues && selectedValues.length > 0) {
                                     const itemValue = item.dataset[groupKey];
-                                    if (!itemValue || !selectedValues.includes(itemValue)) {
-                                        shouldBeVisible = false; break;
-                                    }
+                                    if (!itemValue || !selectedValues.includes(itemValue)) { shouldBeVisible = false; break; }
                                 }
                             }
                         }
-                        // Checkboxes (check if filters.checkboxes is valid)
-                        if (shouldBeVisible && filters.checkboxes && typeof filters.checkboxes === 'object' && Object.keys(filters.checkboxes).length > 0) {
-                            for (const groupKey in filters.checkboxes) {
+                        // Checkboxes
+                        if (shouldBeVisible && filters.checkboxes && Object.keys(filters.checkboxes).length > 0) {
+                            for (const groupKey in filters.checkboxes) { /* ... same logic ... */
                                 const selectedValues = filters.checkboxes[groupKey];
                                 if (!selectedValues || selectedValues.length === 0 || selectedValues.includes('all')) continue;
                                 if (groupKey === 'category' && selectedValues.includes('featured')) {
@@ -90,24 +90,18 @@ document.addEventListener('DOMContentLoaded', function () {
                                     if (!shouldBeVisible) break; else continue;
                                 }
                                 const itemValue = item.dataset[groupKey];
-                                if (!itemValue || !selectedValues.includes(itemValue)) {
-                                    shouldBeVisible = false; break;
-                                }
+                                if (!itemValue || !selectedValues.includes(itemValue)) { shouldBeVisible = false; break; }
                             }
                         }
-                        // Ranges (check if filters.ranges is valid)
-                        if (shouldBeVisible && filters.ranges && typeof filters.ranges === 'object' && Object.keys(filters.ranges).length > 0) {
-                            for (const groupKey in filters.ranges) {
+                        // Ranges
+                        if (shouldBeVisible && filters.ranges && Object.keys(filters.ranges).length > 0) {
+                            for (const groupKey in filters.ranges) { /* ... same logic ... */
                                 const filterValue = parseFloat(filters.ranges[groupKey]);
                                 const itemValueStr = item.dataset[groupKey];
                                 if (isNaN(filterValue)) continue;
-                                if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') {
-                                    shouldBeVisible = false; break;
-                                }
+                                if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') { shouldBeVisible = false; break; }
                                 const itemValue = parseFloat(itemValueStr);
-                                if (isNaN(itemValue) || itemValue < filterValue) {
-                                    shouldBeVisible = false; break;
-                                }
+                                if (isNaN(itemValue) || itemValue < filterValue) { shouldBeVisible = false; break; }
                             }
                         }
                     } // End standard filter block
@@ -125,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }); // End requestAnimationFrame
     } // End filterProducts
 
-    // *** FIX: Define debounced function AFTER the base function is defined ***
+    // --- Debounced version of the main filter function ---
     const debouncedFilterProducts = debounce(filterProducts, 300);
 
 
@@ -140,72 +134,64 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log(`Filter component changed: ${eventType}`);
 
-        // *** FIX: Ensure currentFilterStates.advancedSelects exists ***
-        if (typeof currentFilterStates.advancedSelects !== 'object' || currentFilterStates.advancedSelects === null) {
-            currentFilterStates.advancedSelects = {};
-        }
-
         // Update the corresponding state
-        if (eventType === 'advanced-select' && typeof group === 'string' && group.length > 0 && values !== undefined) {
+        if (eventType === 'advanced-select' && group && values !== undefined) {
             currentFilterStates.advancedSelects[group] = values; stateChanged = true;
         } else if (eventType === 'checkbox') {
             currentFilterStates.checkboxes = getCheckboxStates(); stateChanged = true;
         } else if (eventType === 'range') {
             currentFilterStates.ranges = getRangeStates(); stateChanged = true;
-        } else {
-            console.warn("filterChanged event received without expected details:", event.detail);
         }
 
         if (stateChanged) {
+            // Clear search Post ID when other filters are used
             if (currentSearchPostId !== null) {
                 console.log("Clearing search Post ID because another filter changed.");
                 currentSearchPostId = null;
-                if (searchInput) { searchInput.value = ''; }
+                if (searchInput) { searchInput.value = ''; } // Clear visual input too
+                // You might need to tell Preline to visually reset its selection state here if clearing the input value isn't enough
+                // Example: HSComboBox.getInstance(searchBoxWrapper, true)?.clearSelection(); (Check Preline docs)
             }
-            // *** FIX: Call the correctly defined debounced function ***
-            debouncedFilterProducts();
+            debouncedFilterProducts(); // Trigger filtering (debounced)
         }
     });
 
     // Listener for Search ITEM SELECTION (Click on Dropdown Item)
-    if (searchOutputContainer && searchInput) {
+    if (searchOutputContainer) {
         searchOutputContainer.addEventListener('click', (event) => {
-            const clickedItemElement = event.target.closest('[data-hs-combo-box-output-item]');
-            if (clickedItemElement) {
-                // *** Simplified: Try reading directly on click ***
-                const valueSpan = clickedItemElement.querySelector('[data-hs-combo-box-value][data-postid]');
+            const clickedItem = event.target.closest('[data-hs-combo-box-output-item]');
+            if (clickedItem) {
+                const valueSpan = clickedItem.querySelector('[data-hs-combo-box-value][data-postid]'); // Ensure it has postid
                 if (valueSpan) {
-                    const newPostId = valueSpan.getAttribute('data-postid');
-                    const displayText = valueSpan.getAttribute('data-hs-combo-box-value').trim();
+                    const newPostId = valueSpan.getAttribute('data-postid'); // Get the post ID
+                    const displayText = valueSpan.getAttribute('data-hs-combo-box-value').trim(); // Get text for display
 
                     if (newPostId && newPostId !== currentSearchPostId) {
-                        console.log(`Search item selected: Post ID '${newPostId}', Text: '${displayText}'`);
-                        currentSearchPostId = newPostId;
-                        // Preline should update the input, but set it just in case
-                        searchInput.value = displayText;
-                        filterProducts(); // Filter immediately
+                        console.log(`Search item selected via click: Post ID '${newPostId}', Text: '${displayText}'`);
+                        currentSearchPostId = newPostId; // Set the Post ID state
+                        if (searchInput) { searchInput.value = displayText; } // Update input visually with text
+                        filterProducts(); // Filter *immediately* based on Post ID
                     }
-                } else {
-                    console.warn("Clicked item span missing value or postid attribute.");
                 }
             }
         });
-    } else { console.warn("Search output container or input not found."); }
+    } else { console.warn("Search output container not found."); }
 
     // Listener for Search CLEAR Button
-    if (searchClearButton && searchInput) {
+    if (searchClearButton) {
         searchClearButton.addEventListener('click', () => {
             console.log("Search clear button clicked.");
-            if (currentSearchPostId !== null || searchInput.value !== '') {
-                currentSearchPostId = null;
-                searchInput.value = '';
-                debouncedFilterProducts();
+            if (currentSearchPostId !== null || (searchInput && searchInput.value !== '')) {
+                currentSearchPostId = null; // Clear the Post ID state
+                if (searchInput) { searchInput.value = ''; } // Clear visual input
+                debouncedFilterProducts(); // Re-apply standard filters
             }
         });
-    } else { console.warn("Search clear button or input not found."); }
+    } else { console.warn("Search clear button not found."); }
 
+    // REMOVED: Listeners for 'input', 'keydown', and 'blur' on searchInput
+    // Filtering is now only triggered by explicit selection or clear
 
-    // REMOVED: Listeners for 'input', 'keydown', 'blur' on searchInput
 
     // --- Initial Application Setup ---
     function initializeApp() {
@@ -214,12 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
         currentFilterStates.checkboxes = getCheckboxStates();
         currentFilterStates.ranges = getRangeStates();
         currentFilterStates.advancedSelects = getAdvancedSelectStates();
-        currentSearchPostId = null;
-        if (searchInput) { searchInput.value = ''; } // Start with empty search
+        currentSearchPostId = null; // Ensure search is clear initially
+        if (searchInput) { currentSearchTerm = searchInput.value.trim(); } // Read initial text for logging if needed
 
         console.log('--- Initial State ---');
         console.log("Filters:", JSON.stringify(currentFilterStates, null, 2));
-        console.log("Search Post ID:", currentSearchPostId);
+        console.log("Search Post ID:", currentSearchPostId); // Log initial search ID
         console.log('--------------------');
 
         productGrid.style.opacity = '1';
