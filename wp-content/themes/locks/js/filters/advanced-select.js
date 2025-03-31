@@ -1,101 +1,133 @@
+// --- Start of advanced-select.js ---
 (function () {
-    // Track the last logged state to prevent duplicate logs
-    let lastLoggedState = '';
+    let lastDispatchedState = {}; // Track dispatched state per group name
 
-    // Function to set up the event listeners
+    // Function to get the correct group name by traversing up from the select element
+    function getGroupNameFromSelect(selectElement) {
+        if (!selectElement) return null;
+
+        // 1. Look for the closest ancestor div with the data-filter-group attribute
+        const groupContainer = selectElement.closest('[data-filter-group]');
+        const groupNameFromAttr = groupContainer?.getAttribute('data-filter-group');
+
+        if (groupNameFromAttr) {
+            return groupNameFromAttr;
+        }
+
+        // 2. Fallback to the select element's ID if the parent attribute isn't found
+        const selectId = selectElement.id;
+        if (selectId) {
+            console.warn(`Advanced select using ID ('${selectId}') as group name. Consider adding data-filter-group attribute to parent div.`, selectElement);
+            return selectId;
+        }
+
+        // 3. If nothing found, return null and log a clear error
+        console.error("Could not determine group name for advanced select. Add 'data-filter-group' to an ancestor div or 'id' to the <select> element:", selectElement);
+        return null;
+    }
+
+    // Function to get the state of ALL advanced select filters
+    function getAllAdvancedSelectStates() {
+        const allStates = {};
+        const advancedSelectContainers = document.querySelectorAll('.hs-select');
+
+        advancedSelectContainers.forEach(container => {
+            const selectElement = container.querySelector('select');
+            if (selectElement) {
+                // *** Use the new function to find the group name ***
+                const groupName = getGroupNameFromSelect(selectElement);
+
+                if (groupName) { // Only proceed if we found a group name
+                    const selectedOptions = Array.from(selectElement.selectedOptions);
+                    const selectedValues = [...new Set(selectedOptions.map(option => option.value))]; // Ensure unique
+                    allStates[groupName] = selectedValues;
+                }
+                // Error is logged within getGroupNameFromSelect if null
+            }
+        });
+        return allStates;
+    }
+
+    // Expose the getter function globally
+    window.getAdvancedSelectState = getAllAdvancedSelectStates;
+
+    // Debounce function
+    const debounce = (func, delay) => {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    };
+
+
     function setupAdvancedSelectListeners() {
-        // Look for all advanced select components on the page
         const advancedSelects = document.querySelectorAll('.hs-select');
 
-        console.log('Found advanced selects:', advancedSelects.length);
-
         if (advancedSelects.length > 0) {
-            // For each advanced select component
-            advancedSelects.forEach(select => {
-                // Get a unique identifier for logging
-                const selectId = select.querySelector('select')?.id || 'unnamed-select';
+            advancedSelects.forEach(hsSelectContainer => {
+                const selectElement = hsSelectContainer.querySelector('select');
+                if (!selectElement) {
+                    console.warn('Could not find select element within .hs-select container:', hsSelectContainer);
+                    return;
+                }
 
-                console.log('Setting up listeners for:', selectId);
+                // *** Use the new function to find the group name ***
+                const groupName = getGroupNameFromSelect(selectElement);
 
-                // Create a function to log all currently selected values
-                const logSelectedValues = () => {
-                    // Find the hidden select element that stores the actual values
-                    const selectElement = select.querySelector('select');
+                // If NO group name was found by the function, skip setup for this select
+                if (!groupName) {
+                    return; // Error already logged by getGroupNameFromSelect
+                }
 
-                    if (selectElement) {
-                        // Get all selected options
-                        const selectedOptions = Array.from(selectElement.selectedOptions);
-                        const selectedValues = selectedOptions.map(option => option.value);
+                // Use the correct groupName for state tracking
+                lastDispatchedState[groupName] = JSON.stringify([]);
 
-                        // Create the state object with the requested structure
-                        const stateObj = {
-                            type: 'series',
-                            selected: selectedValues
-                        };
 
-                        // Convert to string for comparison to prevent duplicate logs
-                        const stateString = JSON.stringify(stateObj);
+                // Function to handle the change, get values, ensure uniqueness, and dispatch
+                const handleSelectChangeAndDispatch = () => {
+                    const selectedOptions = Array.from(selectElement.selectedOptions);
+                    const selectedValues = [...new Set(selectedOptions.map(option => option.value))]; // Ensure unique
+                    const currentStateString = JSON.stringify(selectedValues.sort());
 
-                        // Only log if the state has changed
-                        if (stateString !== lastLoggedState) {
-                            lastLoggedState = stateString;
-                            console.log(stateObj);
-                        }
+                    // Use groupName for state comparison key
+                    if (currentStateString !== lastDispatchedState[groupName]) {
+                        lastDispatchedState[groupName] = currentStateString;
+
+                        console.log(`Advanced Select Changed (${groupName}). Dispatching unique values:`, selectedValues);
+
+                        // Dispatch event using the correct groupName found via traversal
+                        document.dispatchEvent(new CustomEvent('filterChanged', {
+                            detail: {
+                                type: 'advanced-select',
+                                group: groupName, // <-- Use the correctly found group name
+                                values: selectedValues
+                            }
+                        }));
                     }
                 };
 
-                // Use a debounce function to prevent multiple rapid calls
-                const debounce = (func, delay) => {
-                    let timeout;
-                    return function () {
-                        clearTimeout(timeout);
-                        timeout = setTimeout(() => func.apply(this, arguments), delay);
-                    };
-                };
+                const debouncedChangeHandler = debounce(handleSelectChangeAndDispatch, 150);
 
-                // Create a debounced version of the log function
-                const debouncedLogValues = debounce(logSelectedValues, 50);
-
-                // Log initial values
-                setTimeout(logSelectedValues, 100);
-
-                // Use a single event listener on the select element
-                select.addEventListener('click', function (e) {
-                    // Only proceed if this is a dropdown item or remove button
-                    if (e.target.closest('[data-value]') ||
-                        e.target.closest('[data-remove]')) {
-                        debouncedLogValues();
+                // --- Event Listeners ---
+                selectElement.addEventListener('change', debouncedChangeHandler);
+                hsSelectContainer.addEventListener('click', function (e) {
+                    if (e.target.closest('[data-value]') || e.target.closest('[data-remove]')) {
+                        setTimeout(debouncedChangeHandler, 50);
                     }
                 });
+                // Optional Preline listener ('hs.select.changed') remains commented out
 
-                // Listen for the custom Preline events
-                document.addEventListener('hs.select.changed', function (e) {
-                    // Check if this event is for our select
-                    if (e.detail && e.detail.target === select) {
-                        debouncedLogValues();
-                    }
-                }, { once: false });
             });
         } else {
-            console.log('No advanced select components found on the page');
+            // console.log('No advanced select components (.hs-select) found.');
         }
     }
 
-    // Try to run immediately if Preline is already initialized
-    if (typeof HSAdvancedSelect !== 'undefined') {
-        console.log('Preline Advanced Select detected, setting up listeners');
-        setupAdvancedSelectListeners();
-    } else {
-        // If not, wait a short time to ensure Preline has initialized
-        console.log('Waiting for Preline Advanced Select to initialize');
-        setTimeout(setupAdvancedSelectListeners, 500);
-    }
+    // --- Initialization Logic (Same as before) ---
+    let prelineInitialized = (typeof HSStaticMethods !== 'undefined' && typeof HSStaticMethods.autoInit === 'function');
+    function attemptInit() { setupAdvancedSelectListeners(); }
+    if (prelineInitialized || (typeof HSAdvancedSelect !== 'undefined' && HSAdvancedSelect.initialized)) { attemptInit(); } else { if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', () => setTimeout(attemptInit, 300)); } else { setTimeout(attemptInit, 500); } }
 
-    // Also set up listeners when the DOM is fully loaded (as a fallback)
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupAdvancedSelectListeners);
-    }
-
-    // Final fallback - try again after window load
-    window.addEventListener('load', setupAdvancedSelectListeners);
 })();
+// --- End of advanced-select.js ---
