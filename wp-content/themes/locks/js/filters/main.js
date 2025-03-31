@@ -1,38 +1,16 @@
 // --- Start of main.js ---
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Variable to hold the latest known state of all filters
+    // --- State Management ---
     let currentFilterStates = {
         checkboxes: {},
         ranges: {},
         advancedSelects: {}
     };
+    const productGrid = document.querySelector('.product-grid');
+    let isFiltering = false; // Flag to prevent concurrent filtering operations
 
-    // Function to get the initial state or state for non-advanced-select types
-    function updateNonAdvancedSelectStates() {
-        // Checkbox States
-        if (typeof window.getCheckboxFilterState === 'function') {
-            try { currentFilterStates.checkboxes = window.getCheckboxFilterState(); }
-            catch (e) { console.error("Error getting checkbox state:", e); }
-        } else { console.warn('Checkbox state function (getCheckboxFilterState) not found.'); }
-
-        // Range States
-        if (typeof window.getRangeFilterState === 'function') {
-            try { currentFilterStates.ranges = window.getRangeFilterState(); }
-            catch (e) { console.error("Error getting range state:", e); }
-        } else { console.warn('Range state function (getRangeFilterState) not found.'); }
-
-        // Advanced Select States (ONLY for initial load)
-        if (typeof window.getAdvancedSelectState === 'function') {
-            try {
-                if (Object.keys(currentFilterStates.advancedSelects).length === 0) {
-                    currentFilterStates.advancedSelects = window.getAdvancedSelectState();
-                }
-            } catch (e) { console.error("Error getting initial advanced select state:", e); }
-        } else { console.warn('Advanced select state function (getAdvancedSelectState) not found for initial load.'); }
-    }
-
-    // Debounce function
+    // --- Utility Functions ---
     const debounce = (func, delay) => {
         let timeout;
         return function (...args) {
@@ -41,73 +19,202 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     };
 
-    // Function to log the current state (called after updates)
-    function logCurrentState(triggerType) {
-        console.log(`Logging state triggered by: ${triggerType || 'unknown'}`);
-        console.log('--- All Current Filter States ---');
-        console.log(JSON.stringify(currentFilterStates, null, 2)); // Log the stored state variable
-        console.log('---------------------------------');
-
-        // --------------------------------------------------
-        // **** FIX: Comment out the call until function is defined ****
-        // filterProducts(currentFilterStates);
-        // --------------------------------------------------
+    // --- State Getters (called by update function or init) ---
+    function getCheckboxStates() {
+        if (typeof window.getCheckboxFilterState === 'function') {
+            try { return window.getCheckboxFilterState(); }
+            catch (e) { console.error("Error getting checkbox state:", e); return {}; }
+        } else { console.warn('Checkbox state function not found.'); return {}; }
     }
 
-    // Create a debounced version for logging/filtering
-    const debouncedLogCurrentState = debounce(logCurrentState, 200);
+    function getRangeStates() {
+        if (typeof window.getRangeFilterState === 'function') {
+            try { return window.getRangeFilterState(); }
+            catch (e) { console.error("Error getting range state:", e); return {}; }
+        } else { console.warn('Range state function not found.'); return {}; }
+    }
+
+    function getAdvancedSelectStates() {
+        if (typeof window.getAdvancedSelectState === 'function') {
+            try { return window.getAdvancedSelectState(); }
+            catch (e) { console.error("Error getting advanced select state:", e); return {}; }
+        } else { console.warn('Advanced select state function not found.'); return {}; }
+    }
+
+    // --- Product Filtering Logic ---
+    function filterProducts(filters) {
+        if (!productGrid) {
+            console.error("Product grid container (.product-grid) not found for filtering.");
+            return;
+        }
+        if (isFiltering) {
+            console.log("Filter requested but previous filter is still running.");
+            return; // Exit if already processing
+        }
+        isFiltering = true;
+        console.log("Starting filter process with state:", filters);
+
+        const productItems = productGrid.querySelectorAll('a.product-item');
+        if (productItems.length === 0) {
+            console.log("No product items found to filter.");
+            isFiltering = false;
+            return;
+        }
+
+        // Animation: Start Hide Grid
+        productGrid.style.transition = 'opacity 0.3s ease-in-out';
+        productGrid.style.opacity = '0';
+
+        // Use requestAnimationFrame to ensure the style change is applied before timeout
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                productItems.forEach(item => {
+                    let shouldBeVisible = true;
+
+                    // 1. Advanced Select Filter (Series)
+                    if (filters.advancedSelects && Object.keys(filters.advancedSelects).length > 0) {
+                        for (const groupKey in filters.advancedSelects) {
+                            const selectedValues = filters.advancedSelects[groupKey];
+                            if (selectedValues && selectedValues.length > 0) {
+                                const itemValue = item.dataset[groupKey];
+                                if (!itemValue || !selectedValues.includes(itemValue)) {
+                                    shouldBeVisible = false; break;
+                                }
+                            }
+                        }
+                    }
+
+                    // 2. Checkbox Filters
+                    if (shouldBeVisible && filters.checkboxes && Object.keys(filters.checkboxes).length > 0) {
+                        for (const groupKey in filters.checkboxes) {
+                            const selectedValues = filters.checkboxes[groupKey];
+                            if (!selectedValues || selectedValues.length === 0 || selectedValues.includes('all')) continue;
+
+                            if (groupKey === 'category' && selectedValues.includes('featured')) {
+                                if (item.dataset.featured !== '1') {
+                                    shouldBeVisible = false;
+                                }
+                                // Apply featured rule, then skip other category checks for this item
+                                if (!shouldBeVisible) break; else continue;
+                            }
+
+                            const itemValue = item.dataset[groupKey];
+                            // Treat checkbox filters as requiring an EXACT match from the product's attribute
+                            // Check if the specific itemValue exists within the selectedValues array
+                            if (!itemValue || !selectedValues.includes(itemValue)) {
+                                shouldBeVisible = false; break;
+                            }
+                        }
+                    }
+
+                    // 3. Range Filters
+                    if (shouldBeVisible && filters.ranges && Object.keys(filters.ranges).length > 0) {
+                        for (const groupKey in filters.ranges) {
+                            const filterValue = parseFloat(filters.ranges[groupKey]);
+                            const itemValueStr = item.dataset[groupKey];
+
+                            if (isNaN(filterValue)) continue;
+
+                            // If item lacks the attribute, hide it (unless filter is at max? - decide requirement)
+                            // Current logic: hide if attribute missing
+                            if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') {
+                                shouldBeVisible = false; break;
+                            }
+
+                            const itemValue = parseFloat(itemValueStr);
+                            // Hide if item value is invalid or less than the filter value
+                            if (isNaN(itemValue) || itemValue < filterValue) {
+                                shouldBeVisible = false; break;
+                            }
+                        }
+                    }
+
+                    // Apply Visibility
+                    if (shouldBeVisible) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                }); // End forEach productItem
+
+                // Animation: End Show Grid
+                productGrid.style.opacity = '1';
+                isFiltering = false;
+                console.log("Filtering complete. Grid revealed.");
+
+            }, 300); // Match timeout duration to CSS transition time
+        }); // End requestAnimationFrame
+
+    } // End filterProducts function
 
 
-    // Function to handle the filter change event
-    function handleFilterUpdate(event) {
-        const eventType = event.detail?.type;
-        const eventGroup = event.detail?.group;
-        const eventValues = event.detail?.values; // Get values from event detail
+    // --- Event Handling ---
 
-        console.log(`Filter change event received. Type: ${eventType}, Group: ${eventGroup || 'N/A'}`);
+    // Function to update state and trigger filtering
+    function updateStateAndFilter(eventType, eventDetail) {
+        let stateChanged = false;
+        const group = eventDetail?.group;
+        const values = eventDetail?.values;
 
-        let stateUpdated = false;
+        console.log(`Handling state update for: ${eventType}`);
 
-        // *** Use event detail for advanced-select ***
-        if (eventType === 'advanced-select' && eventGroup && eventValues !== undefined) {
-            // Directly update the stored state using values from the event detail
-            currentFilterStates.advancedSelects[eventGroup] = eventValues;
-            console.log(`Updated advancedSelects state for group '${eventGroup}' from event detail.`);
-            stateUpdated = true;
-            // Log/filter immediately or debounce
-            debouncedLogCurrentState(eventType);
+        if (eventType === 'advanced-select' && group && values !== undefined) {
+            currentFilterStates.advancedSelects[group] = values;
+            stateChanged = true;
+        } else if (eventType === 'checkbox') {
+            currentFilterStates.checkboxes = getCheckboxStates();
+            stateChanged = true;
+        } else if (eventType === 'range') {
+            currentFilterStates.ranges = getRangeStates();
+            stateChanged = true;
+        }
 
-        } else if (eventType === 'checkbox' || eventType === 'range') {
-            // For other types, update their state by calling the respective getters
-            if (eventType === 'checkbox' && typeof window.getCheckboxFilterState === 'function') {
-                try { currentFilterStates.checkboxes = window.getCheckboxFilterState(); stateUpdated = true; }
-                catch (e) { console.error("Error updating checkbox state:", e); }
-            } else if (eventType === 'range' && typeof window.getRangeFilterState === 'function') {
-                try { currentFilterStates.ranges = window.getRangeFilterState(); stateUpdated = true; }
-                catch (e) { console.error("Error updating range state:", e); }
-            }
-            // Use debounce for checkboxes/ranges
-            if (stateUpdated) { debouncedLogCurrentState(eventType); }
-        } else {
-            console.warn("Received filterChanged event with unknown type or missing data:", event.detail);
+        if (stateChanged) {
+            console.log("State updated by user interaction, triggering filtering:", currentFilterStates);
+            filterProducts(currentFilterStates); // Trigger filtering now
         }
     }
 
-    // Listen for the custom 'filterChanged' event
+    // Debounced version for handling filter events
+    const debouncedUpdateAndFilter = debounce(updateStateAndFilter, 250);
+
+    // Main event listener for changes from filter components
+    function handleFilterUpdate(event) {
+        const eventType = event.detail?.type;
+        console.log(`Filter change event received. Type: ${eventType}`);
+        // Use the debounced handler for all filter types triggered by user
+        debouncedUpdateAndFilter(eventType, event.detail);
+    }
+
     document.addEventListener('filterChanged', handleFilterUpdate);
 
-    // --- Initial State Fetch and Log on Page Load ---
-    setTimeout(() => {
-        console.log('--- Fetching Initial Filter States ---');
-        updateNonAdvancedSelectStates(); // Fetch initial state for all types
+    // --- Initial Application Setup ---
+    function initializeApp() {
+        if (!productGrid) {
+            console.error("Product grid container (.product-grid) not found on initialization.");
+            return;
+        }
+        console.log('--- Fetching Initial Filter States (for reference) ---');
+        // Fetch initial state just to have it available if needed, but DON'T filter yet.
+        currentFilterStates.checkboxes = getCheckboxStates();
+        currentFilterStates.ranges = getRangeStates();
+        currentFilterStates.advancedSelects = getAdvancedSelectStates();
+
         console.log('--- Initial Filter States ---');
-        logCurrentState('initial load'); // Log the fetched initial state
+        console.log(JSON.stringify(currentFilterStates, null, 2));
         console.log('-----------------------------');
 
-        // Optionally trigger initial filtering
-        // filterProducts(currentFilterStates);
+        // *** FIX: REMOVED the automatic filtering call on load ***
+        // The setTimeout block that called filterProducts is removed.
 
-    }, 800); // Adjust delay as needed
+        // Ensure grid is visible by default (if not hidden by CSS initially)
+        // If AJAX loads hidden items, they stay hidden until a filter potentially reveals them.
+        productGrid.style.opacity = '1'; // Make sure grid container is visible
+        console.log("Initialization complete. Waiting for user filter interaction.");
+    }
+
+    // Initialize the application state without triggering filtering
+    initializeApp();
 
 });
 // --- End of main.js ---

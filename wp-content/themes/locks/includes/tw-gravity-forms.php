@@ -3,14 +3,14 @@
 add_action('wp_enqueue_scripts', 'dequeue_gravity_assets', 100);
 function dequeue_gravity_assets()
 {
-    if (is_page_template('page-templates/gravity-test.php')) {
+    if (is_page('9385') || is_singular('product')) {
         wp_dequeue_style('locks-style');
         wp_dequeue_style('gform_theme');
         wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
     }
 }
 
-add_filter('gform_field_content_10', 'gform_field_label', 10, 5);
+add_filter('gform_field_content', 'gform_field_label', 10, 5);
 function gform_field_label($content, $field, $value, $lead_id, $form_id)
 {
     $fields_mb = ['select', 'radio', 'date'];
@@ -27,7 +27,7 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
     return $content;
 }
 
-add_filter('gform_field_input_10', 'format_gf_inputs', 10, 5);
+add_filter('gform_field_input', 'format_gf_inputs', 10, 5);
 function format_gf_inputs($input, $field, $value, $entry_id, $form_id)
 {
     $modified_input = false;
@@ -89,7 +89,8 @@ function format_gf_inputs($input, $field, $value, $entry_id, $form_id)
             $input .= '</div>';
         }
 
-        if ($field->type === 'date') {
+        if ($field->type === false) {
+            // if ($field->type === 'date') {
             $modified_input = true;
             $field_key = $field->formId . '_' . $field->id;
 
@@ -104,13 +105,36 @@ function format_gf_inputs($input, $field, $value, $entry_id, $form_id)
             $input = $input . '</div>';
         }
 
-        if ($field->calendarIconType === 'calendar') {
-            $input .= '<input type="hidden" id="gforms_calendar_icon_input_' . $field->formId . '_' . $field->id . '" class="gform_hidden" ';
-            $input .= 'value="' . get_home_url() . '/wp-content/plugins/gravityforms/images/datepicker/datepicker.svg" data-conditional-logic="visible">';
-        }
+        // if ($field->calendarIconType === 'calendar') {
+        //     $input .= '<input type="hidden" id="gforms_calendar_icon_input_' . $field->formId . '_' . $field->id . '" class="gform_hidden" ';
+        //     $input .= 'value="' . get_home_url() . '/wp-content/plugins/gravityforms/images/datepicker/datepicker.svg" data-conditional-logic="visible">';
+        // }
     }
 
-    if ($field->type === 'checkbox') {
+    if ($field->type == 'textarea') {
+        $modified_input = true;
+        $input  = gform_input_container_open($field->type);
+
+        $id = $form_id . '_' . $field->id;
+        $field_id = 'input_' . $id;
+
+        $input .= '<div class="mt-2">';
+        $input .= '<textarea ';
+        $input .= 'name="input_' . $field->id . '" ';
+        $input .= 'id="' . $field_id . '" ';
+
+        if (!empty($field->placeholder)) {
+            $input .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
+        }
+
+        if ($field->isRequired) {
+            $input .= 'aria-required="true" ';
+        }
+
+        $input .= 'class="!block !resize-y !w-full min-h-36 sm:!min-h-24 !rounded-md !bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 placeholder:!text-gray-400 focus:!outline focus:!outline-2 focus:!-outline-offset-2 focus:!outline-indigo-600 sm:!text-sm/6">';
+        $input .= esc_textarea($value);
+        $input .= '</textarea>';
+        $input .= '</div></div>';
     }
 
     return $input;
@@ -153,3 +177,49 @@ function reinitialize_datepickers()
 <?php
     }
 }
+
+add_filter('gform_submit_button_14', 'input_to_button', 10, 2);
+function input_to_button($button, $form)
+{
+    $fragment = WP_HTML_Processor::create_fragment($button);
+    $fragment->next_token();
+
+    $attributes = array('id', 'type', 'class', 'onclick');
+    $new_attributes = array();
+    foreach ($attributes as $attribute) {
+        $value = $fragment->get_attribute($attribute);
+        if (! empty($value)) {
+            $new_attributes[] = sprintf('%s="%s"', $attribute, esc_attr($value));
+        }
+    }
+
+    return sprintf('<button %s>%s</button>', implode(' ', $new_attributes), esc_html($fragment->get_attribute('value')));
+}
+
+/**
+ * Add custom CSS classes to Gravity Forms submit buttons
+ *
+ * @param string $button_input The button HTML
+ * @param object $form The form object
+ * @return string Modified button HTML
+ */
+add_filter('gform_submit_button', function ($button_input, $form) {
+    $dom = new DOMDocument();
+    $dom->loadHTML($button_input, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $input = $dom->getElementsByTagName('input')->item(0);
+
+    // Add custom classes
+    $custom_classes = ' !w-full !rounded-md !border !border-transparent !bg-secondary-500 !px-4 !py-3 !text-base !font-medium !text-white !shadow-xs hover:!bg-secondary-600 focus:!ring-2 focus:!ring-secondary-500 focus:!ring-offset-2 focus:!ring-offset-gray-50 focus:!outline-hidden';
+
+    // Get existing classes if any
+    $existing_classes = $input->getAttribute('class');
+
+    // Combine existing and new classes
+    $all_classes = trim($existing_classes . ' ' . $custom_classes);
+
+    // Set the combined classes
+    $input->setAttribute('class', $all_classes);
+
+    // Return the modified button HTML
+    return $dom->saveHTML();
+}, 10, 2);
