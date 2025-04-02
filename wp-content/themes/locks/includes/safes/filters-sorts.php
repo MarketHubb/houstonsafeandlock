@@ -4,7 +4,7 @@ function get_range_filters($range_data)
     $sliders = [];
 
     foreach ($range_data as $range_name => $range_values) {
-        $range_name_formatted = strtolower(str_replace(' ', '_', $range_name));
+        $range_name_formatted = data_attribute_group_name($range_name);
         $range_name_label     = ucfirst($range_name);
         $min_value            = round($range_values['min']);
         $max_value            = round($range_values['max']);
@@ -24,7 +24,7 @@ function get_range_filters($range_data)
 
         // Create the JSON configuration separately
         $slider_config = json_encode([
-            'start'      => $max_value,
+            'start'      => $min_value,
             'connect'    => 'lower',
             'range'      => [
                 'min' => $min_value,
@@ -46,16 +46,17 @@ function get_range_filters($range_data)
         ], JSON_NUMERIC_CHECK); // Added JSON_NUMERIC_CHECK flag
 
         $slider_html = <<<STRING
-        <div>
+        <div data-filter-group="{$range_name_formatted}">
         <label for="min-and-max-range-slider-usage" class="font-semibold mb-2">{$range_name_label}</label>
         <div
-            id="{$range_name_formatted}"
+            id="hs-{$range_name_formatted}-filter"
             class="relative h-2 rounded-full bg-gray-100 filter-range-slider"
             data-type="{$range_name}"
+            data-start-val="{$max_value}"
             data-hs-range-slider='{$slider_config}'
         >
         </div>
-        <div class="text-gray-500 mt-1"><span id="hs-{$range_name_formatted}target" class="font-normal">{$output_prepend}{$max_value}</span><span>{$output_append}</span></div>
+        <div class="text-gray-500 mt-1"><span id="hs-{$range_name_formatted}-filter-target" class="font-normal">{$output_prepend}{$max_value}</span><span>{$output_append}</span></div>
         </div>
 
         STRING;
@@ -98,8 +99,15 @@ function get_checkbox_filter_input_attributes(array $labels, string $value)
 
 function add_select_all_input_to_checkbox_filters($label_text, $filter_values)
 {
+
     if ($label_text === 'Categories') {
-        array_unshift($filter_values, 'All Safes,0', 'Featured Safes,1');
+        if (get_queried_object_id() === 3901) {
+            array_unshift($filter_values, 'Featured Safes,1');
+        }
+
+        array_unshift($filter_values, 'All Safes,0');
+
+        // array_unshift($filter_values, 'All Safes,0', 'Featured Safes,1');
     }
 
     if ($label_text === 'Fire Rating') {
@@ -115,7 +123,13 @@ function add_select_all_input_to_checkbox_filters($label_text, $filter_values)
 
 function get_checked_inputs_on_init($input_name, $input_value)
 {
-    if ($input_name === 'categories' && str_contains($input_value, 'Featured')) {
+    if (get_queried_object_id() === 3901) {
+        $target_input = 'Featured Safes';
+    } else {
+        $target_input = trim(get_queried_object()->name);
+    }
+
+    if ($input_name === 'categories' && $input_value === $target_input) {
         return true;
     }
 
@@ -126,32 +140,6 @@ function get_checked_inputs_on_init($input_name, $input_value)
     return false;
 }
 
-function filter_group_data_attribute(string $filter_name)
-{
-    $filter_name = strtolower(replace_space_with_underscore($filter_name));
-
-    if ($filter_name === 'categories') {
-        return 'category';
-    }
-
-    return $filter_name;
-}
-
-function filter_input_value_data_attribute(string $input_value)
-{
-    if (empty($input_value)) return null;
-
-    if (str_contains($input_value, 'All ')) {
-        return 'all';
-    }
-
-    if (str_contains($input_value, 'Featured ')) {
-        return 'featured';
-    }
-
-    return strtolower(replace_space_with_underscore($input_value));
-}
-
 function get_checkbox_filters(array $checkbox_data)
 {
     $filters = [];
@@ -160,7 +148,7 @@ function get_checkbox_filters(array $checkbox_data)
         $labels        = get_checkbox_filter_labels($filter_key);
         $label_text    = $labels['text'];
         $input_name    = $labels['name'];
-        $filter_group  = filter_group_data_attribute($input_name);
+        $filter_group  = data_attribute_group_name($input_name);
         $filter_values = add_select_all_input_to_checkbox_filters($label_text, $filter_values);
 
         // Initialize the container div for this attribute group
@@ -176,20 +164,20 @@ function get_checkbox_filters(array $checkbox_data)
                 $checked = get_checked_inputs_on_init($input_name, $attributes['value'])
                     ? 'checked'
                     : '';
-                $filter_val = filter_input_value_data_attribute($attributes['value']);
+                $filter_val = data_attribute_input_value($attributes['value']);
 
                 $checkbox_group .= <<<STRING
-                <div class="flex">
+                <div class="flex peer">
                     <input
                     type="checkbox"
-                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                    class="peer shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 focus:disabled:ring-blue-500 disabled:active:ring-blue-500 disabled:focus:ring-blue-500 disabled:opacity-100  disabled:pointer-events-none"
                     id="{$attributes['id']}"
                     name="{$input_name}"
                     value="{$attributes['value']}"
                     data-filter-val="{$filter_val}"
                     {$checked}
                     >
-                    <label for="{$attributes['id']}" class=" text-gray-500 ms-3">{$attributes['value']}</label>
+                    <label for="{$attributes['id']}" class=" text-gray-500 ms-3 peer-checked:text-gray-900">{$attributes['value']}</label>
                 </div>
             STRING;
             }
@@ -216,9 +204,13 @@ function get_tax_series_data($safe_ids)
             break;
         }
 
-        $series_name = trim($series[0]) . ' (' . trim($oem) . ')';
+        $series_name = trim($series[0]);
 
-        if (! is_array($series_data[$oem]) || ! in_array($series_name, $series_data[$oem])) {
+
+
+
+        // if (! is_array($series_data[$oem]) || ! in_array($series_name, $series_data[$oem])) {
+        if (!array_key_exists($oem, $series_data) || ! in_array($series_name, $series_data[$oem])) {
             $series_data[$oem][] = $series_name;
         }
     }
@@ -240,8 +232,9 @@ function get_options_for_tax_series_filter($safe_ids)
 
     array_walk($series_data, function ($series_data, $oem) use (&$options) {
         foreach ($series_data as $series) {
-            $series_name = $series . ' (' . $oem . ')';
-            $options .= '<option value="' . $series . '">' . $series . '</option>';
+            $series_val = data_attribute_input_value($series);
+            $series_name = $series . ' Series (' . $oem . ')';
+            $options .= '<option data-filter-val="' . $series_val . '" value="' . $series_val . '">' . $series_name . '</option>';
         }
     });
 
@@ -262,7 +255,7 @@ function get_multi_select_filter($safe_ids)
     $input_classes = classes_search_input();
 
     $select_el = <<<SELECT
-    <div class="w-full">
+    <div class="w-full" data-filter-group="series">
         <select multiple="" data-hs-select='{
         "placeholder": "Filter by series",
         "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300",

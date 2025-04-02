@@ -1,23 +1,4 @@
 <?php
-function enqueue_product_category_scripts()
-{
-    wp_enqueue_script('tw-load-safes', get_template_directory_uri() . '/js/load-safes.js', array(), '1.0', true);
-    wp_enqueue_script('tw-filters', get_template_directory_uri() . '/js/tw-filters.js', array('jquery'), '1.0', true);
-    wp_enqueue_style('tw-product-category-style', get_template_directory_uri() . '/css/tw-safe-cat.css', array(), '1.0');
-}
-
-function conditionally_enqueue_product_category_assets()
-{
-    if (is_tax('product_cat') || is_page(3901)) {
-        enqueue_product_category_scripts();
-        dequeue_theme_styles();
-        dequeue_genesis_styles();
-        dequeue_woocommerce_styles();
-        dequeue_bootstrap_styles();
-    }
-}
-add_action('wp_enqueue_scripts', 'conditionally_enqueue_product_category_assets');
-
 function enqueue_product_single_scripts()
 {
     wp_enqueue_script('custom-accordion', get_template_directory_uri() . '/js/accordion.js', array(), '1.0', true);
@@ -30,135 +11,6 @@ function conditionally_enqueue_product_single_assets()
     }
 }
 add_action('wp_enqueue_scripts', 'conditionally_enqueue_product_single_assets');
-
-function enqueue_preline_script()
-{
-    $website_root = ABSPATH;
-    $preline_path = $website_root . 'node_modules/preline/dist/preline.js';
-    $preline_range_slider_path = $website_root . 'node_modules/preline/dist/components/hs-range-slider.js';
-    // Adjust path if needed: check if the combobox file is in a 'dist' folder.
-    $preline_combobox_path = $website_root . 'node_modules/@preline/combobox/combobox.js';
-
-    if (file_exists($preline_path)) {
-        // Enqueue main Preline script
-        $preline_url = str_replace(ABSPATH, site_url('/'), $preline_path);
-        $preline_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_url);
-        wp_enqueue_script('preline', $preline_url, array(), '1.0.0', true);
-
-        // Enqueue Range Slider component if it exists
-        if (file_exists($preline_range_slider_path)) {
-            $preline_range_slider_url = str_replace(ABSPATH, site_url('/'), $preline_range_slider_path);
-            $preline_range_slider_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_range_slider_url);
-            wp_enqueue_script('preline-range-slider', $preline_range_slider_url, array('preline'), '1.0.0', true);
-        }
-
-        // Enqueue ComboBox component if it exists
-        $has_combobox = false;
-        if (file_exists($preline_combobox_path)) {
-            $has_combobox = true;
-            $preline_combobox_url = str_replace(ABSPATH, site_url('/'), $preline_combobox_path);
-            $preline_combobox_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_combobox_url);
-            wp_enqueue_script('preline-combobox', $preline_combobox_url, array('preline'), '1.0.0', true);
-        }
-
-        // Initialization script using capture-phase event listener
-        $init_script = <<<EOT
- document.addEventListener("DOMContentLoaded", () => {
-    // Auto initialize all Preline components
-    HSStaticMethods.autoInit();
-
-    // Optionally, explicitly initialize ComboBox if needed
-    if (typeof HSComboBox !== "undefined") {
-        HSComboBox.autoInit();
-    }
-
-    // Add clear functionality to the clear icon
-    const clearIcon = document.querySelector('[data-hs-combo-box-close]');
-    const inputField = document.querySelector('[data-hs-combo-box-input]');
-    if (clearIcon && inputField) {
-        clearIcon.addEventListener('click', () => {
-            // Clear the input value
-            inputField.value = '';
-            // Remove any stored post ID
-            inputField.removeAttribute('data-selected-post-id');
-            // Close the combobox dropdown if open
-            if (typeof HSComboBox !== "undefined") {
-                HSComboBox.closeCurrentlyOpened();
-            }
-        });
-    }
-
-    // Listen for item selection in the dropdown
-    const comboBoxOutput = document.querySelector('[data-hs-combo-box-output]');
-    if (comboBoxOutput && inputField) {
-        comboBoxOutput.addEventListener('click', (e) => {
-            // Find the closest item that was clicked
-            const item = e.target.closest('[data-hs-combo-box-output-item]');
-            if (item) {
-                // Find the span with the value attribute
-                const valueSpan = item.querySelector('[data-hs-combo-box-value]');
-                if (valueSpan) {
-                    const fullValue = valueSpan.getAttribute('data-hs-combo-box-value');
-                    const postId = valueSpan.getAttribute('data-postid');
-
-                    // Set the input value to the full value
-                    inputField.value = fullValue;
-
-                    // Store the post ID as a data attribute
-                    if (postId) {
-                        inputField.setAttribute('data-selected-post-id', postId);
-                    }
-
-                    console.log('Selected full value:', fullValue);
-                    console.log('Selected post ID:', postId);
-                }
-            }
-        });
-    }
-
-    // Initialize sliders using noUiSlider directly
-    setTimeout(() => {
-        const sliders = document.querySelectorAll("[data-slider-config]");
-        sliders.forEach(slider => {
-            try {
-                if (!slider.noUiSlider) {
-                    const config = JSON.parse(slider.getAttribute("data-slider-config"));
-
-                    // Create the slider
-                    const sliderInstance = noUiSlider.create(slider, {
-                        ...config,
-                        cssPrefix: "noUi-"  // Ensure proper class prefixing
-                    });
-
-                    // Update the target span with the current value
-                    const targetSpan = document.getElementById(slider.id + "-target");
-                    if (targetSpan) {
-                        sliderInstance.on("update", function(values) {
-                            targetSpan.textContent = Math.round(values[0]);
-                        });
-                    }
-                }
-            } catch (error) {
-                console.error("Error initializing slider:", error);
-            }
-        });
-    }, 100);
-});
-
-
-
-
-EOT;
-
-        // Attach the inline script to the combobox handle if it exists, otherwise to 'preline'
-        if ($has_combobox) {
-            wp_add_inline_script('preline-combobox', $init_script);
-        } else {
-            wp_add_inline_script('preline', $init_script);
-        }
-    }
-}
-add_action('wp_enqueue_scripts', 'enqueue_preline_script');
 
 function enqueue_nouislider_assets()
 {
@@ -182,6 +34,86 @@ function enqueue_nouislider_assets()
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_nouislider_assets');
+
+function enqueue_preline_script()
+{
+    $website_root = ABSPATH;
+    $preline_path = $website_root . 'node_modules/preline/dist/preline.js';
+
+    $preline_range_slider_path = $website_root . 'node_modules/preline/dist/components/hs-range-slider.js';
+    // Adjust path if needed: check if the combobox file is in a 'dist' folder.
+    $preline_combobox_path = $website_root . 'node_modules/@preline/combobox/combobox.js';
+
+    if (file_exists($preline_path)) {
+        // Enqueue main Preline script
+        $preline_url = str_replace(ABSPATH, site_url('/'), $preline_path);
+        $preline_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_url);
+        wp_enqueue_script('preline', $preline_url, array('nouislider-js'), '1.0.0', true);
+
+        // Enqueue Range Slider component if it exists
+        if (file_exists($preline_range_slider_path)) {
+            $preline_range_slider_url = str_replace(ABSPATH, site_url('/'), $preline_range_slider_path);
+            $preline_range_slider_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_range_slider_url);
+            wp_enqueue_script('preline-range-slider', $preline_range_slider_url, array('preline'), '1.0.0', true);
+        }
+
+        // Enqueue ComboBox component if it exists
+        $has_combobox = false;
+        if (file_exists($preline_combobox_path)) {
+            $has_combobox = true;
+            $preline_combobox_url = str_replace(ABSPATH, site_url('/'), $preline_combobox_path);
+            $preline_combobox_url = preg_replace('/([^:])(\/\/+)/', '$1/', $preline_combobox_url);
+            wp_enqueue_script('preline-combobox', $preline_combobox_url, array('preline'), '1.0.0', true);
+        }
+
+        // Advanced select
+        wp_enqueue_script('preline-select', get_template_directory_uri() . '/js/filters/advanced-select.js', array('preline'), '1.0', true);
+        wp_enqueue_script('preline-checkbox', get_template_directory_uri() . '/js/filters/checkbox.js', array('preline'), '1.0', true);
+        wp_enqueue_script('preline-range', get_template_directory_uri() . '/js/filters/range.js', array('preline'), '1.0', true);
+        wp_enqueue_script(
+            'preline-filters-main',
+            get_template_directory_uri() . '/js/filters/main.js',
+            array('preline', 'preline-select', 'preline-checkbox', 'preline-range'),
+            '1.0',
+            true
+        );
+
+
+        // Initialization script using capture-phase event listener
+        $init_script = <<<EOT
+        // Initialize all Preline components
+        HSStaticMethods.autoInit();
+
+        // Initialize the Advanced Select plugin specifically
+        HSAdvancedSelect.autoInit();
+        EOT;
+
+        // Attach the inline script to the combobox handle if it exists, otherwise to 'preline'
+        // if ($has_combobox) {
+        //     wp_add_inline_script('preline-combobox', $init_script);
+        // } else {
+        //     wp_add_inline_script('preline', $init_script);
+        // }
+        // wp_add_inline_script('preline', $init_script);
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_preline_script');
+
+function enqueue_inline_preline_script()
+{
+
+    // Initialization script using capture-phase event listener
+    $init_script = <<<EOT
+        // Initialize all Preline components
+        HSStaticMethods.autoInit();
+
+        // Initialize the Advanced Select plugin specifically
+        HSAdvancedSelect.autoInit();
+        EOT;
+
+    wp_add_inline_script('preline', $init_script);
+}
+add_action('wp_enqueue_scripts', 'enqueue_inline_preline_script');
 
 // Enqueue the script
 add_action('wp_enqueue_scripts', function () {
@@ -231,7 +163,7 @@ function locks_scripts()
     wp_enqueue_script('customimr', get_template_directory_uri() . '/js/custom-imr.js', array('jquery'), '20151216', true);
     // wp_enqueue_script('main', get_template_directory_uri() . '/js/main.js', array('jquery'), '20151216', true);
     wp_enqueue_script('locks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true);
-    wp_enqueue_script('lucide-icons', 'https://unpkg.com/lucide@latest', array(), '', true);
+    // wp_enqueue_script('lucide-icons', 'https://unpkg.com/lucide@latest', array(), '', true);
 
     // Conditional enqueuing
     if (is_front_page()) {
@@ -400,6 +332,13 @@ function dequeue_bootstrap_styles()
     wp_dequeue_style('bootstrap-overrides');
 }
 
+function enqueue_gravity_forms_modal_styles()
+{
+    wp_dequeue_style('locks-style');
+    wp_dequeue_style('gform_theme');
+    wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
+}
+
 function enqueue_preline_package_leaflet()
 {
     wp_enqueue_style('preline_leaflet_styles', '/node_modules/leaflet/dist/leaflet.css', [], '1.9.4');
@@ -418,10 +357,37 @@ function locksmith_page_styles()
 {
     if (is_page_template('page-templates/locksmith.php')) {
         dequeue_theme_styles();
-        dequeue_genesis_styles();
+        // dequeue_genesis_styles();
         dequeue_woocommerce_styles();
         dequeue_bootstrap_styles();
         enqueue_preline_package_leaflet();
     }
 }
 add_action('wp_enqueue_scripts', 'locksmith_page_styles');
+
+function enqueue_product_category_scripts()
+{
+    wp_enqueue_script('tw-load-safes', get_template_directory_uri() . '/js/load-safes.js', array(), '1.0', true);
+    // wp_enqueue_script('tw-filters', get_template_directory_uri() . '/js/tw-filters.js', array('jquery'), '1.0', true);
+    wp_enqueue_style('tw-product-category-style', get_template_directory_uri() . '/css/tw-safe-cat.css', array(), '1.0');
+}
+
+function conditionally_enqueue_product_category_assets()
+{
+    if (is_tax('product_cat') || is_page(3901)) {
+        enqueue_product_category_scripts();
+        dequeue_theme_styles();
+        dequeue_genesis_styles();
+        dequeue_woocommerce_styles();
+        dequeue_bootstrap_styles();
+    }
+}
+add_action('wp_enqueue_scripts', 'conditionally_enqueue_product_category_assets');
+
+function conditionally_enqueue_gravity_forms_modal_assets()
+{
+    if (has_gform_in_modal()) {
+        enqueue_gravity_forms_modal_styles();
+    }
+}
+add_action('wp_enqueue_scripts', 'conditionally_enqueue_gravity_forms_modal_assets');

@@ -1,4 +1,38 @@
 <?php
+function is_locksmith_page(int $post_id)
+{
+    $locksmith_ids = [7728, 6624, 6839, 6448, 7276, 8743, 9385];
+
+    if (in_array($post_id, $locksmith_ids) || is_page_template('page-templates/locksmith.php')) {
+        return true;
+    }
+
+    return false;
+}
+
+function has_gform_in_modal()
+{
+    if (
+        is_page(3901) ||
+        is_tax('product_cat') ||
+        is_singular('product') ||
+        is_locksmith_page(get_queried_object_id())
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+function get_preline_modal_form(int $post_id)
+{
+    if (is_locksmith_page($post_id)) {
+        return 14;
+    }
+
+    return 7;
+}
+
 function get_store_status()
 {
     $hours_data = get_field('store_hours', 'option');

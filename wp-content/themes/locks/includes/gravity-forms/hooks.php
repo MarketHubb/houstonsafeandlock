@@ -155,14 +155,6 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
 
     return $content;
 }
-// add_action('wp_enqueue_scripts', function () {
-//     gravity_form_enqueue_scripts(7, true); // 7 is your form ID
-// });
-
-// add_filter('gform_form_args', function ($args) {
-//     $args['submission_method'] = GFFormDisplay::SUBMISSION_METHOD_AJAX;
-//     return $args;
-// });
 
 add_filter('gform_field_content', 'radio_field_card', 10, 5);
 function radio_field_card($content, $field, $value, $lead_id, $form_id)
@@ -262,3 +254,151 @@ add_filter('gform_submit_button', function ($button_input, $form) {
     // Return the modified button HTML
     return $dom->saveHTML();
 }, 10, 2);
+
+
+/*
+REVIEW
+*/
+
+
+// add_action('wp_enqueue_scripts', function () {
+//     gravity_form_enqueue_scripts(7, true); // 7 is your form ID
+// });
+
+// add_filter('gform_form_args', function ($args) {
+//     $args['submission_method'] = GFFormDisplay::SUBMISSION_METHOD_AJAX;
+//     return $args;
+// });
+
+
+// add_filter('gform_field_input', 'format_gf_inputs', 10, 5);
+// function format_gf_inputs($input, $field, $value, $entry_id, $form_id)
+// {
+//     $modified_input = false;
+
+//     if (!is_admin()) {
+//         $input_types = ['text', 'email', 'phone'];
+
+//         if (in_array($field->type, $input_types)) {
+//             $modified_input = true;
+
+//             $input_type = $field->type !== 'phone'
+//                 ? $field->type
+//                 : 'tel';
+
+//             $input  = gform_input_container_open($field->type);
+//             $input .= '<input value="" type="' . $input_type . '" name="input_' . $field->id . '" id="input_' . $field->formId . '_' . $field->id . '" ';
+//             $input .= 'aria-invalid="false" ';
+//             $input .= 'class="block w-full rounded-md bg-white px-3 py-1.5 !border-transparent !text-base !py-[6px] !px-[12px] text-gray-900 outline outline-1 outline-solid -outline-offset-1 outline-gray-400/85 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" ';
+
+//             if ($field->isRequired) {
+//                 $input .= 'aria-required="true" required ';
+//             }
+
+//             $input .= '>';
+//         }
+
+//         if ($field->type === 'select') {
+//             $modified_input = true;
+//             $input  = gform_input_container_open($field->type, 'max-w-xs');
+//             $input .= '<select type="' . $field->type . '" name="input_' . $field->id . '" id="input_' . $field->formId . '_' . $field->id . '" ';
+//             $input .= 'class="appearance-none rounded-md w-full bg-white !py-1.5 !pl-3 !pr-10 !text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">';
+
+//             if (!empty($field->choices)) {
+//                 foreach ($field->choices as $choice) {
+//                     $input .= '<option value="' . $choice['value'] . '" ';
+
+//                     if ($choice['isSelected']) {
+//                         $input .= 'checked ';
+//                     }
+
+//                     $input .= '>';
+//                     $input .=  $choice['text'];
+//                     $input .=  '</option>';
+//                 }
+//             }
+
+//             $input .= '</select>';
+//         }
+
+//         if ($field->type === 'radio' || $field->type === 'checkbox') {
+//             $modified_input = true;
+//             $input  = gform_input_container_open($field->type);
+//             $input .= '<div class="gfield_' . $field->type . '" id="input_' . $field->formId . '_' . $field->id . '">';
+
+//             if (!empty($field->choices)) {
+//                 $input .= gform_input_choices($field);
+//             }
+
+//             $input .= '</div>';
+//         }
+
+//         if ($field->type === false) {
+//             // if ($field->type === 'date') {
+//             $modified_input = true;
+//             $field_key = $field->formId . '_' . $field->id;
+
+//             $input = gform_input_container_open($field->type);
+//             $input .= '<input name="input_' . $field->id . '" id="input_' . $field_key . '" type="text" value="" ';
+//             $input .= 'class="datepicker gform-datepicker mdy datepicker_with_icon gdatepicker_with_icon hasDatepicker text-gray-900 font-semibold !py-1.5 !pl-3 !text-base outline outline-1 outline-solid -outline-offset-1 outline-gray-400/85 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 !border-0 rounded-md" ';
+//             $input .= 'tabindex="19" placeholder="mm/dd/yyyy" aria-describedby="input_' . $field->formId . '_' . $field->id . '_date_format" aria-invalid="false" data-conditional-logic="visible">';
+//             $input .= '<span id="input_' . $field->formId . '_' . $field->id . '_date_format" class="screen-reader-text">MM slash DD slash YYYY</span>';
+//         }
+
+//         if ($modified_input) {
+//             $input = $input . '</div>';
+//         }
+
+//         // if ($field->calendarIconType === 'calendar') {
+//         //     $input .= '<input type="hidden" id="gforms_calendar_icon_input_' . $field->formId . '_' . $field->id . '" class="gform_hidden" ';
+//         //     $input .= 'value="' . get_home_url() . '/wp-content/plugins/gravityforms/images/datepicker/datepicker.svg" data-conditional-logic="visible">';
+//         // }
+//     }
+
+//     if ($field->type == 'textarea') {
+//         $modified_input = true;
+//         $input  = gform_input_container_open($field->type);
+
+//         $id = $form_id . '_' . $field->id;
+//         $field_id = 'input_' . $id;
+
+//         $input .= '<div class="mt-2">';
+//         $input .= '<textarea ';
+//         $input .= 'name="input_' . $field->id . '" ';
+//         $input .= 'id="' . $field_id . '" ';
+
+//         if (!empty($field->placeholder)) {
+//             $input .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
+//         }
+
+//         if ($field->isRequired) {
+//             $input .= 'aria-required="true" ';
+//         }
+
+//         $input .= 'class="!block !resize-y !w-full min-h-36 sm:!min-h-24 !rounded-md !bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 placeholder:!text-gray-400 focus:!outline focus:!outline-2 focus:!-outline-offset-2 focus:!outline-indigo-600 sm:!text-sm/6">';
+//         $input .= esc_textarea($value);
+//         $input .= '</textarea>';
+//         $input .= '</div></div>';
+//     }
+
+//     return $input;
+// }
+
+// add_filter('gform_submit_button_14', 'input_to_button', 10, 2);
+// function input_to_button($button, $form)
+// {
+//     $fragment = WP_HTML_Processor::create_fragment($button);
+//     $fragment->next_token();
+
+//     $attributes = array('id', 'type', 'class', 'onclick');
+//     $new_attributes = array();
+//     foreach ($attributes as $attribute) {
+//         $value = $fragment->get_attribute($attribute);
+//         if (! empty($value)) {
+//             $new_attributes[] = sprintf('%s="%s"', $attribute, esc_attr($value));
+//         }
+//     }
+
+//     return sprintf('<button %s>%s</button>', implode(' ', $new_attributes), esc_html($fragment->get_attribute('value')));
+// }
+

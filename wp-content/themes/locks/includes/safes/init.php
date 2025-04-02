@@ -1,4 +1,17 @@
 <?php
+defined('ABSPATH') || exit;
+require_once "models.php";
+require_once "queries.php";
+require_once "helpers.php";
+require_once "data.php";
+require_once "components.php";
+require_once "content-archive.php";
+require_once "content-single.php";
+require_once "filters-sorts.php";
+require_once "styles.php";
+require_once "sales.php";
+
+
 function init_safes()
 {
     $safe_ids = get_safe_init_ids();
@@ -6,7 +19,7 @@ function init_safes()
     if (! is_array($safe_ids) || empty($safe_ids)) return null;
 
     $init_ids = is_array($safe_ids['init']) && !empty($safe_ids['init'])
-        ? $safe_ids['init']
+        ? $safe_ids['all']
         : query_all_safe_ids();
 
     $filter_sort_data = get_safe_filter_sort_data($init_ids);
@@ -25,7 +38,9 @@ function get_safe_filter_sort_data($safe_ids)
         'Width'  => 'post_product_gun_exterior_width',
         'Depth'  => 'post_product_gun_exterior_depth',
         'Height' => 'post_product_gun_exterior_height',
-    ], $safe_ids);
+    ],
+    $safe_ids
+);
 
     $filter_data = get_product_attribute_unique_values([
         'Security Rating' => 'post_product_security_rating',

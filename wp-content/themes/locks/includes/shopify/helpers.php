@@ -1,8 +1,7 @@
 <?php
+defined('ABSPATH') || exit
+
 // region Queries
-
-// use Yoast\WP\SEO\Editors\Domain\Seo\Title;
-
 function get_product_cat_terms($post_id)
 {
     return get_the_terms($post_id, 'product_cat') ?? null;
@@ -50,7 +49,7 @@ function get_shopify_data($post_id)
         'price' => get_pricing_data_for_safe($post_id)
     ];
 }
-// endregion 
+// endregion
 
 // region Content
 function get_manufacturer_amsec_attribute()

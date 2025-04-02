@@ -1,4 +1,63 @@
 <?php
+function product_attributes($post_id)
+{
+    $attributes     = [];
+    $attribute_keys = ['series', 'post_id', 'weight', 'width', 'depth', 'height', 'category', 'fire_rating', 'security_rating'];
+
+    foreach ($attribute_keys as $key) {
+        $function_name = $key === 'category'
+            ? 'get_product_parent_terms'
+            : 'get_product_attribute_' . $key;
+
+        if (function_exists($function_name)) {
+            $attributes[$key] = call_user_func($function_name, $post_id);
+        }
+    }
+
+    return $attributes;
+}
+
+function safe_data_attributes(int $post_id, bool $featured)
+{
+    $product_attributes = product_attributes($post_id);
+
+    if (! is_array($product_attributes) || empty($product_attributes)) {
+        return null;
+    }
+
+    $featured_val = $featured ? 1 : 0;
+    $product_attributes['featured'] = $featured_val;
+
+
+    $data_attributes = '';
+
+    foreach ($product_attributes as $key => $attribute) {
+        $attribute_value = $key === 'category'
+            ? $attribute[0]->name
+            : $attribute;
+
+        $data_attributes .= 'data-' . $key . '="' . data_attribute_input_value($attribute_value) . '" ';
+    }
+
+    return $data_attributes;
+}
+
+function get_product_description_long_array($product_attributes)
+{
+    $description = array_key_exists('description_long', $product_attributes) && !empty($product_attributes['description_long'])
+        ? $product_attributes['description_long']
+        : get_product_attribute_description_long($product_attributes['post_id']);
+
+    if (empty($description)) return;
+
+    $description = array_filter(explode('.', $description), 'strlen');
+    $description = array_values($description);
+
+    return is_array($description) && !empty($description)
+        ? $description
+        : null;
+}
+
 /* region Filters & Sorts */
 function get_filter_slider_keys()
 {
@@ -288,35 +347,6 @@ function get_product_range_filter_data($attributes_collection)
     // return $result;
     return $filters_sorts;
 }
-
-function get_product_filters_sorts_legacy($attributes_collection)
-{
-    if (empty($attributes_collection)) {
-        return;
-    }
-
-    $filters = '<form class="mt-4 border-t border-gray-200" id="filters">';
-
-    $slider_filters = array_filter($attributes_collection, function ($attribute) {
-        return isset($attribute['input']) && $attribute['input'] === 'slider';
-    });
-
-    if (! empty($slider_filters)) {
-        $filters .= output_filter_slider($slider_filters);
-    }
-
-    $checkbox_filters = array_filter($attributes_collection, function ($attribute) {
-        return isset($attribute['input']) && $attribute['input'] === 'checkbox';
-    });
-
-    if (! empty($checkbox_filters)) {
-        $filters .= output_filter_checkbox($checkbox_filters);
-    }
-
-    $filters .= '</form>';
-
-    return $filters;
-}
 /* endregion */
 
 /* region Attributes */
@@ -387,15 +417,18 @@ function get_product_attribute_model($post_id)
 
     $title = get_the_title($post_id);
     $brand = get_product_attribute_brand($post_id) ?? null;
-    $model = str_replace($brand, '', $title);
 
-    if (str_contains($title, 'Second Amendment') && $brand === 'Blue Dot') {
-        $brand = 'Second Amendment';
-        $title = str_replace('Second Amendment', '', $title);
-    } elseif ($brand === 'AMSEC') {
-        $brand = !str_contains($brand, 'AMSEC') ? $brand : 'American Security';
-    } elseif ($brand !== 'AMSEC') {
-        $title = $model;
+    if ($title && $brand) {
+        $model = str_replace($brand, '', $title);
+
+        if (str_contains($title, 'Second Amendment') && $brand === 'Blue Dot') {
+            $brand = 'Second Amendment';
+            $title = str_replace('Second Amendment', '', $title);
+        } elseif ($brand === 'AMSEC') {
+            $brand = !str_contains($brand, 'AMSEC') ? $brand : 'American Security';
+        } elseif ($brand !== 'AMSEC') {
+            $title = $model;
+        }
     }
 
     return $model ?? null;
@@ -420,6 +453,15 @@ function get_product_parent_terms($post_id)
     ));
 }
 
+function get_product_parent_tax_name(int $safe_id)
+{
+    $parent_terms = get_product_parent_terms($safe_id);
+
+    return is_array($parent_terms) && ! empty($parent_terms[0])
+        ? remove_safes_from_string($parent_terms[0]->name)
+        : null;
+}
+
 function get_product_attribute_terms($post_id, $tax_page = true)
 {
     $terms = get_the_terms($post_id, 'product_cat');
@@ -442,24 +484,105 @@ function get_product_attribute_terms($post_id, $tax_page = true)
         : null;
 }
 
-function get_product_attribute_list_price($post_id)
+// function get_product_attribute_list_price($post_id)
+// {
+//     return get_product_attribute_discount_price($post_id);
+// }
+
+// function get_product_attribute_price($post_id)
+// {
+//     return get_product_list_price($post_id) ?? null;
+// }
+
+function get_product_list_price($post_id)
 {
-    return get_product_attribute_discount_price($post_id);
+    $list_price = get_pricing_source() === 'Shopify' ? get_product_attribute_price_shopify($post_id) : get_product_attribute_price_website($post_id);
+
+    $list_price = $list_price ?? get_product_attribute_price_website($post_id);
+
+    return $list_price ?? null;
 }
 
-function get_product_attribute_price($post_id)
+function get_product_attribute_price_website($post_id)
 {
-    return get_product_list_price($post_id) ?? null;
+    $price = get_field('post_product_gun_price', $post_id);
+
+    return $price ?? null;
+}
+
+
+function get_product_attribute_price_shopify($post_id)
+{
+    $shopify_data = get_field('product_inventory', $post_id);
+
+    if (isset($shopify_data) && ! empty($shopify_data[0]['price'])) {
+        $price = $shopify_data[0]['price'];
+    }
+
+    return $price ?? null;
+}
+
+function get_product_discount_percentage()
+{
+    if (is_sale_enabled() && get_sale_discount() > 0) {
+        return get_sale_discount();
+    }
+
+    return get_global_discount();
 }
 
 function get_product_attribute_discount_price($post_id)
 {
-    return get_product_discount_price($post_id) ?? null;
+    // Get the original list price
+    $list_price = get_product_list_price($post_id);
+
+    // Return early if no list price exists
+    if (!$list_price) {
+        return null;
+    }
+
+    // Get the discount percentage
+    $discount_percentage = get_product_discount_percentage();
+
+    // If no discount or zero discount, return the original price (properly formatted)
+    if (!$discount_percentage || $discount_percentage === 0) {
+        // Create a NumberFormatter object for currency
+        $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
+        return numfmt_format_currency($fmt, floatval($list_price), 'USD');
+    }
+
+    // Calculate the discounted price
+    $discount_price = floatval($list_price) * (1 - $discount_percentage / 100.0);
+
+    // Format the result as currency
+    $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
+    return numfmt_format_currency($fmt, $discount_price, 'USD');
 }
 
 function get_product_attribute_discount_amount(int $post_id = null)
 {
-    return get_product_discount_amount($post_id) ?? null;
+    // Get the original price
+    $price = get_product_list_price($post_id);
+
+    // Return early if no price exists
+    if (!$price) {
+        return null;
+    }
+
+    // Determine the appropriate discount percentage (consolidated logic)
+    $discount_percentage = 0;
+    if (is_sale_enabled() && get_sale_discount() > 0) {
+        $discount_percentage = get_sale_discount();
+    } else {
+        $discount_percentage = get_global_discount();
+    }
+
+    // Calculate the discount amount
+    $discount_amount = floatval($price) * ($discount_percentage / 100.0);
+
+    // Format the discount amount as currency
+    $fmt = numfmt_create('en_US', NumberFormatter::CURRENCY);
+    return numfmt_format_currency($fmt, $discount_amount, 'USD');
 }
 
 function get_product_attribute_fire_rating($post_id)
@@ -492,21 +615,6 @@ function get_product_attribute_height($post_id)
     return get_field('post_product_gun_exterior_height', $post_id) ?? null;
 }
 
-function format_money(mixed $money, bool $cents = true)
-{
-    $money = is_numeric($money)
-        ? $money
-        : floatval($money);
-
-    $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-
-    if (!$cents) {
-        $fmt->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
-    }
-
-    return $fmt->formatCurrency($money, 'USD');
-}
-
 function get_product_attribute_filter_keys()
 {
     return [
@@ -535,9 +643,9 @@ function get_product_attribute_post_keys()
         'image_url',
         'image_srcset',
         'image_sizes',
-        // 'description_long',
-        // 'table',
-        // 'callouts',
+        'description_long',
+        'table',
+        'callouts',
         // 'gun_capacity',
         // 'gun_capacity_total',
     ];
@@ -567,290 +675,67 @@ function get_product_attributes($post_id, $tax_page = true)
     return $attributes;
 }
 
-function set_attributes_collection($attributes_collection, $post_attributes)
+function tw_safe_filters_array()
 {
-    foreach ($post_attributes as $key => $value) {
-
-        if (! isset($attributes_collection[$key]) || ! $post_attributes[$key]) {
-            continue;
-        }
-
-        if ($key === 'terms' && is_array($value)) {
-            foreach ($value as $term) {
-                if (! in_array($term, $attributes_collection['terms'])) {
-                    $attributes_collection[$key][] = $term;
-                }
-            }
-            continue;
-        }
-
-        if (! in_array($value, $attributes_collection[$key])) {
-            $attributes_collection[$key][] = $value;
-        }
-    }
-
-    return $attributes_collection;
-}
-/* endregion */
-
-
-function query_featured_products()
-{
-    $featured_ids = get_field('featured_safes', 'option');
-    $featured_collection = [];
-
-    if (is_array($featured_ids) && !empty($featured_ids)) {
-        // Shuffle the IDs first
-        shuffle($featured_ids);
-
-        // Then get the posts in the shuffled order
-        foreach ($featured_ids as $safe_id) {
-            $post = get_post($safe_id);
-            if ($post && !is_wp_error($post)) {
-                $featured_collection[] = $post;
-            }
-        }
-    }
-
-    return $featured_collection;
-}
-
-function get_product_post_collection_data(array $product_posts, bool $tax_page = false)
-{
-    if (empty($product_posts)) return null;
-
-    foreach ($product_posts as $product_post) {
-        $product_data_attributes = get_product_attributes($product_post->ID, $tax_page);
-        $product_grid_item = get_product_grid_item($product_data_attributes);
-        $attributes_collection = set_attributes_collection($product_grid_item, $product_data_attributes);
-    }
-}
-
-
-/* region Products */
-function get_product_collection_test($terms, $tax_page = true, $is_parent_page = false)
-{
-    $attribute_keys        = get_product_attribute_filter_keys();
-    $attributes_collection = array_combine($attribute_keys, array_fill(0, count($attribute_keys), []));
-    $products_collection   = [];
-    $products_data         = [];
-
-    if (true) {
-        // if (!$is_parent_page) {
-        foreach ($terms as $term) {
-            $product_posts_by_term = query_products_by_tax_term($term);
-
-            if (! empty($product_posts_by_term)) {
-                foreach ($product_posts_by_term as $product_post) {
-                    $product_attributes    = get_product_attributes($product_post->ID, $tax_page);
-                    $products_data[]       = get_product_attributes($product_post->ID, $tax_page);
-                    $attributes_collection = set_attributes_collection($attributes_collection, $product_attributes);
-                }
-            }
-        }
-    } else {
-        $product_posts_by_term =  query_featured_products();
-
-        foreach ($product_posts_by_term as $product_post) {
-            $products_data[]       = get_product_attributes($product_post->ID, $tax_page);
-            $attributes_collection = set_attributes_collection($attributes_collection, $product_attributes);
-        }
-    }
-
-    return [
-        'data'       => $products_data, // product objects
-        'attributes' => $attributes_collection, // filters & sorts
+    $filters = [
+        "Brand" => [
+            "type" => "filter",
+            "input" => "checkbox",
+            "field" => "post_product_manufacturer",
+            "values" => [],
+        ],
+        "Category" => [
+            "type" => "filter",
+            "input" => "checkbox",
+            "values" => [],
+        ],
+        "Price" => [
+            "type" => "sort",
+            "input" => "slider",
+            "field" => "post_product_gun_price",
+            'pre' => '$',
+            "values" => [],
+        ],
+        "Weight" => [
+            "type" => "sort",
+            "input" => "slider",
+            "field" => "post_product_gun_weight",
+            'post' => 'lbs',
+            "values" => [],
+        ],
+        "Fire Rating" => [
+            "type" => "filter",
+            "input" => "checkbox",
+            "field" => "post_product_fire_rating",
+            "values" => [],
+        ],
+        "Security Rating" => [
+            "type" => "filter",
+            "input" => "checkbox",
+            "field" => "post_product_security_rating",
+            "values" => [],
+        ],
+        "Width" => [
+            "type" => "sort",
+            "input" => "slider",
+            "field" => "post_product_gun_exterior_width",
+            'post' => '"',
+            "values" => [],
+        ],
+        "Depth" => [
+            "type" => "sort",
+            "input" => "slider",
+            "field" => "post_product_gun_exterior_depth",
+            'post' => '"',
+            "values" => [],
+        ],
+        "Height" => [
+            "type" => "sort",
+            "input" => "slider",
+            "field" => "post_product_gun_exterior_height",
+            'post' => '"',
+            "values" => [],
+        ],
     ];
-}
-function get_product_collection($terms, $tax_page = true)
-{
-    $attribute_keys        = get_product_attribute_filter_keys();
-    $attributes_collection = array_combine($attribute_keys, array_fill(0, count($attribute_keys), []));
-    $products_collection   = [];
-    $products_data         = [];
-
-    foreach ($terms as $term) {
-        $product_posts_by_term = query_products_by_tax_term($term);
-
-
-
-        if (! empty($product_posts_by_term)) {
-            foreach ($product_posts_by_term as $product_post) {
-                $product_attributes    = get_product_attributes($product_post->ID, $tax_page);
-                $products_data[]       = $product_attributes;
-                $products_collection[] = get_product_grid_item($product_attributes);
-                $attributes_collection = set_attributes_collection($attributes_collection, $product_attributes);
-            }
-        }
-    }
-
-    return [
-        'data'       => $products_data,
-        'products'   => $products_collection,
-        'attributes' => $attributes_collection,
-    ];
-}
-
-function get_products_by_tax($queried_object)
-{
-    $tax_page = true;
-    $is_parent_page = false;
-
-    if ($queried_object->ID === 3901) {
-        $is_parent_page = true;
-    }
-
-    if ($queried_object->term_id) {
-        $terms = get_product_cat_child_terms($queried_object);
-    } else {
-        $terms    = get_product_cat_tax_terms(false);
-        $tax_page = false;
-    }
-
-    if (! empty($terms)) {
-        return get_product_collection($terms, $tax_page, $is_parent_page);
-    }
-}
-
-function sort_products_by_price($data, $direction = 'asc')
-{
-    if (!$data) return null;
-
-    usort($data, function ($a, $b) use ($direction) {
-        // If both items have no price, maintain original order
-        if (! $a['price'] && ! $b['price']) {
-            return 0;
-        }
-
-        // If only one item has no price, move it to the end
-        if (! $a['price']) {
-            return 1;
-        }
-
-        if (! $b['price']) {
-            return -1;
-        }
-
-        // Both items have prices, compare them
-        $comparison = floatval($a['price']) - floatval($b['price']);
-
-        // Return based on direction
-        return $direction === 'asc' ? $comparison : -$comparison;
-    });
-
-    return $data;
-}
-
-function get_product_post_data_attributes($data_attributes, $product_attributes, $filter)
-{
-    $values = '';
-
-    if ($product_attributes[$filter]) {
-
-        if (is_array($product_attributes[$filter])) {
-
-            foreach ($product_attributes[$filter] as $value) {
-                $values = implode(',', $product_attributes[$filter]);
-            }
-        } else {
-            $values = $product_attributes[$filter];
-        }
-    }
-
-    return $data_attributes .= ' data-' . sanitize_title(str_replace('_', '-', $filter)) . '="' . trim(esc_attr($values)) . '"';
-}
-
-function get_product_sale_callout(int $post_id, string $location)
-{
-    $discount = get_product_discount_amount($post_id);
-
-    if (!isset($post_id) || !isset($location) || !$discount) return;
-
-    $callout = '';
-
-    if ($location === 'grid') {
-        $callout .= '<p class="text-red-500 text-xs sm:text-base sm:text-center leading-tight tracking-tight font-semibold antialiased px-1">';
-        $callout .= 'Save <strong class="!font-bolder">$' . remove_cents_from_currency($discount) . '</strong> ';
-        $callout .= 'during <span class="font-semibold">' . get_sale_title() . '</span> sale';
-    }
-
-    return $callout;
-}
-
-function product_grid_item($product_attributes)
-{
-    $product_card = '<a ' . $product_attributes['data_attributes'] . ' href="' . get_permalink($product_attributes['post_id']) . '" class="relative group product-item text-center md:text-left h-full sm:h-auto flex flex-col bg-white rounded-lg ring-1 shadow-xl ring-gray-200 border-gray-200 group/card">';
-    $product_card .= '<div class="flex justify-center h-48 w-full overflow-hidden rounded-xl group-hover:opacity-75 lg:h-56 xl:h-64 px-4 pt-4 mx-auto">';
-
-    // $product_card .= '<span class="absolute z-20 top-0 end-0 rounded-se-lg rounded-es-lg text-xs font-medium bg-brand-350/10 text-brand-350 py-1.5 px-3 shadow-sm">';
-    // $product_card .= 'Callout';
-    // $product_card .= '</span>';
-
-
-    if ($product_attributes['image_url']) {
-        $product_card .= '<img class="!h-[90%] sm:!h-[95%] !w-auto max-w-full inline-block object-cover transition-transform duration-300 ease-in-out group-hover:scale-105" ';
-        $product_card .= ' src="' . esc_url($product_attributes['image_url']) . '" ';
-        $product_card .= 'loading="lazy"';
-
-        if ($product_attributes['image_srcset']) {
-            $product_card .= 'srcset=" ' . $product_attributes['image_srcset'] . '" ';
-        }
-
-        if ($product_attributes['image_sizes']) {
-            $product_card .= 'sizes="' . $product_attributes['image_sizes'] . '" />';
-        }
-    }
-    $product_card .= '</div>';
-
-    $product_card .= '<div class="bg-gray-50 sm:!bg-transparent opacity-100 sm:opacity-95 px-2 pt-5 pb-2 sm:px-3 lg:px-4 xl:px-6 h-full sm:h-auto sm:pb-6">';
-
-    // Price / Discount
-    // if (! empty($product_attributes['discount_price'])) {
-    //     $price = safes_output_discount_tag($product_attributes['post_id'], false);
-    // } else {
-    //     $price = 'Call for pricing';
-    // }
-    // end Price / Discount
-
-    // $product_card .= '<div class="flex justify-center gap-x-2 items-center mb-3">' . $price . '</div>';
-
-    // Title & category
-    $product_card .= '<div class="p-2 flex flex-col justify-center">';
-    $product_card .= '<h3 class="text-base md:text-base lg:text-lg xl:text-[1.35rem] font-bold antialiased tracking-tight sm:tracking-normal !leading-snug text-gray-900 text-center">';
-    $product_card .= get_the_title($product_attributes['post_id']) . '</h3>';
-    if (!empty($product_attributes['terms'])) {
-        $product_card .= '<span class=" text-gray-400 uppercase tracking-widest inline-block w-full mx-auto text-center">';
-        $product_card .= remove_safes_from_string($product_attributes['terms'][0]);
-        $product_card .= '</span>';
-    }
-    $product_card .= '</div>';
-    // end Title & category
-
-
-
-    $product_card .= output_featured_attributes($product_attributes['post_id']);
-
-    $product_card .= '<p class="mt-1 mb-6 text-gray-800 text-sm sm:text-base line-clamp-3 sm:line-clamp-2">' . $product_attributes['description_long'] . '</p>';
-
-    if (is_sale_active()) {
-        $product_card .= get_product_sale_callout($product_attributes['post_id'], 'grid');
-    }
-
-    $product_card .= '</div></a>';
-
-    return $product_card;
-}
-
-function get_product_grid_item($product_attributes)
-{
-    $data_attributes        = '';
-    $attribute_keys_filters = get_product_attribute_filter_keys();
-
-    foreach ($attribute_keys_filters as $filter) {
-        $data_attributes = get_product_post_data_attributes($data_attributes, $product_attributes, $filter);
-    }
-
-    $product_attributes['data_attributes'] = $data_attributes;
-
-    return product_grid_item($product_attributes);
+    return $filters;
 }
