@@ -1,6 +1,22 @@
 # Created by https://www.toptal.com/developers/gitignore/api/sublimetext,macos,wordpress,phpstorm
 # Edit at https://www.toptal.com/developers/gitignore?templates=sublimetext,macos,wordpress,phpstorm
 
+# NPM
+node_modules/*
+wp-content/themes/locks/node_modules/*
+eslint.config.js
+package.json
+package-lock.json
+tailwind.config.js
+
+#DB
+*.sql
+*.ftpquota
+
+# Notes
+notes/
+notes/*
+
 ### macOS ###
 # General
 .DS_Store
@@ -114,6 +130,29 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+# NPM
+.nvmrc
+
+# tooling (PHP)
+.php-cs-fixer.cache
+phpstan.neon
+
+# tooling (JS)
+webpack.config.js
+
+# Composer
+composer.lock
+composer.json
+
+# Tailwind
+wp-content/themes/locks/css/input.css
+
+# Notes
+*md
+
+# Misc
+wp-content/db.php
+
 ### PhpStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
@@ -153,6 +192,7 @@ fabric.properties
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
+/wp-content/themes/locks/includes/oracle.sqlite
 
 # Workspace files are user-specific
 *.sublime-workspace
@@ -236,3 +276,6 @@ wp-config.php
 
 
 # End of https://www.toptal.com/developers/gitignore/api/sublimetext,macos,wordpress,phpstorm
+/vendor/
+
+
