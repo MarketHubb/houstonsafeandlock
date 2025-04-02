@@ -30,6 +30,17 @@
 
     ?>
         <title><?php echo $p_title; ?> - <?php echo get_bloginfo('name'); ?></title>
+
+
+        <!-- Manually Enqueue GF -->
+        <?php
+        // function gf_enqueue_required_files()
+        // {
+        //     gravity_form_enqueue_scripts(5, true); // Form ID 5 with ajax enabled.
+        // }
+        // add_action('get_header', 'gf_enqueue_required_files');
+        ?>
+
     <?php wp_head();
     }
     ?>
@@ -52,44 +63,6 @@
         })(window, document, 'script', 'dataLayer', 'GTM-T9MW374');
     </script>
     <!-- End Google Tag Manager -->
-
-
-    <script type="text/javascript">
-        (function($) {
-            $.noConflict();
-            $(document).ready(function() {
-                //Var Declaration
-                var header = $('header.site-header'),
-                    pageContainer = $('#primary'),
-                    menuTrigger = $('button#menu-responsive-trigger'),
-                    menuContainer = $('div#menu-responsive-container');
-
-                //Set Nav Search Trigger
-                setSearchTrigger($);
-                //Is User Scrolling
-                isUserScrolling($, header, pageContainer);
-                //Responsive Menu
-                responsiveMenu(menuTrigger, menuContainer);
-                //Smooth Scroll
-                smoothScrolling($);
-
-                var mobilesearch = '<li id="mobile-search"></li>';
-
-                $('#primary-menu').append(mobilesearch);
-
-                var Sform = '<form id="searchform" method="get" action="<?php bloginfo('url'); ?>/"><label for="s" class="search-field-row"><input type="text" class="search-field" placeholder="SEARCH" name="s" id="s" size="25" /><button id="searchsubmit" href="javascript:void(0)"><div id="searchIcon" class="search-icon"></div></button></label></form>';
-                // Mobile dropdown navigation
-                showSubMenu($);
-                var default_city = $('.city-select').find('option:selected').val();
-                showCityCrimeData($, default_city)
-                $('.city-select').on('change', function() {
-                    showCityCrimeData($, $(this).find('option:selected').val());
-                });
-                //Back to the top fuction
-                backToTop($)
-            });
-        })(jQuery);
-    </script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -108,10 +81,9 @@
 
         <div id="content" class="site-content pt-[81px] sm:pt-[7px] lg:pt-[11px]">
 
-            <?php 
-            if (is_sale_active()) {
+            <?php
+            if (is_sale_enabled() && is_sale_active()) {
                 $alert = get_alert_by_page(get_queried_object_id());
-                
+
                 if ($alert) echo $alert;
             }
-             ?>
