@@ -1,6 +1,5 @@
-<!-- New single-product template -->
 <?php
-do_shortcode('[gravityform id="1" title="false" description="false" ajax="false" tabindex="10"]');
+// New product-single template
 $product_data = get_product_attributes(get_the_ID(), false);
 
 if ($product_data) {
@@ -54,11 +53,11 @@ if (! $product) {
 					<div id="product-pricing">
 						<!-- Price -->
 						<?php
-						get_template_part(
-							"template-parts/product/content",
-							"single-price",
-							$product_data
-						);
+						// get_template_part(
+						// 	"template-parts/product/content",
+						// 	"single-price",
+						// 	$product_data
+						// );
 						?>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <?php
-if (empty($args)) return;
-$product_data = $args;
-$filters_sorts = get_product_range_filter_data($product_data);
+// if (empty($args)) return;
+// $product_data = $args;
+// $filters_sorts = get_product_range_filter_data($product_data);
 $product_collection = init_safes();
 $product_ids = $product_collection['safe_ids'];
 $filter_data = product_filters_sorts($product_collection);
@@ -26,10 +26,10 @@ $filter_data = product_filters_sorts($product_collection);
 
 		<!-- Products -->
 		<div class="lg:col-span-3">
-			<div class="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 lg:gap-x-5 lg:gap-y-6 product-grid">
+			<div class="grid grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-4 lg:gap-x-5 lg:gap-y-6 product-grid">
 
 				<?php
-				$products = output_products($product_collection['safe_ids']['init']);
+				$products = output_products($product_collection['safe_ids']['init'], false, true);
 				echo $products;
 				// $products = '';
 				// $product_ids = [];

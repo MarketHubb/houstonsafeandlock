@@ -79,7 +79,7 @@
         <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'locks'); ?></a>
         <!-- #masthead -->
 
-        <div id="content" class="site-content pt-[81px] sm:pt-[7px] lg:pt-[11px]">
+        <div id="content" class="site-content pt-[81px] sm:pt-[7px] lg:pt-[11px] px-5 sm:px-0">
 
             <?php
             if (is_sale_enabled() && is_sale_active()) {

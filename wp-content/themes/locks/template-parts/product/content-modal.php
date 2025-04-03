@@ -8,7 +8,7 @@
 
                 <?php get_template_part('template-parts/product/content', 'modal-header'); ?>
 
-                <?php get_template_part('template-parts/product/content', 'modal-lead'); ?>
+                <?php get_template_part('template-parts/product/content', 'modal-lead', $args); ?>
 
             </div>
 

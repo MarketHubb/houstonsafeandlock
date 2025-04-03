@@ -22,7 +22,7 @@ $btn_text = !empty($product_name['title'])
         data-title="<?php echo $title; ?>"
         data-callout="Contact our team to place an order today"
         data-image="<?php echo $image_src; ?>">
-        Order now
+        Get Pricing & Delivery
     </button>
 
     <button

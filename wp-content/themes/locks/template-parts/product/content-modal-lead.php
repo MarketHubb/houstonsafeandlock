@@ -1,10 +1,15 @@
 <div class="px-3 pb-4 sm:px-8 md:px-12 lg:px-20 sm:pb-7 bg-white">
 
     <div class="">
-        <?php echo do_shortcode('[gravityform id="7" title="false" description="false" ajax="false" tabindex="10"]'); ?>
+        <?php
+        if (is_array($args) && !empty($args['form_id'])) {
+            $form_id = $args['form_id'];
+            echo gravity_form($form_id, $display_title = false, $display_description = false, $display_inactive = false, $field_values = null, $ajax = true, $tabindex);
+        }
+        ?>
 
         <?php
-        $args = get_product_modal_tabs_data();
+        // $args = get_product_modal_tabs_data();
         $tab_btns = '<nav class="relative z-0 flex rounded-t-lg overflow-hidden shadow-[0 -3px 10px -2px rgb(0 0 0 / 0.1), 0 -2px 0px -2px rgb(0 0 0 / 0.1)]" aria-label="Tabs" role="tablist" aria-orientation="horizontal">';
         $tab_content = '<div class=" rounded-b-lg bg-white shadow-md p-8">';
         $i = 1;

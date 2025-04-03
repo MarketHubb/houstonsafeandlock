@@ -33,7 +33,7 @@ if (is_array($custom_related) && count($custom_related) > 1) { ?>
 
         <?php
         foreach ($custom_related as $related) {
-            echo safe_grid_item($related->ID, null);
+            echo safe_grid_item_legacy($related->ID, null);
         }
         ?>
 

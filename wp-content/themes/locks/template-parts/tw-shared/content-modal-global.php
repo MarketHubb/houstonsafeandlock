@@ -12,6 +12,7 @@ if (!is_sale_active() || !$sale_popup) return;
 <div id="hs-modal-global" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-modal-global-label">
     <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-xl sm:w-full m-3 sm:mx-auto">
         <div class="relative flex flex-col bg-white shadow-lg rounded-xl">
+
             <div class="absolute top-2 z-[10] end-2">
                 <button type="button" class="inline-flex justify-center items-center size-8 text-sm font-semibold rounded-lg border border-transparent bg-white/10 text-white hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none" aria-label="Close" data-hs-overlay="#hs-modal-global">
                     <span class="sr-only">Close</span>
@@ -92,6 +93,8 @@ if (!is_sale_active() || !$sale_popup) return;
                     </div>
                 <?php endif; ?>
             </div>
+
         </div>
     </div>
+</div>
 </div>

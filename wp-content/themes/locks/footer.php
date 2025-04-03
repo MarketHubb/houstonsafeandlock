@@ -1,15 +1,3 @@
-<?php
-
-/**
- * The template for displaying the footer.
- *
- * Contains the closing of the #content div and all content after.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package locks
- */
-?>
 </div><!-- #content -->
 
 <?php if (!is_singular('product')) { ?>
@@ -36,6 +24,35 @@ if (is_front_page()) {
         get_template_part('template-parts/featured/content', 'featured-home', $featured_home);
     }
 }
+?>
+
+<?php
+if (is_front_page()) {
+    get_template_part('template-parts/tw-shared/content', 'modal-global');
+}
+?>
+
+<!-- Lead Form (Safes) -->
+<?php
+$product_data = isset($product_data) && !empty($product_data)
+    ? $product_data
+    : get_product_attributes(get_queried_object_id(), false);
+
+if (false) {
+    // if ($product_data) {
+    get_template_part("template-parts/product/content", "modal", $product_data);
+}
+
+if (is_singular('product') || is_page(3901) || is_tax('product_cat') || is_locksmith_page(get_queried_object_id())) {
+
+    $form_id = get_preline_modal_form(get_queried_object_id());
+
+    if (!empty($form_id)) {
+        gravity_form_enqueue_scripts($form_id, true);
+        get_template_part("template-parts/product/content", "modal", ['form_id' => $form_id]);
+    }
+}
+
 ?>
 
 <?php wp_footer(); ?>
@@ -70,28 +87,6 @@ if (is_front_page()) {
         HSOverlay.autoInit();
     });
 </script>
-
-<!-- Modals -->
-
-<!-- Sale/Promo -->
-<?php
-if (is_front_page()) {
-    get_template_part('template-parts/tw-shared/content', 'modal-global');
-}
-?>
-
-<!-- Lead Form (Safes) -->
-<?php
-$product_data = isset($product_data) && !empty($product_data)
-    ? $product_data
-    : get_product_attributes(get_queried_object_id(), false);
-
-if ($product_data) {
-    get_template_part("template-parts/product/content", "modal", $product_data);
-}
-?>
-
-
 
 </body>
 

@@ -15,19 +15,18 @@ $callout = empty($args) || empty($args['callout'])
             <div class="flex flex-row items-baseline justify-between">
                 <div class="product-modal-heading text-left border-b border-gray-200 flex-1 pb-6">
                     <h3 class="font-bold text-brand-600 font-source text-xl sm:text-2xl lg:text-3xl" data-type="title">
-                        AMSEC NF6030E5
                     </h3>
                     <p class="text-sm font-medium lg:text-base text-gray-600" data-type="callout">
                         <?php echo $callout; ?>
                     </p>
                 </div>
                 <div class="product-modal-image">
-                    <img src="" class="size-14 sm:size-20 lg:w-[5.5rem] lg:h-[5.5rem] inline-block object-contain object-center" data-type="image">
+                    <img src="" class="relative w-16 h-10 left-2 md:w-28 md:h-16 md:left-6 lg:w-36 lg:h-20 lg:left-12 rounded-md inline-block object-contain object-center" data-type="image">
                 </div>
             </div>
         </div>
 
-        <?php $modal_callouts  = get_gf_header_callouts(); ?>
+        <?php $modal_callouts  = get_gf_header_callouts(get_queried_object()); ?>
 
         <ul class="text-[.9rem] text-gray-600 grid grid-cols-3 justify-center px-4 sm:px-0 gap-x-3 sm:gap-x-6 w-full sm:w-[85%] mx-auto my-5 sm:my-9">
 
@@ -41,10 +40,10 @@ $callout = empty($args) || empty($args['callout'])
                     <span class="inline-block opacity-60 text-brand-500">
                         <?php echo $callout['icon']; ?>
                     </span>
-                    <span class="hidden sm:inline-block leading-tight pt-1 sm:pt-0 text-pretty">
+                    <span class="hidden sm:inline-block font-normal leading-tight pt-1 sm:pt-0 text-pretty">
                         <?php echo $callout['desktop']; ?>
                     </span>
-                    <span class="inline-block sm:hidden leading-tight pt-1 sm:pt-0 text-pretty">
+                    <span class="inline-block text-sm sm:hidden font-normal leading-tight pt-1 sm:pt-0 text-pretty">
                         <?php echo $callout['mobile']; ?>
                     </span>
                 </li>
@@ -56,6 +55,6 @@ $callout = empty($args) || empty($args['callout'])
     </div>
     <!-- Image -->
     <div class="mx-auto text-center hidden">
-        <img src="https://houstonsafeandlock.test/wp-content/uploads/2022/08/NF6030-open.webp" class="size-10 inline-block object-contain object-center">
+        <img src="" class="size-10 inline-block object-contain object-center">
     </div>
 </div>

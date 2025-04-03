@@ -1,5 +1,10 @@
 <?php if (! isset($args)) return; ?>
 
+<?php
+$sale = get_sale_discount();
+$active = is_sale_active();
+ ?>
+
 <!-- Price -->
 <div class="mt-0 flex items-center gap-x-3">
     <h2 class="sr-only">Product information</h2>
