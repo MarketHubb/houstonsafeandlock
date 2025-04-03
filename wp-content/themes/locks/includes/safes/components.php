@@ -203,13 +203,13 @@ function output_product_description_show_hide(array $description_array, array $p
 
     $id = 'hs-show-hide-collapse-' . $product_attributes['post_id'];
 
-    $show_hide  = '<div class="mt-6">';
-    $show_hide .= '<p class="text-gray-500 dark:text-neutral-400">';
+    $show_hide  = '<div class="">';
+    $show_hide .= '<p class="' . get_hero_description_classes() . '">';
     $show_hide .= $short_description;
     $show_hide .= '</p>';
 
     $show_hide .= '<div id="' . $id . '-heading" class="hs-collapse hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="' . $id . '">';
-    $show_hide .= '<p class="text-gray-500  mt-2">';
+    $show_hide .= '<p class="' . get_hero_description_classes() . '">';
     $show_hide .= $long_description;
     $show_hide .= '</p></div>';
     $show_hide .= '<p class="mt-2">';

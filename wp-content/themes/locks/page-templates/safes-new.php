@@ -2,23 +2,30 @@
 get_header();
 ?>
 
+<?php get_template_part('template-parts/preline/content', 'modal-fullscreen'); ?>
+
 <?php
-$args = [];
-// Hero
 if (get_field('page_include_banner') && get_field('page_banner_style') === 'Simple') {
     $hero_args = get_field('page_banner_simple');
+    $hero_data = array_map(function ($value) {
+        return is_string($value) ? strip_tags($value) : $value;
+    }, $hero_args);
 } else {
-    $hero_args = [
+    $hero_data = [
+        'callout' => "Houston's Largest Safe Dealer",
         'heading' => 'Safes for Sale',
         'description' => 'Houston Safe & Lock has the largest selection of in-stock, ready-to-ship safes in Houston. Need help or have questions? Our team of safe & security experts can help.',
         'products' => $products,
     ];
 }
 
-$args['hero'] = $hero_args;
-$args['collection'] = get_products_by_tax(get_queried_object());
-
-get_template_part('template-parts/product/content', 'archive', $args);
+get_template_part('template-parts/tw-shared/content', 'hero-simple', $hero_data);
 ?>
+
+<?php echo get_product_archive_open(); ?>
+
+<?php get_template_part('template-parts/tw-shared/content', 'grid'); ?>
+
+<?php echo get_product_archive_close(); ?>
 
 <?php get_footer(); ?>

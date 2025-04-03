@@ -7,7 +7,6 @@ if ($queried_obj->count == 0 || $queried_obj->term_id == 75) {
 	exit();
 }
 
-$args = [];
 $callout_name = strip_trailing_s(get_queried_object()->name);
 
 $hero_args = [
@@ -15,12 +14,14 @@ $hero_args = [
 	'heading' => "Shop " . get_queried_object()->name,
 	'description' => $queried_obj->description,
 ];
+get_template_part('template-parts/tw-shared/content', 'hero-simple', $hero_args);
 
-$args['hero'] = $hero_args;
-$args['collection'] = get_products_by_tax($queried_obj);
-
-get_template_part('template-parts/product/content', 'archive', $args);
 ?>
 
+<?php echo get_product_archive_open(); ?>
+
+<?php get_template_part('template-parts/tw-shared/content', 'grid'); ?>
+
+<?php echo get_product_archive_close(); ?>
 
 <?php get_footer(); ?>
