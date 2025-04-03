@@ -17,7 +17,7 @@ function output_products(array $safe_ids, bool $hidden = false, bool $featured =
 
             $products .= output_product_grid_image($product_attributes);
 
-            $products .= '<div class="bg-gray-50 sm:!bg-transparent opacity-100 sm:opacity-95 px-2 pt-5 pb-2 sm:px-3 lg:px-4 xl:px-6 h-full sm:h-auto sm:pb-6">';
+            $products .= '<div class=" px-2 pt-5 pb-2 sm:px-3 lg:px-4 xl:px-6 h-full sm:h-auto sm:pb-6">';
 
             // Price / Discount
             // if (! empty($product_attributes['discount_price'])) {

@@ -22,7 +22,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         return $input;
     }
     if ($field->type === 'section') {
-        $content  = '<div class="border-b border-gray-900/10 pb-12">';
+        $content = '<div class="border-b border-gray-900/10 pb-12">';
         $content .= '<h3 class="text-base/7 font-semibold text-gray-900">' . $field->label . '</h3>';
         $content .= '<p class="mt-1 text-sm/6 text-gray-600">' . $field->description . '</p>';
         $content .= '</div>';
@@ -30,7 +30,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
     }
     // Text, Email, Tel inputs
     if (in_array($field->type, ['text', 'phone', 'email'])) {
-        $id = $form_id . '_' . $field->id;
+        $id       = $form_id . '_' . $field->id;
         $field_id = 'input_' . $id;
 
         $content = '<div class="mt-2">';
@@ -39,7 +39,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         $content .= 'id="' . $field_id . '" ';
         $content .= 'value="' . esc_attr($value) . '" ';
 
-        if (!empty($field->placeholder)) {
+        if ( ! empty($field->placeholder)) {
             $content .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
         }
 
@@ -55,7 +55,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
 
     // Textarea input
     if ($field->type == 'textarea') {
-        $id = $form_id . '_' . $field->id;
+        $id       = $form_id . '_' . $field->id;
         $field_id = 'input_' . $id;
 
         $content = '<div class="mt-2">';
@@ -63,7 +63,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         $content .= 'name="input_' . $field->id . '" ';
         $content .= 'id="' . $field_id . '" ';
 
-        if (!empty($field->placeholder)) {
+        if ( ! empty($field->placeholder)) {
             $content .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
         }
 
@@ -115,7 +115,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         $i = 1;
         foreach ($field->inputs as $input) {
             $input_state_classes = "checked:focus:!bg-current checked:hover:!bg-current checked:!bg-current checked:!ring-2";
-            $input_id = $id . '_' . $i;
+            $input_id            = $id . '_' . $i;
             $content .= '<div class="gchoice gchoice_' . $id . '_' . $i . ' !relative !flex !items-start">';
             $content .= '<div class=" !flex !h-6 !items-center">';
             $content .= '<input id="choice_' . $input_id . '" name="input_' . $input['id'] . '" value="';
@@ -145,8 +145,8 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
     $fields_mb = ['select', 'radio', 'date'];
 
     $label_mb = in_array($field->type, $fields_mb)
-        ? '!mb-4 '
-        : '';
+    ? '!mb-4 '
+    : '';
     $classes = $label_mb . 'block !mb-2 !text-base/6 !font-semibold antialiased !text-gray-900';
 
     if (str_contains($content, 'gfield_label gform-field-label')) {
@@ -159,15 +159,25 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
 add_filter('gform_field_content', 'radio_field_card', 10, 5);
 function radio_field_card($content, $field, $value, $lead_id, $form_id)
 {
-    if (!is_admin()) {
+    if ( ! is_admin()) {
         if ($field->type === 'radio' && str_contains($field->cssClass, 'cards')) {
-            // $output = '<fieldset id="field_7_3" class="gfield" data-js-reload="field_7_3">';
-            $output  = '<legend class="!text-sm !font-medium !text-gray-900">' . esc_html($field->label) . '</legend>';
+            $output = '<legend class="block !text-base/6 !font-semibold antialiased !text-gray-900">';
+            $output .= esc_html($field->label);
+
+            if ($field->idRequired) {
+                $output .= '<span class="gfield_required">';
+                $output .= '<span class="gfield_required gfield_required_asterisk">*</span>';
+                $output .= '</span>';
+            }
+
+            $output .= '</legend>';
             $output .= '<div class="gfield_radio" id="input_7_3">';
-            $output .= '<div class="mt-6 grid grid-cols-1 gap-4 sm:gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
+            $output .= '<div class="mt-2 grid grid-cols-1 gap-4 sm:gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
 
             foreach ($field->choices as $i => $choice) {
-                $choice_id = 'choice_' . $form_id . '_' . $field->id . '_' . $i;
+                $aria_required = $i === 0 ? 'aria-required="true"' : '';
+
+                $choice_id  = 'choice_' . $form_id . '_' . $field->id . '_' . $i;
                 $is_checked = $value == $choice['value'] ? 'checked="checked"' : '';
 
                 $output .= sprintf(
@@ -176,11 +186,12 @@ function radio_field_card($content, $field, $value, $lead_id, $form_id)
                 );
 
                 $output .= sprintf(
-                    '<input type="radio" name="input_%d" id="%s" value="%s" %s class="peer sr-only">',
-                    $field->id,
-                    $choice_id,
-                    esc_attr($choice['value']),
-                    $is_checked
+                    '<input type="radio" name="input_%d" id="%s" value="%s" %s class="peer sr-only" %s>',
+                    $field->id, // Replaces %d (first placeholder)
+                    $choice_id, // Replaces %s (second placeholder)
+                    esc_attr($choice['value']), // Replaces %s (third placeholder)
+                    $is_checked, // Replaces %s (fourth placeholder)
+                    $aria_required // Replaces %s (fifth placeholder)
                 );
 
                 $output .= '<span class="flex flex-1">';
@@ -255,11 +266,9 @@ add_filter('gform_submit_button', function ($button_input, $form) {
     return $dom->saveHTML();
 }, 10, 2);
 
-
 /*
 REVIEW
 */
-
 
 // add_action('wp_enqueue_scripts', function () {
 //     gravity_form_enqueue_scripts(7, true); // 7 is your form ID
@@ -269,7 +278,6 @@ REVIEW
 //     $args['submission_method'] = GFFormDisplay::SUBMISSION_METHOD_AJAX;
 //     return $args;
 // });
-
 
 // add_filter('gform_field_input', 'format_gf_inputs', 10, 5);
 // function format_gf_inputs($input, $field, $value, $entry_id, $form_id)
@@ -401,4 +409,3 @@ REVIEW
 
 //     return sprintf('<button %s>%s</button>', implode(' ', $new_attributes), esc_html($fragment->get_attribute('value')));
 // }
-

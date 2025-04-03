@@ -54,7 +54,7 @@ function output_product_rating_badges(array $product_attributes)
         return null;
     }
 
-    $rating_badges = '<div class="flex justify-center gap-x-4 min-h-4">';
+    $rating_badges = '<div class="flex flex-col sm:flex-row gap-y-4 items-center justify-center gap-x-4 min-h-4">';
     $ratings       = ['security', 'fire'];
 
     foreach ($ratings as $rating) {
@@ -768,7 +768,7 @@ function get_product_archive_open()
     $grid_open = <<<STRING
     <div class="bg-white">
         <div>
-        <main class="mx-auto container px-3 lg:px-8">
+        <main class="mx-auto container">
     STRING;
 
     return $grid_open;

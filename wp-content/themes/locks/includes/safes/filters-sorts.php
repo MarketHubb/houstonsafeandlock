@@ -310,7 +310,7 @@ function get_search_input_filter($safe_ids)
             </svg>
         </div>
     </div>
-    <div class="absolute z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto" style="display: none;" data-hs-combo-box-output="">
+    <div class="absolute z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto" style="display: none;" data-hs-combo-box-output="" id="search-options-list">
     STRING;
 
     $i = 1;
