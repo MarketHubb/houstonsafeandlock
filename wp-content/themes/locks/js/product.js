@@ -51,13 +51,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const label = e.target.closest('label');
             const valueSpan = label.querySelector('[data-type="value"]');
             const message = valueSpan.getAttribute('data-message');
-        
+
             // Update the label
             const targetLabel = document.querySelector('label[for="input_7_8"]');
             if (targetLabel && message) {
                 targetLabel.textContent = message;
             }
-        
+
             // Show the hidden field with fade effect
             if (hiddenField) {
                 hiddenField.style.opacity = '0';
@@ -78,17 +78,17 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Selected value:', e.target.value);
         }
     });
-    
+
     radioGroup.addEventListener('change', function (e) {
         if (e.target.type === 'radio') {
             console.log('Selected value:', e.target.value);
         }
     });
-    
+
     if (buttonContainer) {
         // Add click event listeners to all buttons within the container
         const buttons = buttonContainer.querySelectorAll('button');
-        
+
         buttons.forEach(button => {
             button.addEventListener('click', function () {
                 // Get data attributes from clicked button
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Get the modal container
                 const modal = document.querySelector('#hs-full-screen-modal-below-md');
-                
+
                 if (modal) {
                     // Find and update the title element
                     const titleEl = modal.querySelector('[data-type="title"]');
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (calloutEl && callout) {
                         calloutEl.textContent = callout;
                     }
-                    
+
                     // Find and update the image element
                     const imageEl = modal.querySelector('[data-type="image"]');
                     if (imageEl && image) {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-    
+
     if (formFooter) {
         // 1. Create a new div to wrap the inputs
         const inputWrapper = document.createElement('div');
@@ -161,11 +161,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show/hide form inputs on change (7_3)
     // Get all radio inputs in field 7_3
     const radioInputs = form.querySelectorAll('[name="input_3"]');
-    
+
     // Get the section field elements
     const sectionTitle = document.querySelector('#field_7_9 h3');
     const sectionDescription = document.querySelector('#field_7_9 p');
-    
+
     // Function to show hidden fields
     function showHiddenFields() {
         const hiddenFields = form.querySelectorAll('.hidden.opacity-0');
@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.target.classList.contains('opened')) {
+                console.log("mutation observer");
                 handleModalOpen();
             }
         });

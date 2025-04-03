@@ -1,5 +1,0 @@
-/* jQuery (Footer) */
-(function($) {
-    
-
-})( jQuery );
