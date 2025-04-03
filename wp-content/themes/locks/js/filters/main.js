@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchOutputContainer = document.querySelector('[data-hs-combo-box-output]');
     const searchClearButton = document.querySelector('[data-hs-combo-box-close]');
     let isFiltering = false;
+    let dropdownVisible = false;
+    let lastKeyPressTime = 0;
+    let pendingKeyboardSelection = false;
 
     // --- Utility Functions ---
     const debounce = (func, delay) => {
@@ -152,6 +155,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // --- Helper function to process a selection ---
+    function processSelection(postId, displayText) {
+        if (postId && postId !== currentSearchPostId) {
+            console.log(`Selection processed: Post ID '${postId}', Text: '${displayText}'`);
+            currentSearchPostId = postId;
+            if (searchInput) searchInput.value = displayText;
+            filterProducts();
+            return true;
+        }
+        return false;
+    }
+
+    // --- Helper function to find the currently highlighted item ---
+    function getHighlightedItem() {
+        if (!searchOutputContainer) return null;
+
+        // Try multiple selector patterns to find the highlighted item
+        return searchOutputContainer.querySelector('.hs-combo-box-output-item-highlighted:not([style*="display: none"])') ||
+            searchOutputContainer.querySelector('.selected:not([style*="display: none"])') ||
+            searchOutputContainer.querySelector('.active:not([style*="display: none"])') ||
+            searchOutputContainer.querySelector('[data-hs-combo-box-output-item]:focus') ||
+            searchOutputContainer.querySelector('[data-hs-combo-box-output-item][aria-selected="true"]');
+    }
+
     // --- Event Handling ---
 
     // Listener for Checkbox/Range/AdvancedSelect filter changes
@@ -198,33 +225,175 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log("Clearing search Post ID because another filter changed.");
                 currentSearchPostId = null;
                 if (searchInput) { searchInput.value = ''; } // Clear visual input too
-                // You might need to tell Preline to visually reset its selection state here if clearing the input value isn't enough
-                // Example: HSComboBox.getInstance(searchBoxWrapper, true)?.clearSelection(); (Check Preline docs)
             }
             debouncedFilterProducts(); // Trigger filtering (debounced)
         }
     });
 
-    // Listener for Search ITEM SELECTION (Click on Dropdown Item)
+    // NEW: Monitor dropdown visibility with MutationObserver
+    if (searchOutputContainer) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                if (mutation.attributeName === 'style') {
+                    const isVisible = searchOutputContainer.style.display !== 'none';
+                    if (isVisible !== dropdownVisible) {
+                        dropdownVisible = isVisible;
+                        console.log(`Dropdown is now ${isVisible ? 'visible' : 'hidden'}`);
+
+                        // If dropdown becomes visible, add direct event listeners to all items
+                        if (isVisible) {
+                            const items = searchOutputContainer.querySelectorAll('[data-hs-combo-box-output-item]');
+                            items.forEach(item => {
+                                // Remove any existing listeners first to avoid duplicates
+                                item.removeEventListener('mousedown', itemClickHandler);
+                                item.addEventListener('mousedown', itemClickHandler);
+                            });
+                        } else {
+                            // Dropdown was hidden - check if we have a pending keyboard selection
+                            if (pendingKeyboardSelection) {
+                                console.log("Dropdown hidden with pending keyboard selection - checking for selection");
+                                pendingKeyboardSelection = false;
+
+                                // If the dropdown was hidden within 300ms of a keypress, it's likely a selection
+                                if (Date.now() - lastKeyPressTime < 300) {
+                                    console.log("Recent keypress detected - checking input value");
+
+                                    // If the input has a value but no postId is set, try to find a matching item
+                                    if (searchInput.value && !currentSearchPostId) {
+                                        const inputValue = searchInput.value.trim().toLowerCase();
+                                        const allItems = Array.from(searchOutputContainer.querySelectorAll('[data-hs-combo-box-output-item]'));
+
+                                        // Try to find an item that matches the input text
+                                        for (const item of allItems) {
+                                            const valueSpan = item.querySelector('[data-postid]');
+                                            if (valueSpan) {
+                                                const itemText = valueSpan.textContent.trim().toLowerCase();
+                                                if (itemText === inputValue || itemText.includes(inputValue)) {
+                                                    const postId = valueSpan.getAttribute('data-postid');
+                                                    const displayText = valueSpan.textContent.trim();
+                                                    console.log(`Found matching item for keyboard selection: ${displayText}`);
+                                                    processSelection(postId, displayText);
+                                                    const optionsList = document.getElementById("search-options-list"); // how can I get this if it's loaded after domready?
+                                                    optionsList.style.display="none";
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        observer.observe(searchOutputContainer, { attributes: true });
+
+        // Initial check
+        dropdownVisible = searchOutputContainer.style.display !== 'none';
+    }
+
+    // Handler for item clicks
+    function itemClickHandler(event) {
+        // Prevent default to avoid immediate blur
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = event.currentTarget;
+        const valueSpan = item.querySelector('[data-postid]');
+
+        if (valueSpan) {
+            const postId = valueSpan.getAttribute('data-postid');
+            const displayText = valueSpan.textContent.trim();
+            console.log(`Item clicked directly: Post ID '${postId}', Text: '${displayText}'`);
+
+            // Process the selection after a short delay
+            setTimeout(() => {
+                processSelection(postId, displayText);
+            }, 10);
+        }
+    }
+
+    // Add a direct click handler to the output container
     if (searchOutputContainer) {
         searchOutputContainer.addEventListener('click', (event) => {
-            const clickedItem = event.target.closest('[data-hs-combo-box-output-item]');
-            if (clickedItem) {
-                const valueSpan = clickedItem.querySelector('[data-hs-combo-box-value][data-postid]'); // Ensure it has postid
+            const item = event.target.closest('[data-hs-combo-box-output-item]');
+            if (item) {
+                const valueSpan = item.querySelector('[data-postid]');
                 if (valueSpan) {
-                    const newPostId = valueSpan.getAttribute('data-postid'); // Get the post ID
-                    const displayText = valueSpan.getAttribute('data-hs-combo-box-value').trim(); // Get text for display
-
-                    if (newPostId && newPostId !== currentSearchPostId) {
-                        console.log(`Search item selected via click: Post ID '${newPostId}', Text: '${displayText}'`);
-                        currentSearchPostId = newPostId; // Set the Post ID state
-                        if (searchInput) { searchInput.value = displayText; } // Update input visually with text
-                        filterProducts(); // Filter *immediately* based on Post ID
-                    }
+                    const postId = valueSpan.getAttribute('data-postid');
+                    const displayText = valueSpan.textContent.trim();
+                    console.log(`Output container click: Post ID '${postId}', Text: '${displayText}'`);
+                    processSelection(postId, displayText);
                 }
             }
         });
-    } else { console.warn("Search output container not found."); }
+    }
+
+    // ENHANCED: Keyboard navigation handling
+    if (searchInput) {
+        // Capture all keydown events on the document to catch keyboard navigation
+        document.addEventListener('keydown', (event) => {
+            // Track the time of the keypress
+            lastKeyPressTime = Date.now();
+
+            if (dropdownVisible) {
+                console.log(`Key pressed: ${event.key}`);
+
+                if (event.key === 'Enter') {
+                    console.log("Enter key pressed with dropdown visible");
+                    pendingKeyboardSelection = true;
+
+                    // Try to find the highlighted item
+                    const highlightedItem = getHighlightedItem();
+
+                    if (highlightedItem) {
+                        console.log("Found highlighted item:", highlightedItem);
+                        const valueSpan = highlightedItem.querySelector('[data-postid]');
+                        if (valueSpan) {
+                            const postId = valueSpan.getAttribute('data-postid');
+                            const displayText = valueSpan.textContent.trim();
+                            console.log(`Keyboard selection: Post ID '${postId}', Text: '${displayText}'`);
+
+                            // Prevent default to avoid form submission
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            // Process the selection after a short delay
+                            setTimeout(() => {
+                                processSelection(postId, displayText);
+                            }, 10);
+                        }
+                    }
+                }
+                // Also track arrow key usage to help identify keyboard navigation
+                else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    console.log(`Arrow key pressed: ${event.key}`);
+                }
+            }
+        }, true); // Use capture phase to get event first
+
+        // Track focus events
+        searchInput.addEventListener('focus', () => {
+            console.log("Search input focused");
+        });
+
+        searchInput.addEventListener('blur', () => {
+            console.log("Search input blurred");
+
+            // If dropdown is visible, we need to wait to see if a selection is made
+            if (dropdownVisible) {
+                console.log("Dropdown visible on blur - waiting for possible selection");
+            } else {
+                // If dropdown is not visible and no selection was made, clear the input
+                if (!currentSearchPostId && searchInput.value) {
+                    console.log("No selection made - clearing input");
+                    searchInput.value = '';
+                }
+            }
+        });
+    }
 
     // Listener for Search CLEAR Button
     if (searchClearButton) {
@@ -238,10 +407,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else { console.warn("Search clear button not found."); }
 
-    // REMOVED: Listeners for 'input', 'keydown', and 'blur' on searchInput
-    // Filtering is now only triggered by explicit selection or clear
-
-
     // --- Initial Application Setup ---
     function initializeApp() {
         if (!productGrid) { return; }
@@ -250,7 +415,6 @@ document.addEventListener('DOMContentLoaded', function () {
         currentFilterStates.ranges = getRangeStates();
         currentFilterStates.advancedSelects = getAdvancedSelectStates();
         currentSearchPostId = null; // Ensure search is clear initially
-        if (searchInput) { currentSearchTerm = searchInput.value.trim(); } // Read initial text for logging if needed
 
         console.log('--- Initial State ---');
         console.log("Filters:", JSON.stringify(currentFilterStates, null, 2));
@@ -262,6 +426,113 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     initializeApp();
+
+    // NEW: Global event listener with capture phase
+    document.addEventListener('mousedown', (event) => {
+        // Check if we're clicking on a dropdown item
+        if (dropdownVisible) {
+            const item = event.target.closest('[data-hs-combo-box-output-item]');
+            if (item && searchOutputContainer.contains(item)) {
+                const valueSpan = item.querySelector('[data-postid]');
+                if (valueSpan) {
+                    const postId = valueSpan.getAttribute('data-postid');
+                    const displayText = valueSpan.textContent.trim();
+                    console.log(`Global mousedown on item: Post ID '${postId}', Text: '${displayText}'`);
+
+                    // Process after a short delay
+                    setTimeout(() => {
+                        processSelection(postId, displayText);
+                    }, 10);
+                }
+            }
+        }
+    }, true); // Use capture phase to get event first
+
+    // NEW: Inject a small script to hook directly into Preline's combo box
+    function injectPrelineHook() {
+        try {
+            const script = document.createElement('script');
+            script.textContent = `
+                // Try to hook into Preline's combo box
+                (function() {
+                    const originalComboBox = window.HSComboBox;
+                    if (originalComboBox) {
+                        // Hook the click handler
+                        const originalOnClick = originalComboBox.prototype._onClick;
+                        originalComboBox.prototype._onClick = function(event) {
+                            // Call the original method
+                            originalOnClick.call(this, event);
+
+                            // Check if this was a selection
+                            const item = event.target.closest('[data-hs-combo-box-output-item]');
+                            if (item) {
+                                const valueSpan = item.querySelector('[data-postid]');
+                                if (valueSpan) {
+                                    const postId = valueSpan.getAttribute('data-postid');
+                                    const displayText = valueSpan.textContent.trim();
+
+                                    // Dispatch a custom event that our main code can listen for
+                                    const customEvent = new CustomEvent('preline-combo-box-selection', {
+                                        detail: { postId, displayText }
+                                    });
+                                    document.dispatchEvent(customEvent);
+                                }
+                            }
+                        };
+
+                        // Hook the keydown handler
+                        const originalOnKeydown = originalComboBox.prototype._onKeydown;
+                        originalComboBox.prototype._onKeydown = function(event) {
+                            // Track the key press before calling the original method
+                            if (event.key === 'Enter') {
+                                // Find the currently highlighted item
+                                const highlightedItem = this.outputEl.querySelector('.hs-combo-box-output-item-highlighted') ||
+                                                      this.outputEl.querySelector('.selected');
+
+                                if (highlightedItem) {
+                                    const valueSpan = highlightedItem.querySelector('[data-postid]');
+                                    if (valueSpan) {
+                                        const postId = valueSpan.getAttribute('data-postid');
+                                        const displayText = valueSpan.textContent.trim();
+
+                                        // Dispatch a custom event for keyboard selection
+                                        const customEvent = new CustomEvent('preline-combo-box-keyboard-selection', {
+                                            detail: { postId, displayText }
+                                        });
+                                        document.dispatchEvent(customEvent);
+                                    }
+                                }
+                            }
+
+                            // Call the original method
+                            originalOnKeydown.call(this, event);
+                        };
+
+                        console.log("Successfully hooked into Preline's combo box");
+                    }
+                })();
+            `;
+            document.head.appendChild(script);
+
+            // Listen for our custom events
+            document.addEventListener('preline-combo-box-selection', (event) => {
+                const { postId, displayText } = event.detail;
+                console.log(`Preline hook detected selection: Post ID '${postId}', Text: '${displayText}'`);
+                processSelection(postId, displayText);
+            });
+
+            document.addEventListener('preline-combo-box-keyboard-selection', (event) => {
+                const { postId, displayText } = event.detail;
+                console.log(`Preline hook detected keyboard selection: Post ID '${postId}', Text: '${displayText}'`);
+                processSelection(postId, displayText);
+            });
+        } catch (e) {
+            console.error("Failed to inject Preline hook:", e);
+        }
+    }
+
+    // Try to inject the hook after a short delay to ensure Preline is loaded
+    setTimeout(injectPrelineHook, 500);
 
 });
 // --- End of main.js ---
