@@ -1,0 +1,33 @@
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span,
+div,
+button,
+input,
+textarea,
+select,
+label {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.font-source,
+span,
+body,
+strong {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+
+.font-oxygen {
+    font-family: 'Oxygen', sans-serif !important;
+}
+
+.font-system {
+    font-family: system-ui !important;
+}

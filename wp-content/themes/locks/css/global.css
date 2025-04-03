@@ -479,7 +479,7 @@ html {
 }
 
 /* Change autocomplete styles in WebKit */
-input:-webkit-autofill,
+/*input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
@@ -493,7 +493,7 @@ select:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
     transition: background-color 5000s ease-in-out 0s !important;
     -webkit-text-fill-color: black !important;
-}
+}*/
 
 #field_1_7 {
     margin-bottom: 0 !important;
@@ -591,13 +591,6 @@ input[type=range] {
 /*    content: none;*/
 /*}*/
 /*endregion*/
-
-h1,
-h2,
-h3,
-h4 {
-    font-family: 'Source Sans Pro', sans-serif !important;
-}
 
 header.site-header div#brand-info div.container-fixed div#brand-logo>a img {
     max-width: 200px;
@@ -704,29 +697,14 @@ header.site-header div#brand-info div.container-fixed {
 }
 
 /*endregion*/
-h1,
+/*h1,
 h2,
 h3,
 h4,
 h5 {
     font-family: 'Oxygen', sans-serif;
 }
-
-.font-oxygen {
-    font-family: 'Oxygen', sans-serif !important;
-}
-
-.font-system {
-    font-family: system-ui !important;
-}
-
-.font-source,
-span,
-body,
-strong {
-    font-family: 'Source Sans Pro', sans-serif !important;
-}
-
+*/
 h3 {
     text-transform: none !important;
 }

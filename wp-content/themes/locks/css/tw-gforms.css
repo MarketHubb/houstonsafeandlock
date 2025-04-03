@@ -1,0 +1,22 @@
+#ui-datepicker-div {
+    z-index: 99999999 !important;
+}
+
+.ginput_container input.datepicker {
+    border-radius: 0.375rem !important;
+    outline: 1px solid #d1d5db !important;
+}
+
+.gform_fields {
+    grid-row-gap: 24px !important;
+}
+
+.gform-footer.gform_footer.top_label {
+    border-top: 1px solid #d1d5db !important;
+    padding-top: 2.5rem !important;
+    margin-top: 2.5rem !important;
+}
+
+.gform_heading .gform_required_legend {
+    display: none !important;
+}
