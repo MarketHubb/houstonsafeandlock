@@ -47,8 +47,22 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isFiltering) { return; }
         isFiltering = true;
 
-        const filters = currentFilterStates;
+        const filters = { ...currentFilterStates }; // Create a copy to modify
         const searchPostId = currentSearchPostId; // Use the global search Post ID state
+
+        // NEW: Check if advanced-select has values and modify the category filter accordingly
+        if (filters.advancedSelects &&
+            filters.advancedSelects.series &&
+            filters.advancedSelects.series.length > 0) {
+
+            // If advanced-select has values, override the category filter to 'all'
+            if (!filters.checkboxes) {
+                filters.checkboxes = {};
+            }
+            filters.checkboxes.category = ['all'];
+
+            console.log("Advanced select has values - Setting category filter to 'all'");
+        }
 
         console.log("FILTERING - Search Post ID:", `'${searchPostId || 'None'}'`, "Filters:", filters);
 
@@ -122,6 +136,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Debounced version of the main filter function ---
     const debouncedFilterProducts = debounce(filterProducts, 300);
 
+    // --- Update UI to reflect the category filter state ---
+    function updateCategoryFilterUI(value) {
+        // This function should update the UI of the category filter
+        // You'll need to implement this based on how your checkbox UI works
+        if (typeof window.setCategoryFilterValue === 'function') {
+            try {
+                window.setCategoryFilterValue(value);
+                console.log(`Updated category filter UI to: ${value}`);
+            } catch (e) {
+                console.error("Error updating category filter UI:", e);
+            }
+        } else {
+            console.warn("setCategoryFilterValue function not available");
+        }
+    }
 
     // --- Event Handling ---
 
@@ -136,11 +165,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update the corresponding state
         if (eventType === 'advanced-select' && group && values !== undefined) {
-            currentFilterStates.advancedSelects[group] = values; stateChanged = true;
+            currentFilterStates.advancedSelects[group] = values;
+            stateChanged = true;
+
+            // NEW: If advanced-select has values, update the category filter in the UI
+            if (group === 'series' && values.length > 0) {
+                // If we have series selected, programmatically set category to 'all'
+                if (!currentFilterStates.checkboxes) {
+                    currentFilterStates.checkboxes = {};
+                }
+
+                // Only update UI if the current value isn't already 'all'
+                if (!currentFilterStates.checkboxes.category ||
+                    !currentFilterStates.checkboxes.category.includes('all') ||
+                    currentFilterStates.checkboxes.category.length > 1) {
+
+                    // Update the UI to reflect this change
+                    updateCategoryFilterUI('all');
+                }
+            }
         } else if (eventType === 'checkbox') {
-            currentFilterStates.checkboxes = getCheckboxStates(); stateChanged = true;
+            currentFilterStates.checkboxes = getCheckboxStates();
+            stateChanged = true;
         } else if (eventType === 'range') {
-            currentFilterStates.ranges = getRangeStates(); stateChanged = true;
+            currentFilterStates.ranges = getRangeStates();
+            stateChanged = true;
         }
 
         if (stateChanged) {
