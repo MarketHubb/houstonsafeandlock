@@ -1,7 +1,4 @@
 <?php
-// if (empty($args)) return;
-// $product_data = $args;
-// $filters_sorts = get_product_range_filter_data($product_data);
 $product_collection = init_safes();
 $product_ids = $product_collection['safe_ids'];
 $filter_data = product_filters_sorts($product_collection);

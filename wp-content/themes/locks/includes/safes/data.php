@@ -1,43 +1,56 @@
 <?php
-function product_attributes($post_id)
+function get_featured_attribute_keys()
 {
-    $attributes     = [];
-    $attribute_keys = ['series', 'post_id', 'weight', 'width', 'depth', 'height', 'category', 'fire_rating', 'security_rating'];
-
-    foreach ($attribute_keys as $key) {
-        $function_name = $key === 'category'
-            ? 'get_product_parent_terms'
-            : 'get_product_attribute_' . $key;
-
-        if (function_exists($function_name)) {
-            $attributes[$key] = call_user_func($function_name, $post_id);
-        }
-    }
-
-    return $attributes;
+    return ['fire_rating', 'security_rating', 'gun_capacity_total'];
 }
 
-function safe_data_attributes(int $post_id, bool $featured)
+function get_featured_attributes(array $product_attributes)
 {
-    $product_attributes = product_attributes($post_id);
+    $featured_keys = get_featured_attribute_keys();
 
-    if (! is_array($product_attributes) || empty($product_attributes)) {
-        return null;
+    if (empty($product_attributes) || empty($featured_keys)) return null;
+
+    $featured_attributes = [];
+
+    foreach ($featured_keys as $key) {
+        $value = $product_attributes[$key] !== 'Not rated'
+            ? $product_attributes[$key]
+            : null;
+
+        if (!empty($value) && $key === 'gun_capacity_total') {
+            $value = $value . ' Guns';
+        }
+
+        $value = str_replace("minute", "min", $value);
+
+        $featured_attributes[$key] = $value;
     }
 
-    $featured_val = $featured ? 1 : 0;
-    $product_attributes['featured'] = $featured_val;
+    return $featured_attributes;
+}
 
+function get_data_attribute_keys()
+{
+    return ['series', 'post_id', 'weight', 'width', 'depth', 'height', 'category', 'fire_rating', 'security_rating'];
+}
 
-    $data_attributes = '';
+function get_data_attributes(array $product_attributes, bool $featured = false)
+{
+    $attribute_keys = get_data_attribute_keys();
 
-    foreach ($product_attributes as $key => $attribute) {
-        $attribute_value = $key === 'category'
-            ? $attribute[0]->name
-            : $attribute;
+    if (empty($product_attributes) || empty($attribute_keys)) return;
 
-        $data_attributes .= 'data-' . $key . '="' . data_attribute_input_value($attribute_value) . '" ';
+    $data_attributes = [];
+
+    foreach ($attribute_keys as $key) {
+        $attribute_value = $product_attributes[$key];
+
+        $data_attributes[$key] = !empty($attribute_value)
+            ? $attribute_value
+            : null;
     }
+
+    $data_attributes['featured'] = $featured ? 1 : 0;
 
     return $data_attributes;
 }
@@ -453,12 +466,21 @@ function get_product_parent_terms($post_id)
     ));
 }
 
-function get_product_parent_tax_name(int $safe_id)
+function get_product_parent_term_name(int $safe_id)
 {
     $parent_terms = get_product_parent_terms($safe_id);
 
     return is_array($parent_terms) && ! empty($parent_terms[0])
         ? remove_safes_from_string($parent_terms[0]->name)
+        : null;
+}
+
+function get_product_attribute_category(int $post_id)
+{
+    $parent_terms = get_product_parent_terms($post_id);
+
+    return is_array($parent_terms) && ! empty($parent_terms[0])
+        ? $parent_terms[0]->name
         : null;
 }
 
@@ -622,6 +644,7 @@ function get_product_attribute_filter_keys()
         'series',
         'model',
         'terms',
+        'category',
         // 'price',
         // 'list_price',
         // 'discount_price',
@@ -646,8 +669,8 @@ function get_product_attribute_post_keys()
         'description_long',
         'table',
         'callouts',
-        // 'gun_capacity',
-        // 'gun_capacity_total',
+        'gun_capacity',
+        'gun_capacity_total',
     ];
 }
 

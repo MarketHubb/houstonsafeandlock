@@ -1,4 +1,9 @@
 <?php
+function classes_product_grid_item()
+{
+    return 'relative group product-item text-center md:text-left h-full sm:h-auto flex flex-col bg-white rounded-lg ring-1 shadow-sm hover:shadow-none ring-gray-200 hover:ring-gray-300 border-gray-200 group/card';
+}
+
 function classes_text_input()
 {
     return ' appearance-none bg-white placeholder:text-gray-700 hover:placeholder:text-gray-800 focus:placeholder:text-transparent !rounded-md w-full !py-2.5 !pl-3 !pr-10 outline outline-1 -outline-offset-1 outline-gray-300 ';

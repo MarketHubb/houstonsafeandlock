@@ -8,25 +8,15 @@ function output_products(array $safe_ids, bool $hidden = false, bool $featured =
     $products = '';
 
     foreach ($safe_ids as $safe_id) {
-        $data_attributes    = safe_data_attributes($safe_id, $featured);
         $product_attributes = get_product_attributes($safe_id);
 
         if ($product_attributes['brand']) {
 
-            $products .= output_product_grid_open($safe_id, $data_attributes, $hidden);
+            $products .= output_product_grid_item_open($product_attributes, $hidden, $featured);
 
             $products .= output_product_grid_image($product_attributes);
 
             $products .= '<div class=" px-2 pt-5 pb-2 sm:px-3 lg:px-4 xl:px-6 h-full sm:h-auto sm:pb-6">';
-
-            // Price / Discount
-            // if (! empty($product_attributes['discount_price'])) {
-            //     $price = safes_output_discount_tag($product_attributes['post_id'], false);
-            // } else {            //     $price = 'Call for pricing';
-            // }
-            // end Price / Discount
-
-            // $product_card .= '<div class="flex justify-center gap-x-2 items-center mb-3">' . $price . '</div>';
 
             // Title & category
             $products .= '<div class="p-2 flex flex-col justify-center">';
@@ -43,7 +33,7 @@ function output_products(array $safe_ids, bool $hidden = false, bool $featured =
 
             $products .= output_product_description_clamp($safe_id);
 
-            $products .= output_product_rating_badges($product_attributes);
+            $products .= output_product_attribute_badges($product_attributes);
 
             if (is_sale_active()) {
                 $products .= get_product_sale_callout($product_attributes['post_id'], 'grid');

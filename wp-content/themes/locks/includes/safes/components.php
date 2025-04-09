@@ -48,33 +48,32 @@ function output_featured_attributes($post_id)
     return $attributes;
 }
 
-function output_product_rating_badges(array $product_attributes)
+function output_product_attribute_badges(array $product_attributes)
 {
-    if (! is_array($product_attributes) || empty($product_attributes)) {
-        return null;
-    }
+    $featured_attributes = get_featured_attributes($product_attributes);
 
-    $rating_badges = '<div class="flex flex-col sm:flex-row gap-y-4 items-center justify-center gap-x-4 min-h-4">';
-    $ratings       = ['security', 'fire'];
+    if (empty($product_attributes) || empty($featured_attributes)) return;
 
-    foreach ($ratings as $rating) {
-        $key = $rating . '_' . 'rating';
+    $badges = '<div class="flex flex-col sm:flex-row gap-y-4 items-center justify-center gap-x-4 min-h-4">';
 
-        if (! empty($product_attributes[$key]) && $product_attributes[$key] !== 'Not rated') {
-            $icon_field = 'filter_' . $rating . '_ratings_icon';
+    foreach ($featured_attributes as $attribute => $value) {
+        if (!empty($value)) {
+            $icon_field = 'filter_' . $attribute . '_icon';
             $icon       = get_field($icon_field, 'option');
-            $rating_badges .= '<span class="flex flex-row items-center gap-x-1.5 rounded-full px-2 py-1 text-sm font-medium text-gray-900 ring-1 ring-inset ring-gray-200">';
+
+            $badges .= '<span class="flex flex-row items-center gap-x-1.5 rounded-full px-2 py-1 text-sm font-medium text-gray-900 ring-1 ring-inset ring-gray-200">';
 
             if ($icon && ! empty($icon['url'])) {
-                $rating_badges .= '<img class="inline h-4 w-auto filter brightness-50 contrast-75 hue-rotate-180 saturate-150 opacity-70" src="' . $icon['url'] . '" />';
+                $badges .= '<img class="inline h-4 w-auto filter brightness-50 contrast-75 hue-rotate-180 saturate-150 opacity-70" src="' . $icon['url'] . '" />';
             }
 
-            $rating_badges .= $product_attributes[$key] . '</span>';
+            $badges .= $value . '</span>';
         }
     }
-    $rating_badges .= '</div>';
 
-    return $rating_badges;
+    $badges .= '</div>';
+
+    return $badges;
 }
 
 function output_product_series(array $product_attributes)
@@ -151,7 +150,7 @@ function output_product_grid_title(int $post_id)
 
 function output_product_grid_category($post_id)
 {
-    $category_name = get_product_parent_tax_name($post_id);
+    $category_name = get_product_parent_term_name($post_id);
 
     if (!$category_name) {
         return;
@@ -239,8 +238,38 @@ function output_product_description(array $product_attributes)
     return output_product_description_show_hide($description_array, $product_attributes);
 }
 
+function output_data_attributes(array $product_attributes, bool $featured = false)
+{
+    $attributes = get_data_attributes($product_attributes, $featured);
 
-function output_product_grid_open(int $post_id, mixed $data_attributes, bool $hidden)
+    // $featured_val = $featured ? 1 : 0;
+    // $product_attributes['featured'] = $featured_val;
+
+    $data_attributes = '';
+
+    foreach ($attributes as $key => $value) {
+        $data_attributes .= 'data-' . $key . '="' . data_attribute_input_value($value) . '" ';
+    }
+
+    return $data_attributes;
+}
+
+function output_product_grid_item_open(array $product_attributes, bool $hidden = false, bool $featured = false)
+{
+    $data_attributes = output_data_attributes($product_attributes, $featured);
+
+    if (empty($data_attributes)) return;
+
+    $hidden = $hidden ? ' hidden' : '';
+
+    $grid_item  = '<a ' . $data_attributes;
+    $grid_item .= 'href="' . get_permalink($product_attributes['post_id']) . '" ';
+    $grid_item .= 'class="' . classes_product_grid_item() . $hidden . '">';
+
+    return $grid_item;
+}
+
+function output_product_grid_open_legacy(int $post_id, mixed $data_attributes, bool $hidden)
 {
     $permalink = $post_id
         ? get_permalink($post_id)
