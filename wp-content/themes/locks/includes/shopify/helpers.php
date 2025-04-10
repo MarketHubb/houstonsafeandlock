@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') || exit
+defined('ABSPATH') || exit;
 
 // region Queries
 function get_product_cat_terms($post_id)

@@ -190,7 +190,7 @@ function register_safe_post_type()
 	}
 }
 
-add_action('init', 'register_safe_post_type');
+// /add_action('init', 'register_safe_post_type');
 
 function single_post_hero_background()
 {
