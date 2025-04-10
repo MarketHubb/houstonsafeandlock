@@ -2,11 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('hs-full-screen-modal-below-md');
     const buttonContainer = document.querySelector('.product-cta-buttons');
 
-
-    function setModalAttributes() {
-        const title = this.getAttribute('data-title');
-        const callout = this.getAttribute('data-callout');
-        const image = this.getAttribute('data-image');
+    function setModalAttributes(button, event) {
+        const title = button.getAttribute('data-title');
+        const callout = button.getAttribute('data-callout');
+        const image = button.getAttribute('data-image');
 
         // Get the modal container
         const modal = document.querySelector('#hs-full-screen-modal-below-md');
@@ -36,7 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const buttonEls = document.querySelectorAll('button.locksmith-cta');
 
         buttonEls.forEach((button, index) => {
-            button.addEventListener('click', setModalAttributes.bind(button));
+            button.addEventListener('click', event => {
+                setModalAttributes(button, event);
+            });
         });
     }
 
@@ -45,36 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const buttons = buttonContainer.querySelectorAll('button');
 
         buttons.forEach(button => {
-            button.addEventListener('click', setModalAttributes.bind(button));
-            // button.addEventListener('click', function () {
-                // Get data attributes from clicked button
-                // const title = this.getAttribute('data-title');
-                // const callout = this.getAttribute('data-callout');
-                // const image = this.getAttribute('data-image');
-
-                // // Get the modal container
-                // const modal = document.querySelector('#hs-full-screen-modal-below-md');
-
-                // if (modal) {
-                //     // Find and update the title element
-                //     const titleEl = modal.querySelector('[data-type="title"]');
-                //     if (titleEl && title) {
-                //         titleEl.textContent = title;
-                //     }
-
-                //     // Find and update the callout element
-                //     const calloutEl = modal.querySelector('[data-type="callout"]');
-                //     if (calloutEl && callout) {
-                //         calloutEl.textContent = callout;
-                //     }
-
-                //     // Find and update the image element
-                //     const imageEl = modal.querySelector('[data-type="image"]');
-                //     if (imageEl && image) {
-                //         imageEl.setAttribute('src', image);
-                //     }
-                // }
-            // });
+            button.addEventListener('click', event => {
+                setModalAttributes(button, event);
+            });
         });
     }
 
