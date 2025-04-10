@@ -159,6 +159,7 @@ phpstan*
 advanced-cache*
 *test.php
 wp-content/themes/locks/page-templates/test.php
+wp-content/themes/locks/includes/test/*
 
 
 ### PhpStorm Patch ###
