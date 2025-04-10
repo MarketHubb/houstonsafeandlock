@@ -29,10 +29,15 @@ if (! $product) {
 		<div class="lg:grid lg:grid-cols-2 lg:items-stretch md:gap-x-8 lg:gap-x-16">
 
 			<!-- Image gallery -->
-			<?php get_template_part(
+			<?php
+			$gallery_ids = !empty($product->get_gallery_image_ids())
+				? $product->get_gallery_image_ids()
+				: [get_post_thumbnail_id(get_queried_object_id())];
+
+			get_template_part(
 				'template-parts/product/content',
 				'single-carousel-vertical',
-				$product->get_gallery_image_ids()
+				$gallery_ids
 			);
 			?>
 
