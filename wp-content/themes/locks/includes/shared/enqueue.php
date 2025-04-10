@@ -295,11 +295,12 @@ add_action('get_header', 'gf_enqueue_header_scripts');
 function enqueue_locksmith_scripts()
 {
     GFCommon::log_debug(__METHOD__ . '(): running.');
-    if (is_page([7728, 6624, 6839, 6448, 7276, 8743, 9385])) {
+    if (is_locksmith_page(get_queried_object_id())) {
         wp_dequeue_style('locks-style');
         wp_dequeue_style('gform_theme');
         wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
-        wp_enqueue_script('preline-modal-scripts', get_template_directory_uri() . '/js/modal.js');
+        wp_enqueue_script('preline-modal-scripts', get_template_directory_uri() . '/js/modal.js', ['custom-locksmith']);
+        wp_enqueue_script('custom-locksmith', get_template_directory_uri() . '/js/locksmith.js');
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_locksmith_scripts');
