@@ -151,7 +151,15 @@ wp-content/themes/locks/css/input.css
 *md
 
 # Misc
+var/*
 wp-content/db.php
+wp-content/cache/*
+phpstan*
+/wp-content/wp-rocket*
+advanced-cache*
+*test.php
+wp-content/themes/locks/page-templates/test.php
+
 
 ### PhpStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
