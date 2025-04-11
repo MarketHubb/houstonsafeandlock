@@ -209,6 +209,35 @@ function get_gf_callouts_locksmith()
 }
 
 /**
+ * Retrieves callout data for safe move services.
+ *
+ * This function returns an array of callout messages specifically for safe move services,
+ * with different text versions for desktop and mobile displays, along with icons.
+ *
+ * @return array An array of callout data with keys for 'desktop', 'mobile', and 'icon'.
+ */
+function get_gf_callouts_safe_move()
+{
+    return [
+        [
+            'desktop' => 'Discrete, in-house moving team',
+            'mobile' => 'In-house moving team',
+            'icon' => '<i class="fa-light fa-person-dolly-empty"></i>'
+        ],
+        [
+            'desktop' => 'Licensed, bonded and insured',
+            'mobile' => 'Licensed, bonded & insured',
+            'icon' => '<i class="fa-light fa-badge-check"></i>'
+        ],
+        [
+            'desktop' => 'Home and business services',
+            'mobile' => 'Home & business services',
+            'icon' => '<i class="fa-light fa-house-lock"></i>'
+        ],
+    ];
+}
+
+/**
  * Determines and retrieves the appropriate header callouts based on the queried object.
  *
  * This function returns either safe-related or locksmith-related callouts
@@ -219,7 +248,23 @@ function get_gf_callouts_locksmith()
  */
 function get_gf_header_callouts($queried_object = null)
 {
-    return !empty($queried_object) && $queried_object->post_type === 'product'
-        ? get_gf_callouts_safes()
-        : get_gf_callouts_locksmith();
+    $id = get_queried_object_id();
+
+    if (is_safe_page()) {
+        return get_gf_callouts_safes();
+    }
+
+    if (is_locksmith_page($id)) {
+        return get_gf_callouts_locksmith();
+    }
+
+    if (is_safe_move_page($id)) {
+        return get_gf_callouts_safe_move();
+    }
+
+    return null;
+
+    // return !empty($queried_object) && $queried_object->post_type === 'product'
+    //     ? get_gf_callouts_safes()
+    //     : get_gf_callouts_locksmith();
 }

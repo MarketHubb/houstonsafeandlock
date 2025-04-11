@@ -43,11 +43,13 @@ if (false) {
     get_template_part("template-parts/product/content", "modal", $product_data);
 }
 
-if (is_singular('product') || is_page(3901) || is_tax('product_cat') || is_locksmith_page(get_queried_object_id())) {
+$id = get_queried_object_id();
 
-    $form_id = get_preline_modal_form(get_queried_object_id());
+// if (is_singular('product') || is_page(3901) || is_tax('product_cat') || is_locksmith_page($id) || is_safe_move_page($id) ) {
+if (is_page_with_modal_form($id)) {
+    $form_id = get_preline_modal_form_id(get_queried_object_id());
 
-    if (!empty($form_id)) {
+    if ($form_id) {
         gravity_form_enqueue_scripts($form_id, true);
         get_template_part("template-parts/product/content", "modal", ['form_id' => $form_id]);
     }

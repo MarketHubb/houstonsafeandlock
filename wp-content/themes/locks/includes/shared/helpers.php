@@ -1,9 +1,36 @@
 <?php
+function is_page_with_modal_form(int $post_id)
+{
+    if (is_locksmith_page($post_id) || is_safe_move_page($post_id) || is_safe_page()) {
+        return true;
+    }
+
+    return false;
+}
+
+function is_safe_page()
+{
+    if (is_singular('product') || is_page(3901) || is_tax('product_cat')) return true;
+
+    return false;
+}
+
 function is_locksmith_page(int $post_id)
 {
     $locksmith_ids = [7728, 6624, 6839, 6448, 7276, 8743, 9385];
 
     if (in_array($post_id, $locksmith_ids) || is_page_template('page-templates/locksmith.php')) {
+        return true;
+    }
+
+    return false;
+}
+
+function is_safe_move_page(int $post_id)
+{
+    $safe_move_ids = [68];
+
+    if (in_array($post_id, $safe_move_ids)) {
         return true;
     }
 
@@ -24,13 +51,21 @@ function has_gform_in_modal()
     return false;
 }
 
-function get_preline_modal_form(int $post_id)
+function get_preline_modal_form_id(int $post_id)
 {
+    if (is_safe_move_page($post_id)) {
+        return 15;
+    }
+
     if (is_locksmith_page($post_id)) {
         return 14;
     }
 
-    return 7;
+    if (is_safe_page()) {
+        return 7;
+    }
+
+    return null;
 }
 
 function get_store_status()

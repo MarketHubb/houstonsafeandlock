@@ -295,7 +295,9 @@ add_action('get_header', 'gf_enqueue_header_scripts');
 function enqueue_locksmith_scripts()
 {
     GFCommon::log_debug(__METHOD__ . '(): running.');
-    if (is_locksmith_page(get_queried_object_id())) {
+    $id = get_queried_object_id();
+
+    if (is_locksmith_page($id) || is_safe_move_page($id)) {
         wp_dequeue_style('locks-style');
         wp_dequeue_style('gform_theme');
         wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
@@ -304,6 +306,7 @@ function enqueue_locksmith_scripts()
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_locksmith_scripts');
+
 
 
 function dequeue_theme_styles()
