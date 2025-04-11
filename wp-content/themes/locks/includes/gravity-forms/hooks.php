@@ -39,7 +39,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         $content .= 'id="' . $field_id . '" ';
         $content .= 'value="' . esc_attr($value) . '" ';
 
-        if ( ! empty($field->placeholder)) {
+        if (! empty($field->placeholder)) {
             $content .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
         }
 
@@ -63,7 +63,7 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         $content .= 'name="input_' . $field->id . '" ';
         $content .= 'id="' . $field_id . '" ';
 
-        if ( ! empty($field->placeholder)) {
+        if (! empty($field->placeholder)) {
             $content .= 'placeholder="' . esc_attr($field->placeholder) . '" ';
         }
 
@@ -136,6 +136,46 @@ function custom_field_input($input, $field, $value, $entry_id, $form_id)
         return $content;
     }
 
+    // Address field type
+    if ($field->type === 'address') {
+        $id = $form_id . '_' . $field->id;
+        $content = '<div class="ginput_complex ginput_container has_zip ginput_container_address gform-grid-row" id="input_' . $id . '">';
+
+        // Process each address input
+        foreach ($field->inputs as $input) {
+            // Skip hidden fields
+            if (strpos($input['id'], '.4') !== false || strpos($input['id'], '.6') !== false) {
+                $content .= '<input type="hidden" class="gform_hidden" name="input_' . str_replace('.', '_', $input['id']) . '" id="input_' . $id . '_' . substr($input['id'], strpos($input['id'], '.') + 1) . '" value="">';
+                continue;
+            }
+
+            // Get the input ID parts
+            $input_id = str_replace('.', '_', $input['id']);
+            $input_suffix = substr($input['id'], strpos($input['id'], '.') + 1);
+            $field_id = 'input_' . $id . '_' . $input_suffix;
+
+            // Create container for the input (ZIP code)
+            if (strpos($input['id'], '.5') !== false) {
+                $content .= '<span class="ginput_right address_zip ginput_address_zip gform-grid-col" id="input_' . $id . '_5_container">';
+                $content .= '<input type="text" name="input_' . $field->id . '.5" id="' . $field_id . '" value="" ';
+
+                if ($field->isRequired) {
+                    $content .= 'aria-required="true" ';
+                }
+
+                $content .= 'class="!block !w-full !rounded-md bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 placeholder:!text-gray-400 focus:!outline focus:!outline-2 focus:!outline-brand-375 sm:!text-sm/6">';
+
+                $content .= '<label for="' . $field_id . '" id="' . $field_id . '_label" class="gform-field-label gform-field-label--type-sub block !text-sm/6 !font-medium !text-gray-500 font-normal !mt-1">' . $input['label'] . '</label>';
+                $content .= '</span>';
+            }
+        }
+
+        $content .= '<div class="gf_clear gf_clear_complex"></div>';
+        $content .= '</div>';
+
+        return $content;
+    }
+
     return $input;
 }
 
@@ -145,8 +185,8 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
     $fields_mb = ['select', 'radio', 'date'];
 
     $label_mb = in_array($field->type, $fields_mb)
-    ? '!mb-4 '
-    : '';
+        ? '!mb-4 '
+        : '';
     $classes = $label_mb . 'block !mb-2 !text-base/6 !font-semibold antialiased !text-gray-900';
 
     if (str_contains($content, 'gfield_label gform-field-label')) {
@@ -159,7 +199,7 @@ function gform_field_label($content, $field, $value, $lead_id, $form_id)
 add_filter('gform_field_content', 'radio_field_card', 10, 5);
 function radio_field_card($content, $field, $value, $lead_id, $form_id)
 {
-    if ( ! is_admin()) {
+    if (! is_admin()) {
         if ($field->type === 'radio' && str_contains($field->cssClass, 'cards')) {
             $output = '<legend class="block !text-base/6 !font-semibold antialiased !text-gray-900">';
             $output .= esc_html($field->label);
