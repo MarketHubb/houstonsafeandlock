@@ -3,9 +3,7 @@
 // $default_subheading = "Contact our team to place an order today";
 $default_subheading = "Get product information or place an order today";
 // $default_subheading = "Place an order, or get answers from Houston's certified safe experts";
-$callout = empty($args) || empty($args['callout'])
-    ? $default_subheading
-    : 'Get same-day information on the <span data-type="title"></span> from our team';
+$callout = get_modal_header_description(get_queried_object_id());
 ?>
 <!-- Title -->
 <div class="">
@@ -16,7 +14,7 @@ $callout = empty($args) || empty($args['callout'])
                 <div class="product-modal-heading text-left border-b border-gray-200 flex-1 pb-6">
                     <h3 class="font-bold text-brand-600 font-source text-xl sm:text-2xl lg:text-3xl" data-type="title">
                     </h3>
-                    <p class="text-sm font-medium lg:text-base text-gray-600" data-type="callout">
+                    <p class="text-sm font-medium lg:text-base text-gray-600">
                         <?php echo $callout; ?>
                     </p>
                 </div>

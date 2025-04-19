@@ -297,7 +297,7 @@ function enqueue_locksmith_scripts()
     GFCommon::log_debug(__METHOD__ . '(): running.');
     $id = get_queried_object_id();
 
-    if (is_locksmith_page($id) || is_safe_move_page($id)) {
+    if (is_locksmith_page($id) || is_smart_locks_page($id) || is_safe_move_page($id)) {
         wp_dequeue_style('locks-style');
         wp_dequeue_style('gform_theme');
         wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
