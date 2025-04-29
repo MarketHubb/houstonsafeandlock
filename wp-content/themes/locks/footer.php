@@ -45,7 +45,6 @@ if (false) {
 
 $id = get_queried_object_id();
 
-// if (is_singular('product') || is_page(3901) || is_tax('product_cat') || is_locksmith_page($id) || is_safe_move_page($id) ) {
 if (is_page_with_modal_form($id)) {
     $form_id = get_preline_modal_form_id(get_queried_object_id());
 

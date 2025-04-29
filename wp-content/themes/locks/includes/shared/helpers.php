@@ -18,11 +18,16 @@ function get_modal_header_description(int $post_id)
 
 function is_page_with_modal_form(int $post_id)
 {
-    if (is_smart_locks_page($post_id) || is_locksmith_page($post_id) || is_safe_move_page($post_id) || is_safe_page()) {
+    if (is_smart_locks_page($post_id) || is_used_safes_page($post_id) || is_locksmith_page($post_id) || is_safe_move_page($post_id) || is_safe_page()) {
         return true;
     }
 
     return false;
+}
+
+function is_used_safes_page(int $post_id)
+{
+    return $post_id === 6287;
 }
 
 function is_safe_page()
@@ -72,7 +77,8 @@ function has_gform_in_modal()
         is_tax('product_cat') ||
         is_singular('product') ||
         is_locksmith_page(get_queried_object_id()) ||
-        is_smart_locks_page(get_queried_object_id())
+        is_smart_locks_page(get_queried_object_id()) ||
+        is_used_safes_page(get_queried_object_id())
     ) {
         return true;
     }
@@ -94,7 +100,7 @@ function get_preline_modal_form_id(int $post_id)
         return 14;
     }
 
-    if (is_safe_page()) {
+    if (is_safe_page() || is_used_safes_page($post_id)) {
         return 7;
     }
 

@@ -292,12 +292,12 @@ function gf_enqueue_header_scripts()
 }
 add_action('get_header', 'gf_enqueue_header_scripts');
 
-function enqueue_locksmith_scripts()
+function enqueue_modal_form_helper_scripts()
 {
     GFCommon::log_debug(__METHOD__ . '(): running.');
     $id = get_queried_object_id();
 
-    if (is_locksmith_page($id) || is_smart_locks_page($id) || is_safe_move_page($id)) {
+    if (is_locksmith_page($id) || is_smart_locks_page($id) || is_safe_move_page($id) || is_used_safes_page($id)) {
         wp_dequeue_style('locks-style');
         wp_dequeue_style('gform_theme');
         wp_enqueue_style('tw-gforms', get_template_directory_uri() . '/css/tw-gforms.css');
@@ -305,7 +305,7 @@ function enqueue_locksmith_scripts()
         wp_enqueue_script('custom-locksmith', get_template_directory_uri() . '/js/locksmith.js');
     }
 }
-add_action('wp_enqueue_scripts', 'enqueue_locksmith_scripts');
+add_action('wp_enqueue_scripts', 'enqueue_modal_form_helper_scripts');
 
 
 
@@ -392,7 +392,7 @@ add_action('wp_enqueue_scripts', 'conditionally_enqueue_product_category_assets'
 
 function conditionally_enqueue_gravity_forms_modal_assets()
 {
-    if (has_gform_in_modal()) {
+    if (is_page_with_modal_form(get_queried_object_id())) {
         enqueue_gravity_forms_modal_styles();
     }
 }
