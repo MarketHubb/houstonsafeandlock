@@ -81,7 +81,6 @@ if (is_page_with_modal_form($id)) {
     </div>
 </noscript>
 <script type="text/javascript" src="//cdn.callrail.com/companies/327335430/7f0018b85cb8e567f0f9/12/swap.js"></script>
-<script src="//www.socialintents.com/api/chat/socialintents.1.3.js#2c9faa358ff9500401900d1331041380" async="async"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
