@@ -118,7 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (isNaN(filterValue)) continue;
                                 if (itemValueStr === undefined || itemValueStr === null || itemValueStr === '') { shouldBeVisible = false; break; }
                                 const itemValue = parseFloat(itemValueStr);
-                                if (isNaN(itemValue) || itemValue < filterValue) { shouldBeVisible = false; break; }
+                                // if (isNaN(itemValue) || itemValue < filterValue) { shouldBeVisible = false; break; }
+                                if (isNaN(itemValue) || itemValue > filterValue) { shouldBeVisible = false; break; }
                             }
                         }
                     } // End standard filter block

@@ -24,7 +24,7 @@ function get_range_filters($range_data)
 
         // Create the JSON configuration separately
         $slider_config = json_encode([
-            'start'      => $min_value,
+            'start'      => $max_value,
             'connect'    => 'lower',
             'range'      => [
                 'min' => $min_value,
