@@ -21,7 +21,7 @@ function is_popup_active()
 
 function is_alert_active()
 {
-    return get_field('enable_alert', 'option');
+    return get_field('alert_active', get_current_sale());
 }
 
 function get_alert_locations()

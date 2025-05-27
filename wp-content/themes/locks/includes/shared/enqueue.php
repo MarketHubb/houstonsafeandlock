@@ -168,6 +168,7 @@ function locks_scripts()
     // Conditional enqueuing
     if (is_front_page()) {
         wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        wp_enqueue_script('modal-sales', get_template_directory_uri() . '/js/sales.js', [], '', true);
     }
 
     if (is_page_template('page-templates/full-width.php') || is_page_template('page-templates/genesis-custom.php')) {
@@ -397,3 +398,13 @@ function conditionally_enqueue_gravity_forms_modal_assets()
     }
 }
 add_action('wp_enqueue_scripts', 'conditionally_enqueue_gravity_forms_modal_assets');
+
+function enqueue_ollie_block_styles()
+{
+    if (is_page_template('page-templates/demo-blocks.php')) {
+        wp_enqueue_style('ollie-custom', get_template_directory_uri() . '/css/ollie.css');
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_ollie_block_styles');
+
+

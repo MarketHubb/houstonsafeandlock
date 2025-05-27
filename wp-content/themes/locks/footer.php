@@ -29,6 +29,7 @@ if (is_front_page()) {
 <?php
 if (is_front_page()) {
     get_template_part('template-parts/tw-shared/content', 'modal-global');
+    // get_template_part('template-parts/tw-shared/content', 'modal');
 }
 ?>
 

@@ -82,7 +82,7 @@
         <div id="content" class="site-content pt-[81px] sm:pt-[7px] lg:pt-[11px] px-5 sm:px-0">
 
             <?php
-            if (is_sale_enabled() && is_sale_active()) {
+            if (is_sale_active() && is_alert_active()) {
                 $alert = get_alert_by_page(get_queried_object_id());
 
                 if ($alert) echo $alert;

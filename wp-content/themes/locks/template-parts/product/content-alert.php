@@ -5,7 +5,7 @@
 		</div>
 		<div class="ms-4">
 			<h3 id="hs-with-description-label" class="text-sm sm:text-base font-bold antialiased">
-				<?php echo get_sale_title(); ?> sale!
+				<?php echo get_sale_title(); ?>
 			</h3>
 			<div class="mt-0 text-sm sm:text-base text-yellow-700">
 				<?php echo get_sale_alert_description(); ?>	

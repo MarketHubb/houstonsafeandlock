@@ -4,7 +4,7 @@ if (!is_sale_active() || !$sale_popup) return;
 ?>
 
 <div class="text-center opacity-0">
-    <button type="button" class="opacity-0 p-0 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-modal-global" data-hs-overlay="#hs-modal-global">
+    <button id="open-btn-sale" type="button" class="opacity-0 p-0 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-modal-global" data-hs-overlay="#hs-modal-global">
         Open modal
     </button>
 </div>
@@ -43,9 +43,9 @@ if (!is_sale_active() || !$sale_popup) return;
                 <!-- Body -->
                 <div class="modal-body">
 
-                    <p class="!text-gray-500">
+                    <div class="!text-gray-500">
                         <?php echo replace_placeholders_in_string($sale_popup['body']); ?>
-                    </p>
+                    </div>
 
                     <!-- Details -->
                     <?php if (get_sale_details()) { ?>
@@ -81,7 +81,7 @@ if (!is_sale_active() || !$sale_popup) return;
 
                 <?php if ($sale_popup['link_text'] && $sale_popup['link_url']): ?>
                     <div class="mt-6 flex justify-center gap-x-4">
-                        <a href="<?php echo get_permalink($sale_popup['link_url']->ID); ?>" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-overlay="#hs-modal-global">
+                        <a href="<?php echo get_permalink($sale_popup['link_url']->ID); ?>" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-base font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                             <?php echo $sale_popup['link_text']; ?>
                         </a>
                     <?php endif; ?>
@@ -96,5 +96,4 @@ if (!is_sale_active() || !$sale_popup) return;
 
         </div>
     </div>
-</div>
 </div>
