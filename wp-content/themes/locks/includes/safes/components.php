@@ -775,16 +775,18 @@ function get_product_sale_callout(int $post_id, string $location)
 {
     $discount = get_product_attribute_discount_amount($post_id);
 
-    if (! isset($post_id) || ! isset($location) || ! $discount) {
+    if (! isset($post_id) || ! isset($location)) {
         return;
     }
 
     $callout = '';
 
     if ($location === 'grid') {
-        $callout .= '<p class="text-red-500 text-xs sm:text-base sm:text-center leading-tight tracking-tight font-semibold antialiased px-1">';
-        $callout .= 'Save <strong class="!font-bolder">$' . get_product_attribute_discount_amount($post_id) . '</strong> ';
-        $callout .= 'during <span class="font-semibold">' . get_sale_title() . '</span> sale';
+        $sale_text = get_product_attribute_discount_amount($post_id) ? 'Save ' . get_product_attribute_discount_amount($post_id) : 'Call for pricing';
+        $callout .= '<div class="flex justify-center mt-6">';
+        $callout .= '<p class="bg-red-50 ring-1 ring-red-100 shadow-sm rounded-full text-red-600 text-base sm:text-center leading-tight tracking-tight font-semibold antialiased px-3 inline-block">';
+        $callout .= '<strong class="!font-semibold">' . $sale_text . '</strong> ';
+        $callout .= '</div>';
     }
 
     return $callout;
