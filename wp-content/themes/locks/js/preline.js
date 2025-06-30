@@ -1,6 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("=== PRELINE.JS CUSTOM SCRIPT LOADED ===");
+    
+    // Check if autoInit has already been called
+    if (window._prelineInitialized) {
+        console.log("Preline already initialized, skipping autoInit");
+        return;
+    }
+    
     // Auto initialize all Preline components
+    console.log("Calling HSStaticMethods.autoInit()...");
     HSStaticMethods.autoInit();
+    window._prelineInitialized = true;
 
     // Optionally, explicitly initialize ComboBox if needed
     if (typeof HSComboBox !== "undefined") {

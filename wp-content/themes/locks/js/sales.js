@@ -16,16 +16,24 @@ document.addEventListener('DOMContentLoaded', function () {
             
             // Small delay to ensure DOM is ready
             setTimeout(() => {
-                modal.open();
+                console.log("Attempting to open modal...");
+                if (modal && typeof modal.open === 'function') {
+                    modal.open();
+                    console.log("Modal open() called successfully");
+                } else {
+                    console.error("Modal does not have open method or is invalid", modal);
+                }
             }, 100);
             
             const openBtn = document.querySelector('#open-btn-sale');
         } else {
             // If HSOverlay is not ready, try again in 100ms
+            console.log("HSOverlay not ready, retrying in 100ms...");
             setTimeout(initModal, 100);
         }
     }
     
     // Start initialization
+    console.log("=== SALES.JS LOADED - Starting modal initialization ===");
     initModal();
 });
