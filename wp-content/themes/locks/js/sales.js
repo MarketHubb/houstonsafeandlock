@@ -15,12 +15,24 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("modal.open exists?", typeof modal.open);
             console.log("modal properties:", Object.keys(modal));
             
-            // Small delay to ensure DOM is ready
+            // Increased delay to ensure all Preline initialization is complete
             setTimeout(() => {
                 console.log("Attempting to open modal...");
                 if (modal && typeof modal.open === 'function') {
                     modal.open();
                     console.log("Modal open() called successfully");
+                    
+                    // Check if modal is actually visible after opening
+                    setTimeout(() => {
+                        const modalEl = document.querySelector('#hs-modal-global');
+                        console.log("Modal visibility check:");
+                        console.log("- Element exists:", !!modalEl);
+                        console.log("- Has 'hidden' class:", modalEl?.classList.contains('hidden'));
+                        console.log("- Has 'open' class:", modalEl?.classList.contains('open'));
+                        console.log("- Display style:", window.getComputedStyle(modalEl).display);
+                        console.log("- Visibility style:", window.getComputedStyle(modalEl).visibility);
+                        console.log("- Modal element classes:", modalEl?.className);
+                    }, 500);
                 } else {
                     console.error("Modal does not have open method or is invalid", modal);
                     
@@ -34,9 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.error("Button not found");
                     }
                 }
-            }, 100);
-            
-            const openBtn = document.querySelector('#open-btn-sale');
+            }, 500); // Increased from 100ms to 500ms
         } else {
             // If HSOverlay is not ready, try again in 100ms
             console.log("HSOverlay not ready, retrying in 100ms...");
