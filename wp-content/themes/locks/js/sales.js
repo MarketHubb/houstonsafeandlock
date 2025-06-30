@@ -5,14 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (typeof HSOverlay !== 'undefined' && document.querySelector('#hs-modal-global')) {
             // Use HSOverlay.getInstance to get existing instance or create new one
             // let modal = HSOverlay.getInstance('#hs-modal-global');
-            const modal = new HSOverlay(document.querySelector('#hs-modal-global'));
+            const modalElement = document.querySelector('#hs-modal-global');
+            console.log("Modal element found:", modalElement);
+            console.log("Modal element classes:", modalElement?.className);
             
-            if (!modal) {
-                // If no instance exists, create one
-                modal = new HSOverlay(document.querySelector('#hs-modal-global'));
-            }
+            const modal = new HSOverlay(modalElement);
             
             console.log("modal", modal);
+            console.log("modal.open exists?", typeof modal.open);
+            console.log("modal properties:", Object.keys(modal));
             
             // Small delay to ensure DOM is ready
             setTimeout(() => {
