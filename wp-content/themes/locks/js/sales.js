@@ -23,6 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log("Modal open() called successfully");
                 } else {
                     console.error("Modal does not have open method or is invalid", modal);
+                    
+                    // Fallback: Try to trigger the button click
+                    console.log("Trying fallback: triggering button click");
+                    const openBtn = document.querySelector('#open-btn-sale');
+                    if (openBtn) {
+                        openBtn.click();
+                        console.log("Button clicked");
+                    } else {
+                        console.error("Button not found");
+                    }
                 }
             }, 100);
             
