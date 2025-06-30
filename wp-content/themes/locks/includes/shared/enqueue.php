@@ -168,7 +168,7 @@ function locks_scripts()
     // Conditional enqueuing
     if (is_front_page()) {
         wp_enqueue_style('google-icon-font', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-        // wp_enqueue_script('modal-sales', get_template_directory_uri() . '/js/sales.js', [], '', true);
+        wp_enqueue_script('modal-sales', get_template_directory_uri() . '/js/sales.js', [], '', true);
     }
 
     if (is_page_template('page-templates/full-width.php') || is_page_template('page-templates/genesis-custom.php')) {
