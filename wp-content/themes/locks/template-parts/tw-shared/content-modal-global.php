@@ -12,8 +12,8 @@ if (!$is_sale_active || !$sale_popup) {
 }
 ?>
 
-<div class="text-center opacity-0">
-    <button id="open-btn-sale" type="button" class="opacity-0 p-0 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-modal-global" data-hs-overlay="#hs-modal-global">
+<div class="text-center">
+    <button id="open-btn-sale" type="button" class=" p-0 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-modal-global" data-hs-overlay="#hs-modal-global">
         Open modal
     </button>
 </div>
