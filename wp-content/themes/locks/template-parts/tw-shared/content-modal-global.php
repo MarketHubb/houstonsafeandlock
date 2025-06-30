@@ -1,6 +1,15 @@
 <?php
 $sale_popup = get_sale_popup();
-if (!is_sale_active() || !$sale_popup) return;
+$is_sale_active = is_sale_active();
+
+// Debug logging
+error_log('DEBUG content-modal-global.php - is_sale_active: ' . var_export($is_sale_active, true));
+error_log('DEBUG content-modal-global.php - sale_popup: ' . var_export(!empty($sale_popup), true));
+
+if (!$is_sale_active || !$sale_popup) {
+    error_log('DEBUG content-modal-global.php - Modal not rendered. Sale active: ' . var_export($is_sale_active, true) . ', Popup data exists: ' . var_export(!empty($sale_popup), true));
+    return;
+}
 ?>
 
 <div class="text-center opacity-0">
