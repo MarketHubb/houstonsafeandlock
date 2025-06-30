@@ -84,9 +84,8 @@ if (is_page_with_modal_form($id)) {
 <script type="text/javascript" src="//cdn.callrail.com/companies/327335430/7f0018b85cb8e567f0f9/12/swap.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        HSOverlay.autoInit();
-    });
+    // Removed HSOverlay.autoInit() - this is handled by preline.js on front page
+    // and by enqueue_inline_preline_script() which calls HSStaticMethods.autoInit()
 </script>
 
 </body>
