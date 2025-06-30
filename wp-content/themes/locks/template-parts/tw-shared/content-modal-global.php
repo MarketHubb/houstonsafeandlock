@@ -24,9 +24,10 @@ if (!is_sale_active() || !$sale_popup) return;
             </div>
 
             <!-- Image -->
-            <div class="aspect-w-16 aspect-h-10">
+            <!-- <div class="aspect-w-16 aspect-h-10"> -->
+            <div class="">
                 <img
-                    class="w-full object-cover rounded-t-xl"
+                    class="w-full object-contain rounded-t-xl"
                     src="<?php echo $sale_popup['image']; ?>"
                     alt="" />
             </div>
