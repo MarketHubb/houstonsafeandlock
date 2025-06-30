@@ -32,6 +32,33 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log("- Display style:", window.getComputedStyle(modalEl).display);
                         console.log("- Visibility style:", window.getComputedStyle(modalEl).visibility);
                         console.log("- Modal element classes:", modalEl?.className);
+                        
+                        // If still hidden, try manual approach
+                        if (modalEl?.classList.contains('hidden')) {
+                            console.log("Modal still hidden, trying manual approach...");
+                            
+                            // Manual approach to show modal
+                            modalEl.classList.remove('hidden');
+                            modalEl.classList.add('open', 'opened');
+                            modalEl.style.display = 'block';
+                            
+                            // Create and show backdrop
+                            let backdrop = document.querySelector('.hs-overlay-backdrop');
+                            if (!backdrop) {
+                                backdrop = document.createElement('div');
+                                backdrop.className = 'hs-overlay-backdrop transition duration fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80 dark:bg-neutral-900';
+                                backdrop.style.zIndex = '79';
+                                document.body.appendChild(backdrop);
+                                console.log("Backdrop created");
+                            }
+                            
+                            // Prevent body scroll
+                            document.body.style.overflow = 'hidden';
+                            
+                            console.log("Manual modal display attempted");
+                            console.log("- New classes:", modalEl.className);
+                            console.log("- New display style:", modalEl.style.display);
+                        }
                     }, 500);
                 } else {
                     console.error("Modal does not have open method or is invalid", modal);
